@@ -19,6 +19,57 @@ const ja = {
   pianoCredit:
     'Piano: Salamander Grand Piano — Alexander Holm / CC BY 3.0。MP3の音声内容は変更せず、一部音域を同梱しています。',
 
+  generateScene: '進行生成',
+  generatorSettings: '進行生成の設定',
+  generate: '生成する',
+  generateHint:
+    '生成すると進行を置き換え、演奏画面へ戻ります。生成後も編集でき、元に戻せます。',
+  stopToGenerate: '生成や設定の変更は停止してから行ってください。',
+  style: 'スタイル',
+  bars: '小節数',
+  harmonicRhythm: '和音を変える間隔',
+  ending: '終わり方',
+  loopEnding: 'ループ向け',
+  cadenceEnding: '主和音で終止',
+  outsideProbability: '調外和音を使う確率',
+  outsideProbabilityHint:
+    '候補となる位置での置換確率です。全和音に占める割合ではありません。0%では自然短音階を含む調内の音だけを使います。',
+  seed: 'Seed',
+  newSeed: '別のSeedにする',
+  startContinuous: '連続生成を開始',
+  continuous: '連続生成',
+  continuousHint:
+    '次のフレーズを事前に用意し、境界で切り替えます。停止・一時停止は上のボタンから。現在のフレーズを保存し、過去のフレーズは蓄積しません。再生中の編集は連続生成を終了します。',
+  phrase: 'フレーズ',
+  nextPhraseReady: '次のフレーズを準備済み',
+  nextPhrasePreparing: '次のフレーズを準備中',
+  lastGeneration: '直近の生成',
+  modifiedGeneration: '生成後に編集済み',
+  generationIntent: '生成時の意図',
+  currentAnalysis: '現在の前後関係による解釈',
+  purposeTemplate: 'スタイルの進行パターン',
+  purposeSecondary: '次の和音へのセカンダリードミナント',
+  purposeBorrowed: '同主調からの借用',
+  purposeCadence: 'フレーズ終端の目標',
+  popRules: 'Pop: I–V–vi–IV、vi–IV–I–Vなどの短いパターンを組み合わせます。',
+  jazzRules:
+    'Jazz: ii–V–Iとターンアラウンドを優先します。調外の確率を上げると、解決先を持つセカンダリードミナントを加えます。',
+  generationFailed:
+    '進行を生成できませんでした。設定を確認して再試行してください。',
+  fallbackShort:
+    '和音が2つのため調外和音を挿入できず、調内の終止・ループ用パターンを使いました。',
+  fallbackConstraints:
+    '制約を満たす候補が得られず、既知の調内パターンを使いました。',
+  continuousExhausted:
+    '次のフレーズを準備できなかったため、連続生成を終了します。',
+  approachDown:
+    '音の種類はすべて半音下の和音に対応し、クロマティック・アプローチの候補です。実際のoctave移動は配置によって変わります。機能は一意ではありません。',
+  approachUp:
+    '音の種類はすべて半音上の和音に対応し、クロマティック・アプローチの候補です。実際のoctave移動は配置によって変わります。機能は一意ではありません。',
+  borrowedFrom: '借用元の候補',
+  extendedRomanHint:
+    '6・add9・9系は和音の種類を保って表記し、古典的な転回数字を付けません。6の和音は(add6)で区別します。実際の最低音はコード名のslashとbass表示を確認してください。',
+  fourth: '第4転回',
   enable: '音声を開始',
   ready: '音声オン',
   error: '音声を開始できませんでした。もう一度お試しください。',
@@ -69,7 +120,7 @@ const ja = {
   export: 'JSONを書き出す',
   import: 'JSONを読み込む',
   importError:
-    '読み込めませんでした。形式・音高・範囲・件数を確認してください（schemaVersion: 1）。',
+    '読み込めませんでした。形式・音高・範囲・件数・生成設定を確認してください（schemaVersion: 1 / 2）。',
   saved: 'このブラウザに保存済み',
   saving: '保存中…',
   storageError: 'ブラウザ保存を利用できません。JSONを書き出して保存できます。',
@@ -129,7 +180,7 @@ const ja = {
   motion: '根音とbassの動き',
   selected: '選択',
   level: '出力レベル',
-  footer: 'P1 Playground · 生成・五度圏・旋律・読み上げは今後の段階です。',
+  footer: 'P2 Auto · 五度圏・旋律・読み上げは今後の段階です。',
   keyboardHint: '◆ 最低音 / ● 発音中。鍵盤は実際のMIDI音高に対応します。',
   comparison: '比較再生',
   keyChangeHint: '調の変更は次の和音に適用されます。既存の進行は保持されます。',
@@ -160,6 +211,57 @@ const en: Record<keyof typeof ja, string> = {
   pianoCredit:
     'Piano: Salamander Grand Piano — Alexander Holm / CC BY 3.0. A subset of the original MP3s is bundled without changes to the audio.',
 
+  generateScene: 'Generate',
+  generatorSettings: 'Progression generation settings',
+  generate: 'Generate progression',
+  generateHint:
+    'Generation replaces the progression and returns to Play. The result stays editable and can be undone.',
+  stopToGenerate: 'Stop playback before generating or changing these settings.',
+  style: 'Style',
+  bars: 'Bars',
+  harmonicRhythm: 'Chord changes every',
+  ending: 'Ending',
+  loopEnding: 'Loop',
+  cadenceEnding: 'End on the tonic',
+  outsideProbability: 'Outside chord probability',
+  outsideProbabilityHint:
+    'Probability of substitution at an eligible position, not the fraction of outside chords. At 0%, only scale tones are used, including natural minor.',
+  seed: 'Seed',
+  newSeed: 'Choose another seed',
+  startContinuous: 'Start continuous generation',
+  continuous: 'Continuous generation',
+  continuousHint:
+    'The next phrase is prepared before the boundary. Use the shared Stop and Pause buttons. Only the current phrase is saved; previous phrases do not accumulate. Editing during playback ends continuous generation.',
+  phrase: 'Phrase',
+  nextPhraseReady: 'Next phrase prepared',
+  nextPhrasePreparing: 'Preparing the next phrase',
+  lastGeneration: 'Last generation',
+  modifiedGeneration: 'Edited since generation',
+  generationIntent: 'Original generation intent',
+  currentAnalysis: 'Interpretation in the current sequence',
+  purposeTemplate: 'Style progression pattern',
+  purposeSecondary: 'Secondary dominant into the next chord',
+  purposeBorrowed: 'Borrowing from the parallel mode',
+  purposeCadence: 'Phrase ending target',
+  popRules: 'Pop: combines short patterns such as I–V–vi–IV and vi–IV–I–V.',
+  jazzRules:
+    'Jazz: favors ii–V–I and turnarounds. Increasing outside probability introduces secondary dominants with resolution targets.',
+  generationFailed:
+    'Could not generate the progression. Check the settings and try again.',
+  fallbackShort:
+    'Two chords leave no room for outside substitutions; using a known in-key cadence or loop pattern.',
+  fallbackConstraints:
+    'No candidate met the constraints; using a known in-key pattern.',
+  continuousExhausted:
+    'The next phrase was unavailable. Continuous generation will end.',
+  approachDown:
+    'The pitch classes match a chord a semitone lower: a possible chromatic approach. Actual octave movement depends on voicing; function is not unique.',
+  approachUp:
+    'The pitch classes match a chord a semitone higher: a possible chromatic approach. Actual octave movement depends on voicing; function is not unique.',
+  borrowedFrom: 'Possible source of borrowing',
+  extendedRomanHint:
+    'Sixth, add9 and ninth chords retain their quality without classical inversion figures. Added sixths use (add6). The slash symbol and bass label identify the actual lowest note.',
+  fourth: '4th inversion',
   enable: 'Enable audio',
   ready: 'Audio on',
   error: 'Could not start audio. Please try again.',
@@ -210,7 +312,7 @@ const en: Record<keyof typeof ja, string> = {
   export: 'Export JSON',
   import: 'Import JSON',
   importError:
-    'Could not import. Check format, notes, ranges and event count (schemaVersion: 1).',
+    'Could not import. Check format, notes, ranges, event count and generation settings (schemaVersion: 1 / 2).',
   saved: 'Saved in this browser',
   saving: 'Saving…',
   storageError:
@@ -272,8 +374,7 @@ const en: Record<keyof typeof ja, string> = {
   motion: 'Root and bass movement',
   selected: 'Selected',
   level: 'Output level',
-  footer:
-    'P1 Playground · Generation, circle, melody and speech belong to later stages.',
+  footer: 'P2 Auto · Circle, melody and speech belong to later stages.',
   keyboardHint: '◆ Bass / ● Sounding. Keys match actual MIDI pitches.',
   comparison: 'Comparison playback',
   keyChangeHint:

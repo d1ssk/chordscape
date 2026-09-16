@@ -88,6 +88,48 @@ export const QUALITIES = {
     intervals: ['1', '♭3', '♭5', '♭♭7'],
     family: 'Diminished',
   },
+  '6': {
+    suffix: '6',
+    semitones: [0, 4, 7, 9],
+    degrees: [0, 2, 4, 5],
+    intervals: ['1', '3', '5', '6'],
+    family: 'Major',
+  },
+  m6: {
+    suffix: 'm6',
+    semitones: [0, 3, 7, 9],
+    degrees: [0, 2, 4, 5],
+    intervals: ['1', '♭3', '5', '6'],
+    family: 'Minor',
+  },
+  add9: {
+    suffix: 'add9',
+    semitones: [0, 4, 7, 14],
+    degrees: [0, 2, 4, 8],
+    intervals: ['1', '3', '5', '9'],
+    family: 'Major',
+  },
+  '9': {
+    suffix: '9',
+    semitones: [0, 4, 7, 10, 14],
+    degrees: [0, 2, 4, 6, 8],
+    intervals: ['1', '3', '5', '♭7', '9'],
+    family: 'Dominant',
+  },
+  maj9: {
+    suffix: 'maj9',
+    semitones: [0, 4, 7, 11, 14],
+    degrees: [0, 2, 4, 6, 8],
+    intervals: ['1', '3', '5', '7', '9'],
+    family: 'Major',
+  },
+  m9: {
+    suffix: 'm9',
+    semitones: [0, 3, 7, 10, 14],
+    degrees: [0, 2, 4, 6, 8],
+    intervals: ['1', '♭3', '5', '♭7', '9'],
+    family: 'Minor',
+  },
 } as const;
 export type Quality = keyof typeof QUALITIES;
 export interface Harmony {
@@ -252,7 +294,8 @@ export function analyze(chord: Harmony, key: Key): Analysis {
   if (
     key.mode === 'minor' &&
     degree === 4 &&
-    (chord.quality === 'major' || chord.quality === '7') &&
+    (chord.quality === 'major' ||
+      QUALITIES[chord.quality].family === 'Dominant') &&
     alteration === 0
   )
     return {
@@ -273,7 +316,10 @@ export function analyze(chord: Harmony, key: Key): Analysis {
       target: diatonic(key)[0],
       functions: ['D'],
     };
-  if (chord.quality === '7' || chord.quality === 'major') {
+  if (
+    QUALITIES[chord.quality].family === 'Dominant' ||
+    chord.quality === 'major'
+  ) {
     const appliedTo = diatonic(key).findIndex(
       (target, i) =>
         i !== 0 &&
@@ -291,17 +337,17 @@ export function analyze(chord: Harmony, key: Key): Analysis {
         functions: ['D'],
       };
   }
-  const parallel = diatonic(
-    { ...key, mode: key.mode === 'major' ? 'minor' : 'major' },
-    tones(chord).length === 4,
-  );
-  if (parallel.some((c) => chordSymbol(c) === chordSymbol(chord)))
+  const parallel = scale({
+    ...key,
+    mode: key.mode === 'major' ? 'minor' : 'major',
+  });
+  if (tones(chord).every((p) => parallel.some((s) => pc(s) === pc(p))))
     return { ...basic, kind: 'borrowed' };
   return basic;
 }
 const ROMANS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
 function degreeLabel(degree: number, alteration: number, quality: Quality) {
-  const lower = ['minor', 'dim', 'm7', 'm7♭5', 'dim7'].includes(quality);
+  const lower = ['Minor', 'Diminished'].includes(QUALITIES[quality].family);
   return (
     (alteration < 0 ? '♭'.repeat(-alteration) : '♯'.repeat(alteration)) +
     (lower ? ROMANS[degree].toLowerCase() : ROMANS[degree])
@@ -309,7 +355,8 @@ function degreeLabel(degree: number, alteration: number, quality: Quality) {
 }
 export function roman(analysis: Analysis, inversion = 0) {
   const q = analysis.quality;
-  const seventh = QUALITIES[q].semitones.length === 4;
+  const seventh = ['7', 'maj7', 'm7', 'm7♭5', 'dim7'].includes(q);
+  const extended = ['6', 'm6', 'add9', '9', 'maj9', 'm9'].includes(q);
   const marker =
     q === 'dim' || q === 'dim7'
       ? '°'
@@ -320,9 +367,20 @@ export function roman(analysis: Analysis, inversion = 0) {
           : q === 'sus2' || q === 'sus4'
             ? q
             : '';
-  const figure = seventh
-    ? ['7', '6/5', '4/3', '4/2'][inversion]
-    : ['', '6', '6/4'][inversion];
+  const figure = extended
+    ? (
+        {
+          '6': '(add6)',
+          m6: '(add6)',
+          add9: 'add9',
+          '9': '9',
+          maj9: 'maj9',
+          m9: '9',
+        } as Record<string, string>
+      )[q]
+    : seventh
+      ? ['7', '6/5', '4/3', '4/2'][inversion]
+      : ['', '6', '6/4'][inversion];
   const maj = q === 'maj7' ? 'maj' : '';
   if (
     analysis.kind === 'secondary' &&
@@ -331,6 +389,25 @@ export function roman(analysis: Analysis, inversion = 0) {
   )
     return `V${figure}/${degreeLabel(analysis.appliedTo, analysis.appliedAlteration ?? 0, analysis.target.quality)}`;
   return `${degreeLabel(analysis.degree, analysis.alteration, q)}${marker}${maj}${figure}`;
+}
+// A target triad can resolve to a seventh/ninth containing that same triad.
+export function resolvesTo(analysis: Analysis, next?: Harmony) {
+  return !!(
+    analysis.target &&
+    next &&
+    pc(analysis.target.root) === pc(next.root) &&
+    tones(analysis.target).every((p) =>
+      tones(next).some((n) => pc(n) === pc(p)),
+    )
+  );
+}
+export function chromaticApproach(
+  chord: Harmony,
+  next?: Harmony,
+): -1 | 1 | null {
+  if (!next || chord.quality !== next.quality) return null;
+  const difference = mod(pc(next.root) - pc(chord.root));
+  return difference === 1 ? 1 : difference === 11 ? -1 : null;
 }
 export function outside(key: Key): Harmony[] {
   const candidates: Harmony[] = diatonic(key)

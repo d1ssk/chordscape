@@ -163,8 +163,8 @@ export function Timeline({
                 <option value="auto">{t.auto}</option>
                 {tones(selected.chord).map((p, i) => (
                   <option key={i} value={i}>
-                    {[t.rootPosition, t.first, t.second, t.third][i]} ·{' '}
-                    {pitchName(p)}
+                    {[t.rootPosition, t.first, t.second, t.third, t.fourth][i]}{' '}
+                    · {pitchName(p)}
                   </option>
                 ))}
               </select>

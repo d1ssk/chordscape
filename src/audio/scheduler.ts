@@ -10,8 +10,10 @@ export interface PlaybackState {
   event: ChordEvent | null;
   next: ChordEvent | null;
   previous?: ChordEvent | null;
+  cycle?: number;
 }
 interface Cycle {
+  index: number;
   start: number;
   end: number;
   events: ChordEvent[];
@@ -27,7 +29,9 @@ export class Scheduler {
   private slots: Slot[] = [];
   private tempo = 90;
   private loop = false;
-  private source: () => ChordEvent[] = () => [];
+  private source: (index: number) => ChordEvent[] = () => [];
+  private peek?: (index: number) => ChordEvent[];
+  private cycleIndex = 0;
   private snapshot: ChordEvent[] = [];
   private resumeBeat = 0;
   private anchor = 0;
@@ -45,10 +49,11 @@ export class Scheduler {
     this.state = state;
     this.notify(state);
   }
-  private addCycle(events: ChordEvent[], start: number, offset = 0) {
+  private addCycle(events: ChordEvent[], start: number, offset = 0, index = 0) {
     const seconds = 60 / this.tempo;
     const total = events.reduce((sum, e) => sum + e.duration, 0);
     const cycle = {
+      index,
       events: structuredClone(events),
       start,
       end: start + total * seconds,
@@ -72,8 +77,10 @@ export class Scheduler {
     events: ChordEvent[],
     tempo: number,
     loop: boolean,
-    source: () => ChordEvent[],
+    source: (index: number) => ChordEvent[],
     beat = 0,
+    cycleIndex = 0,
+    peek?: (index: number) => ChordEvent[],
   ) {
     this.port.cancel();
     this.cycles = [];
@@ -81,6 +88,8 @@ export class Scheduler {
     this.tempo = tempo;
     this.loop = loop;
     this.source = source;
+    this.peek = peek;
+    this.cycleIndex = cycleIndex;
     if (!events.length) {
       this.stop();
       return;
@@ -88,8 +97,14 @@ export class Scheduler {
     this.snapshot = structuredClone(events);
     this.resumeBeat = beat;
     this.anchor = this.port.now() + 0.03;
-    this.addCycle(events, this.anchor - (beat * 60) / tempo, beat);
-    this.emit({ status: 'playing', beat, event: null, next: events[0] });
+    this.addCycle(events, this.anchor - (beat * 60) / tempo, beat, cycleIndex);
+    this.emit({
+      status: 'playing',
+      beat,
+      event: null,
+      next: events[0],
+      cycle: cycleIndex,
+    });
     this.tick();
   }
   tick() {
@@ -99,16 +114,23 @@ export class Scheduler {
     let last = this.cycles.at(-1)!;
     if (this.loop && now > last.end + 0.12) {
       this.snapshot = last.events;
+      this.cycleIndex = last.index;
       this.resumeBeat = 0;
       this.port.cancel();
       this.cycles = [];
       this.slots = [];
-      this.emit({ status: 'paused', beat: 0, event: null, next: null });
+      this.emit({
+        status: 'paused',
+        beat: 0,
+        event: null,
+        next: null,
+        cycle: last.index,
+      });
       return;
     }
     while (this.loop && last.end <= horizon) {
-      const next = this.source();
-      if (next.length) last = this.addCycle(next, last.end);
+      const next = this.source(last.index + 1);
+      if (next.length) last = this.addCycle(next, last.end, 0, last.index + 1);
       else this.loop = false;
     }
     // Missed a whole event after a long browser stall? Never burst stale notes.
@@ -129,6 +151,7 @@ export class Scheduler {
     const precedingCycle = this.cycles[this.cycles.indexOf(cycle) - 1];
     this.cycles = this.cycles.filter((c) => c.end > now || c === last);
     this.snapshot = cycle.events;
+    this.cycleIndex = cycle.index;
     const beat = Math.max(
       this.resumeBeat && now < this.anchor ? this.resumeBeat : 0,
       Math.min(cycle.total, ((now - cycle.start) * this.tempo) / 60),
@@ -141,13 +164,33 @@ export class Scheduler {
       const e = cycle.events[i];
       if (beat >= cursor && beat < cursor + e.duration) {
         event = now >= this.anchor ? e : null;
-        previous = cycle.events[i - 1] ?? precedingCycle?.events.at(-1) ?? null;
-        next = cycle.events[i + 1] ?? (this.loop ? last.events[0] : null);
+        previous =
+          cycle.events[i - 1] ??
+          precedingCycle?.events.at(-1) ??
+          (this.state.cycle === cycle.index
+            ? (this.state.previous ?? null)
+            : null);
+        const nextCycle = this.cycles.find((c) => c.index === cycle.index + 1);
+        next =
+          cycle.events[i + 1] ??
+          (this.loop
+            ? (nextCycle?.events[0] ??
+              (this.peek
+                ? (this.peek(cycle.index + 1)[0] ?? null)
+                : cycle.events[0]))
+            : null);
         break;
       }
       cursor += e.duration;
     }
-    this.emit({ status: 'playing', beat, event, next, previous });
+    this.emit({
+      status: 'playing',
+      beat,
+      event,
+      next,
+      previous,
+      cycle: cycle.index,
+    });
   }
   pause() {
     if (this.state.status !== 'playing') return;
@@ -167,6 +210,8 @@ export class Scheduler {
         this.loop,
         this.source,
         this.resumeBeat,
+        this.cycleIndex,
+        this.peek,
       );
   }
   configure(tempo: number, loop: boolean) {

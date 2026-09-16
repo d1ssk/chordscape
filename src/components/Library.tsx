@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {
   chordSymbol,
-  diatonic,
   MAJOR_KEYS,
   MINOR_KEYS,
   parsePitch,
@@ -40,12 +39,7 @@ export function Library({
     for (const name of mode === 'major' ? MAJOR_KEYS : MINOR_KEYS) {
       const key = { tonic: parsePitch(name), mode };
       const analysis = analyze(chord, key);
-      if (
-        diatonic(key, tones(chord).length === 4).some(
-          (c) => chordSymbol(c) === chordSymbol(chord),
-        ) ||
-        analysis.kind === 'secondary'
-      )
+      if (analysis.kind === 'diatonic' || analysis.kind === 'secondary')
         examples.push(`${name} ${t[mode]}: ${roman(analysis)}`);
     }
   return (

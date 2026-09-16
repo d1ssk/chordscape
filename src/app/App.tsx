@@ -36,6 +36,12 @@ import { Palette } from '../components/Palette';
 import { Timeline } from '../components/Timeline';
 import { Library } from '../components/Library';
 import { ChordDetails } from '../components/ChordDetails';
+import { Generator } from '../components/Generator';
+import {
+  generateProgression,
+  PreparedProgressions,
+  type GeneratedPhrase,
+} from '../music/generation';
 const initialEvent = makeEvent(
   diatonic(defaultKey)[0],
   newSession(),
@@ -51,7 +57,7 @@ export function App() {
   const session = history.present;
   const s = session.settings;
   const t = messages[s.locale];
-  const { engine, ready, level, playback, sound } = useAudio();
+  const { engine, ready, level, playback, sound, observer } = useAudio();
   const { scene, navigate } = useScene();
   const [error, setError] = useState<keyof typeof t | null>(null);
   const [storage, setStorage] = useState<'saved' | 'saving' | 'storageError'>(
@@ -63,22 +69,29 @@ export function App() {
   );
   const [comparison, setComparison] = useState<VoicingPolicy | null>(null);
   const [transpose, setTranspose] = useState(2);
+  const [continuous, setContinuous] = useState(false);
+  const autoRun = useRef<PreparedProgressions | null>(null);
+  const autoApplied = useRef(0);
   const sessionRef = useRef(session);
   const previousRef = useRef<ChordEvent | undefined>(undefined);
   const file = useRef<HTMLInputElement>(null);
   const running = playback.status === 'playing';
   const selected = session.events.find((e) => e.id === selectedId);
   const displayed = playback.event ?? selected ?? preview;
-  const index = session.events.findIndex((e) => e.id === displayed.id);
+  const viewEvents =
+    continuous && playback.cycle !== undefined
+      ? (autoRun.current?.get(playback.cycle)?.events ?? session.events)
+      : session.events;
+  const index = viewEvents.findIndex((e) => e.id === displayed.id);
   const previous = running
     ? (playback.previous ?? undefined)
     : index > 0
-      ? session.events[index - 1]
+      ? viewEvents[index - 1]
       : undefined;
   const next = running
     ? (playback.next ?? undefined)
     : index >= 0
-      ? session.events[index + 1]
+      ? (viewEvents[index + 1] ?? (s.loop ? viewEvents[0] : undefined))
       : undefined;
   useEffect(() => {
     if (ready) void engine.current?.setInstrument(s.instrument);
@@ -87,7 +100,7 @@ export function App() {
     document.title =
       scene === 'play'
         ? 'Chordscape'
-        : `${scene === 'library' ? t.library : t.settings} · Chordscape`;
+        : `${scene === 'library' ? t.library : scene === 'generate' ? t.generateScene : t.settings} · Chordscape`;
   }, [scene, t]);
   useEffect(() => {
     sessionRef.current = session;
@@ -97,8 +110,33 @@ export function App() {
   }, [s.locale]);
   useEffect(() => {
     engine.current?.setVolume(s.volume);
-    engine.current?.configure(s.tempo, s.loop);
-  }, [engine, s.volume, s.tempo, s.loop]);
+    engine.current?.configure(s.tempo, continuous || s.loop);
+  }, [engine, s.volume, s.tempo, s.loop, continuous]);
+  useEffect(() => {
+    observer.current = (state) => {
+      const run = autoRun.current;
+      if (!run) return;
+      if (state.status === 'stopped') {
+        run.stop();
+        autoRun.current = null;
+        setContinuous(false);
+        return;
+      }
+      const cycle = state.cycle;
+      const phrase = cycle === undefined ? undefined : run.get(cycle);
+      if (phrase && cycle !== autoApplied.current) {
+        autoApplied.current = cycle!;
+        dispatch({ type: 'autoPhrase', phrase });
+        setSelectedId(null);
+        setPreview(phrase.events[0]);
+        setStorage('saving');
+      }
+    };
+    return () => {
+      observer.current = null;
+    };
+  }, [observer]);
+  useEffect(() => () => autoRun.current?.stop(), []);
   useEffect(() => {
     if (loaded.failed && session === loaded.session) return;
     const timer = setTimeout(() => {
@@ -123,6 +161,7 @@ export function App() {
     };
   }, [session, loaded]);
   function edit(action: Edit) {
+    if (autoRun.current && action.type !== 'settings') stop();
     if (playback.status === 'paused' && action.type !== 'settings') stop();
     setStorage('saving');
     dispatch(action);
@@ -138,6 +177,17 @@ export function App() {
     }
   }
   function stop() {
+    const activePhrase =
+      playback.cycle === undefined
+        ? undefined
+        : autoRun.current?.get(playback.cycle);
+    if (activePhrase && autoApplied.current !== playback.cycle) {
+      autoApplied.current = playback.cycle!;
+      dispatch({ type: 'autoPhrase', phrase: activePhrase });
+    }
+    autoRun.current?.stop();
+    autoRun.current = null;
+    setContinuous(false);
     engine.current!.stop();
     setComparison(null);
   }
@@ -195,6 +245,9 @@ export function App() {
     }
   }
   function play(policy?: VoicingPolicy) {
+    autoRun.current?.stop();
+    autoRun.current = null;
+    setContinuous(false);
     const source = () => {
       const current = sessionRef.current;
       return policy
@@ -206,6 +259,60 @@ export function App() {
     };
     setComparison(policy ?? null);
     engine.current!.play(source(), s.tempo, s.loop, source);
+  }
+  function generated(phrase: GeneratedPhrase) {
+    edit({ type: 'generate', phrase });
+    setSelectedId(null);
+    setPreview(phrase.events[0]);
+    previousRef.current = undefined;
+    setError(null);
+    navigate('play');
+  }
+  function generate(keepPlaying = false) {
+    if (playback.status !== 'stopped') return;
+    stop();
+    const options = { ...s.generator, key: s.key, policy: s.policy };
+    try {
+      if (!keepPlaying) {
+        generated(generateProgression(options));
+        return;
+      }
+      const run = new PreparedProgressions(options);
+      generated(run.get(0)!);
+      autoRun.current = run;
+      autoApplied.current = 0;
+      setContinuous(true);
+      engine.current!.play(
+        run.get(0)!.events,
+        s.tempo,
+        true,
+        (cycle) => {
+          const phrase = run.get(cycle);
+          if (!phrase) {
+            queueMicrotask(() => {
+              if (autoRun.current === run) setError('continuousExhausted');
+            });
+            return [];
+          }
+          // The phrase being handed to the clock is already complete. Prepare
+          // its successor outside the scheduling callback; Stop invalidates it.
+          queueMicrotask(() => {
+            if (autoRun.current !== run) return;
+            try {
+              run.prepare(cycle + 1);
+            } catch {
+              setError('continuousExhausted');
+            }
+          });
+          return phrase.events;
+        },
+        0,
+        (cycle) => run.get(cycle)?.events ?? [],
+      );
+    } catch {
+      stop();
+      setError('generationFailed');
+    }
   }
   function changeMode(mode: Key['mode']) {
     let key = { ...s.key, mode };
@@ -252,7 +359,9 @@ export function App() {
             ? 'Chordscape'
             : scene === 'library'
               ? t.library
-              : t.settings}
+              : scene === 'generate'
+                ? t.generateScene
+                : t.settings}
         </h1>
         <button
           className="sound-shortcut"
@@ -325,6 +434,33 @@ export function App() {
             {t.retry}
           </button>
         </p>
+      )}
+      {session.generation?.fallback && (
+        <p className="notice" role="status">
+          {session.generation.fallback === 'shortPhrase'
+            ? t.fallbackShort
+            : t.fallbackConstraints}
+        </p>
+      )}
+      {continuous && (
+        <p className="continuous-status" role="status">
+          {t.continuous} · {t.phrase} {(playback.cycle ?? 0) + 1} ·{' '}
+          {autoRun.current?.get((playback.cycle ?? 0) + 1)
+            ? t.nextPhraseReady
+            : t.nextPhrasePreparing}
+        </p>
+      )}
+      {scene === 'generate' && (
+        <Generator
+          settings={s}
+          record={session.generation}
+          stopped={playback.status === 'stopped'}
+          canPlay={ready && !sound.loading}
+          onSettings={(patch) => edit({ type: 'settings', patch })}
+          onGenerate={() => generate()}
+          onContinuous={() => generate(true)}
+          t={t}
+        />
       )}
       {scene === 'play' && (
         <div className="play-scene">
@@ -433,6 +569,7 @@ export function App() {
                 <input
                   type="checkbox"
                   checked={s.loop}
+                  disabled={continuous}
                   onChange={(e) =>
                     edit({
                       type: 'settings',
@@ -485,13 +622,13 @@ export function App() {
             <div className="section-title">
               <h2>
                 {t.timeline}
-                <span className="count">{session.events.length}</span>
+                <span className="count">{viewEvents.length}</span>
               </h2>
               <div className="actions">
                 <button
                   disabled={!history.past.length}
                   onClick={() => {
-                    if (playback.status === 'paused') stop();
+                    if (autoRun.current || playback.status === 'paused') stop();
                     dispatch({ type: 'undo' });
                     setStorage('saving');
                   }}
@@ -501,7 +638,7 @@ export function App() {
                 <button
                   disabled={!history.future.length}
                   onClick={() => {
-                    if (playback.status === 'paused') stop();
+                    if (autoRun.current || playback.status === 'paused') stop();
                     dispatch({ type: 'redo' });
                     setStorage('saving');
                   }}
@@ -534,7 +671,7 @@ export function App() {
               </p>
             )}
             <Timeline
-              events={session.events}
+              events={viewEvents}
               selectedId={selectedId}
               playingId={playback.event?.id}
               onSelect={select}
@@ -730,7 +867,7 @@ export function App() {
         </div>
       )}
       <nav className="scene-nav" aria-label={t.navigation}>
-        {(['play', 'library', 'settings'] as const).map((item) => (
+        {(['play', 'generate', 'library', 'settings'] as const).map((item) => (
           <button
             key={item}
             aria-current={scene === item ? 'page' : undefined}
@@ -740,7 +877,9 @@ export function App() {
               ? t.playScene
               : item === 'library'
                 ? t.library
-                : t.settings}
+                : item === 'generate'
+                  ? t.generateScene
+                  : t.settings}
           </button>
         ))}
       </nav>

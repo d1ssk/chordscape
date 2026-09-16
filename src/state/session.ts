@@ -26,14 +26,26 @@ import {
   type VoicingPolicy,
 } from '../music/voicing';
 import type { Locale } from '../i18n/messages';
+import {
+  defaultGenerator,
+  generateProgression,
+  isGeneratorSettings,
+  isGenerationIntent,
+  type GeneratorSettings,
+  type GenerationIntent,
+  type GenerationRecord,
+  type GeneratedPhrase,
+} from '../music/generation';
 export const MAX_EVENTS = 256;
 export interface ChordEvent extends VoicingInput {
   id: string;
   key: Key;
   duration: number;
   notes: number[];
+  intent?: GenerationIntent;
 }
 export interface Settings {
+  generator: GeneratorSettings;
   instrument: Instrument;
   key: Key;
   seventh: boolean;
@@ -46,16 +58,18 @@ export interface Settings {
   policy: VoicingPolicy;
 }
 export interface Session {
-  schemaVersion: 1;
+  schemaVersion: 2;
   revision: number;
   settings: Settings;
   events: ChordEvent[];
+  generation: (GenerationRecord & { modified: boolean }) | null;
 }
 export function newSession(): Session {
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     revision: 0,
     settings: {
+      generator: defaultGenerator(),
       instrument: DEFAULT_INSTRUMENT,
       key: defaultKey,
       seventh: false,
@@ -68,6 +82,7 @@ export function newSession(): Session {
       policy: 'root',
     },
     events: [],
+    generation: null,
   };
 }
 export function makeEvent(
@@ -90,6 +105,8 @@ export function revoice(events: ChordEvent[], loop: boolean): ChordEvent[] {
   return events.map((event, i) => ({ ...event, notes: notes[i] }));
 }
 export type Edit =
+  | { type: 'generate'; phrase: GeneratedPhrase }
+  | { type: 'autoPhrase'; phrase: GeneratedPhrase }
   | { type: 'settings'; patch: Partial<Settings> }
   | { type: 'append'; event: ChordEvent }
   | { type: 'delete'; id: string }
@@ -107,7 +124,21 @@ export type Edit =
 export function editSession(session: Session, action: Edit): Session {
   let settings = session.settings;
   let events = session.events;
+  let generation = session.generation;
   switch (action.type) {
+    case 'generate':
+    case 'autoPhrase':
+      events = action.phrase.events;
+      generation = { ...action.phrase.record, modified: false };
+      if (action.type === 'generate')
+        settings = {
+          ...settings,
+          key: generation.options.key,
+          policy: generation.options.policy,
+          seventh: generation.options.seventh,
+          loop: generation.options.ending === 'loop',
+        };
+      break;
     case 'settings':
       settings = { ...settings, ...action.patch };
       break;
@@ -146,6 +177,7 @@ export function editSession(session: Session, action: Edit): Session {
       break;
     case 'clear':
       events = [];
+      generation = null;
       break;
     case 'policy':
       settings = { ...settings, policy: action.policy };
@@ -172,7 +204,20 @@ export function editSession(session: Session, action: Edit): Session {
     case 'replace':
       return { ...action.session, revision: session.revision + 1 };
   }
-  return { ...session, settings, events, revision: session.revision + 1 };
+  if (
+    generation &&
+    events !== session.events &&
+    action.type !== 'generate' &&
+    action.type !== 'autoPhrase'
+  )
+    generation = { ...generation, modified: true };
+  return {
+    ...session,
+    settings,
+    events,
+    generation,
+    revision: session.revision + 1,
+  };
 }
 export interface History {
   past: Session[];
@@ -203,6 +248,7 @@ export function reducer(history: History, action: Action): History {
   }
   const next = editSession(history.present, action);
   if (next === history.present) return history;
+  if (action.type === 'autoPhrase') return { ...history, present: next };
   return {
     past: [...history.past.slice(-49), history.present],
     present: next,
@@ -245,12 +291,16 @@ function isHarmony(value: unknown): value is Harmony {
 export function importSession(text: string): Session {
   if (text.length > 1_000_000) throw new Error('Session too large');
   const value: unknown = JSON.parse(text);
-  if (!object(value) || value.schemaVersion !== 1)
+  if (
+    !object(value) ||
+    (value.schemaVersion !== 1 && value.schemaVersion !== 2)
+  )
     throw new Error('Unsupported schema');
   const s = value.settings;
   if (
     !object(s) ||
     !isKey(s.key) ||
+    (value.schemaVersion === 2 && !isGeneratorSettings(s.generator)) ||
     (s.instrument !== undefined && !isInstrument(s.instrument)) ||
     !numberIn(s.tempo, 40, 200) ||
     !numberIn(s.duration, 0.25, 16) ||
@@ -296,6 +346,8 @@ export function importSession(text: string): Session {
       (e.bass !== null && notes[0] % 12 !== pitches[e.bass as number])
     )
       throw new Error('Notes contradict chord or bass');
+    if (e.intent !== undefined && !isGenerationIntent(e.intent, e.chord, e.key))
+      throw new Error('Generation intent contradicts chord');
     return {
       id: e.id,
       key: e.key,
@@ -304,12 +356,69 @@ export function importSession(text: string): Session {
       bass: e.bass as number | null,
       policy: e.policy as VoicingPolicy,
       notes,
+      ...(e.intent === undefined
+        ? {}
+        : { intent: e.intent as GenerationIntent }),
     };
   });
+  let generation: Session['generation'] = null;
+  if (value.schemaVersion === 2 && value.generation !== null) {
+    const g = value.generation;
+    if (
+      !object(g) ||
+      !object(g.options) ||
+      !isGeneratorSettings(g.options) ||
+      !isKey(g.options.key) ||
+      !['root', 'smooth'].includes(String(g.options.policy)) ||
+      !numberIn(g.phrase, 0, Number.MAX_SAFE_INTEGER) ||
+      !Number.isSafeInteger(g.phrase) ||
+      !(
+        g.fallback === null ||
+        ['shortPhrase', 'constraints'].includes(String(g.fallback))
+      ) ||
+      typeof g.modified !== 'boolean'
+    )
+      throw new Error('Invalid generation record');
+    generation = structuredClone(g) as unknown as NonNullable<
+      Session['generation']
+    >;
+    if (!generation.modified) {
+      const expected = generateProgression(
+        generation.options,
+        generation.phrase,
+      );
+      if (
+        generation.fallback !== expected.record.fallback ||
+        events.length !== expected.events.length ||
+        events.some((event, i) => {
+          const original = expected.events[i];
+          return (
+            event.id !== original.id ||
+            event.duration !== original.duration ||
+            event.bass !== original.bass ||
+            event.policy !== original.policy ||
+            pitchName(event.key.tonic) !== pitchName(original.key.tonic) ||
+            event.key.mode !== original.key.mode ||
+            pitchName(event.chord.root) !== pitchName(original.chord.root) ||
+            event.chord.quality !== original.chord.quality ||
+            event.notes.join() !== original.notes.join() ||
+            event.intent?.purpose !== original.intent.purpose
+          );
+        })
+      )
+        throw new Error(
+          'Unedited generation does not match its seed and settings',
+        );
+    }
+  }
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     revision: 0,
     settings: {
+      generator:
+        value.schemaVersion === 1
+          ? defaultGenerator()
+          : (structuredClone(s.generator) as GeneratorSettings),
       instrument: isInstrument(s.instrument)
         ? s.instrument
         : DEFAULT_INSTRUMENT,
@@ -324,6 +433,7 @@ export function importSession(text: string): Session {
       policy: s.policy as VoicingPolicy,
     },
     events,
+    generation,
   };
 }
 export function keyFromName(name: string, mode: Key['mode']): Key {
@@ -332,10 +442,12 @@ export function keyFromName(name: string, mode: Key['mode']): Key {
 export function exportSession(session: Session) {
   return JSON.stringify(session, null, 2);
 }
-export const STORAGE_KEY = 'chordscape.session.v1';
+export const STORAGE_KEY = 'chordscape.session.v2';
 export function loadSession(): { session: Session; failed: boolean } {
   try {
-    const text = localStorage.getItem(STORAGE_KEY);
+    const text =
+      localStorage.getItem(STORAGE_KEY) ??
+      localStorage.getItem('chordscape.session.v1');
     return {
       session: text ? importSession(text) : newSession(),
       failed: false,

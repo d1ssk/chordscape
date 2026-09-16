@@ -9,6 +9,8 @@ import {
   roman,
   tones,
   voicedSymbol,
+  resolvesTo,
+  chromaticApproach,
   type Key,
 } from '../music/harmony';
 import type { ChordEvent } from '../state/session';
@@ -39,14 +41,11 @@ export function ChordDetails({
   const contextChanged =
     pitchName(currentKey.tonic) !== pitchName(event.key.tonic) ||
     currentKey.mode !== event.key.mode;
-  const resolved =
-    analysis.target &&
-    next &&
-    pc(next.chord.root) === pc(analysis.target.root) &&
-    next.chord.quality === analysis.target.quality;
+  const resolved = resolvesTo(analysis, next?.chord);
+  const approach = chromaticApproach(event.chord, next?.chord);
   const explanation =
     analysis.kind === 'secondary'
-      ? `${chordSymbol(analysis.target!)} ${resolved ? t.resolved : t.secondary}`
+      ? `${chordSymbol(resolved ? next!.chord : analysis.target!)} ${resolved ? t.resolved : t.secondary}`
       : t[analysis.kind];
   const kept = previous
     ? event.notes.filter((n) => previous.notes.includes(n))
@@ -60,7 +59,7 @@ export function ChordDetails({
         </strong>
         <span className="roman">{roman(analysis, inversion)}</span>
         <span className="badge">
-          {[t.rootPosition, t.first, t.second, t.third][inversion]}
+          {[t.rootPosition, t.first, t.second, t.third, t.fourth][inversion]}
         </span>
       </div>
       <div className="note-line">
@@ -87,7 +86,7 @@ export function ChordDetails({
             <option value="auto">{t.auto}</option>
             {pitches.map((p, i) => (
               <option key={i} value={i}>
-                {[t.rootPosition, t.first, t.second, t.third][i]} ·{' '}
+                {[t.rootPosition, t.first, t.second, t.third, t.fourth][i]} ·{' '}
                 {pitchName(p)}
               </option>
             ))}
@@ -118,8 +117,34 @@ export function ChordDetails({
           </div>
         </dl>
         <p className="muted">{t.keyboardHint}</p>
+        {['6', 'm6', 'add9', '9', 'maj9', 'm9'].includes(
+          event.chord.quality,
+        ) && <p className="muted">{t.extendedRomanHint}</p>}
+        {event.intent && (
+          <p className="generation-intent" data-testid="generation-intent">
+            {t.generationIntent}: {roman(analysis)} ·{' '}
+            {
+              {
+                template: t.purposeTemplate,
+                secondary: t.purposeSecondary,
+                borrowed: t.purposeBorrowed,
+                cadence: t.purposeCadence,
+              }[event.intent.purpose]
+            }
+          </p>
+        )}
         <div className="explanation">
+          {event.intent && <h3>{t.currentAnalysis}</h3>}
           <p>{explanation}</p>
+          {analysis.kind === 'borrowed' && (
+            <p>
+              {t.borrowedFrom}: {pitchName(event.key.tonic)}{' '}
+              {event.key.mode === 'major' ? t.minor : t.major}
+            </p>
+          )}
+          {approach !== null && (
+            <p>{approach < 0 ? t.approachDown : t.approachUp}</p>
+          )}
           <p>
             {t.changed}: {analysis.changed.map(pitchName).join(' · ') || t.none}
           </p>

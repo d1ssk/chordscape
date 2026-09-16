@@ -48,6 +48,11 @@ button[aria-pressed='true'] {
   color: white;
   border-color: var(--green);
 }
+button.primary:hover:not(:disabled),
+button[aria-pressed='true']:hover:not(:disabled) {
+  background: #1c4d40;
+  color: white;
+}
 :focus-visible {
   outline: 3px solid #b85c36;
   outline-offset: 2px;
@@ -492,6 +497,40 @@ details > summary:focus-visible {
   font-size: 0.75rem;
   color: #255f4f;
 }
+.generator-form {
+  border: 0;
+  padding: 0;
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.generator-form label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+}
+.generator-form input,
+.generator-form select {
+  width: 100%;
+  min-width: 0;
+}
+.generator-actions {
+  grid-column: 1/-1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.generation-help,
+.generation-record,
+.generation-intent {
+  margin-top: 12px;
+}
+.continuous-status {
+  font-size: 0.75rem;
+  margin: 6px 0;
+}
 .notice {
   background: #f4e3cf;
   padding: 10px 12px;
@@ -753,6 +792,22 @@ details > summary:focus-visible {
   }
   .scene-nav button {
     min-height: 40px;
+  }
+  .generator-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .generator-form select,
+  .generator-form input {
+    font-size: 1rem;
+  }
+  .generator-actions button {
+    flex: 1 1 40%;
+    font-size: 0.8rem;
+  }
+  .scene-nav button {
+    padding: 6px 4px;
+    font-size: 0.75rem;
   }
 }
 @media (prefers-reduced-motion: no-preference) {

@@ -97,3 +97,55 @@ it('schedules short loops through the whole lookahead window', () => {
   expect(f.scheduled).toHaveLength(2);
   expect(f.scheduled[1].time).toBeCloseTo(0.105);
 });
+it('keeps the prepared next phrase across pause/resume and tempo changes at a boundary', () => {
+  const f = fixture();
+  const requests: number[] = [];
+  const source = (cycle: number) => {
+    requests.push(cycle);
+    return f.events.map((e) => ({ ...e, id: `phrase-${cycle}-${e.id}` }));
+  };
+  f.scheduler.play(f.events, 60, true, source);
+  f.advance(1.95); // Phrase 1 is already reserved, but phrase 0 still sounds.
+  expect(requests).toEqual([1]);
+  expect(f.scheduler.state.cycle).toBe(0);
+  f.scheduler.pause();
+  f.advance(4);
+  f.scheduler.resume();
+  expect(requests).toEqual([1, 1]);
+  f.advance(4.12);
+  expect(f.scheduler.state.cycle).toBe(1);
+  expect(f.scheduler.state.event?.id).toBe('phrase-1-0');
+  f.scheduler.configure(120, true);
+  expect(f.scheduler.state.cycle).toBe(1);
+  f.advance(5.08);
+  expect(requests.at(-1)).toBe(2);
+  f.scheduler.stop();
+  f.advance(10);
+  expect(f.scheduled).toHaveLength(0);
+});
+it('shows the prepared next phrase before reservation and retains the preceding chord at its boundary', () => {
+  const f = fixture();
+  const next = f.events.map((e) => ({ ...e, id: `next-${e.id}` }));
+  let reads = 0;
+  f.scheduler.play(
+    f.events,
+    60,
+    true,
+    () => {
+      reads++;
+      return next;
+    },
+    0,
+    0,
+    () => next,
+  );
+  f.advance(1.2);
+  expect(reads).toBe(0);
+  expect(f.scheduler.state.next?.id).toBe('next-0');
+  f.advance(1.95);
+  expect(reads).toBe(1);
+  f.advance(2.04);
+  expect(f.scheduler.state.previous?.id).toBe('1');
+  f.advance(2.2);
+  expect(f.scheduler.state.previous?.id).toBe('1');
+});

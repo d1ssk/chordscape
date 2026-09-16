@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-export type Scene = 'play' | 'library' | 'settings';
+export type Scene = 'play' | 'library' | 'settings' | 'generate';
 function readScene(): Scene {
   const hash = window.location.hash.slice(1);
-  return hash === 'library' || hash === 'settings' ? hash : 'play';
+  return hash === 'library' || hash === 'settings' || hash === 'generate'
+    ? hash
+    : 'play';
 }
 export function useScene() {
   const [scene, setScene] = useState(readScene);

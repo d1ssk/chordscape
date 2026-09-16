@@ -1,4 +1,4 @@
-# P0 / P1 検証記録
+# P0 / P1 / P2 検証記録
 
 2026-09-16、macOS arm64 / Node 22.17.1 / npm 10.9.2。
 
@@ -24,7 +24,7 @@
 - 人による試聴は未実施。Root/Smoothの自然さ、click、音量差、低域の濁りについて品質保証はしません。
 - 実機Chrome / Firefox / Safari・iOSでの音声開始・中断・復帰、端末固有の音量や背景制限は手動確認事項。
 - GitHub上のworkflow実行・Pagesへのデプロイは未実施（pushしていません）。Pages SourceはAPIで `build_type: workflow` に設定済み。公開範囲は変更していません。
-- P2–P5は未実装。独立した転調イベント・生成seedは、その機能を追加する段階でschemaを拡張します。
+- P3–P5は未実装。P2のseedと生成設定はschemaVersion 2へ追加しました。独立した転調イベントはP3で拡張します。
 
 ## モバイル画面・音色の改修（2026-09-16）
 
@@ -56,3 +56,20 @@ ChromiumのOfflineAudioContext（48 kHz）でC3 / E3 / G3を1秒鳴らし、旧�
 初回から既存の `7298218 Initial commit` があったため履歴を保持しました。P0、楽理・配置、編集・時計、P1画面統合を別コミットにしています。
 
 Loopの次周回は120ms先までの予約時点で固定します。編集中の新データと発音中のsnapshotを分け、Chord detailsは発音中のイベントを優先表示します。Pause中の進行編集は明示的にStopへ戻し、古いsnapshotが再開されるのを防ぎます。
+
+## P2 / Auto（2026-09-16）
+
+モバイル・音色の改修を `npm run check` で再検証して `3796969` にコミットしてから着手しました。
+
+- `npm run check`: strict型検査、ESLint、Prettier、38 unit tests、production build。
+- 生成の設定の組合せ（Pop/Jazz、4/8/16小節、2/4/8拍間隔、三和音/七の和音、終止/ループ）について、拍数・終端・構成音・生成意図を検査。
+- 全30調で調外0%/100%のJazz生成、Smooth配置、JSON往復、半音移調後の綴り・意図・音高を検査。同じseed・設定・version・フレーズ番号の再現性と、seedによる変化を検査。
+- C major / Jazz / 4小節 / 4拍 / seventh / outside 100% / loop / seed 42でCmaj7 → A7 → Dm7 → G7、Imaj7 → V7/ii → ii7 → V7を検証。並べ替えでA7の後がDm7でなくなると、現在の解決についての説明が変わることを検査。
+- Cadd9 / C9 / Cmaj9 / Cm6、9thをbassにしたC9/D、5音を省略しないこと、拡張和音の転回数字がundefinedにならないことを検査。
+- schemaVersion 1から2への移行で確定音高を保持。不正seed・version・phrase・矛盾した生成意図を拒否。未編集の生成結果とseedの不一致も拒否。
+- 連続生成は少数のフレーズを事前生成。偽の時計で境界直前のPause/Resume・テンポ変更による再予約が同じフレーズ番号を使うこと、Stopで準備済みデータを無効にすること、自動切替がUndo履歴を増やさないことを検査。
+- 次フレーズの先頭を予約前から正しく表示し、切替後も前の和音を保持して比較することを検査。PopのI–V–vi–IVを終端処理で変更せず生成できることも検査。
+- PlaywrightはP2の5シナリオを追加し、全17シナリオ × desktop/mobile = 34 testsを `/` と `/chordscape-smoke/` の各production buildで実行し、すべて成功。生成→編集→再生成→Undo/Redo、発音・停止、JSON書出し/読込/reload、辞典の5音同時発音、連続生成の境界・Pause/Resume・途中編集での停止、fallback表示、320px幅の生成画面を検査。
+- 日本語の生成画面・生成後の演奏画面をdesktop/mobileの画像で目視確認。
+
+実機での試聴、フレーズの自然さの聴感評価、Safari/iOSでの手動確認は未実施です。追加style、tritone substitution、P3–P5は提供していません。

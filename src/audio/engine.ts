@@ -212,9 +212,11 @@ export class AudioEngine {
     events: ChordEvent[],
     tempo: number,
     loop: boolean,
-    source: () => ChordEvent[],
+    source: (index: number) => ChordEvent[],
+    cycle = 0,
+    peek?: (index: number) => ChordEvent[],
   ) {
-    this.scheduler.play(events, tempo, loop, source);
+    this.scheduler.play(events, tempo, loop, source, 0, cycle, peek);
     this.tick();
   }
   pause() {

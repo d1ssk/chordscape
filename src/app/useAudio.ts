@@ -3,6 +3,7 @@ import { DEFAULT_INSTRUMENT } from '../audio/instruments';
 import { AudioEngine, type SoundState } from '../audio/engine';
 import type { PlaybackState } from '../audio/scheduler';
 export function useAudio() {
+  const observer = useRef<((state: PlaybackState) => void) | null>(null);
   const engine = useRef<AudioEngine | null>(null);
   const [sound, setSound] = useState<SoundState>({
     instrument: DEFAULT_INSTRUMENT,
@@ -22,6 +23,7 @@ export function useAudio() {
       (state, value) => {
         setPlayback(state);
         setLevel(value);
+        observer.current?.(state);
       },
       setReady,
       setSound,
@@ -32,5 +34,5 @@ export function useAudio() {
       engine.current = null;
     };
   }, []);
-  return { engine, ready, level, playback, sound };
+  return { engine, ready, level, playback, sound, observer };
 }
