@@ -81,3 +81,19 @@ it('natural completion stops; stale events are skipped after a clock jump', () =
   expect(f.scheduler.state.status).toBe('stopped');
   expect(f.scheduled).toHaveLength(0);
 });
+it('pauses after missing a loop rather than replaying accumulated cycles', () => {
+  const f = fixture();
+  f.scheduler.play(f.events, 60, true, () => f.events);
+  f.advance(10);
+  expect(f.scheduler.state.status).toBe('paused');
+  expect(f.scheduled).toHaveLength(0);
+  f.scheduler.resume();
+  expect(f.scheduled[0].time).toBeGreaterThan(10);
+});
+it('schedules short loops through the whole lookahead window', () => {
+  const f = fixture();
+  const short = [{ ...f.events[0], duration: 0.25 }];
+  f.scheduler.play(short, 200, true, () => short);
+  expect(f.scheduled).toHaveLength(2);
+  expect(f.scheduled[1].time).toBeCloseTo(0.105);
+});

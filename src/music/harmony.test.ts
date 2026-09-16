@@ -187,3 +187,21 @@ describe('voicing', () => {
     );
   });
 });
+it('retains altered target degrees in minor secondary dominants', () => {
+  expect(roman(analyze(chord('D', '7'), key('A', 'minor')))).toBe('V7/♭VII');
+});
+
+it('checks every C major triad tone and minor leading-tone evidence', () => {
+  expect(diatonic(defaultKey).map((c) => tones(c).map(pitchName))).toEqual([
+    ['C', 'E', 'G'],
+    ['D', 'F', 'A'],
+    ['E', 'G', 'B'],
+    ['F', 'A', 'C'],
+    ['G', 'B', 'D'],
+    ['A', 'C', 'E'],
+    ['B', 'D', 'F'],
+  ]);
+  expect(analyze(chord('G♯', 'dim'), key('A', 'minor')).kind).toBe(
+    'minorLeading',
+  );
+});

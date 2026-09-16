@@ -134,7 +134,8 @@ export function editSession(session: Session, action: Edit): Session {
       events = events.map((e) =>
         e.id === action.id ? { ...e, ...action.patch } : e,
       );
-      events = revoice(events, settings.loop);
+      if (Object.hasOwn(action.patch, 'bass'))
+        events = revoice(events, settings.loop);
       break;
     case 'clear':
       events = [];

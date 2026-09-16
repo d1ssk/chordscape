@@ -1,9 +1,10 @@
 import { existsSync, appendFileSync } from 'node:fs';
-const repo = process.env.GITHUB_REPOSITORY?.split('/')[1];
+const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
 if (!repo) throw new Error('GITHUB_REPOSITORY is required');
 const base =
   process.env.PAGES_BASE_PATH ||
-  (existsSync('public/CNAME') || repo.endsWith('.github.io')
+  (existsSync('public/CNAME') ||
+  repo.toLowerCase() === `${owner.toLowerCase()}.github.io`
     ? '/'
     : `/${repo}/`);
 if (!/^\/(?:[A-Za-z0-9._-]+\/)*$/.test(base))

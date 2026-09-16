@@ -9,7 +9,13 @@ import {
   reducer,
   MAX_EVENTS,
 } from './session';
-import { diatonic, pitchName } from '../music/harmony';
+import {
+  diatonic,
+  pitchName,
+  outside,
+  MAJOR_KEYS,
+  MINOR_KEYS,
+} from '../music/harmony';
 function example() {
   const s = newSession();
   return editSession(s, {
@@ -79,4 +85,50 @@ it('manual inversion survives global voicing policy', () => {
   s = editSession(s, { type: 'event', id: 'one', patch: { bass: 1 } });
   s = editSession(s, { type: 'policy', policy: 'smooth' });
   expect(s.events[0].notes[0] % 12).toBe(4);
+});
+it('transposing distinct event contexts preserves their relative pitch classes', () => {
+  let s = example();
+  const g = {
+    ...s,
+    settings: { ...s.settings, key: keyFromName('G', 'major') },
+  };
+  s = editSession(s, {
+    type: 'append',
+    event: makeEvent(diatonic(g.settings.key)[0], g, 'two'),
+  });
+  const shifted = editSession(s, { type: 'transpose', semitones: 1 });
+  expect(
+    (shifted.events[1].notes[0] - shifted.events[0].notes[0] + 12) % 12,
+  ).toBe(7);
+  expect(importSession(exportSession(shifted)).events).toEqual(shifted.events);
+});
+
+it('all supported keys and outside palettes remain importable after transposition', () => {
+  for (const mode of ['major', 'minor'] as const)
+    for (const name of mode === 'major' ? MAJOR_KEYS : MINOR_KEYS) {
+      const base = newSession();
+      base.settings.key = keyFromName(name, mode);
+      base.events = [
+        ...diatonic(base.settings.key),
+        ...diatonic(base.settings.key, true),
+        ...outside(base.settings.key),
+      ].map((chord, i) => makeEvent(chord, base, String(i)));
+      for (const semitones of [-12, -7, -1, 0, 1, 5, 12]) {
+        const moved = editSession(base, { type: 'transpose', semitones });
+        expect(
+          () => importSession(exportSession(moved)),
+          `${name} ${mode}, ${semitones}`,
+        ).not.toThrow();
+      }
+    }
+});
+it('duration-only edits keep a saved open voicing exactly', () => {
+  const s = example();
+  s.events[0].notes = [48, 55, 64];
+  const changed = editSession(s, {
+    type: 'event',
+    id: 'one',
+    patch: { duration: 2 },
+  });
+  expect(changed.events[0].notes).toEqual([48, 55, 64]);
 });

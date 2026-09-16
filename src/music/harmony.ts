@@ -203,8 +203,15 @@ export interface Analysis {
   degree: number;
   alteration: number;
   quality: Quality;
-  kind: 'diatonic' | 'secondary' | 'borrowed' | 'minorDominant' | 'chromatic';
+  kind:
+    | 'diatonic'
+    | 'secondary'
+    | 'borrowed'
+    | 'minorDominant'
+    | 'minorLeading'
+    | 'chromatic';
   appliedTo?: number;
+  appliedAlteration?: number;
   target?: Harmony;
   changed: Pitch[];
   functions: ('T' | 'P' | 'D')[];
@@ -254,6 +261,18 @@ export function analyze(chord: Harmony, key: Key): Analysis {
       target: diatonic(key)[0],
       functions: ['D'],
     };
+  if (
+    key.mode === 'minor' &&
+    degree === 6 &&
+    alteration === 0 &&
+    (chord.quality === 'dim' || chord.quality === 'dim7')
+  )
+    return {
+      ...basic,
+      kind: 'minorLeading',
+      target: diatonic(key)[0],
+      functions: ['D'],
+    };
   if (chord.quality === '7' || chord.quality === 'major') {
     const appliedTo = diatonic(key).findIndex(
       (target, i) =>
@@ -266,6 +285,8 @@ export function analyze(chord: Harmony, key: Key): Analysis {
         ...basic,
         kind: 'secondary',
         appliedTo,
+        appliedAlteration:
+          key.mode === 'minor' && [2, 5, 6].includes(appliedTo) ? -1 : 0,
         target: diatonic(key)[appliedTo],
         functions: ['D'],
       };
@@ -308,7 +329,7 @@ export function roman(analysis: Analysis, inversion = 0) {
     analysis.appliedTo !== undefined &&
     analysis.target
   )
-    return `V${figure}/${degreeLabel(analysis.appliedTo, 0, analysis.target.quality)}`;
+    return `V${figure}/${degreeLabel(analysis.appliedTo, analysis.appliedAlteration ?? 0, analysis.target.quality)}`;
   return `${degreeLabel(analysis.degree, analysis.alteration, q)}${marker}${maj}${figure}`;
 }
 export function outside(key: Key): Harmony[] {

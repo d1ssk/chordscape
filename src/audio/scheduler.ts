@@ -9,6 +9,7 @@ export interface PlaybackState {
   beat: number;
   event: ChordEvent | null;
   next: ChordEvent | null;
+  previous?: ChordEvent | null;
 }
 interface Cycle {
   start: number;
@@ -96,7 +97,16 @@ export class Scheduler {
     const now = this.port.now();
     const horizon = now + 0.12;
     let last = this.cycles.at(-1)!;
-    if (this.loop && last.end <= horizon) {
+    if (this.loop && now > last.end + 0.12) {
+      this.snapshot = last.events;
+      this.resumeBeat = 0;
+      this.port.cancel();
+      this.cycles = [];
+      this.slots = [];
+      this.emit({ status: 'paused', beat: 0, event: null, next: null });
+      return;
+    }
+    while (this.loop && last.end <= horizon) {
       const next = this.source();
       if (next.length) last = this.addCycle(next, last.end);
       else this.loop = false;
@@ -116,6 +126,7 @@ export class Scheduler {
       return;
     }
     const cycle = this.cycles.find((c) => now < c.end) ?? last;
+    const precedingCycle = this.cycles[this.cycles.indexOf(cycle) - 1];
     this.cycles = this.cycles.filter((c) => c.end > now || c === last);
     this.snapshot = cycle.events;
     const beat = Math.max(
@@ -125,16 +136,18 @@ export class Scheduler {
     let cursor = 0;
     let event: ChordEvent | null = null;
     let next: ChordEvent | null = null;
+    let previous: ChordEvent | null = null;
     for (let i = 0; i < cycle.events.length; i++) {
       const e = cycle.events[i];
       if (beat >= cursor && beat < cursor + e.duration) {
         event = now >= this.anchor ? e : null;
+        previous = cycle.events[i - 1] ?? precedingCycle?.events.at(-1) ?? null;
         next = cycle.events[i + 1] ?? (this.loop ? last.events[0] : null);
         break;
       }
       cursor += e.duration;
     }
-    this.emit({ status: 'playing', beat, event, next });
+    this.emit({ status: 'playing', beat, event, next, previous });
   }
   pause() {
     if (this.state.status !== 'playing') return;
