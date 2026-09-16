@@ -815,3 +815,131 @@ details > summary:focus-visible {
     transition: background 0.12s;
   }
 }
+.circle-scene {
+  display: grid;
+  gap: 16px;
+  align-items: start;
+}
+.circle-panel {
+  min-width: 0;
+}
+.circle-spelling {
+  display: grid;
+  gap: 4px;
+  font-size: 0.75rem;
+}
+.fifths {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  overflow: visible;
+}
+.circle-track {
+  fill: none;
+  stroke: #cad8c8;
+  stroke-width: 1;
+}
+.circle-key {
+  cursor: pointer;
+  outline: none;
+}
+.circle-key circle {
+  fill: #f5f5eb;
+  stroke: #b8c6b3;
+  stroke-width: 1;
+}
+.circle-key text {
+  fill: #283c31;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  font-size: 15px;
+  font-weight: 600;
+  pointer-events: none;
+}
+.circle-key.current circle {
+  fill: #234f3e;
+  stroke: #234f3e;
+}
+.circle-key.current text {
+  fill: white;
+}
+.circle-key.candidate circle {
+  stroke: #8e4f19;
+  stroke-width: 3;
+}
+.circle-key:focus-visible circle {
+  stroke: #19669b;
+  stroke-width: 4;
+}
+.circle-key .key-marker {
+  font-size: 7px;
+}
+.target-marker {
+  stroke: #8e4f19;
+  stroke-width: 3;
+}
+.current .target-marker {
+  stroke: #ffdb9c;
+}
+.circle-center {
+  text-anchor: middle;
+  fill: #536452;
+  font-size: 10px;
+}
+.target-name {
+  font-size: 21px;
+  font-weight: 700;
+  fill: #283c31;
+}
+.circle-legend {
+  text-align: center;
+  font-size: 0.8rem;
+}
+.circle-options section {
+  margin-bottom: 16px;
+}
+.circle-options > section > label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.bridge-list {
+  padding-left: 24px;
+}
+.bridge-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #dce2d5;
+  font-size: 0.85rem;
+}
+.dual-analysis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-size: 0.8rem;
+}
+.modulation-detail {
+  margin: 6px 0;
+  padding: 6px 8px;
+  background: #f0f1e5;
+  border-radius: 6px;
+}
+.modulation-detail > small {
+  color: #596250;
+  font-size: 0.7rem;
+}
+.boundary {
+  color: #76410e;
+  font-size: 0.75rem;
+}
+.key-events {
+  margin-top: 8px;
+  font-size: 0.8rem;
+}
+@media (min-width: 900px) {
+  .circle-scene {
+    grid-template-columns: 1fr 1.1fr;
+  }
+}

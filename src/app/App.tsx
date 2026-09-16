@@ -1,3 +1,5 @@
+import { Circle, DualAnalysis, keyLabel } from '../components/Circle';
+import { buildCircleTravel, sameKey } from '../music/modulation';
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { useAudio } from './useAudio';
 import { useScene } from './useScene';
@@ -70,18 +72,23 @@ export function App() {
   const [comparison, setComparison] = useState<VoicingPolicy | null>(null);
   const [transpose, setTranspose] = useState(2);
   const [continuous, setContinuous] = useState(false);
+  const [auditionPlan, setAuditionPlan] = useState<ChordEvent[] | null>(null);
+  const auditioning = useRef(false);
   const autoRun = useRef<PreparedProgressions | null>(null);
   const autoApplied = useRef(0);
   const sessionRef = useRef(session);
   const previousRef = useRef<ChordEvent | undefined>(undefined);
   const file = useRef<HTMLInputElement>(null);
   const running = playback.status === 'playing';
+  const currentKey =
+    playback.status !== 'stopped' ? (playback.key ?? s.key) : s.key;
   const selected = session.events.find((e) => e.id === selectedId);
   const displayed = playback.event ?? selected ?? preview;
   const viewEvents =
-    continuous && playback.cycle !== undefined
+    auditionPlan ??
+    (continuous && playback.cycle !== undefined
       ? (autoRun.current?.get(playback.cycle)?.events ?? session.events)
-      : session.events;
+      : session.events);
   const index = viewEvents.findIndex((e) => e.id === displayed.id);
   const previous = running
     ? (playback.previous ?? undefined)
@@ -100,7 +107,7 @@ export function App() {
     document.title =
       scene === 'play'
         ? 'Chordscape'
-        : `${scene === 'library' ? t.library : scene === 'generate' ? t.generateScene : t.settings} · Chordscape`;
+        : `${scene === 'library' ? t.library : scene === 'generate' ? t.generateScene : scene === 'circle' ? t.circleScene : t.settings} · Chordscape`;
   }, [scene, t]);
   useEffect(() => {
     sessionRef.current = session;
@@ -110,10 +117,23 @@ export function App() {
   }, [s.locale]);
   useEffect(() => {
     engine.current?.setVolume(s.volume);
-    engine.current?.configure(s.tempo, continuous || s.loop);
-  }, [engine, s.volume, s.tempo, s.loop, continuous]);
+    engine.current?.configure(s.tempo, !auditionPlan && (continuous || s.loop));
+  }, [engine, s.volume, s.tempo, s.loop, continuous, auditionPlan]);
   useEffect(() => {
     observer.current = (state) => {
+      if (state.status === 'stopped' && auditioning.current) {
+        auditioning.current = false;
+        setAuditionPlan(null);
+      }
+      if (
+        state.status === 'playing' &&
+        state.event &&
+        !auditioning.current &&
+        !sameKey(sessionRef.current.settings.key, state.event.key)
+      ) {
+        dispatch({ type: 'clockKey', key: state.event.key });
+        setStorage('saving');
+      }
       const run = autoRun.current;
       if (!run) return;
       if (state.status === 'stopped') {
@@ -161,7 +181,8 @@ export function App() {
     };
   }, [session, loaded]);
   function edit(action: Edit) {
-    if (autoRun.current && action.type !== 'settings') stop();
+    if ((autoRun.current || auditioning.current) && action.type !== 'settings')
+      stop();
     if (playback.status === 'paused' && action.type !== 'settings') stop();
     setStorage('saving');
     dispatch(action);
@@ -177,6 +198,8 @@ export function App() {
     }
   }
   function stop() {
+    auditioning.current = false;
+    setAuditionPlan(null);
     const activePhrase =
       playback.cycle === undefined
         ? undefined
@@ -195,7 +218,7 @@ export function App() {
     if (running) return;
     const event = makeEvent(
       chord,
-      session,
+      { ...session, settings: { ...s, key: currentKey } },
       crypto.randomUUID(),
       previousRef.current?.notes,
     );
@@ -245,6 +268,8 @@ export function App() {
     }
   }
   function play(policy?: VoicingPolicy) {
+    auditioning.current = false;
+    setAuditionPlan(null);
     autoRun.current?.stop();
     autoRun.current = null;
     setContinuous(false);
@@ -314,6 +339,44 @@ export function App() {
       setError('generationFailed');
     }
   }
+  function appendBridge(events: ChordEvent[]) {
+    if (playback.status !== 'stopped') return;
+    const added = events.map((e) => ({ ...e, id: crypto.randomUUID() }));
+    edit({ type: 'bridge', events: added });
+    setSelectedId(null);
+    setPreview(added[0]);
+    navigate('play');
+  }
+  function auditionBridge(events: ChordEvent[]) {
+    stop();
+    auditioning.current = true;
+    setAuditionPlan(events);
+    engine.current!.play(events, s.tempo, false, () => events);
+  }
+  function travel(direction: 1 | -1, cadence: boolean) {
+    stop();
+    const events = buildCircleTravel(
+      {
+        from: s.key,
+        duration: s.duration,
+        seventh: s.seventh,
+        policy: s.policy,
+        cadence,
+      },
+      direction,
+      crypto.randomUUID(),
+    );
+    edit({ type: 'travel', events });
+    setSelectedId(null);
+    setPreview(events[0]);
+    navigate('play');
+    engine.current!.play(
+      events,
+      s.tempo,
+      true,
+      () => sessionRef.current.events,
+    );
+  }
   function changeMode(mode: Key['mode']) {
     let key = { ...s.key, mode };
     const names = mode === 'major' ? MAJOR_KEYS : MINOR_KEYS;
@@ -361,7 +424,9 @@ export function App() {
               ? t.library
               : scene === 'generate'
                 ? t.generateScene
-                : t.settings}
+                : scene === 'circle'
+                  ? t.circleScene
+                  : t.settings}
         </h1>
         <button
           className="sound-shortcut"
@@ -450,6 +515,35 @@ export function App() {
             : t.nextPhrasePreparing}
         </p>
       )}
+      {auditionPlan && (
+        <p className="notice" role="status">
+          {t.bridgeAudition}
+        </p>
+      )}
+      {scene === 'circle' && (
+        <>
+          <Circle
+            settings={s}
+            events={session.events}
+            currentKey={currentKey}
+            stopped={playback.status === 'stopped'}
+            canPlay={ready && !sound.loading}
+            onSelectKey={(key) => edit({ type: 'settings', patch: { key } })}
+            onAudition={auditionBridge}
+            onAppend={appendBridge}
+            onTravel={travel}
+            t={t}
+          />
+          {playback.event && (
+            <section>
+              <strong>
+                {voicedSymbol(playback.event.chord, playback.event.notes)}
+              </strong>
+              <DualAnalysis event={playback.event} t={t} />
+            </section>
+          )}
+        </>
+      )}
       {scene === 'generate' && (
         <Generator
           settings={s}
@@ -469,7 +563,8 @@ export function App() {
               <label>
                 {t.key}
                 <select
-                  value={pitchName(s.key.tonic)}
+                  disabled={running}
+                  value={pitchName(currentKey.tonic)}
                   onChange={(e) =>
                     edit({
                       type: 'settings',
@@ -477,7 +572,7 @@ export function App() {
                     })
                   }
                 >
-                  {(s.key.mode === 'major' ? MAJOR_KEYS : MINOR_KEYS).map(
+                  {(currentKey.mode === 'major' ? MAJOR_KEYS : MINOR_KEYS).map(
                     (name) => (
                       <option key={name}>{name}</option>
                     ),
@@ -487,7 +582,8 @@ export function App() {
               <label>
                 {t.mode}
                 <select
-                  value={s.key.mode}
+                  disabled={running}
+                  value={currentKey.mode}
                   onChange={(e) => changeMode(e.target.value as Key['mode'])}
                 >
                   <option value="major">{t.major}</option>
@@ -584,14 +680,12 @@ export function App() {
           <section className="palette-panel">
             <div className="section-title">
               <h2>{t.palette}</h2>
-              <span>
-                {pitchName(s.key.tonic)} {t[s.key.mode]}
-              </span>
+              <span>{keyLabel(currentKey, t)}</span>
             </div>
             {running && <p className="muted playback-hint">{t.recordHint}</p>}
             <Palette
-              chords={diatonic(s.key, s.seventh)}
-              context={s.key}
+              chords={diatonic(currentKey, s.seventh)}
+              context={currentKey}
               disabled={!ready || running || sound.loading}
               onChoose={choose}
               selected={chordSymbol(displayed.chord)}
@@ -600,8 +694,8 @@ export function App() {
               <summary>{t.outside}</summary>
               <p className="muted">{t.outsideHint}</p>
               <Palette
-                chords={outside(s.key)}
-                context={s.key}
+                chords={outside(currentKey)}
+                context={currentKey}
                 disabled={!ready || running || sound.loading}
                 onChoose={choose}
                 selected={chordSymbol(displayed.chord)}
@@ -612,7 +706,7 @@ export function App() {
             event={displayed}
             previous={previous}
             next={next}
-            currentKey={s.key}
+            currentKey={currentKey}
             sounding={playback.event?.notes ?? []}
             t={t}
             onBass={bass}
@@ -628,7 +722,12 @@ export function App() {
                 <button
                   disabled={!history.past.length}
                   onClick={() => {
-                    if (autoRun.current || playback.status === 'paused') stop();
+                    if (
+                      autoRun.current ||
+                      auditioning.current ||
+                      playback.status === 'paused'
+                    )
+                      stop();
                     dispatch({ type: 'undo' });
                     setStorage('saving');
                   }}
@@ -638,7 +737,12 @@ export function App() {
                 <button
                   disabled={!history.future.length}
                   onClick={() => {
-                    if (autoRun.current || playback.status === 'paused') stop();
+                    if (
+                      autoRun.current ||
+                      auditioning.current ||
+                      playback.status === 'paused'
+                    )
+                      stop();
                     dispatch({ type: 'redo' });
                     setStorage('saving');
                   }}
@@ -768,7 +872,7 @@ export function App() {
             event={displayed}
             previous={previous}
             next={next}
-            currentKey={s.key}
+            currentKey={currentKey}
             sounding={playback.event?.notes ?? []}
             t={t}
             onBass={bass}
@@ -867,21 +971,25 @@ export function App() {
         </div>
       )}
       <nav className="scene-nav" aria-label={t.navigation}>
-        {(['play', 'generate', 'library', 'settings'] as const).map((item) => (
-          <button
-            key={item}
-            aria-current={scene === item ? 'page' : undefined}
-            onClick={() => navigate(item)}
-          >
-            {item === 'play'
-              ? t.playScene
-              : item === 'library'
-                ? t.library
-                : item === 'generate'
-                  ? t.generateScene
-                  : t.settings}
-          </button>
-        ))}
+        {(['play', 'generate', 'circle', 'library', 'settings'] as const).map(
+          (item) => (
+            <button
+              key={item}
+              aria-current={scene === item ? 'page' : undefined}
+              onClick={() => navigate(item)}
+            >
+              {item === 'play'
+                ? t.playScene
+                : item === 'library'
+                  ? t.library
+                  : item === 'generate'
+                    ? t.generateScene
+                    : item === 'circle'
+                      ? t.circleScene
+                      : t.settings}
+            </button>
+          ),
+        )}
       </nav>
     </main>
   );

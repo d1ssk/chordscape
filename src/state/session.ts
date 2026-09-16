@@ -1,4 +1,12 @@
 import {
+  keyEventsFor,
+  sameKey,
+  commonChords,
+  sameChord,
+  type KeyEvent,
+  type ModulationIntent,
+} from '../music/modulation';
+import {
   DEFAULT_INSTRUMENT,
   isInstrument,
   type Instrument,
@@ -43,6 +51,7 @@ export interface ChordEvent extends VoicingInput {
   duration: number;
   notes: number[];
   intent?: GenerationIntent;
+  modulation?: ModulationIntent;
 }
 export interface Settings {
   generator: GeneratorSettings;
@@ -58,15 +67,16 @@ export interface Settings {
   policy: VoicingPolicy;
 }
 export interface Session {
-  schemaVersion: 2;
+  schemaVersion: 3;
   revision: number;
   settings: Settings;
   events: ChordEvent[];
+  keyEvents: KeyEvent[];
   generation: (GenerationRecord & { modified: boolean }) | null;
 }
 export function newSession(): Session {
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     revision: 0,
     settings: {
       generator: defaultGenerator(),
@@ -82,6 +92,7 @@ export function newSession(): Session {
       policy: 'root',
     },
     events: [],
+    keyEvents: [],
     generation: null,
   };
 }
@@ -105,6 +116,9 @@ export function revoice(events: ChordEvent[], loop: boolean): ChordEvent[] {
   return events.map((event, i) => ({ ...event, notes: notes[i] }));
 }
 export type Edit =
+  | { type: 'bridge'; events: ChordEvent[] }
+  | { type: 'travel'; events: ChordEvent[] }
+  | { type: 'clockKey'; key: Key }
   | { type: 'generate'; phrase: GeneratedPhrase }
   | { type: 'autoPhrase'; phrase: GeneratedPhrase }
   | { type: 'settings'; patch: Partial<Settings> }
@@ -126,6 +140,26 @@ export function editSession(session: Session, action: Edit): Session {
   let events = session.events;
   let generation = session.generation;
   switch (action.type) {
+    case 'clockKey':
+      if (sameKey(settings.key, action.key)) return session;
+      settings = { ...settings, key: action.key };
+      break;
+    case 'bridge':
+      if (events.length + action.events.length > MAX_EVENTS) return session;
+      // Append preserves existing, possibly manually edited voicings.
+      events = [...events];
+      for (const event of action.events)
+        events.push({
+          ...event,
+          notes: chooseVoicing(event, events.at(-1)?.notes),
+        });
+      break;
+    case 'travel':
+      if (action.events.length > MAX_EVENTS) return session;
+      events = action.events;
+      settings = { ...settings, loop: true };
+      generation = null;
+      break;
     case 'generate':
     case 'autoPhrase':
       events = action.phrase.events;
@@ -197,7 +231,20 @@ export function editSession(session: Session, action: Edit): Session {
         let notes = e.notes.map((n) => n + action.semitones);
         while (notes[0] < 36) notes = notes.map((n) => n + 12);
         while (notes.at(-1)! > 84) notes = notes.map((n) => n - 12);
-        return { ...e, key, chord, notes };
+        const modulation = e.modulation
+          ? {
+              ...e.modulation,
+              from: transposeKey(e.modulation.from, action.semitones),
+              to: transposeKey(e.modulation.to, action.semitones),
+            }
+          : undefined;
+        return {
+          ...e,
+          key,
+          chord,
+          notes,
+          ...(modulation ? { modulation } : {}),
+        };
       });
       break;
     }
@@ -215,6 +262,7 @@ export function editSession(session: Session, action: Edit): Session {
     ...session,
     settings,
     events,
+    keyEvents: keyEventsFor(events),
     generation,
     revision: session.revision + 1,
   };
@@ -248,7 +296,8 @@ export function reducer(history: History, action: Action): History {
   }
   const next = editSession(history.present, action);
   if (next === history.present) return history;
-  if (action.type === 'autoPhrase') return { ...history, present: next };
+  if (action.type === 'autoPhrase' || action.type === 'clockKey')
+    return { ...history, present: next };
   return {
     past: [...history.past.slice(-49), history.present],
     present: next,
@@ -293,14 +342,16 @@ export function importSession(text: string): Session {
   const value: unknown = JSON.parse(text);
   if (
     !object(value) ||
-    (value.schemaVersion !== 1 && value.schemaVersion !== 2)
+    (value.schemaVersion !== 1 &&
+      value.schemaVersion !== 2 &&
+      value.schemaVersion !== 3)
   )
     throw new Error('Unsupported schema');
   const s = value.settings;
   if (
     !object(s) ||
     !isKey(s.key) ||
-    (value.schemaVersion === 2 && !isGeneratorSettings(s.generator)) ||
+    (value.schemaVersion !== 1 && !isGeneratorSettings(s.generator)) ||
     (s.instrument !== undefined && !isInstrument(s.instrument)) ||
     !numberIn(s.tempo, 40, 200) ||
     !numberIn(s.duration, 0.25, 16) ||
@@ -348,6 +399,28 @@ export function importSession(text: string): Session {
       throw new Error('Notes contradict chord or bass');
     if (e.intent !== undefined && !isGenerationIntent(e.intent, e.chord, e.key))
       throw new Error('Generation intent contradicts chord');
+    if (e.modulation !== undefined) {
+      const m = e.modulation;
+      if (
+        !object(m) ||
+        !isKey(m.from) ||
+        !isKey(m.to) ||
+        !['pivot', 'direct'].includes(String(m.method)) ||
+        !['departure', 'pivot', 'dominant', 'arrival', 'cadence'].includes(
+          String(m.role),
+        ) ||
+        !sameKey(
+          e.key,
+          ['arrival', 'cadence'].includes(String(m.role)) ? m.to : m.from,
+        ) ||
+        (m.role === 'pivot' &&
+          (m.method !== 'pivot' ||
+            !commonChords(m.from, m.to, tones(e.chord).length === 4).some((c) =>
+              sameChord(c, e.chord as Harmony),
+            )))
+      )
+        throw new Error('Invalid modulation intent');
+    }
     return {
       id: e.id,
       key: e.key,
@@ -356,13 +429,33 @@ export function importSession(text: string): Session {
       bass: e.bass as number | null,
       policy: e.policy as VoicingPolicy,
       notes,
+      ...(e.modulation === undefined
+        ? {}
+        : { modulation: structuredClone(e.modulation) as ModulationIntent }),
       ...(e.intent === undefined
         ? {}
         : { intent: e.intent as GenerationIntent }),
     };
   });
+  if (value.schemaVersion === 3) {
+    const expected = keyEventsFor(events);
+    if (
+      !Array.isArray(value.keyEvents) ||
+      value.keyEvents.length !== expected.length ||
+      value.keyEvents.some(
+        (k: unknown, i: number) =>
+          !object(k) ||
+          !isKey(k.key) ||
+          k.eventId !== expected[i].eventId ||
+          k.beat !== expected[i].beat ||
+          !sameKey(k.key, expected[i].key) ||
+          k.intent !== expected[i].intent,
+      )
+    )
+      throw new Error('Key events contradict timeline');
+  }
   let generation: Session['generation'] = null;
-  if (value.schemaVersion === 2 && value.generation !== null) {
+  if (value.schemaVersion !== 1 && value.generation !== null) {
     const g = value.generation;
     if (
       !object(g) ||
@@ -412,7 +505,7 @@ export function importSession(text: string): Session {
     }
   }
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     revision: 0,
     settings: {
       generator:
@@ -433,6 +526,7 @@ export function importSession(text: string): Session {
       policy: s.policy as VoicingPolicy,
     },
     events,
+    keyEvents: keyEventsFor(events),
     generation,
   };
 }
@@ -442,11 +536,12 @@ export function keyFromName(name: string, mode: Key['mode']): Key {
 export function exportSession(session: Session) {
   return JSON.stringify(session, null, 2);
 }
-export const STORAGE_KEY = 'chordscape.session.v2';
+export const STORAGE_KEY = 'chordscape.session.v3';
 export function loadSession(): { session: Session; failed: boolean } {
   try {
     const text =
       localStorage.getItem(STORAGE_KEY) ??
+      localStorage.getItem('chordscape.session.v2') ??
       localStorage.getItem('chordscape.session.v1');
     return {
       session: text ? importSession(text) : newSession(),

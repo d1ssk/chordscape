@@ -1,3 +1,4 @@
+import type { Key } from '../music/harmony';
 import type { ChordEvent } from '../state/session';
 export interface AudioPort {
   now(): number;
@@ -5,6 +6,7 @@ export interface AudioPort {
   cancel(): void;
 }
 export interface PlaybackState {
+  key?: Key | null;
   status: 'stopped' | 'playing' | 'paused';
   beat: number;
   event: ChordEvent | null;
@@ -189,6 +191,7 @@ export class Scheduler {
       event,
       next,
       previous,
+      key: event?.key ?? this.state.key,
       cycle: cycle.index,
     });
   }

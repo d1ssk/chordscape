@@ -73,3 +73,20 @@ Loopの次周回は120ms先までの予約時点で固定します。編集中�
 - 日本語の生成画面・生成後の演奏画面をdesktop/mobileの画像で目視確認。
 
 実機での試聴、フレーズの自然さの聴感評価、Safari/iOSでの手動確認は未実施です。追加style、tritone substitution、P3–P5は提供していません。
+
+## P3 / Circle（2026-09-16）
+
+P2を `npm run check` で再検証し、`30bfff0` にコミットしてから着手しました。
+
+- `npm run check`: strict型検査、ESLint、Prettier、47 unit tests、production buildが成功。
+- C / Gの共通三和音C・Em・G・Amと、共通七の和音Cmaj7・Em7・Am7を検査。qualityと全構成音の一致を条件にし、同じ根音だけでは共通和音と扱わないことを確認。
+- C → Am → D7 → Gの旧新分析、Gでの調の切替、任意の新調cadence、遠隔調での直接転調、同調・異名同音の同調への転調を提案しないことを検査。
+- F♯ → D♭の共通和音は旧調でD♯m（vi）、新調でE♭m（ii）として綴り分けます。実際に鳴らすpitch classを変えず、それぞれの文脈で分析することを検査。
+- 全30調・両方向の12区間巡回、出発調への帰着、三和音／七の和音、Smoothの構成音を検査。巡回のJSON往復と、-1 / +1 / +7半音の全体移調後に旧新の転調意図・調の切替・確定音高が整合することを確認。
+- KeyEventは安定eventIdに結び付け、拍位置を順序と長さから導出。長さ変更・並べ替え・削除・Undo/Redoで境界が追随することを検査。参照先のない境界・誤った拍位置・矛盾した調・偽のピボットをJSON読込時に拒否。schemaVersion 1 / 2から3への移行で確定音高を保持。
+- 偽のaudio clockで、Gが先読み予約されてもD7の間は旧調を保つこと、境界直前のPause/Resume・テンポ変更、次周回のsnapshot、Stopでの予約破棄を検査。
+- PlaywrightのP3シナリオは、比較とパレット変更の区別、SVGの矢印キー／フォーカス、異名同音表示、追加前の旧新分析、Gの発音とパレットの同時切替、Pause/Resume・Stop・再生し直し、試聴後の保存データ保持、巡回・移調・JSON再読込・Undo、直接転調・cadence・七の和音比較を含みます。短い試聴のC→G→C表示はブラウザ内のMutationObserverで記録し、テストのポーリング間隔に依存させません。
+- `/` と `/chordscape-smoke/` のproduction buildで、各22シナリオ × desktop/mobile = 44 tests、合計88 testsが成功。既存P1/P2の再生、保存、生成、4音色、停止時の無音も含みます。
+- desktop（1280px）、mobile（390px）、最小幅（320px）の五度圏画面を撮影し、desktop/mobile画像を目視確認。横overflowがないことと、演奏画面の7和音が横1列に収まることをブラウザで確認。
+
+実機での試聴、転調の自然さの聴感評価、Safari/iOSでの手動確認は未実施です。P4の旋律、P5の読み上げ・quiz、追加styleやオフライン起動は未実装です。

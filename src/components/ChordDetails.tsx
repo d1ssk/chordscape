@@ -1,3 +1,4 @@
+import { DualAnalysis, roleLabel } from './Circle';
 import {
   analyze,
   chordSymbol,
@@ -71,6 +72,14 @@ export function ChordDetails({
           </b>
         </span>
       </div>
+      {event.modulation && (
+        <div className="modulation-detail">
+          <small>
+            {t.modulationIntent} · {roleLabel(event.modulation.role, t)}
+          </small>
+          <DualAnalysis event={event} t={t} />
+        </div>
+      )}
       <Keyboard notes={sounding} t={t} />
       <div className="inversion-line">
         <label>

@@ -2,6 +2,7 @@ import { expect, it } from 'vitest';
 import { Scheduler, type AudioPort } from './scheduler';
 import { diatonic, defaultKey } from '../music/harmony';
 import { makeEvent, newSession } from '../state/session';
+import { buildBridge } from '../music/modulation';
 function fixture() {
   let time = 0;
   let cancellations = 0;
@@ -31,6 +32,45 @@ function fixture() {
     },
   };
 }
+it('keeps key and sound in the same snapshot through lookahead, pause, tempo, loop and Stop', () => {
+  const f = fixture();
+  const g = {
+    tonic: { letter: 'G' as const, accidental: 0 },
+    mode: 'major' as const,
+  };
+  const events = buildBridge({
+    from: defaultKey,
+    to: g,
+    duration: 1,
+    seventh: false,
+    policy: 'root',
+    cadence: false,
+  });
+  f.scheduler.play(events, 60, true, () => events);
+  f.advance(2.95); // G is scheduled at 3.03, but D7 is still sounding.
+  expect(f.scheduled.at(-1)?.id).toBe('bridge-3');
+  expect(f.scheduler.state.key).toEqual(defaultKey);
+  expect(f.scheduler.state.event?.chord.quality).toBe('7');
+  f.scheduler.pause();
+  expect(f.scheduler.state.key).toEqual(defaultKey);
+  f.advance(5);
+  f.scheduler.configure(120, true);
+  f.scheduler.resume();
+  f.advance(5.075);
+  expect(f.scheduler.state.key).toEqual(g);
+  expect(f.scheduler.state.event?.id).toBe('bridge-3');
+  events[0].key = g; // Already playing snapshot cannot be rewritten by edits.
+  f.advance(5.54);
+  expect(f.scheduler.state.cycle).toBe(0);
+  f.advance(5.58);
+  expect(f.scheduler.state.cycle).toBe(1);
+  expect(f.scheduler.state.event?.id).toBe('bridge-0');
+  expect(f.scheduler.state.key).toEqual(g); // Updated next snapshot.
+  f.scheduler.stop();
+  f.advance(20);
+  expect(f.scheduler.state.key).toBeUndefined();
+  expect(f.scheduled).toEqual([]);
+});
 it('schedules with audio timestamps and cancels pending events on Stop', () => {
   const f = fixture();
   f.scheduler.play(f.events, 60, false, () => f.events);

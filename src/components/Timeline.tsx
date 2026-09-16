@@ -1,3 +1,5 @@
+import { keyEventsFor } from '../music/modulation';
+import { keyLabel } from './Circle';
 import type { Messages } from '../i18n/messages';
 import {
   analyze,
@@ -23,6 +25,7 @@ export function Timeline({
   onEdit: (edit: Edit) => void;
   t: Messages;
 }) {
+  const keyEvents = keyEventsFor(events);
   const selected = events.find((e) => e.id === selectedId);
 
   return (
@@ -74,6 +77,12 @@ export function Timeline({
                       inversionOf(event.chord, event.notes),
                     )}
                   </span>
+                  {keyEvents.length > 1 &&
+                    keyEvents.some((k) => k.eventId === event.id) && (
+                      <small className="boundary">
+                        ↳ {keyLabel(event.key, t)}
+                      </small>
+                    )}
                   <small>
                     {event.duration} {t.beat}
                     {event.bass !== null ? ` · ${t.fixed}` : ''}
@@ -83,6 +92,25 @@ export function Timeline({
             );
           })}
         </ol>
+      )}
+      {keyEvents.length > 1 && (
+        <details className="key-events">
+          <summary>{t.keyEvents}</summary>
+          <ol>
+            {keyEvents.map((k) => (
+              <li key={k.eventId}>
+                {t.beat} {k.beat + 1} · {keyLabel(k.key, t)} ·{' '}
+                {k.intent === 'initial'
+                  ? t.initialKey
+                  : k.intent === 'selection'
+                    ? t.selectedContext
+                    : k.intent === 'pivot'
+                      ? t.pivotBridge
+                      : t.directBridge}
+              </li>
+            ))}
+          </ol>
+        </details>
       )}
       {selected && (
         <details className="editor-disclosure">
