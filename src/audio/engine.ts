@@ -1,13 +1,27 @@
 import * as Tone from 'tone';
 import type { ChordEvent } from '../state/session';
 import { Scheduler, type PlaybackState } from './scheduler';
-interface Voice {
-  synth: Tone.PolySynth;
-  gate: Tone.Gain;
-  end: number;
+import { createNoteVoice, type NoteVoice } from './voices';
+import {
+  DEFAULT_INSTRUMENT,
+  PIANO_NOTES,
+  pianoFile,
+  type Instrument,
+} from './instruments';
+export interface SoundState {
+  instrument: Instrument;
+  loading: boolean;
+  failed: boolean;
 }
 export class AudioEngine {
-  private voices: Voice[] = [];
+  private voices: NoteVoice[] = [];
+  private bus?: GainNode;
+  private highpass?: BiquadFilterNode;
+  private samples = new Map<number, AudioBuffer>();
+  private instrument: Instrument = DEFAULT_INSTRUMENT;
+  private soundRequest = 0;
+  private sampleLoad?: Promise<void>;
+  private abort = new AbortController();
   private master?: Tone.Gain;
   private limiter?: Tone.Limiter;
   private analyser?: Tone.Analyser;
@@ -25,6 +39,7 @@ export class AudioEngine {
   constructor(
     private notify: (state: PlaybackState, level: number) => void,
     private ready: (ready: boolean) => void,
+    private sound: (state: SoundState) => void,
   ) {
     this.scheduler = new Scheduler(
       {
@@ -52,6 +67,13 @@ export class AudioEngine {
     if (this.disposed) return false;
     if (!this.master) {
       this.master = new Tone.Gain(this.volume);
+      this.bus = Tone.getContext().createGain();
+      this.highpass = Tone.getContext().createBiquadFilter();
+      this.highpass.type = 'highpass';
+      this.highpass.frequency.value = 35;
+      this.highpass.Q.value = 0.5;
+      this.bus.connect(this.highpass);
+      Tone.connect(this.highpass, this.master);
       this.limiter = new Tone.Limiter(-3).toDestination();
       this.analyser = new Tone.Analyser('waveform', 256);
       this.master.connect(this.limiter);
@@ -64,45 +86,93 @@ export class AudioEngine {
     this.ready(running);
     return running;
   }
+  async setInstrument(instrument: Instrument) {
+    if (
+      instrument === this.instrument &&
+      (instrument !== 'piano' || this.samples.size)
+    ) {
+      this.soundRequest++;
+      this.sound({ instrument, loading: false, failed: false });
+      return;
+    }
+    const request = ++this.soundRequest;
+    this.stop();
+    this.sound({
+      instrument: this.instrument,
+      loading: instrument === 'piano' && !this.samples.size,
+      failed: false,
+    });
+    try {
+      if (instrument === 'piano' && !this.samples.size) {
+        this.sampleLoad ??= Promise.all(
+          PIANO_NOTES.map(async (midi) => {
+            const response = await fetch(
+              `${import.meta.env.BASE_URL}samples/salamander/${pianoFile(midi)}`,
+              {
+                signal: AbortSignal.any([
+                  this.abort.signal,
+                  AbortSignal.timeout(12000),
+                ]),
+              },
+            );
+            if (!response.ok) throw new Error('Piano sample unavailable');
+            return [
+              midi,
+              await Tone.getContext().decodeAudioData(
+                await response.arrayBuffer(),
+              ),
+            ] as const;
+          }),
+        )
+          .then((entries) => {
+            if (!this.disposed) this.samples = new Map(entries);
+          })
+          .catch((error) => {
+            this.sampleLoad = undefined;
+            throw error;
+          });
+        await this.sampleLoad;
+      }
+      if (this.disposed || request !== this.soundRequest) return;
+      this.instrument = instrument;
+      this.sound({ instrument, loading: false, failed: false });
+    } catch {
+      if (this.disposed || request !== this.soundRequest) return;
+      this.instrument = DEFAULT_INSTRUMENT;
+      this.sound({ instrument: this.instrument, loading: false, failed: true });
+    }
+  }
   private schedule(event: ChordEvent, time: number, duration: number) {
-    if (!this.master || this.disposed) return;
-    const gate = new Tone.Gain(1).connect(this.master);
-    const synth = new Tone.PolySynth(Tone.Synth, {
-      oscillator: { type: 'triangle' },
-      envelope: { attack: 0.012, decay: 0.2, sustain: 0.35, release: 0.018 },
-    }).connect(gate);
-    synth.maxPolyphony = 4;
-    synth.volume.value = -17;
-    synth.triggerAttackRelease(
-      event.notes.map((n) => Tone.Frequency(n, 'midi').toFrequency()),
-      Math.max(0.015, duration - 0.018),
-      time,
-    );
-    this.voices.push({ synth, gate, end: time + duration + 0.025 });
-    // Bounded even under extremely fast repeated pointer/keyboard input.
-    while (this.voices.length > 8) {
-      const old = this.voices.shift()!;
-      old.synth.dispose();
-      old.gate.dispose();
+    if (!this.bus || this.disposed) return;
+    for (const note of event.notes)
+      this.voices.push(
+        createNoteVoice(
+          Tone.getContext(),
+          this.bus,
+          this.instrument,
+          note,
+          time,
+          duration,
+          this.samples,
+        ),
+      );
+    while (this.voices.length > 48) {
+      const voice = this.voices.shift()!;
+      voice.stop(Tone.immediate());
+      voice.dispose();
     }
   }
   private cancel() {
-    const now = Tone.immediate();
     this.auditioning = undefined;
-    for (const voice of this.voices) {
-      voice.gate.gain.cancelScheduledValues(now);
-      voice.gate.gain.setValueAtTime(voice.gate.gain.value, now);
-      voice.gate.gain.linearRampToValueAtTime(0, now + 0.012);
-      voice.end = Math.min(voice.end, now + 0.02);
-    }
+    const now = Tone.immediate();
+    for (const voice of this.voices) voice.stop(now);
   }
   private tick() {
     const now = Tone.immediate();
     this.scheduler.tick();
     this.voices = this.voices.filter((voice) => {
       if (voice.end <= now) {
-        voice.synth.dispose();
-        voice.gate.dispose();
+        voice.dispose();
         return false;
       }
       return true;
@@ -165,17 +235,21 @@ export class AudioEngine {
   }
   dispose() {
     this.disposed = true;
+    this.soundRequest++;
+    this.abort.abort();
     clearInterval(this.interval);
     this.scheduler.stop();
     this.voices.forEach((v) => {
-      v.synth.dispose();
-      v.gate.dispose();
+      v.dispose();
     });
     this.voices = [];
     if (this.master) {
       Tone.getContext().off('statechange', this.contextChanged);
       document.removeEventListener('visibilitychange', this.visibilityChanged);
     }
+    this.bus?.disconnect();
+    this.highpass?.disconnect();
+    this.samples.clear();
     this.master?.dispose();
     this.limiter?.dispose();
     this.analyser?.dispose();

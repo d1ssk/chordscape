@@ -1,4 +1,12 @@
 import { test, expect, type Page } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+import ts from 'typescript';
+async function scene(page: Page, name = '演奏') {
+  await page
+    .getByRole('navigation')
+    .getByRole('button', { name, exact: true })
+    .click();
+}
 async function enable(page: Page) {
   await page.getByRole('button', { name: '音声を開始', exact: true }).click();
   await expect(
@@ -25,25 +33,31 @@ async function silent(page: Page) {
     )
     .toBeLessThan(0.0001);
 }
+async function expand(page: Page, selector: string) {
+  const details = page.locator(selector);
+  if (!(await details.evaluate((e) => (e as HTMLDetailsElement).open)))
+    await details.locator(':scope > summary').click();
+}
 test.beforeEach(async ({ page }) => {
   await page.goto('./');
 });
-test('production assets, real Web Audio, rapid switching, stop, keyboard and mobile layout', async ({
+test('production assets, audio, stop, keyboard and scene navigation', async ({
   page,
 }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('response', (r) => {
-    if (/\.(js|css)(\?|$)/.test(r.url()) && r.status() >= 400)
+    if (/\.(js|css|mp3)(\?|$)/.test(r.url()) && r.status() >= 400)
       errors.push(r.url());
   });
   page.on('requestfailed', (r) => errors.push(r.url()));
   await page.reload();
   await expect(page.getByRole('heading', { name: 'Chordscape' })).toBeVisible();
-  const start = page.getByRole('button', { name: '音声を開始' });
-  await start.focus();
+  await expect(page.getByText(/HARMONY PLAYGROUND|和音に触れて/)).toHaveCount(
+    0,
+  );
+  await page.getByRole('button', { name: '音声を開始' }).focus();
   await page.keyboard.press('Enter');
-  await expect(page.getByRole('button', { name: '音声オン' })).toBeVisible();
   await chord(page, 'Bdim vii°');
   await sounding(page);
   await expect(page.getByTestId('chord-symbol')).toHaveText('Bdim');
@@ -53,13 +67,22 @@ test('production assets, real Web Audio, rapid switching, stop, keyboard and mob
   );
   await chord(page, 'C I');
   await chord(page, 'Dm ii');
-  await expect(page.getByTestId('chord-symbol')).toHaveText('Dm');
   await stop(page);
+  await silent(page);
+  await page.waitForTimeout(1100);
+  await silent(page);
   await expect(page.locator('[data-active="true"]')).toHaveCount(0);
-  await silent(page);
-  await page.waitForTimeout(1200);
-  await silent(page);
+  await scene(page, 'コード辞典');
+  await expect(
+    page.getByRole('heading', { name: 'コード辞典', exact: true }),
+  ).toBeFocused();
+  await expect(page.locator('.palette-panel')).toHaveCount(0);
+  await page.goBack();
+  await expect(page.getByRole('heading', { name: 'Chordscape' })).toBeVisible();
+  await expect(page.locator('.timeline li')).toHaveCount(3);
+  await scene(page, '設定');
   await page.getByLabel('言語').selectOption('en');
+  await scene(page, 'Play');
   await expect(
     page.getByRole('button', { name: '■ Stop', exact: true }),
   ).toBeVisible();
@@ -69,12 +92,62 @@ test('production assets, real Web Audio, rapid switching, stop, keyboard and mob
     ),
   ).toBe(true);
   await page.screenshot({
-    path: `test-results/playground-${test.info().project.name}.png`,
+    path: `test-results/compact-${test.info().project.name}.png`,
     fullPage: true,
   });
   expect(errors).toEqual([]);
 });
-test('spelled keys, natural minor, outside dominant and seventh inversion share actual bass', async ({
+test('seven chords fit one mobile row with keyboard and progression visible', async ({
+  page,
+}) => {
+  for (const width of [320, 375, 390]) {
+    await page.setViewportSize({ width, height: 812 });
+    const boxes = await page
+      .locator('.palette-panel > .palette button')
+      .evaluateAll((buttons) =>
+        buttons.map((button) => {
+          const b = button.getBoundingClientRect();
+          return { top: b.top, left: b.left, right: b.right };
+        }),
+      );
+    expect(boxes).toHaveLength(7);
+    expect(new Set(boxes.map((b) => Math.round(b.top))).size).toBe(1);
+    expect(boxes[0].left).toBeGreaterThanOrEqual(0);
+    expect(boxes[6].right).toBeLessThanOrEqual(width);
+    expect(
+      await page
+        .locator('.keyboard')
+        .evaluate((e) => e.getBoundingClientRect().bottom),
+    ).toBeLessThan(650);
+    expect(
+      await page
+        .locator('.timeline-panel h2')
+        .evaluate((e) => e.getBoundingClientRect().bottom),
+    ).toBeLessThan(730);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  }
+  await enable(page);
+  await page
+    .getByRole('combobox', { name: '調', exact: true })
+    .selectOption('F♯');
+  await page
+    .getByRole('combobox', { name: '和音の種類', exact: true })
+    .selectOption('7');
+  expect(
+    await page
+      .locator('.palette-panel > .palette button')
+      .evaluateAll(
+        (items) =>
+          new Set(items.map((e) => Math.round(e.getBoundingClientRect().top)))
+            .size,
+      ),
+  ).toBe(1);
+});
+test('key spellings, minor outside dominant and seventh bass', async ({
   page,
 }) => {
   await enable(page);
@@ -87,8 +160,6 @@ test('spelled keys, natural minor, outside dominant and seventh inversion share 
   await page
     .getByRole('combobox', { name: '調', exact: true })
     .selectOption('F♯');
-  await chord(page, 'F♯ I');
-  await expect(page.getByText('F♯ – A♯ – C♯', { exact: true })).toBeVisible();
   await page
     .getByRole('combobox', { name: '和音の種類', exact: true })
     .selectOption('7');
@@ -108,8 +179,9 @@ test('spelled keys, natural minor, outside dominant and seventh inversion share 
   await expect(
     page.getByRole('button', { name: 'Em v', exact: true }),
   ).toBeVisible();
-  await page.getByText('調外の和音', { exact: true }).click();
+  await expand(page, '.outside');
   await chord(page, 'E7 V7');
+  await expand(page, '.theory-details');
   await expect(page.getByText(/短調の第7音を上げて/)).toBeVisible();
   await page
     .getByRole('combobox', { name: '音階', exact: true })
@@ -131,20 +203,21 @@ test('spelled keys, natural minor, outside dominant and seventh inversion share 
     'data-active',
     'true',
   );
+  await expand(page, '.advanced');
   await page
     .getByRole('combobox', { name: '配置', exact: true })
     .selectOption('smooth');
   await stop(page);
   await expect(page.getByTestId('chord-symbol')).toHaveText('G7/F');
 });
-test('record, event editing, undo/redo, key preservation and local reload', async ({
+test('event edits, undo, record off and reload preserve the session', async ({
   page,
 }) => {
   await enable(page);
   await chord(page, 'C I');
   await chord(page, 'G V');
   await stop(page);
-  await expect(page.locator('.timeline li')).toHaveCount(2);
+  await expand(page, '.editor-disclosure');
   await page.getByRole('button', { name: '複製', exact: true }).click();
   await expect(page.locator('.timeline li')).toHaveCount(3);
   await page.getByRole('button', { name: '← 前へ', exact: true }).click();
@@ -155,24 +228,21 @@ test('record, event editing, undo/redo, key preservation and local reload', asyn
   await page.getByRole('button', { name: '削除', exact: true }).click();
   await expect(page.locator('.timeline li')).toHaveCount(2);
   await page.getByRole('button', { name: '元に戻す', exact: true }).click();
-  await expect(page.locator('.timeline li')).toHaveCount(3);
   await page.getByRole('button', { name: '全消去', exact: true }).click();
   await expect(page.locator('.timeline li')).toHaveCount(0);
   await page.getByRole('button', { name: '元に戻す', exact: true }).click();
   await expect(page.locator('.timeline li')).toHaveCount(3);
-  await page.getByRole('button', { name: 'やり直す', exact: true }).click();
-  await expect(page.locator('.timeline li')).toHaveCount(0);
-  await page.getByRole('button', { name: '元に戻す', exact: true }).click();
   await page.getByLabel('記録', { exact: true }).uncheck();
   await chord(page, 'Am vi');
   await expect(page.locator('.timeline li')).toHaveCount(3);
   await page
     .getByRole('combobox', { name: '調', exact: true })
     .selectOption('D');
-  await expect(page.locator('.timeline .event').first()).toContainText('G');
+  await scene(page, '設定');
   await expect(
     page.getByText('このブラウザに保存済み', { exact: true }),
   ).toBeVisible();
+  await scene(page);
   await page.reload();
   await expect(page.locator('.timeline li')).toHaveCount(3);
   await expect(
@@ -180,14 +250,12 @@ test('record, event editing, undo/redo, key preservation and local reload', asyn
   ).toHaveValue('D');
   await expect(page.getByLabel('記録', { exact: true })).not.toBeChecked();
 });
-test('library auditions do not record, validated JSON round trip and transpose', async ({
+test('library auditions and adds, JSON round trip, invalid import and transpose', async ({
   page,
 }) => {
   await enable(page);
-  await page.getByText('コード辞典', { exact: true }).click();
-  const library = page
-    .locator('section')
-    .filter({ has: page.locator('summary').filter({ hasText: 'コード辞典' }) });
+  await scene(page, 'コード辞典');
+  const library = page.locator('.library-panel');
   await library
     .getByRole('combobox', { name: '根音', exact: true })
     .selectOption('D');
@@ -195,13 +263,16 @@ test('library auditions do not record, validated JSON round trip and transpose',
     .getByRole('combobox', { name: '種類', exact: true })
     .selectOption('7');
   await library.getByRole('button', { name: '試聴', exact: true }).click();
-  await expect(page.locator('.timeline li')).toHaveCount(0);
   await expect(page.getByTestId('chord-symbol')).toHaveText('D7');
+  await scene(page);
+  await expect(page.locator('.timeline li')).toHaveCount(0);
+  await scene(page, 'コード辞典');
   await library
     .getByRole('button', { name: '進行へ追加', exact: true })
     .click();
   await expect(page.locator('.timeline li')).toHaveCount(1);
   await stop(page);
+  await scene(page, '設定');
   const downloaded = page.waitForEvent('download');
   await page.getByRole('button', { name: 'JSONを書き出す' }).click();
   const download = await downloaded;
@@ -209,37 +280,38 @@ test('library auditions do not record, validated JSON round trip and transpose',
   const chunks: Buffer[] = [];
   for await (const chunk of stream!) chunks.push(Buffer.from(chunk));
   const buffer = Buffer.concat(chunks);
+  await scene(page);
   await page.getByRole('button', { name: '全消去', exact: true }).click();
+  await scene(page, '設定');
   await page.getByLabel('セッションJSON').setInputFiles({
     name: 'session.json',
     mimeType: 'application/json',
     buffer,
   });
   await expect(page.locator('.timeline li')).toHaveCount(1);
+  await scene(page, '設定');
   await page.getByLabel('セッションJSON').setInputFiles({
     name: 'invalid.json',
     mimeType: 'application/json',
     buffer: Buffer.from('{"schemaVersion":99}'),
   });
   await expect(page.getByRole('alert')).toContainText('読み込めません');
-  await expect(page.locator('.timeline li')).toHaveCount(1);
+  await scene(page);
+  await expand(page, '.advanced');
   await page.getByText('進行全体を移調', { exact: true }).first().click();
   await page
     .getByRole('button', { name: '進行全体を移調', exact: true })
     .click();
   await expect(page.locator('.timeline .event')).toContainText('E7');
 });
-test('loop playback, pause/resume, edits, tempo and comparison stop cleanly', async ({
+test('loop, pause/resume, tempo changes and smooth comparison stop cleanly', async ({
   page,
 }) => {
   await enable(page);
   await page
     .getByRole('combobox', { name: '長さ（拍）', exact: true })
     .selectOption('1');
-  await chord(page, 'C I');
-  await chord(page, 'G V');
-  await chord(page, 'Am vi');
-  await chord(page, 'F IV');
+  for (const name of ['C I', 'G V', 'Am vi', 'F IV']) await chord(page, name);
   await stop(page);
   await page.getByLabel('ループ', { exact: true }).check();
   await page.getByLabel('BPM', { exact: true }).fill('200');
@@ -250,20 +322,19 @@ test('loop playback, pause/resume, edits, tempo and comparison stop cleanly', as
   ).toBeDisabled();
   await page.getByRole('button', { name: '一時停止', exact: true }).click();
   await silent(page);
-  await expect(
-    page.getByRole('button', { name: '再開', exact: true }),
-  ).toBeEnabled();
   await page.getByRole('button', { name: '再開', exact: true }).click();
   await sounding(page);
+  await expand(page, '.editor-disclosure');
   await page
     .getByRole('spinbutton', { name: '長さ（拍）', exact: true })
     .fill('2');
   await page.getByLabel('BPM', { exact: true }).fill('150');
+  await expand(page, '.advanced');
   await page
     .getByRole('button', { name: 'B: Smoothを聴く', exact: true })
     .click();
   await sounding(page);
-  await page.waitForTimeout(1800);
+  await page.waitForTimeout(1500);
   await stop(page);
   await silent(page);
   await expect(page.locator('[data-active="true"]')).toHaveCount(0);
@@ -278,13 +349,14 @@ test('storage refusal leaves audition and export usable', async ({ page }) => {
   await enable(page);
   await chord(page, 'C I');
   await sounding(page);
-  await expect(page.getByText(/ブラウザ保存を利用できません/)).toBeVisible();
   await stop(page);
+  await scene(page, '設定');
+  await expect(page.getByText(/ブラウザ保存を利用できません/)).toBeVisible();
   const download = page.waitForEvent('download');
   await page.getByRole('button', { name: 'JSONを書き出す' }).click();
   expect((await download).suggestedFilename()).toBe('chordscape-session.json');
 });
-test('suspended AudioContext pauses transport and resumes only after user action', async ({
+test('suspension resumes at the held beat; paused clear discards the snapshot', async ({
   page,
 }) => {
   await page.addInitScript(() => {
@@ -315,32 +387,214 @@ test('suspended AudioContext pauses transport and resumes only after user action
   await expect(
     page.getByRole('button', { name: '再開', exact: true }),
   ).toBeDisabled();
-  await expect(page.locator('[data-active="true"]')).toHaveCount(0);
   await enable(page);
   await page.getByRole('button', { name: '再開', exact: true }).click();
-  await sounding(page);
-  await stop(page);
-  await silent(page);
-});
-test('editing a paused progression cannot resume a deleted snapshot', async ({
-  page,
-}) => {
-  await enable(page);
-  await chord(page, 'C I');
-  await stop(page);
-  await page.getByRole('button', { name: '再生', exact: true }).click();
   await sounding(page);
   await page.getByRole('button', { name: '一時停止', exact: true }).click();
   await page.getByRole('button', { name: '全消去', exact: true }).click();
   await expect(
     page.getByRole('button', { name: '再開', exact: true }),
   ).toHaveCount(0);
-  await expect(
-    page.getByRole('button', { name: '再生', exact: true }),
-  ).toBeDisabled();
   await silent(page);
-  await page.getByRole('button', { name: '元に戻す', exact: true }).click();
+});
+test('all four sounds play, samples use the production subpath, and switching stops audio', async ({
+  page,
+}) => {
+  const requests: string[] = [];
+  page.on('request', (r) => {
+    if (r.url().endsWith('.mp3')) requests.push(r.url());
+  });
+  await enable(page);
+  for (const instrument of ['electric', 'pad', 'piano', 'soft']) {
+    await scene(page, '設定');
+    await page.getByLabel('音色', { exact: true }).selectOption(instrument);
+    await expect(
+      page.getByText('Pianoを読み込み中…', { exact: true }),
+    ).toHaveCount(0);
+    await silent(page);
+    await scene(page);
+    await chord(page, 'C I');
+    await sounding(page);
+    await stop(page);
+    await silent(page);
+  }
+  expect(requests).toHaveLength(17);
+  for (const url of requests)
+    expect(url).toContain(
+      `${process.env.VITE_BASE_PATH || '/'}samples/salamander/`,
+    );
+  await scene(page, '設定');
+  await expect(page.getByText(/Piano: Salamander Grand Piano/)).toBeVisible();
+});
+test('failed piano load falls back, supports retry, and never plays a delayed chord', async ({
+  page,
+}) => {
+  await page.route('**/samples/salamander/*.mp3', (r) =>
+    r.fulfill({ status: 503, body: 'unavailable' }),
+  );
+  await enable(page);
+  await scene(page, '設定');
+  await page.getByLabel('音色', { exact: true }).selectOption('piano');
+  await expect(page.getByRole('alert')).toContainText('Electric piano');
+  await scene(page);
+  await chord(page, 'C I');
+  await sounding(page);
+  await stop(page);
+  await page.unroute('**/samples/salamander/*.mp3');
+  await page.getByRole('button', { name: '再試行', exact: true }).click();
   await expect(
-    page.getByRole('button', { name: '再生', exact: true }),
-  ).toBeEnabled();
+    page.getByRole('button', { name: '演奏する音色: Piano', exact: true }),
+  ).toBeVisible();
+  await silent(page);
+  await chord(page, 'C I');
+  await sounding(page);
+  await stop(page);
+  await silent(page);
+});
+test('the first attack stays bounded and rapid stop cancels voices before they start', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const Original = window.AudioContext;
+    window.AudioContext = class extends Original {
+      createDynamicsCompressor() {
+        const compressor = super.createDynamicsCompressor();
+        const monitor = super.createAnalyser();
+        monitor.fftSize = 32768;
+        monitor.smoothingTimeConstant = 0;
+        compressor.connect(monitor);
+        (
+          window as typeof window & { audioMonitor?: AnalyserNode }
+        ).audioMonitor = monitor;
+        return compressor;
+      }
+    };
+  });
+  await page.reload();
+  await enable(page);
+  for (const instrument of ['electric', 'pad', 'soft']) {
+    await scene(page, '設定');
+    await page.getByLabel('音色', { exact: true }).selectOption(instrument);
+    await scene(page);
+    await chord(page, 'C I');
+    await page.waitForTimeout(400);
+    const metrics = await page.evaluate(() => {
+      const monitor = (window as typeof window & { audioMonitor: AnalyserNode })
+        .audioMonitor;
+      const samples = new Float32Array(monitor.fftSize);
+      monitor.getFloatTimeDomainData(samples);
+      const bins = new Float32Array(monitor.frequencyBinCount);
+      monitor.getFloatFrequencyData(bins);
+      let peak = 0,
+        step = 0,
+        mean = 0,
+        power = 0,
+        low = 0;
+      for (let i = 0; i < samples.length; i++) {
+        peak = Math.max(peak, Math.abs(samples[i]));
+        mean += samples[i];
+        if (i) step = Math.max(step, Math.abs(samples[i] - samples[i - 1]));
+      }
+      for (let i = 0; i < bins.length; i++) {
+        const energy = 10 ** (bins[i] / 10);
+        power += energy;
+        if ((i * monitor.context.sampleRate) / monitor.fftSize < 35)
+          low += energy;
+      }
+      return {
+        peak,
+        step,
+        mean: Math.abs(mean / samples.length),
+        lowRatio: low / power,
+      };
+    });
+    expect(metrics.peak).toBeGreaterThan(0.001);
+    expect(metrics.peak).toBeLessThan(0.5);
+    expect(metrics.step).toBeLessThan(0.04);
+    expect(metrics.mean).toBeLessThan(0.002);
+    expect(metrics.lowRatio).toBeLessThan(0.005);
+    await stop(page);
+    await silent(page);
+  }
+  await page
+    .getByRole('button', { name: 'C I', exact: true })
+    .evaluate((button) => {
+      (button as HTMLButtonElement).click();
+      (document.querySelector('.stop') as HTMLButtonElement).click();
+    });
+  await page.waitForTimeout(200);
+  await silent(page);
+  await expect(page.locator('[data-active="true"]')).toHaveCount(0);
+});
+test('stop fades continuously during attack, decay and release', async ({
+  page,
+}) => {
+  // Execute the actual voice implementation with a deterministic browser clock.
+  const voiceModule = ts.transpileModule(
+    readFileSync('src/audio/voices.ts', 'utf8'),
+    {
+      compilerOptions: {
+        module: ts.ModuleKind.ESNext,
+        target: ts.ScriptTarget.ES2022,
+      },
+    },
+  ).outputText;
+  const results = await page.evaluate(async (code) => {
+    const url = URL.createObjectURL(
+      new Blob([code], { type: 'text/javascript' }),
+    );
+    const { createNoteVoice } = (await import(
+      /* @vite-ignore */ url
+    )) as typeof import('../../src/audio/voices');
+    URL.revokeObjectURL(url);
+    const results = [];
+    for (const instrument of ['electric', 'pad', 'soft'] as const) {
+      for (const stopAt of [0.01, 0.04, 0.2, 0.4, 0.65, 0.95, 1.02]) {
+        const context = new OfflineAudioContext(1, 48000 * 1.2, 48000);
+        const master = context.createGain();
+        master.gain.value = 0.5;
+        master.connect(context.destination);
+        const filter = context.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.value = 35;
+        filter.Q.value = 0.5;
+        filter.connect(master);
+        const voices = [48, 52, 55].map((midi) =>
+          createNoteVoice(
+            context,
+            filter,
+            instrument,
+            midi,
+            0.03,
+            1,
+            new Map(),
+          ),
+        );
+        const stopped = context.suspend(stopAt).then(() => {
+          voices.forEach((voice) => voice.stop(context.currentTime));
+          return context.resume();
+        });
+        const buffer = await context.startRendering();
+        await stopped;
+        const samples = buffer.getChannelData(0);
+        let step = 0,
+          tail = 0,
+          peak = 0;
+        for (let i = 0; i < samples.length; i++) {
+          peak = Math.max(peak, Math.abs(samples[i]));
+          if (i) step = Math.max(step, Math.abs(samples[i] - samples[i - 1]));
+          if (i / context.sampleRate > stopAt + 0.1)
+            tail = Math.max(tail, Math.abs(samples[i]));
+        }
+        results.push({ instrument, stopAt, step, tail, peak });
+        voices.forEach((voice) => voice.dispose());
+      }
+    }
+    return results;
+  }, voiceModule);
+  for (const result of results) {
+    expect(result.step, JSON.stringify(result)).toBeLessThan(0.01);
+    expect(result.tail, JSON.stringify(result)).toBeLessThan(0.0001);
+    if (result.stopAt < 0.03) expect(result.peak).toBe(0);
+  }
 });

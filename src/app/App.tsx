@@ -1,7 +1,8 @@
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { useAudio } from './useAudio';
+import { useScene } from './useScene';
+import { INSTRUMENTS, type Instrument } from '../audio/instruments';
 import {
-  analyze,
   chordSymbol,
   defaultKey,
   diatonic,
@@ -50,7 +51,8 @@ export function App() {
   const session = history.present;
   const s = session.settings;
   const t = messages[s.locale];
-  const { engine, ready, level, playback } = useAudio();
+  const { engine, ready, level, playback, sound } = useAudio();
+  const { scene, navigate } = useScene();
   const [error, setError] = useState<keyof typeof t | null>(null);
   const [storage, setStorage] = useState<'saved' | 'saving' | 'storageError'>(
     loaded.failed ? 'storageError' : 'saved',
@@ -78,6 +80,15 @@ export function App() {
     : index >= 0
       ? session.events[index + 1]
       : undefined;
+  useEffect(() => {
+    if (ready) void engine.current?.setInstrument(s.instrument);
+  }, [engine, ready, s.instrument]);
+  useEffect(() => {
+    document.title =
+      scene === 'play'
+        ? 'Chordscape'
+        : `${scene === 'library' ? t.library : t.settings} · Chordscape`;
+  }, [scene, t]);
   useEffect(() => {
     sessionRef.current = session;
   }, [session]);
@@ -154,7 +165,7 @@ export function App() {
   function select(event: ChordEvent) {
     setSelectedId(event.id);
     setPreview(event);
-    if (!running && ready) {
+    if (!running && ready && !sound.loading) {
       engine.current!.audition(event);
       previousRef.current = event;
       setComparison(null);
@@ -172,7 +183,7 @@ export function App() {
         (e) => e.id === selected.id,
       )!;
       edit(action);
-      if (ready) engine.current!.audition(changed);
+      if (ready && !sound.loading) engine.current!.audition(changed);
     } else {
       const input = { ...preview, bass: value };
       const changed = {
@@ -180,7 +191,7 @@ export function App() {
         notes: chooseVoicing(input, previousRef.current?.notes),
       };
       setPreview(changed);
-      if (ready) engine.current!.audition(changed);
+      if (ready && !sound.loading) engine.current!.audition(changed);
     }
   }
   function play(policy?: VoicingPolicy) {
@@ -212,6 +223,7 @@ export function App() {
       setSelectedId(null);
       setPreview(imported.events[0] ?? initialEvent);
       setError('imported');
+      navigate('play');
     } catch {
       setError('importError');
     } finally {
@@ -233,37 +245,31 @@ export function App() {
     }
   }
   return (
-    <main>
-      <header>
-        <div>
-          <p className="eyebrow">{t.eyebrow}</p>
-          <h1>
-            Chordscape<span aria-hidden="true">◌</span>
-          </h1>
-          <p>{t.tagline}</p>
-        </div>
-        <label>
-          {t.language}
-          <select
-            value={s.locale}
-            onChange={(e) =>
-              edit({
-                type: 'settings',
-                patch: { locale: e.target.value as Locale },
-              })
-            }
-          >
-            <option value="ja">日本語</option>
-            <option value="en">English</option>
-          </select>
-        </label>
+    <main className={`app scene-${scene}`}>
+      <header className="app-header">
+        <h1 id="scene-heading" tabIndex={-1}>
+          {scene === 'play'
+            ? 'Chordscape'
+            : scene === 'library'
+              ? t.library
+              : t.settings}
+        </h1>
+        <button
+          className="sound-shortcut"
+          aria-label={`${t.currentTone}: ${t[sound.instrument]}`}
+          onClick={() => navigate('settings')}
+        >
+          {t[sound.instrument]}
+        </button>
       </header>
-      <section className="transport" aria-label={t.synth}>
+      <section className="transport" aria-label={t.playScene}>
         <button className="primary" onClick={() => void enable()}>
           {ready ? t.ready : t.enable}
         </button>
         <button
-          disabled={!ready || !session.events.length || running}
+          disabled={
+            !ready || !session.events.length || running || sound.loading
+          }
           onClick={() => play()}
         >
           {t.play}
@@ -291,22 +297,6 @@ export function App() {
                 : t.idle}{' '}
           · {t.beat} {(playback.beat + 1).toFixed(1)}
         </span>
-        <label className="volume">
-          {t.volume}
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={s.volume}
-            onChange={(e) =>
-              edit({
-                type: 'settings',
-                patch: { volume: Number(e.target.value) },
-              })
-            }
-          />
-        </label>
         <meter
           aria-label={t.level}
           min="0"
@@ -315,314 +305,445 @@ export function App() {
           data-testid="audio-level"
         />
       </section>
+
       {error && (
         <p className="notice" role={error === 'imported' ? 'status' : 'alert'}>
           {t[error]}
         </p>
       )}
-      <section className="key-panel">
-        <div className="controls">
-          <label>
-            {t.key}
-            <select
-              value={pitchName(s.key.tonic)}
-              onChange={(e) =>
-                edit({
-                  type: 'settings',
-                  patch: { key: keyFromName(e.target.value, s.key.mode) },
-                })
-              }
-            >
-              {(s.key.mode === 'major' ? MAJOR_KEYS : MINOR_KEYS).map(
-                (name) => (
-                  <option key={name}>{name}</option>
-                ),
-              )}
-            </select>
-          </label>
-          <label>
-            {t.mode}
-            <select
-              value={s.key.mode}
-              onChange={(e) => changeMode(e.target.value as Key['mode'])}
-            >
-              <option value="major">{t.major}</option>
-              <option value="minor">{t.minor}</option>
-            </select>
-          </label>
-          <label>
-            {t.chordSize}
-            <select
-              value={s.seventh ? '7' : '3'}
-              onChange={(e) =>
-                edit({
-                  type: 'settings',
-                  patch: { seventh: e.target.value === '7' },
-                })
-              }
-            >
-              <option value="3">{t.triads}</option>
-              <option value="7">{t.sevenths}</option>
-            </select>
-          </label>
-          <label>
-            {t.tempo}
-            <input
-              type="number"
-              min="40"
-              max="200"
-              value={s.tempo}
-              onChange={(e) => {
-                const tempo = Number(e.target.value);
-                if (tempo >= 40 && tempo <= 200)
-                  edit({ type: 'settings', patch: { tempo } });
-              }}
-            />
-          </label>
-          <label>
-            {t.duration}
-            <select
-              value={s.duration}
-              onChange={(e) =>
-                edit({
-                  type: 'settings',
-                  patch: { duration: Number(e.target.value) },
-                })
-              }
-            >
-              {[
-                0.25,
-                0.5,
-                1,
-                2,
-                4,
-                8,
-                16,
-                ...([0.25, 0.5, 1, 2, 4, 8, 16].includes(s.duration)
-                  ? []
-                  : [s.duration]),
-              ].map((d) => (
-                <option key={d} value={d}>
-                  {d}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="toggle">
-            <input
-              type="checkbox"
-              checked={s.record}
-              onChange={(e) =>
-                edit({ type: 'settings', patch: { record: e.target.checked } })
-              }
-            />
-            {t.record}
-          </label>
-          <label className="toggle">
-            <input
-              type="checkbox"
-              checked={s.loop}
-              onChange={(e) =>
-                edit({ type: 'settings', patch: { loop: e.target.checked } })
-              }
-            />
-            {t.loop}
-          </label>
-        </div>
-        <p className="muted">{t.keyChangeHint}</p>
-      </section>
-      <section>
-        <div className="section-title">
-          <h2>{t.palette}</h2>
-          <span>
-            {pitchName(s.key.tonic)} {t[s.key.mode]}
-          </span>
-        </div>
-        <p className="muted">{running ? t.recordHint : t.hint}</p>
-        <Palette
-          chords={diatonic(s.key, s.seventh)}
-          context={s.key}
-          disabled={!ready || running}
-          onChoose={choose}
-          selected={chordSymbol(displayed.chord)}
-        />
-        <details className="outside">
-          <summary>{t.outside}</summary>
-          <p className="muted">{t.outsideHint}</p>
-          <Palette
-            chords={outside(s.key)}
-            context={s.key}
-            disabled={!ready || running}
-            onChoose={choose}
-            selected={chordSymbol(displayed.chord)}
-          />
-        </details>
-      </section>
-      <section>
-        <div className="section-title">
-          <h2>
-            {t.timeline}
-            <span className="count">{session.events.length}</span>
-          </h2>
-          <div className="actions">
-            <button
-              disabled={!history.past.length}
-              onClick={() => {
-                if (playback.status === 'paused') stop();
-                dispatch({ type: 'undo' });
-                setStorage('saving');
-              }}
-            >
-              {t.undo}
-            </button>
-            <button
-              disabled={!history.future.length}
-              onClick={() => {
-                if (playback.status === 'paused') stop();
-                dispatch({ type: 'redo' });
-                setStorage('saving');
-              }}
-            >
-              {t.redo}
-            </button>
-            <button
-              disabled={!session.events.length}
-              onClick={() => edit({ type: 'clear' })}
-            >
-              {t.clear}
-            </button>
-          </div>
-        </div>
-        {playback.event && running && (
-          <p>
-            {t.sounding}:{' '}
-            {voicedSymbol(playback.event.chord, playback.event.notes)}
-          </p>
-        )}
-        {playback.next && running && (
-          <p className="muted">
-            {t.next}: {voicedSymbol(playback.next.chord, playback.next.notes)}
-          </p>
-        )}
-        {comparison && running && (
-          <p>
-            {t.comparison}: {comparison === 'root' ? t.rootMode : t.smooth}
-          </p>
-        )}
-        <Timeline
-          events={session.events}
-          selectedId={selectedId}
-          playingId={playback.event?.id}
-          onSelect={select}
-          onEdit={edit}
-          t={t}
-        />
-        <div className="controls voicing-controls">
-          <label>
-            {t.voicing}
-            <select
-              value={s.policy}
-              onChange={(e) =>
-                edit({
-                  type: 'policy',
-                  policy: e.target.value as VoicingPolicy,
-                })
-              }
-            >
-              <option value="root">{t.rootMode}</option>
-              <option value="smooth">{t.smooth}</option>
-            </select>
-          </label>
-          <button
-            disabled={!ready || !session.events.length}
-            onClick={() => play('root')}
-          >
-            {t.compareRoot}
-          </button>
-          <button
-            disabled={!ready || !session.events.length}
-            onClick={() => play('smooth')}
-          >
-            {t.compareSmooth}
-          </button>
-        </div>
-        <p className="muted">{t.compareHint}</p>
-        <p className="muted">{t.smoothHint}</p>
-        <details>
-          <summary>{t.transpose}</summary>
-          <p className="muted">{t.transposeHint}</p>
-          <div className="controls">
-            <label>
-              {t.semitones}
-              <input
-                type="number"
-                min="-12"
-                max="12"
-                value={transpose}
-                onChange={(e) =>
-                  setTranspose(
-                    Math.max(
-                      -12,
-                      Math.min(12, Math.trunc(Number(e.target.value))),
-                    ),
-                  )
-                }
-              />
-            </label>
-            <button
-              disabled={running || transpose === 0}
-              onClick={() => {
-                stop();
-                edit({ type: 'transpose', semitones: transpose });
-              }}
-            >
-              {t.transpose}
-            </button>
-          </div>
-        </details>
-      </section>
-      <ChordDetails
-        event={displayed}
-        previous={previous}
-        next={next}
-        currentKey={s.key}
-        sounding={playback.event?.notes ?? []}
-        t={t}
-        onBass={bass}
-        disabled={running}
-      />
-      <Library
-        locale={s.locale}
-        t={t}
-        disabled={!ready || running}
-        onAudition={(chord) => choose(chord, false)}
-        onAdd={(chord) => choose(chord, true)}
-      />
-      <section className="save-panel">
-        <div className="controls">
-          <button onClick={download}>{t.export}</button>
-          <button onClick={() => file.current?.click()}>{t.import}</button>
-          <input
-            className="sr-only"
-            aria-label={t.file}
-            ref={file}
-            type="file"
-            accept="application/json,.json"
-            onChange={(e) => void readFile(e.target.files?.[0])}
-          />
-          <span role="status">{t[storage]}</span>
-        </div>
-      </section>
-      <footer>
-        <p>{t.functionHint}</p>
-        <p>{t.romanHint}</p>
-        <p>
-          {t.synth} · {t.footer}
+      {sound.loading && (
+        <p className="notice" role="status">
+          {t.soundLoading}
         </p>
-        <span className="sr-only">
-          {analyze(displayed.chord, displayed.key).kind}
-        </span>
-      </footer>
+      )}
+      {sound.failed && (
+        <p className="notice" role="alert">
+          {t.soundFailed}{' '}
+          <button
+            onClick={() => void engine.current?.setInstrument(s.instrument)}
+          >
+            {t.retry}
+          </button>
+        </p>
+      )}
+      {scene === 'play' && (
+        <div className="play-scene">
+          <section className="key-panel">
+            <div className="controls">
+              <label>
+                {t.key}
+                <select
+                  value={pitchName(s.key.tonic)}
+                  onChange={(e) =>
+                    edit({
+                      type: 'settings',
+                      patch: { key: keyFromName(e.target.value, s.key.mode) },
+                    })
+                  }
+                >
+                  {(s.key.mode === 'major' ? MAJOR_KEYS : MINOR_KEYS).map(
+                    (name) => (
+                      <option key={name}>{name}</option>
+                    ),
+                  )}
+                </select>
+              </label>
+              <label>
+                {t.mode}
+                <select
+                  value={s.key.mode}
+                  onChange={(e) => changeMode(e.target.value as Key['mode'])}
+                >
+                  <option value="major">{t.major}</option>
+                  <option value="minor">{t.minor}</option>
+                </select>
+              </label>
+              <label>
+                {t.chordSize}
+                <select
+                  value={s.seventh ? '7' : '3'}
+                  onChange={(e) =>
+                    edit({
+                      type: 'settings',
+                      patch: { seventh: e.target.value === '7' },
+                    })
+                  }
+                >
+                  <option value="3">{t.triads}</option>
+                  <option value="7">{t.sevenths}</option>
+                </select>
+              </label>
+              <label>
+                {t.tempo}
+                <input
+                  type="number"
+                  min="40"
+                  max="200"
+                  value={s.tempo}
+                  onChange={(e) => {
+                    const tempo = Number(e.target.value);
+                    if (tempo >= 40 && tempo <= 200)
+                      edit({ type: 'settings', patch: { tempo } });
+                  }}
+                />
+              </label>
+              <label>
+                {t.duration}
+                <select
+                  value={s.duration}
+                  onChange={(e) =>
+                    edit({
+                      type: 'settings',
+                      patch: { duration: Number(e.target.value) },
+                    })
+                  }
+                >
+                  {[
+                    0.25,
+                    0.5,
+                    1,
+                    2,
+                    4,
+                    8,
+                    16,
+                    ...([0.25, 0.5, 1, 2, 4, 8, 16].includes(s.duration)
+                      ? []
+                      : [s.duration]),
+                  ].map((d) => (
+                    <option key={d} value={d}>
+                      {d}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="toggle">
+                <input
+                  type="checkbox"
+                  checked={s.record}
+                  onChange={(e) =>
+                    edit({
+                      type: 'settings',
+                      patch: { record: e.target.checked },
+                    })
+                  }
+                />
+                {t.record}
+              </label>
+              <label className="toggle">
+                <input
+                  type="checkbox"
+                  checked={s.loop}
+                  onChange={(e) =>
+                    edit({
+                      type: 'settings',
+                      patch: { loop: e.target.checked },
+                    })
+                  }
+                />
+                {t.loop}
+              </label>
+            </div>
+          </section>
+          <section className="palette-panel">
+            <div className="section-title">
+              <h2>{t.palette}</h2>
+              <span>
+                {pitchName(s.key.tonic)} {t[s.key.mode]}
+              </span>
+            </div>
+            {running && <p className="muted playback-hint">{t.recordHint}</p>}
+            <Palette
+              chords={diatonic(s.key, s.seventh)}
+              context={s.key}
+              disabled={!ready || running || sound.loading}
+              onChoose={choose}
+              selected={chordSymbol(displayed.chord)}
+            />
+            <details className="outside">
+              <summary>{t.outside}</summary>
+              <p className="muted">{t.outsideHint}</p>
+              <Palette
+                chords={outside(s.key)}
+                context={s.key}
+                disabled={!ready || running || sound.loading}
+                onChoose={choose}
+                selected={chordSymbol(displayed.chord)}
+              />
+            </details>
+          </section>
+          <ChordDetails
+            event={displayed}
+            previous={previous}
+            next={next}
+            currentKey={s.key}
+            sounding={playback.event?.notes ?? []}
+            t={t}
+            onBass={bass}
+            disabled={running}
+          />
+          <section className="timeline-panel">
+            <div className="section-title">
+              <h2>
+                {t.timeline}
+                <span className="count">{session.events.length}</span>
+              </h2>
+              <div className="actions">
+                <button
+                  disabled={!history.past.length}
+                  onClick={() => {
+                    if (playback.status === 'paused') stop();
+                    dispatch({ type: 'undo' });
+                    setStorage('saving');
+                  }}
+                >
+                  {t.undo}
+                </button>
+                <button
+                  disabled={!history.future.length}
+                  onClick={() => {
+                    if (playback.status === 'paused') stop();
+                    dispatch({ type: 'redo' });
+                    setStorage('saving');
+                  }}
+                >
+                  {t.redo}
+                </button>
+                <button
+                  disabled={!session.events.length}
+                  onClick={() => edit({ type: 'clear' })}
+                >
+                  {t.clear}
+                </button>
+              </div>
+            </div>
+            {playback.event && running && (
+              <p>
+                {t.sounding}:{' '}
+                {voicedSymbol(playback.event.chord, playback.event.notes)}
+              </p>
+            )}
+            {playback.next && running && (
+              <p className="muted">
+                {t.next}:{' '}
+                {voicedSymbol(playback.next.chord, playback.next.notes)}
+              </p>
+            )}
+            {comparison && running && (
+              <p>
+                {t.comparison}: {comparison === 'root' ? t.rootMode : t.smooth}
+              </p>
+            )}
+            <Timeline
+              events={session.events}
+              selectedId={selectedId}
+              playingId={playback.event?.id}
+              onSelect={select}
+              onEdit={edit}
+              t={t}
+            />
+            <details className="advanced">
+              <summary>{t.advanced}</summary>
+              <div className="controls voicing-controls">
+                <label>
+                  {t.voicing}
+                  <select
+                    value={s.policy}
+                    onChange={(e) =>
+                      edit({
+                        type: 'policy',
+                        policy: e.target.value as VoicingPolicy,
+                      })
+                    }
+                  >
+                    <option value="root">{t.rootMode}</option>
+                    <option value="smooth">{t.smooth}</option>
+                  </select>
+                </label>
+                <button
+                  disabled={!ready || !session.events.length || sound.loading}
+                  onClick={() => play('root')}
+                >
+                  {t.compareRoot}
+                </button>
+                <button
+                  disabled={!ready || !session.events.length || sound.loading}
+                  onClick={() => play('smooth')}
+                >
+                  {t.compareSmooth}
+                </button>
+              </div>
+              <p className="muted">{t.compareHint}</p>
+              <p className="muted">{t.smoothHint}</p>
+              <details>
+                <summary>{t.transpose}</summary>
+                <p className="muted">{t.transposeHint}</p>
+                <div className="controls">
+                  <label>
+                    {t.semitones}
+                    <input
+                      type="number"
+                      min="-12"
+                      max="12"
+                      value={transpose}
+                      onChange={(e) =>
+                        setTranspose(
+                          Math.max(
+                            -12,
+                            Math.min(12, Math.trunc(Number(e.target.value))),
+                          ),
+                        )
+                      }
+                    />
+                  </label>
+                  <button
+                    disabled={running || transpose === 0}
+                    onClick={() => {
+                      stop();
+                      edit({ type: 'transpose', semitones: transpose });
+                    }}
+                  >
+                    {t.transpose}
+                  </button>
+                </div>
+              </details>
+            </details>
+          </section>
+        </div>
+      )}
+      {scene === 'library' && (
+        <div className="library-scene">
+          <Library
+            locale={s.locale}
+            t={t}
+            initial={displayed.chord}
+            disabled={!ready || running || sound.loading}
+            onInspect={(chord) => {
+              setSelectedId(null);
+              setPreview(makeEvent(chord, session, 'library-preview'));
+            }}
+            onAudition={(chord) => choose(chord, false)}
+            onAdd={(chord) => {
+              choose(chord, true);
+              navigate('play');
+            }}
+          />
+          <ChordDetails
+            event={displayed}
+            previous={previous}
+            next={next}
+            currentKey={s.key}
+            sounding={playback.event?.notes ?? []}
+            t={t}
+            onBass={bass}
+            disabled={running}
+          />
+        </div>
+      )}
+      {scene === 'settings' && (
+        <div className="settings-scene">
+          <section>
+            <div className="controls">
+              <label>
+                {t.tone}
+                <select
+                  aria-label={t.tone}
+                  value={s.instrument}
+                  onChange={(e) =>
+                    edit({
+                      type: 'settings',
+                      patch: { instrument: e.target.value as Instrument },
+                    })
+                  }
+                >
+                  {INSTRUMENTS.map((instrument) => (
+                    <option key={instrument} value={instrument}>
+                      {t[instrument]}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="volume">
+                {t.volume}
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={s.volume}
+                  onChange={(e) =>
+                    edit({
+                      type: 'settings',
+                      patch: { volume: Number(e.target.value) },
+                    })
+                  }
+                />
+              </label>
+              <label>
+                {t.language}
+                <select
+                  value={s.locale}
+                  onChange={(e) =>
+                    edit({
+                      type: 'settings',
+                      patch: { locale: e.target.value as Locale },
+                    })
+                  }
+                >
+                  <option value="ja">日本語</option>
+                  <option value="en">English</option>
+                </select>
+              </label>
+            </div>
+          </section>
+          <section className="save-panel">
+            <div className="controls">
+              <button onClick={download}>{t.export}</button>
+              <button onClick={() => file.current?.click()}>{t.import}</button>
+              <input
+                className="sr-only"
+                aria-label={t.file}
+                ref={file}
+                type="file"
+                accept="application/json,.json"
+                onChange={(e) => void readFile(e.target.files?.[0])}
+              />
+              <span role="status">{t[storage]}</span>
+            </div>
+          </section>
+          <section>
+            <h2>{t.help}</h2>
+            <p>{t.hint}</p>
+            <p>{t.keyChangeHint}</p>
+            <p>{t.recordHint}</p>
+            <p>{t.functionHint}</p>
+            <p>{t.romanHint}</p>
+          </section>
+          <section className="credits">
+            <h2>{t.credits}</h2>
+            <p>{t.pianoCredit}</p>
+            <a href={`${import.meta.env.BASE_URL}samples/salamander/README`}>
+              Salamander — Alexander Holm
+            </a>{' '}
+            ·{' '}
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+          </section>
+        </div>
+      )}
+      <nav className="scene-nav" aria-label={t.navigation}>
+        {(['play', 'library', 'settings'] as const).map((item) => (
+          <button
+            key={item}
+            aria-current={scene === item ? 'page' : undefined}
+            onClick={() => navigate(item)}
+          >
+            {item === 'play'
+              ? t.playScene
+              : item === 'library'
+                ? t.library
+                : t.settings}
+          </button>
+        ))}
+      </nav>
     </main>
   );
 }

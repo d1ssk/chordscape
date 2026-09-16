@@ -1,4 +1,9 @@
 import {
+  DEFAULT_INSTRUMENT,
+  isInstrument,
+  type Instrument,
+} from '../audio/instruments';
+import {
   defaultKey,
   QUALITIES,
   LETTERS,
@@ -29,6 +34,7 @@ export interface ChordEvent extends VoicingInput {
   notes: number[];
 }
 export interface Settings {
+  instrument: Instrument;
   key: Key;
   seventh: boolean;
   tempo: number;
@@ -50,6 +56,7 @@ export function newSession(): Session {
     schemaVersion: 1,
     revision: 0,
     settings: {
+      instrument: DEFAULT_INSTRUMENT,
       key: defaultKey,
       seventh: false,
       tempo: 90,
@@ -244,6 +251,7 @@ export function importSession(text: string): Session {
   if (
     !object(s) ||
     !isKey(s.key) ||
+    (s.instrument !== undefined && !isInstrument(s.instrument)) ||
     !numberIn(s.tempo, 40, 200) ||
     !numberIn(s.duration, 0.25, 16) ||
     !numberIn(s.volume, 0, 1) ||
@@ -302,6 +310,9 @@ export function importSession(text: string): Session {
     schemaVersion: 1,
     revision: 0,
     settings: {
+      instrument: isInstrument(s.instrument)
+        ? s.instrument
+        : DEFAULT_INSTRUMENT,
       key: s.key,
       tempo: s.tempo,
       duration: s.duration,

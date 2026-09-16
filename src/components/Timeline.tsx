@@ -85,89 +85,96 @@ export function Timeline({
         </ol>
       )}
       {selected && (
-        <fieldset className="editor">
-          <legend>
+        <details className="editor-disclosure">
+          <summary>
             {t.editing}: {voicedSymbol(selected.chord, selected.notes)}
-          </legend>
-          <button
-            disabled={events[0].id === selected.id}
-            onClick={() =>
-              onEdit({ type: 'move', id: selected.id, direction: -1 })
-            }
-          >
-            ← {t.left}
-          </button>
-          <button
-            disabled={events.at(-1)!.id === selected.id}
-            onClick={() =>
-              onEdit({ type: 'move', id: selected.id, direction: 1 })
-            }
-          >
-            {t.right} →
-          </button>
-          <button
-            disabled={events.length >= 256}
-            onClick={() =>
-              onEdit({
-                type: 'duplicate',
-                id: selected.id,
-                newId: crypto.randomUUID(),
-              })
-            }
-          >
-            {t.duplicate}
-          </button>
-          <button onClick={() => onEdit({ type: 'delete', id: selected.id })}>
-            {t.remove}
-          </button>
-          <label>
-            {t.duration}
-            <input
-              type="number"
-              min="0.25"
-              max="16"
-              step="0.25"
-              value={selected.duration}
-              onChange={(e) => {
-                const duration = Number(e.target.value);
-                if (duration >= 0.25 && duration <= 16)
-                  onEdit({
-                    type: 'event',
-                    id: selected.id,
-                    patch: { duration },
-                  });
-              }}
-            />
-          </label>
-          <label>
-            {t.inversion}
-            <select
-              value={selected.bass ?? 'auto'}
-              onChange={(e) =>
+          </summary>
+          <fieldset className="editor">
+            <legend>
+              {t.editing}: {voicedSymbol(selected.chord, selected.notes)}
+            </legend>
+            <button
+              disabled={events[0].id === selected.id}
+              onClick={() =>
+                onEdit({ type: 'move', id: selected.id, direction: -1 })
+              }
+            >
+              ← {t.left}
+            </button>
+            <button
+              disabled={events.at(-1)!.id === selected.id}
+              onClick={() =>
+                onEdit({ type: 'move', id: selected.id, direction: 1 })
+              }
+            >
+              {t.right} →
+            </button>
+            <button
+              disabled={events.length >= 256}
+              onClick={() =>
                 onEdit({
-                  type: 'event',
+                  type: 'duplicate',
                   id: selected.id,
-                  patch: {
-                    bass:
-                      e.target.value === 'auto' ? null : Number(e.target.value),
-                  },
+                  newId: crypto.randomUUID(),
                 })
               }
             >
-              <option value="auto">{t.auto}</option>
-              {tones(selected.chord).map((p, i) => (
-                <option key={i} value={i}>
-                  {[t.rootPosition, t.first, t.second, t.third][i]} ·{' '}
-                  {pitchName(p)}
-                </option>
-              ))}
-            </select>
-          </label>
-        </fieldset>
+              {t.duplicate}
+            </button>
+            <button onClick={() => onEdit({ type: 'delete', id: selected.id })}>
+              {t.remove}
+            </button>
+            <label>
+              {t.duration}
+              <input
+                type="number"
+                min="0.25"
+                max="16"
+                step="0.25"
+                value={selected.duration}
+                onChange={(e) => {
+                  const duration = Number(e.target.value);
+                  if (duration >= 0.25 && duration <= 16)
+                    onEdit({
+                      type: 'event',
+                      id: selected.id,
+                      patch: { duration },
+                    });
+                }}
+              />
+            </label>
+            <label>
+              {t.inversion}
+              <select
+                value={selected.bass ?? 'auto'}
+                onChange={(e) =>
+                  onEdit({
+                    type: 'event',
+                    id: selected.id,
+                    patch: {
+                      bass:
+                        e.target.value === 'auto'
+                          ? null
+                          : Number(e.target.value),
+                    },
+                  })
+                }
+              >
+                <option value="auto">{t.auto}</option>
+                {tones(selected.chord).map((p, i) => (
+                  <option key={i} value={i}>
+                    {[t.rootPosition, t.first, t.second, t.third][i]} ·{' '}
+                    {pitchName(p)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </fieldset>
+        </details>
       )}
       {events.length > 0 && (
-        <div className="motion">
-          <h3>{t.motion}</h3>
+        <details className="motion">
+          <summary>{t.motion}</summary>
           <div>
             <span>{t.root}</span>
             {events.map((e) => (
@@ -182,7 +189,7 @@ export function Timeline({
               </span>
             ))}
           </div>
-        </div>
+        </details>
       )}
     </>
   );
