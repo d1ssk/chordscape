@@ -1,4 +1,5 @@
 :root {
+  scrollbar-gutter: stable;
   font-family: Inter, 'Noto Sans JP', system-ui, sans-serif;
   color: #193c34;
   background: #f3f4ee;
