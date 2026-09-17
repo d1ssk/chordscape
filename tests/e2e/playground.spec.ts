@@ -116,6 +116,46 @@ test('seven chords fit one mobile row with keyboard and progression visible', as
     expect(boxes[6].right).toBeLessThanOrEqual(width);
     expect(
       await page
+        .locator('.key-panel')
+        .evaluate((e) => e.getBoundingClientRect().height),
+    ).toBeLessThanOrEqual(40);
+    const fields = await page
+      .locator('.key-panel select')
+      .evaluateAll((es) =>
+        es.map((e) => Math.round(e.getBoundingClientRect().top)),
+      );
+    expect(fields).toHaveLength(3);
+    expect(new Set(fields).size).toBe(1);
+    for (const selector of ['.transport button', '.voicing-controls button']) {
+      const buttons = await page.locator(selector).evaluateAll((es) =>
+        es.map((e) => ({
+          top: e.getBoundingClientRect().top,
+          height: e.getBoundingClientRect().height,
+        })),
+      );
+      expect(new Set(buttons.map((b) => b.top)).size).toBe(1);
+      expect(Math.max(...buttons.map((b) => b.height))).toBeLessThanOrEqual(30);
+    }
+    for (const button of await page.locator('.scene-nav button').all()) {
+      expect(
+        await button.evaluate((e) => {
+          const range = document.createRange();
+          range.selectNodeContents(e);
+          return {
+            lines: range.getClientRects().length,
+            fits: e.scrollWidth <= e.clientWidth,
+          };
+        }),
+      ).toEqual({ lines: 1, fits: true });
+    }
+    await expect(
+      page.getByRole('button', { name: 'A: Rootを聴く', exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('button', { name: '進行全体を移調', exact: true }),
+    ).toBeVisible();
+    expect(
+      await page
         .locator('.keyboard')
         .evaluate((e) => e.getBoundingClientRect().bottom),
     ).toBeLessThan(650);
@@ -124,6 +164,21 @@ test('seven chords fit one mobile row with keyboard and progression visible', as
         .locator('.timeline-panel h2')
         .evaluate((e) => e.getBoundingClientRect().bottom),
     ).toBeLessThan(730);
+    await expand(page, '.outside');
+    const outside = await page
+      .locator('.outside .palette button')
+      .evaluateAll((buttons) =>
+        buttons.map((button) => {
+          const b = button.getBoundingClientRect();
+          return { top: b.top, height: b.height };
+        }),
+      );
+    expect(outside.length).toBeGreaterThanOrEqual(24);
+    expect(
+      outside.filter((b) => b.top === outside[0].top).length,
+    ).toBeGreaterThanOrEqual(6);
+    expect(Math.max(...outside.map((b) => b.height))).toBeLessThanOrEqual(48);
+    await page.locator('.outside > summary').click();
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -151,6 +206,17 @@ test('key spellings, minor outside dominant and seventh bass', async ({
   page,
 }) => {
   await enable(page);
+  await expand(page, '.outside');
+  await chord(page, 'A9 V9/ii');
+  await sounding(page);
+  await expect(
+    page.getByText('A – C♯ – E – G – B', { exact: true }),
+  ).toBeVisible();
+  await chord(page, 'Fm7 iv7');
+  await expect(
+    page.getByText('F – A♭ – C – E♭', { exact: true }),
+  ).toBeVisible();
+  await stop(page);
   await page
     .getByRole('combobox', { name: '調', exact: true })
     .selectOption('F');
@@ -183,6 +249,8 @@ test('key spellings, minor outside dominant and seventh bass', async ({
   await chord(page, 'E7 V7');
   await expand(page, '.theory-details');
   await expect(page.getByText(/短調の第7音を上げて/)).toBeVisible();
+  await chord(page, 'G♯dim7 vii°7');
+  await expect(page.getByText('G♯ – B – D – F', { exact: true })).toBeVisible();
   await page
     .getByRole('combobox', { name: '音階', exact: true })
     .selectOption('major');
@@ -203,7 +271,6 @@ test('key spellings, minor outside dominant and seventh bass', async ({
     'data-active',
     'true',
   );
-  await expand(page, '.advanced');
   await page
     .getByRole('combobox', { name: '配置', exact: true })
     .selectOption('smooth');
@@ -297,8 +364,6 @@ test('library auditions and adds, JSON round trip, invalid import and transpose'
   });
   await expect(page.getByRole('alert')).toContainText('読み込めません');
   await scene(page);
-  await expand(page, '.advanced');
-  await page.getByText('進行全体を移調', { exact: true }).first().click();
   await page
     .getByRole('button', { name: '進行全体を移調', exact: true })
     .click();
@@ -329,7 +394,6 @@ test('loop, pause/resume, tempo changes and smooth comparison stop cleanly', asy
     .getByRole('spinbutton', { name: '長さ（拍）', exact: true })
     .fill('2');
   await page.getByLabel('BPM', { exact: true }).fill('150');
-  await expand(page, '.advanced');
   await page
     .getByRole('button', { name: 'B: Smoothを聴く', exact: true })
     .click();
@@ -405,6 +469,12 @@ test('all four sounds play, samples use the production subpath, and switching st
     if (r.url().endsWith('.mp3')) requests.push(r.url());
   });
   await enable(page);
+  await expect(
+    page.getByRole('button', { name: '演奏する音色: Piano', exact: true }),
+  ).toBeVisible();
+  await chord(page, 'C I');
+  await sounding(page);
+  await stop(page);
   for (const instrument of ['electric', 'pad', 'piano', 'soft']) {
     await scene(page, '設定');
     await page.getByLabel('音色', { exact: true }).selectOption(instrument);

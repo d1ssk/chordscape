@@ -3,6 +3,7 @@ import { Scheduler, type AudioPort } from './scheduler';
 import { diatonic, defaultKey } from '../music/harmony';
 import { makeEvent, newSession } from '../state/session';
 import { buildBridge } from '../music/modulation';
+import { generateMelody, defaultMelody } from '../music/melody';
 function fixture() {
   let time = 0;
   let cancellations = 0;
@@ -32,6 +33,43 @@ function fixture() {
     },
   };
 }
+it('schedules and pauses both parts against the same clock and resumes partial melody notes', () => {
+  let time = 0;
+  const scheduled: { part: string; at: number; duration: number }[] = [];
+  const scheduler = new Scheduler(
+    {
+      now: () => time,
+      schedule: (_e, at, duration) =>
+        scheduled.push({ part: 'chord', at, duration }),
+      scheduleMelody: (_n, at, duration) =>
+        scheduled.push({ part: 'melody', at, duration }),
+      cancel: () => {
+        scheduled.length = 0;
+      },
+    },
+    () => {},
+  );
+  const events = generateMelody(
+    [makeEvent(diatonic(defaultKey)[0], newSession(), 'chord')],
+    { ...defaultMelody(), enabled: true },
+  );
+  scheduler.play(events, 60, false, () => events);
+  expect(scheduled.map((n) => n.part)).toEqual(['chord', 'melody']);
+  expect(scheduled[0].at).toBe(scheduled[1].at);
+  time = 0.43;
+  scheduler.tick();
+  expect(scheduler.state.melody?.midi).toBe(events[0].melody![0].midi);
+  scheduler.pause();
+  expect(scheduled).toEqual([]);
+  expect(scheduler.state.melody).toBeNull();
+  time = 2;
+  scheduler.resume();
+  expect(scheduled[1].duration).toBeCloseTo(0.6);
+  scheduler.stop();
+  time = 10;
+  scheduler.tick();
+  expect(scheduled).toEqual([]);
+});
 it('keeps key and sound in the same snapshot through lookahead, pause, tempo, loop and Stop', () => {
   const f = fixture();
   const g = {

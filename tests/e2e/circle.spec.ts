@@ -15,7 +15,7 @@ async function enable(page: Page) {
 }
 async function saved(page: Page): Promise<Session> {
   return page.evaluate(() =>
-    JSON.parse(localStorage.getItem('chordscape.session.v3') ?? 'null'),
+    JSON.parse(localStorage.getItem('chordscape.session.v4') ?? 'null'),
   );
 }
 async function propose(page: Page, key = 'G メジャー') {
@@ -212,8 +212,6 @@ test('circle travel persists ordinary timeline key events and transposes all old
     ['C', 'G', 'D', 'A'],
   );
   expect(original.settings.loop).toBe(true);
-  await page.locator('.advanced > summary').click();
-  await page.getByText('進行全体を移調', { exact: true }).first().click();
   await page
     .getByRole('button', { name: '進行全体を移調', exact: true })
     .click();

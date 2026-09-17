@@ -412,12 +412,22 @@ export function chromaticApproach(
 export function outside(key: Key): Harmony[] {
   const candidates: Harmony[] = diatonic(key)
     .filter((c) => c.quality !== 'dim')
-    .map((target) => ({ root: spell(target.root, 4, 7), quality: '7' }));
-  candidates.push(
-    ...diatonic({ ...key, mode: key.mode === 'major' ? 'minor' : 'major' }),
-  );
+    .flatMap((target) =>
+      (['7', 'major', '9'] as const).map((quality) => ({
+        root: spell(target.root, 4, 7),
+        quality,
+      })),
+    );
+  const parallel: Key = {
+    ...key,
+    mode: key.mode === 'major' ? 'minor' : 'major',
+  };
+  candidates.push(...diatonic(parallel), ...diatonic(parallel, true));
   if (key.mode === 'minor')
-    candidates.push({ root: spell(key.tonic, 6, 11), quality: 'dim' });
+    candidates.push(
+      { root: spell(key.tonic, 6, 11), quality: 'dim' },
+      { root: spell(key.tonic, 6, 11), quality: 'dim7' },
+    );
   return candidates.filter(
     (c, i) =>
       analyze(c, key).changed.length > 0 &&

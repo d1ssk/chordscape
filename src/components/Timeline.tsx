@@ -68,7 +68,8 @@ export function Timeline({
                   onClick={() => onSelect(event)}
                 >
                   <small>
-                    {String(index + 1).padStart(2, '0')} · {t.beat} {start + 1}
+                    {String(index + 1).padStart(2, '0')} · {t.beat}{' '}
+                    {Number((start + 1).toFixed(3))}
                   </small>
                   <strong>{voicedSymbol(event.chord, event.notes)}</strong>
                   <span>
@@ -84,7 +85,7 @@ export function Timeline({
                       </small>
                     )}
                   <small>
-                    {event.duration} {t.beat}
+                    {Number(event.duration.toFixed(3))} {t.beat}
                     {event.bass !== null ? ` · ${t.fixed}` : ''}
                   </small>
                 </button>
@@ -111,6 +112,13 @@ export function Timeline({
             ))}
           </ol>
         </details>
+      )}
+      {selected?.live && (
+        <p className="muted live-timing">
+          {t.liveApplied}: {(selected.live.appliedBeat + 1).toFixed(3)}
+          {selected.live.requestedBeat !== null &&
+            ` · ${t.liveRequested}: ${(selected.live.requestedBeat + 1).toFixed(3)}`}
+        </p>
       )}
       {selected && (
         <details className="editor-disclosure">

@@ -21,6 +21,7 @@ export function Library({
   disabled,
   onAudition,
   onAdd,
+  onListen,
 }: {
   locale: Locale;
   initial: Harmony;
@@ -29,6 +30,7 @@ export function Library({
   disabled: boolean;
   onAudition: (chord: Harmony) => void;
   onAdd: (chord: Harmony) => void;
+  onListen: (chord: Harmony) => void;
 }) {
   const [root, setRoot] = useState(pitchName(initial.root));
   const [quality, setQuality] = useState<Harmony['quality']>(initial.quality);
@@ -44,6 +46,10 @@ export function Library({
     }
   return (
     <section className="library-panel" aria-label={t.library}>
+      <div className="section-title">
+        <strong>{t.library}</strong>
+        <button onClick={() => onListen(chord)}>{t.listenScene}</button>
+      </div>
       <div className="controls library-controls">
         <label>
           {t.root}

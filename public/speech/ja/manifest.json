@@ -1,0 +1,5908 @@
+{
+  "generator": "VOICEVOX Nemo",
+  "version": "0.24.0",
+  "speaker": 10005,
+  "speakerUuid": "abccafa5-174f-44d8-b70c-c41eebb3061c",
+  "voice": "女声1 / ノーマル",
+  "sampleRate": 22050,
+  "format": "MP3 mono 64 kbps",
+  "processing": "speedScale=1; default prosody; active RMS 0.13, peak ceiling 0.85; same normalization as audition; resampled from 24000 Hz",
+  "files": [
+    {
+      "token": "chord-C-m2-6",
+      "phrase": "シーフラットフラットシックス",
+      "file": "chord-C-m2-6.mp3",
+      "bytes": 16034,
+      "gain": 1.386462171398329,
+      "sha256": "24c106cfb1af8c744a84a8227895b2c42eaf0c3d089280f5c11e9067746184d6"
+    },
+    {
+      "token": "chord-C-m2-7",
+      "phrase": "シーフラットフラットセブンス",
+      "file": "chord-C-m2-7.mp3",
+      "bytes": 15616,
+      "gain": 1.296828426176478,
+      "sha256": "69d5804ad58562d04576919ce2e693ed0041b04ff437384d9221a7da4d71503c"
+    },
+    {
+      "token": "chord-C-m2-9",
+      "phrase": "シーフラットフラットナインス",
+      "file": "chord-C-m2-9.mp3",
+      "bytes": 15407,
+      "gain": 1.2075443049460741,
+      "sha256": "f30cc196b058631e5c0272ac9aa03f01f69faceea040946bcce6d02929bd2721"
+    },
+    {
+      "token": "chord-C-m2-major",
+      "phrase": "シーフラットフラットメジャー",
+      "file": "chord-C-m2-major.mp3",
+      "bytes": 14571,
+      "gain": 1.1423129852379754,
+      "sha256": "eeb54553544699844bd694c789bbde2514ec68ba06152f6d4ee06f7cb1f9643d"
+    },
+    {
+      "token": "chord-C-m2-minor",
+      "phrase": "シーフラットフラットマイナー",
+      "file": "chord-C-m2-minor.mp3",
+      "bytes": 15407,
+      "gain": 1.1855132010994471,
+      "sha256": "9fc855ce47c51edfa36165184e21acbd55b3f09f500488c263de33e5f4d2eed9"
+    },
+    {
+      "token": "chord-C-m2-dim",
+      "phrase": "シーフラットフラットディミニッシュ",
+      "file": "chord-C-m2-dim.mp3",
+      "bytes": 16661,
+      "gain": 1.1526870418323012,
+      "sha256": "d271626532e112ec46d674e80bc08cd1a3ecef9e30b285c5e7b75bcd891264bc"
+    },
+    {
+      "token": "chord-C-m2-aug",
+      "phrase": "シーフラットフラットオーギュメント",
+      "file": "chord-C-m2-aug.mp3",
+      "bytes": 17288,
+      "gain": 1.1540310808631133,
+      "sha256": "d8f36e7c6756e21698861f5150f7e6a8370c282ca29cebf1d9ddff9a3566d6d9"
+    },
+    {
+      "token": "chord-C-m2-sus2",
+      "phrase": "シーフラットフラットサスツー",
+      "file": "chord-C-m2-sus2.mp3",
+      "bytes": 15825,
+      "gain": 1.3845634350367917,
+      "sha256": "517abd3cfb82dd9484ea7c9515f186aaaa82c2fa98fc7752586125e6a648e679"
+    },
+    {
+      "token": "chord-C-m2-sus4",
+      "phrase": "シーフラットフラットサスフォー",
+      "file": "chord-C-m2-sus4.mp3",
+      "bytes": 15825,
+      "gain": 1.3012475033935047,
+      "sha256": "e9ec4a17d8430fc31ec278f0bbf6fe24f83a8beffeff650b51d6a2c4f9a91991"
+    },
+    {
+      "token": "chord-C-m2-maj7",
+      "phrase": "シーフラットフラットメジャーセブンス",
+      "file": "chord-C-m2-maj7.mp3",
+      "bytes": 18333,
+      "gain": 1.1763083370835057,
+      "sha256": "59d728b4e493ee64006d90dbb9e5f5dfc2034ca0194ca0a1de6ee517280c29b7"
+    },
+    {
+      "token": "chord-C-m2-m7",
+      "phrase": "シーフラットフラットマイナーセブンス",
+      "file": "chord-C-m2-m7.mp3",
+      "bytes": 18751,
+      "gain": 1.13811426526427,
+      "sha256": "85a82a03ee64f7b238c6b99972f06f3a83a44cf0821f1f62e2253150766a1c8a"
+    },
+    {
+      "token": "chord-C-m2-m7♭5",
+      "phrase": "シーフラットフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-C-m2-m7♭5.mp3",
+      "bytes": 27737,
+      "gain": 1.1682171290929422,
+      "sha256": "10ffcde43dbf574a433d2da73bc263218cb039955a14d42e9bd425a7b8ecafa9"
+    },
+    {
+      "token": "chord-C-m2-dim7",
+      "phrase": "シーフラットフラットディミニッシュセブンス",
+      "file": "chord-C-m2-dim7.mp3",
+      "bytes": 19796,
+      "gain": 1.1520499539872502,
+      "sha256": "cdd16d6d99a7d8c799a5e52b7d1525b9b893203dea338c629c09bcfd30bf9a3a"
+    },
+    {
+      "token": "chord-C-m2-m6",
+      "phrase": "シーフラットフラットマイナーシックス",
+      "file": "chord-C-m2-m6.mp3",
+      "bytes": 19169,
+      "gain": 1.2189839490854195,
+      "sha256": "b9f24bfda33525ebb41906ca3a352cc48c63dfe04fd6d957b8302bc02a7671c9"
+    },
+    {
+      "token": "chord-C-m2-add9",
+      "phrase": "シーフラットフラットアドナイン",
+      "file": "chord-C-m2-add9.mp3",
+      "bytes": 16243,
+      "gain": 1.218271349845561,
+      "sha256": "544bca6b1e811f11c2b6511c1ec637b04f3a240457b393695baac90a14e1290b"
+    },
+    {
+      "token": "chord-C-m2-maj9",
+      "phrase": "シーフラットフラットメジャーナインス",
+      "file": "chord-C-m2-maj9.mp3",
+      "bytes": 18124,
+      "gain": 1.1269288587873876,
+      "sha256": "1d2cfe47af75b462d931602268b9c7fde7f7c5ffefc37e1f74fc412cead7f066"
+    },
+    {
+      "token": "chord-C-m2-m9",
+      "phrase": "シーフラットフラットマイナーナインス",
+      "file": "chord-C-m2-m9.mp3",
+      "bytes": 18751,
+      "gain": 1.1001865468118028,
+      "sha256": "b3a05928f73f2a55587ed1d02b2f508eab20651eca0e1665727d72fec71930fa"
+    },
+    {
+      "token": "key-C-m2-major",
+      "phrase": "シーフラットフラットメジャーの調です。主和音を確認します。",
+      "file": "key-C-m2-major.mp3",
+      "bytes": 34215,
+      "gain": 1.2725473600431794,
+      "sha256": "d9c6801fa8fb63b419c3d17d57de5fc1f4d57d113a4602010bf1244b0d57a119"
+    },
+    {
+      "token": "chord-D-m2-minor",
+      "phrase": "ディーフラットフラットマイナー",
+      "file": "chord-D-m2-minor.mp3",
+      "bytes": 14780,
+      "gain": 1.2449846828679696,
+      "sha256": "56522a0c8c2fadd51c03a8baa78c74cd685d2b2288a5ac491509962f93f7db57"
+    },
+    {
+      "token": "chord-E-m2-minor",
+      "phrase": "イーフラットフラットマイナー",
+      "file": "chord-E-m2-minor.mp3",
+      "bytes": 14571,
+      "gain": 1.2422811601952624,
+      "sha256": "49606129a4a7cb7b3627aa8bf453158ddc0620c1d687076c17424e3f91dc06da"
+    },
+    {
+      "token": "chord-F-m2-major",
+      "phrase": "エフフラットフラットメジャー",
+      "file": "chord-F-m2-major.mp3",
+      "bytes": 13944,
+      "gain": 1.0609351369042597,
+      "sha256": "47b0dfef450e6cc31b16091887e6a09edf695d7e21bd555721aa0633b6cbf07b"
+    },
+    {
+      "token": "chord-G-m2-major",
+      "phrase": "ジーフラットフラットメジャー",
+      "file": "chord-G-m2-major.mp3",
+      "bytes": 13944,
+      "gain": 1.2028119606682908,
+      "sha256": "e7a51142ec3d7a93e1135d7fb61c4940fb4e7f20a2ead4d406ab8d523760eb02"
+    },
+    {
+      "token": "chord-A-m2-minor",
+      "phrase": "エーフラットフラットマイナー",
+      "file": "chord-A-m2-minor.mp3",
+      "bytes": 14571,
+      "gain": 1.1700167803546278,
+      "sha256": "2aba7f49df1f120227337269d10e23c5fd838d2440432ea22e25867a89debdaf"
+    },
+    {
+      "token": "chord-B-m2-dim",
+      "phrase": "ビーフラットフラットディミニッシュ",
+      "file": "chord-B-m2-dim.mp3",
+      "bytes": 16034,
+      "gain": 1.1702572063634504,
+      "sha256": "b5c8909785541f4aee00af6c0b4c3d208e7b5e978ab67a6746b49a12e6aaaff5"
+    },
+    {
+      "token": "chord-D-m2-m7",
+      "phrase": "ディーフラットフラットマイナーセブンス",
+      "file": "chord-D-m2-m7.mp3",
+      "bytes": 18124,
+      "gain": 1.1786559393824447,
+      "sha256": "869e251233bdfcd4df12bd0f048c097c82de1e16efa35544deec6c2fbff594a2"
+    },
+    {
+      "token": "chord-E-m2-m7",
+      "phrase": "イーフラットフラットマイナーセブンス",
+      "file": "chord-E-m2-m7.mp3",
+      "bytes": 18124,
+      "gain": 1.1813671046623218,
+      "sha256": "eb8fea99c77b13d7abefcf737a808f7aeb450774d5a7e86afe68f55c42f0d089"
+    },
+    {
+      "token": "chord-F-m2-maj7",
+      "phrase": "エフフラットフラットメジャーセブンス",
+      "file": "chord-F-m2-maj7.mp3",
+      "bytes": 17706,
+      "gain": 1.180703940361039,
+      "sha256": "4f65b3a9d85190cca4ef3229423b565a18d9f6c4909f6e9aca1ced5708af9a07"
+    },
+    {
+      "token": "chord-G-m2-7",
+      "phrase": "ジーフラットフラットセブンス",
+      "file": "chord-G-m2-7.mp3",
+      "bytes": 15198,
+      "gain": 1.432536663157308,
+      "sha256": "969c3eff2569cf49a699bbc22c3f23930ddb130bbb0820eed31d075302995dad"
+    },
+    {
+      "token": "chord-A-m2-m7",
+      "phrase": "エーフラットフラットマイナーセブンス",
+      "file": "chord-A-m2-m7.mp3",
+      "bytes": 18124,
+      "gain": 1.1275762677329264,
+      "sha256": "f8f5cad64b770cd58cffb1a59f89301edeaa64d9d70008853b3870c30e2cd674"
+    },
+    {
+      "token": "chord-B-m2-m7♭5",
+      "phrase": "ビーフラットフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-B-m2-m7♭5.mp3",
+      "bytes": 27110,
+      "gain": 1.1876146776066185,
+      "sha256": "6506261c320c637fa174d99910ee502f2d1fc8bc64bbe168e5dece01698eee2e"
+    },
+    {
+      "token": "key-C-m2-minor",
+      "phrase": "シーフラットフラットマイナーの調です。主和音を確認します。",
+      "file": "key-C-m2-minor.mp3",
+      "bytes": 34842,
+      "gain": 1.284748235109725,
+      "sha256": "3d3f3a9f6eed80f8486a2342896791238e9969b47c1c0234f5c56446ad8be1cc"
+    },
+    {
+      "token": "chord-D-m2-dim",
+      "phrase": "ディーフラットフラットディミニッシュ",
+      "file": "chord-D-m2-dim.mp3",
+      "bytes": 16034,
+      "gain": 1.1792371612571064,
+      "sha256": "482a1c7d0540a6a300be76d5fa256361dab8961853b6a65b39c1719064dcd7d4"
+    },
+    {
+      "token": "chord-E-m3-major",
+      "phrase": "イーフラットフラットフラットメジャー",
+      "file": "chord-E-m3-major.mp3",
+      "bytes": 17079,
+      "gain": 1.17343124149849,
+      "sha256": "44bd696c7138f6833ec793a5e8227be9beffff3df6d357a91339088a6474f68b"
+    },
+    {
+      "token": "chord-F-m2-minor",
+      "phrase": "エフフラットフラットマイナー",
+      "file": "chord-F-m2-minor.mp3",
+      "bytes": 14780,
+      "gain": 1.0995758686348218,
+      "sha256": "2aeecf7a8aa33556cf23508f1867c0a87da6d7a06243284cc9907168fb6b9571"
+    },
+    {
+      "token": "chord-G-m2-minor",
+      "phrase": "ジーフラットフラットマイナー",
+      "file": "chord-G-m2-minor.mp3",
+      "bytes": 14780,
+      "gain": 1.2506902088588963,
+      "sha256": "52ca3bf81ad14530275885634b664984b0d458d40c43d4fb3ca39218253a7947"
+    },
+    {
+      "token": "chord-A-m3-major",
+      "phrase": "エーフラットフラットフラットメジャー",
+      "file": "chord-A-m3-major.mp3",
+      "bytes": 17079,
+      "gain": 1.1103088328585744,
+      "sha256": "3b8f666012b01d42a95f2849a50a5005520e5fe3aa8303e6d0c824261c9311ce"
+    },
+    {
+      "token": "chord-B-m3-major",
+      "phrase": "ビーフラットフラットフラットメジャー",
+      "file": "chord-B-m3-major.mp3",
+      "bytes": 17079,
+      "gain": 1.1259309587643842,
+      "sha256": "87357ba6cfa8c624f16a8d9a920299e45a4e9bac3b00874c141d43abb5c1c0dd"
+    },
+    {
+      "token": "chord-D-m2-m7♭5",
+      "phrase": "ディーフラットフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-D-m2-m7♭5.mp3",
+      "bytes": 27110,
+      "gain": 1.1897710504704806,
+      "sha256": "f2b3d9ac11a1804a10874127326d9a0865612604e7042617a35c3ea0d5dc7738"
+    },
+    {
+      "token": "chord-E-m3-maj7",
+      "phrase": "イーフラットフラットフラットメジャーセブンス",
+      "file": "chord-E-m3-maj7.mp3",
+      "bytes": 20841,
+      "gain": 1.2183955675731133,
+      "sha256": "498a070f6c0822b62539f468fdb2bd651e7fad824f6e6ff8e2d5f9fc530fd55a"
+    },
+    {
+      "token": "chord-F-m2-m7",
+      "phrase": "エフフラットフラットマイナーセブンス",
+      "file": "chord-F-m2-m7.mp3",
+      "bytes": 18124,
+      "gain": 1.198342045650801,
+      "sha256": "fce8e049016bf7977882f9165a13bf154443da4b30cc9e32fa34e11689f38666"
+    },
+    {
+      "token": "chord-G-m2-m7",
+      "phrase": "ジーフラットフラットマイナーセブンス",
+      "file": "chord-G-m2-m7.mp3",
+      "bytes": 18333,
+      "gain": 1.214803424870656,
+      "sha256": "a8f81a70b30ac28be6aa33d22e776af60da7fb998387895f97a1f72fa0402219"
+    },
+    {
+      "token": "chord-A-m3-maj7",
+      "phrase": "エーフラットフラットフラットメジャーセブンス",
+      "file": "chord-A-m3-maj7.mp3",
+      "bytes": 20841,
+      "gain": 1.1682583932689172,
+      "sha256": "a91edb14b79be79a276de824be0e0ca4497082b162f1a457692f324ae6795faf"
+    },
+    {
+      "token": "chord-B-m3-7",
+      "phrase": "ビーフラットフラットフラットセブンス",
+      "file": "chord-B-m3-7.mp3",
+      "bytes": 18124,
+      "gain": 1.3227379635400385,
+      "sha256": "a34db47e23e147f354e16a7376345b5e23505afdf053c151570f2bcca3f6f12f"
+    },
+    {
+      "token": "chord-C-m1-6",
+      "phrase": "シーフラットシックス",
+      "file": "chord-C-m1-6.mp3",
+      "bytes": 12899,
+      "gain": 1.4528033094644837,
+      "sha256": "f3259d139d23a8548ae29b875ccd29915367c1e8303375a8b48a04ff12761621"
+    },
+    {
+      "token": "chord-C-m1-7",
+      "phrase": "シーフラットセブンス",
+      "file": "chord-C-m1-7.mp3",
+      "bytes": 12481,
+      "gain": 1.3525761601738127,
+      "sha256": "2a3b23de9ea8e1aca0f64dee17a424138ad0ca41f01a419d6c36712974def507"
+    },
+    {
+      "token": "chord-C-m1-9",
+      "phrase": "シーフラットナインス",
+      "file": "chord-C-m1-9.mp3",
+      "bytes": 12063,
+      "gain": 1.2259216488219231,
+      "sha256": "fd29ef8c70cd8cf1c8146c5a191ea2b81a183e6b7e84421dfa2e4df384587805"
+    },
+    {
+      "token": "chord-C-m1-major",
+      "phrase": "シーフラットメジャー",
+      "file": "chord-C-m1-major.mp3",
+      "bytes": 11227,
+      "gain": 1.1611005450235603,
+      "sha256": "068398a30d9cc63aaa364e3fd5b3752baf453cfbe022359d559e853e446dacc0"
+    },
+    {
+      "token": "chord-C-m1-minor",
+      "phrase": "シーフラットマイナー",
+      "file": "chord-C-m1-minor.mp3",
+      "bytes": 12063,
+      "gain": 1.2012786540288591,
+      "sha256": "a49773e437c08eb122929ada3140aa2195efe17d5c1717aa48e30f7f0d991165"
+    },
+    {
+      "token": "chord-C-m1-dim",
+      "phrase": "シーフラットディミニッシュ",
+      "file": "chord-C-m1-dim.mp3",
+      "bytes": 13526,
+      "gain": 1.145713453375419,
+      "sha256": "ffc295690473aecc1afb3d158ab762e1c001dc54ac80f3e4689c0004d01e1de8"
+    },
+    {
+      "token": "chord-C-m1-aug",
+      "phrase": "シーフラットオーギュメント",
+      "file": "chord-C-m1-aug.mp3",
+      "bytes": 13944,
+      "gain": 1.154019295179211,
+      "sha256": "accd84366b51c4393b88d186689c12f4b112c52bcd71ab0f2fde2a16344070b7"
+    },
+    {
+      "token": "chord-C-m1-sus2",
+      "phrase": "シーフラットサスツー",
+      "file": "chord-C-m1-sus2.mp3",
+      "bytes": 12481,
+      "gain": 1.4702520571074003,
+      "sha256": "acc51c97fd391dceb43c5ba07a36b791b6f997801544f7f7c31e93d6850293a2"
+    },
+    {
+      "token": "chord-C-m1-sus4",
+      "phrase": "シーフラットサスフォー",
+      "file": "chord-C-m1-sus4.mp3",
+      "bytes": 12481,
+      "gain": 1.37719109831966,
+      "sha256": "a3e83d8813fa680f5ce854503d36b09ec75d4a6311ef732ca1122a8ee41fad3d"
+    },
+    {
+      "token": "chord-C-m1-maj7",
+      "phrase": "シーフラットメジャーセブンス",
+      "file": "chord-C-m1-maj7.mp3",
+      "bytes": 14989,
+      "gain": 1.17207359825045,
+      "sha256": "6e5267b6cfdc52d909de39c6ab5cf387f8a4e0f9c1ef0bad2bc40f5bbf5bcc07"
+    },
+    {
+      "token": "chord-C-m1-m7",
+      "phrase": "シーフラットマイナーセブンス",
+      "file": "chord-C-m1-m7.mp3",
+      "bytes": 15616,
+      "gain": 1.129804098605225,
+      "sha256": "f37e61a98da44cffd6a2e4f08a245a95ee78c8c8c10ce0f485b4e128284983eb"
+    },
+    {
+      "token": "chord-C-m1-m7♭5",
+      "phrase": "シーフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-C-m1-m7♭5.mp3",
+      "bytes": 24602,
+      "gain": 1.1624337830508564,
+      "sha256": "79820bc8b404f8d95998badfaadad9e9f8649a693545e83f37041bc6fd431d49"
+    },
+    {
+      "token": "chord-C-m1-dim7",
+      "phrase": "シーフラットディミニッシュセブンス",
+      "file": "chord-C-m1-dim7.mp3",
+      "bytes": 16452,
+      "gain": 1.1553994856499608,
+      "sha256": "294316fe2c1149e28d311f63ad472c71a82039a44761c53f3ad2d42e93d20f7b"
+    },
+    {
+      "token": "chord-C-m1-m6",
+      "phrase": "シーフラットマイナーシックス",
+      "file": "chord-C-m1-m6.mp3",
+      "bytes": 16034,
+      "gain": 1.2269076321752017,
+      "sha256": "a075206bc97e8873a3d4bed01b9a77fa0abd0abb48fc2796720e94ace1e45a3a"
+    },
+    {
+      "token": "chord-C-m1-add9",
+      "phrase": "シーフラットアドナイン",
+      "file": "chord-C-m1-add9.mp3",
+      "bytes": 12899,
+      "gain": 1.198976976281947,
+      "sha256": "85a33d697e3d367f6bebfcc9fee060aa25fc97a30389e37ace62d1e062322b5c"
+    },
+    {
+      "token": "chord-C-m1-maj9",
+      "phrase": "シーフラットメジャーナインス",
+      "file": "chord-C-m1-maj9.mp3",
+      "bytes": 14780,
+      "gain": 1.1059491499878145,
+      "sha256": "dc080a87b9ec958b6e1d3a5b9fcf1911a0f0977d19be6331493c6edb948faf81"
+    },
+    {
+      "token": "chord-C-m1-m9",
+      "phrase": "シーフラットマイナーナインス",
+      "file": "chord-C-m1-m9.mp3",
+      "bytes": 15616,
+      "gain": 1.0730011822607364,
+      "sha256": "c512b7de624ee811cebe13dba210f454fa6edf76e1fb11ccbbb42b5c78a11a2c"
+    },
+    {
+      "token": "key-C-m1-major",
+      "phrase": "シーフラットメジャーの調です。主和音を確認します。",
+      "file": "key-C-m1-major.mp3",
+      "bytes": 31081,
+      "gain": 1.2456417258885826,
+      "sha256": "771da72485f6f3c41a989d28a1c3e651d7b3b7e6a8fa75210ca849039a979e62"
+    },
+    {
+      "token": "chord-D-m1-minor",
+      "phrase": "ディーフラットマイナー",
+      "file": "chord-D-m1-minor.mp3",
+      "bytes": 11436,
+      "gain": 1.213725013770286,
+      "sha256": "1475c768ce2299d9a83985f5f766eb69fef6a669c5b3d935ae01b4e9d862a595"
+    },
+    {
+      "token": "chord-E-m1-minor",
+      "phrase": "イーフラットマイナー",
+      "file": "chord-E-m1-minor.mp3",
+      "bytes": 11436,
+      "gain": 1.2640485543101396,
+      "sha256": "539cb34dbba5de718c2540b90ef514b8e3f50dfafbccf2f12befac58d46b9ccd"
+    },
+    {
+      "token": "chord-F-m1-major",
+      "phrase": "エフフラットメジャー",
+      "file": "chord-F-m1-major.mp3",
+      "bytes": 10601,
+      "gain": 1.0607192344240495,
+      "sha256": "8a24589510c1f6dc625c6c4b4c159221852982a48d228d12ab0b06742743c3b7"
+    },
+    {
+      "token": "chord-G-m1-major",
+      "phrase": "ジーフラットメジャー",
+      "file": "chord-G-m1-major.mp3",
+      "bytes": 10809,
+      "gain": 1.2267568883497832,
+      "sha256": "122d5496f11b4f3db804675ed577c6f35fb0d9829b45f4fbec1212d90f97b537"
+    },
+    {
+      "token": "chord-A-m1-minor",
+      "phrase": "エーフラットマイナー",
+      "file": "chord-A-m1-minor.mp3",
+      "bytes": 11227,
+      "gain": 1.0693990548649939,
+      "sha256": "3001df9fb6dfa96ded673372a3afc7f7236927965d659a6fa90602630166cd47"
+    },
+    {
+      "token": "chord-B-m1-dim",
+      "phrase": "ビーフラットディミニッシュ",
+      "file": "chord-B-m1-dim.mp3",
+      "bytes": 12899,
+      "gain": 1.1396920428477568,
+      "sha256": "c982b3b01c874902a49b32dfb96a4ce97662a8dc53a0cf653dae287452016d55"
+    },
+    {
+      "token": "chord-D-m1-m7",
+      "phrase": "ディーフラットマイナーセブンス",
+      "file": "chord-D-m1-m7.mp3",
+      "bytes": 14780,
+      "gain": 1.1588444295599778,
+      "sha256": "bdba4c53e8e7a6fa673dcb9b92e121c1df682c63a332a75adfff1d579c4e751a"
+    },
+    {
+      "token": "chord-E-m1-m7",
+      "phrase": "イーフラットマイナーセブンス",
+      "file": "chord-E-m1-m7.mp3",
+      "bytes": 14780,
+      "gain": 1.165609056795957,
+      "sha256": "60082acbce941a1800043b402e63414b982129ad01d66e878ae68a1667d30d18"
+    },
+    {
+      "token": "chord-F-m1-maj7",
+      "phrase": "エフフラットメジャーセブンス",
+      "file": "chord-F-m1-maj7.mp3",
+      "bytes": 14362,
+      "gain": 1.193115749524402,
+      "sha256": "f4b18dd0b663c3a648213b2d1c7d571560ba2221d9073566abb355839cc6331c"
+    },
+    {
+      "token": "chord-G-m1-7",
+      "phrase": "ジーフラットセブンス",
+      "file": "chord-G-m1-7.mp3",
+      "bytes": 11854,
+      "gain": 1.388004538315973,
+      "sha256": "449f2e4fd25c2031d03f58140344205b7bec9c3fb4fe4669cb9144b00ba36285"
+    },
+    {
+      "token": "chord-A-m1-m7",
+      "phrase": "エーフラットマイナーセブンス",
+      "file": "chord-A-m1-m7.mp3",
+      "bytes": 14780,
+      "gain": 1.1088658926550432,
+      "sha256": "e909c2670ca0c31155040dc7fd045362d0961ec8b6b0530ca645732b7489979e"
+    },
+    {
+      "token": "chord-B-m1-m7♭5",
+      "phrase": "ビーフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-B-m1-m7♭5.mp3",
+      "bytes": 23766,
+      "gain": 1.1685169041861356,
+      "sha256": "77e760acddf0831c70d2f1b0fc11158d8cff0f2981f11da22e53fc8c7893b970"
+    },
+    {
+      "token": "key-C-m1-minor",
+      "phrase": "シーフラットマイナーの調です。主和音を確認します。",
+      "file": "key-C-m1-minor.mp3",
+      "bytes": 31707,
+      "gain": 1.2662464390958377,
+      "sha256": "17632ac942333e65964e8e8039fedee56938b28a1fb865a51f691ffa7f1fc936"
+    },
+    {
+      "token": "chord-D-m1-dim",
+      "phrase": "ディーフラットディミニッシュ",
+      "file": "chord-D-m1-dim.mp3",
+      "bytes": 12899,
+      "gain": 1.1767866415572559,
+      "sha256": "52064ea328c03fa199e283c6562759c7a226841fc0a279c93420cdb60e4f18ad"
+    },
+    {
+      "token": "chord-E-m2-major",
+      "phrase": "イーフラットフラットメジャー",
+      "file": "chord-E-m2-major.mp3",
+      "bytes": 13735,
+      "gain": 1.1962375037198956,
+      "sha256": "ca5001c173fd6804118fcc19a599be6f46d4646d48fa7859c4a2a0d2abbc4c6e"
+    },
+    {
+      "token": "chord-F-m1-minor",
+      "phrase": "エフフラットマイナー",
+      "file": "chord-F-m1-minor.mp3",
+      "bytes": 11645,
+      "gain": 1.0838361925254985,
+      "sha256": "4fb002c1a4fcdb86c59b8f26301814721dfc8e34afb7422ede9a96280167e4f1"
+    },
+    {
+      "token": "chord-G-m1-minor",
+      "phrase": "ジーフラットマイナー",
+      "file": "chord-G-m1-minor.mp3",
+      "bytes": 11645,
+      "gain": 1.294796713615022,
+      "sha256": "616e3d0da1bdda41d213b044119327df398dd05085be40ddfe5084fd591ce3a2"
+    },
+    {
+      "token": "chord-A-m2-major",
+      "phrase": "エーフラットフラットメジャー",
+      "file": "chord-A-m2-major.mp3",
+      "bytes": 13735,
+      "gain": 1.1100662437166795,
+      "sha256": "8abd2ea6e5cebfe2b46269d04f2c2f011cefe47ce7efe3f90d090f5d9bc57d97"
+    },
+    {
+      "token": "chord-B-m2-major",
+      "phrase": "ビーフラットフラットメジャー",
+      "file": "chord-B-m2-major.mp3",
+      "bytes": 13944,
+      "gain": 1.1216712184099114,
+      "sha256": "94de5b842f9fab0c0be8822831c64c7b74982cf2e999ea20f7f0acfe7b929961"
+    },
+    {
+      "token": "chord-D-m1-m7♭5",
+      "phrase": "ディーフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-D-m1-m7♭5.mp3",
+      "bytes": 23766,
+      "gain": 1.170336065947318,
+      "sha256": "183e2544f6483a19c05d0b94293cd7d3d0eeb54db69343852164f3f9c114af8b"
+    },
+    {
+      "token": "chord-E-m2-maj7",
+      "phrase": "イーフラットフラットメジャーセブンス",
+      "file": "chord-E-m2-maj7.mp3",
+      "bytes": 17497,
+      "gain": 1.2225970559753359,
+      "sha256": "f0837e9fdcf8d89aa9e26c0da0da0c3d2e8f747f9c1b8a75f66763fd486ce2ee"
+    },
+    {
+      "token": "chord-F-m1-m7",
+      "phrase": "エフフラットマイナーセブンス",
+      "file": "chord-F-m1-m7.mp3",
+      "bytes": 14989,
+      "gain": 1.1935810186309352,
+      "sha256": "cd263b086fc242575fb0495012ddde2061045e96fa5e5ee97091ad4300cc39ea"
+    },
+    {
+      "token": "chord-G-m1-m7",
+      "phrase": "ジーフラットマイナーセブンス",
+      "file": "chord-G-m1-m7.mp3",
+      "bytes": 14989,
+      "gain": 1.206622236097229,
+      "sha256": "63f1e91a54d6317bf740ce30a1873415e371b99a742e1ab72f7a0cacfd340d1e"
+    },
+    {
+      "token": "chord-A-m2-maj7",
+      "phrase": "エーフラットフラットメジャーセブンス",
+      "file": "chord-A-m2-maj7.mp3",
+      "bytes": 17497,
+      "gain": 1.1536116476768545,
+      "sha256": "0a0d42adcb12ce1b61b78066e52a194103d6ad3221d30f36dd62fede8a1a6dfb"
+    },
+    {
+      "token": "chord-B-m2-7",
+      "phrase": "ビーフラットフラットセブンス",
+      "file": "chord-B-m2-7.mp3",
+      "bytes": 14989,
+      "gain": 1.3609423801366132,
+      "sha256": "b005176b87263ad8579c5a2a566f4bc07555de3f5e89cf27110e1c93c1de30f7"
+    },
+    {
+      "token": "chord-C-p0-6",
+      "phrase": "シーシックス",
+      "file": "chord-C-p0-6.mp3",
+      "bytes": 9138,
+      "gain": 1.9067522953434286,
+      "sha256": "5cc364c67f686cf3eb3f23fcaf24211a522811310942938cec606d8a16573355"
+    },
+    {
+      "token": "chord-C-p0-7",
+      "phrase": "シーセブンス",
+      "file": "chord-C-p0-7.mp3",
+      "bytes": 9138,
+      "gain": 1.3754430735029846,
+      "sha256": "d6d3dc00f5bc7ca46f0b9285140c8c1942a870ebe64503cf201cef5505a80d4a"
+    },
+    {
+      "token": "chord-C-p0-9",
+      "phrase": "シーナインス",
+      "file": "chord-C-p0-9.mp3",
+      "bytes": 8720,
+      "gain": 1.288788090345772,
+      "sha256": "1f1659c3c9dfbfb78acc54cae86f5aef9b207bcee43ebce2f34a0e2e9eb958f2"
+    },
+    {
+      "token": "chord-C-p0-major",
+      "phrase": "シーメジャー",
+      "file": "chord-C-p0-major.mp3",
+      "bytes": 8093,
+      "gain": 1.306124292964998,
+      "sha256": "fc1135863325683a9d83b0870fced22d732bded5212498814556b93f7c2a283d"
+    },
+    {
+      "token": "chord-C-p0-minor",
+      "phrase": "シーマイナー",
+      "file": "chord-C-p0-minor.mp3",
+      "bytes": 8929,
+      "gain": 1.3210265450193441,
+      "sha256": "1740a01c446ee774ef6bb72f28819c9c784ef68c0c640162240e487f39e55290"
+    },
+    {
+      "token": "chord-C-p0-dim",
+      "phrase": "シーディミニッシュ",
+      "file": "chord-C-p0-dim.mp3",
+      "bytes": 10183,
+      "gain": 1.1746465082775235,
+      "sha256": "5d76d89bbd3f2ad4c952ce9fc9ada3f89018894f3eeceac8dbd35913fa525356"
+    },
+    {
+      "token": "chord-C-p0-aug",
+      "phrase": "シーオーギュメント",
+      "file": "chord-C-p0-aug.mp3",
+      "bytes": 10809,
+      "gain": 1.0510323369567147,
+      "sha256": "f3693af10604c8fbdb156f02a12acaefc683d7a86ee164fdbe834dcda8244100"
+    },
+    {
+      "token": "chord-C-p0-sus2",
+      "phrase": "シーサスツー",
+      "file": "chord-C-p0-sus2.mp3",
+      "bytes": 8929,
+      "gain": 1.7920037171699923,
+      "sha256": "c62703029c02bc6b583869fbc59ccad7255241c17fb442d11bb274ba5f382a56"
+    },
+    {
+      "token": "chord-C-p0-sus4",
+      "phrase": "シーサスフォー",
+      "file": "chord-C-p0-sus4.mp3",
+      "bytes": 9138,
+      "gain": 1.5338513026745748,
+      "sha256": "c3df5262f1c80d81efe4ad9869075be8ad3c33884e77e2224c572a369647f66d"
+    },
+    {
+      "token": "chord-C-p0-maj7",
+      "phrase": "シーメジャーセブンス",
+      "file": "chord-C-p0-maj7.mp3",
+      "bytes": 11645,
+      "gain": 1.3824926321134874,
+      "sha256": "4d16c0685c4c0bddb88c869e10f8a6fef9f9325013764e88007f2d8128d9d841"
+    },
+    {
+      "token": "chord-C-p0-m7",
+      "phrase": "シーマイナーセブンス",
+      "file": "chord-C-p0-m7.mp3",
+      "bytes": 12272,
+      "gain": 1.2549501740433744,
+      "sha256": "dbe3fb19d56fbab379ddb6eb3ed6661b3d8f95a0a2f0d0abdb0fde90d00741eb"
+    },
+    {
+      "token": "chord-C-p0-m7♭5",
+      "phrase": "シーマイナーセブンス、フラットファイブ",
+      "file": "chord-C-p0-m7♭5.mp3",
+      "bytes": 21258,
+      "gain": 1.23593708326041,
+      "sha256": "1c4651f84b7db8cf54c30e18f40359344430ff6d66430dd79d35e584f77eecc7"
+    },
+    {
+      "token": "chord-C-p0-dim7",
+      "phrase": "シーディミニッシュセブンス",
+      "file": "chord-C-p0-dim7.mp3",
+      "bytes": 13317,
+      "gain": 1.2154418652727632,
+      "sha256": "8e92e40cab39bdf40fb5f46e4357a7cd7f18c00939358fcad697bef870dcf79e"
+    },
+    {
+      "token": "chord-C-p0-m6",
+      "phrase": "シーマイナーシックス",
+      "file": "chord-C-p0-m6.mp3",
+      "bytes": 12690,
+      "gain": 1.413484280849573,
+      "sha256": "0b2d874c1f29a2be68c5ba0572c021aa4423d1989960d8582e2d107b95ac21f1"
+    },
+    {
+      "token": "chord-C-p0-add9",
+      "phrase": "シーアドナイン",
+      "file": "chord-C-p0-add9.mp3",
+      "bytes": 9974,
+      "gain": 1.3303617620387707,
+      "sha256": "c754aacd5a8f4c3157aa068d92020d5fc1403afdb5bd1a4a822f8bd20ddf9d16"
+    },
+    {
+      "token": "chord-C-p0-maj9",
+      "phrase": "シーメジャーナインス",
+      "file": "chord-C-p0-maj9.mp3",
+      "bytes": 11645,
+      "gain": 1.224127255756454,
+      "sha256": "b618e1524612e3e881af38b87ace879f3bf4a3e425d7497bbb76c9364b826d2f"
+    },
+    {
+      "token": "chord-C-p0-m9",
+      "phrase": "シーマイナーナインス",
+      "file": "chord-C-p0-m9.mp3",
+      "bytes": 12272,
+      "gain": 1.1679492267780276,
+      "sha256": "582d065c7449f3e419bedfe53462d490fb86a54af5e99020306e05447dce9510"
+    },
+    {
+      "token": "key-C-p0-major",
+      "phrase": "シーメジャーの調です。主和音を確認します。",
+      "file": "key-C-p0-major.mp3",
+      "bytes": 27737,
+      "gain": 1.2657286276522097,
+      "sha256": "c5d51569590768d7f43e652bc2403f86326d0d88db46f827eae03ffe3e8a0199"
+    },
+    {
+      "token": "chord-D-p0-minor",
+      "phrase": "ディーマイナー",
+      "file": "chord-D-p0-minor.mp3",
+      "bytes": 8093,
+      "gain": 1.1482274281877303,
+      "sha256": "a7fbd3f4ccfda2ab70df63f40d4352c34454e5a0b0e739a39c546568b70b7deb"
+    },
+    {
+      "token": "chord-E-p0-minor",
+      "phrase": "イーマイナー",
+      "file": "chord-E-p0-minor.mp3",
+      "bytes": 7884,
+      "gain": 1.3070310454191176,
+      "sha256": "d4bcfa5f4987ce53f85b0d7fa1d2e9fe5a48069af11adc83d3a12872a1becc1e"
+    },
+    {
+      "token": "chord-F-p0-major",
+      "phrase": "エフメジャー",
+      "file": "chord-F-p0-major.mp3",
+      "bytes": 7466,
+      "gain": 0.9842764678956908,
+      "sha256": "0e9ad39a8578649c302405e545d13d6e936d55ec3f91dda9e249bca4df73d610"
+    },
+    {
+      "token": "chord-G-p0-major",
+      "phrase": "ジーメジャー",
+      "file": "chord-G-p0-major.mp3",
+      "bytes": 7675,
+      "gain": 1.1428226503758774,
+      "sha256": "45249df894a5a875fb738ad38b2cc10715c90567ca2c67e7b6b3b3396802bdf9"
+    },
+    {
+      "token": "chord-A-p0-minor",
+      "phrase": "エーマイナー",
+      "file": "chord-A-p0-minor.mp3",
+      "bytes": 8093,
+      "gain": 1.0694351026670328,
+      "sha256": "f679b71461c23db5f89dfce889d9363e563b0b469c394ac05c59be188d1a6ce9"
+    },
+    {
+      "token": "chord-B-p0-dim",
+      "phrase": "ビーディミニッシュ",
+      "file": "chord-B-p0-dim.mp3",
+      "bytes": 9556,
+      "gain": 1.1759226253079111,
+      "sha256": "9f387ff7fb980076f8695f1cf2331f9e545d3110e38fe441fa02694b000b3dc6"
+    },
+    {
+      "token": "chord-D-p0-m7",
+      "phrase": "ディーマイナーセブンス",
+      "file": "chord-D-p0-m7.mp3",
+      "bytes": 11645,
+      "gain": 1.2780652074272016,
+      "sha256": "87658276c7686c042961098c60a409edfa76b3185bfab5ca2b1431db323958c6"
+    },
+    {
+      "token": "chord-E-p0-m7",
+      "phrase": "イーマイナーセブンス",
+      "file": "chord-E-p0-m7.mp3",
+      "bytes": 11436,
+      "gain": 1.3231935428196455,
+      "sha256": "0dfb3da6a8b66a423876eedde4ece537c7b2afd89dc7466d741b69ffa6714ac2"
+    },
+    {
+      "token": "chord-F-p0-maj7",
+      "phrase": "エフメジャーセブンス",
+      "file": "chord-F-p0-maj7.mp3",
+      "bytes": 11227,
+      "gain": 1.155449465234423,
+      "sha256": "4a7d0978f5ccbf25f2036a07eacb3bcb240a1e0354b55354ae78edbd50586c5f"
+    },
+    {
+      "token": "chord-G-p0-7",
+      "phrase": "ジーセブンス",
+      "file": "chord-G-p0-7.mp3",
+      "bytes": 8511,
+      "gain": 1.38723502238987,
+      "sha256": "f590b7ecb6d95e47340830eb855957d0754a5b95fc56573f66f0d5d7dcd2f089"
+    },
+    {
+      "token": "chord-A-p0-m7",
+      "phrase": "エーマイナーセブンス",
+      "file": "chord-A-p0-m7.mp3",
+      "bytes": 11436,
+      "gain": 1.24019509733559,
+      "sha256": "757f9c71d67394b32be7a7a993145407ad94d9f4f9b87703190532b5e993ee87"
+    },
+    {
+      "token": "chord-B-p0-m7♭5",
+      "phrase": "ビーマイナーセブンス、フラットファイブ",
+      "file": "chord-B-p0-m7♭5.mp3",
+      "bytes": 20632,
+      "gain": 1.2904590558076652,
+      "sha256": "af1082cc45736ad830a83039a6b2e342bf16afce18c557cd29e6642659196549"
+    },
+    {
+      "token": "key-C-p0-minor",
+      "phrase": "シーマイナーの調です。主和音を確認します。",
+      "file": "key-C-p0-minor.mp3",
+      "bytes": 28364,
+      "gain": 1.2772603326706338,
+      "sha256": "76f0fbc93ebb30f2d009f325efe6c1acad79c9836559dec7e7a53d0a2fbb646a"
+    },
+    {
+      "token": "chord-D-p0-dim",
+      "phrase": "ディーディミニッシュ",
+      "file": "chord-D-p0-dim.mp3",
+      "bytes": 9556,
+      "gain": 1.138091326669032,
+      "sha256": "375f7bd1a0ecd7dfe8e1d6d1eaee394c6c547dcdb94dd115e80e3e38a05e4adc"
+    },
+    {
+      "token": "chord-E-m1-major",
+      "phrase": "イーフラットメジャー",
+      "file": "chord-E-m1-major.mp3",
+      "bytes": 10601,
+      "gain": 1.231224566405245,
+      "sha256": "ee052f73e919b51cbf5c8fc195922d58b01bd325bfa14095d6f5b43f0ad7ea4e"
+    },
+    {
+      "token": "chord-F-p0-minor",
+      "phrase": "エフマイナー",
+      "file": "chord-F-p0-minor.mp3",
+      "bytes": 8302,
+      "gain": 0.9863881495894548,
+      "sha256": "84503c723e9dde6048524ef75a5c25a733c5769f42e8201721e8cc6eb61b2846"
+    },
+    {
+      "token": "chord-G-p0-minor",
+      "phrase": "ジーマイナー",
+      "file": "chord-G-p0-minor.mp3",
+      "bytes": 8302,
+      "gain": 1.199241172074934,
+      "sha256": "73f55358bee66d5d5c45010690f37de7f9e1592395e0fdde3178ac8364eadbfa"
+    },
+    {
+      "token": "chord-A-m1-major",
+      "phrase": "エーフラットメジャー",
+      "file": "chord-A-m1-major.mp3",
+      "bytes": 10601,
+      "gain": 1.0291285602654703,
+      "sha256": "9e07bccdc44b40ec2086d5bc3e0e41e2073c0bd849cbcc2e150140d562369b2e"
+    },
+    {
+      "token": "chord-B-m1-major",
+      "phrase": "ビーフラットメジャー",
+      "file": "chord-B-m1-major.mp3",
+      "bytes": 10601,
+      "gain": 1.151011471690932,
+      "sha256": "00eba2d5fbea50202164ec43384d62842a325902448d242eb83b9f638634b389"
+    },
+    {
+      "token": "chord-D-p0-m7♭5",
+      "phrase": "ディーマイナーセブンス、フラットファイブ",
+      "file": "chord-D-p0-m7♭5.mp3",
+      "bytes": 20423,
+      "gain": 1.277039386024446,
+      "sha256": "324604d034241e07eb0aa12ed4d65c40432c35adb0861274ab97b7d371ae0a14"
+    },
+    {
+      "token": "chord-E-m1-maj7",
+      "phrase": "イーフラットメジャーセブンス",
+      "file": "chord-E-m1-maj7.mp3",
+      "bytes": 14362,
+      "gain": 1.2238166593501734,
+      "sha256": "b07ad7f9dc825b8b7e66001810104c9a14e2a7b7ace577404df0309736958a3b"
+    },
+    {
+      "token": "chord-F-p0-m7",
+      "phrase": "エフマイナーセブンス",
+      "file": "chord-F-p0-m7.mp3",
+      "bytes": 11854,
+      "gain": 1.176175343442988,
+      "sha256": "caa0eab7a1b9d96a1edfbd52f41c7bc09c6d39b0c7cb99536db19aff6f2dd5c7"
+    },
+    {
+      "token": "chord-G-p0-m7",
+      "phrase": "ジーマイナーセブンス",
+      "file": "chord-G-p0-m7.mp3",
+      "bytes": 11854,
+      "gain": 1.315826190672001,
+      "sha256": "6a56b88fa782ca13bb801f305718f051a226fa2a03dbe041f54e573acbb8a86f"
+    },
+    {
+      "token": "chord-A-m1-maj7",
+      "phrase": "エーフラットメジャーセブンス",
+      "file": "chord-A-m1-maj7.mp3",
+      "bytes": 14362,
+      "gain": 1.1490262408703422,
+      "sha256": "d3a055217defa571e51d2821e290f8a68dce73df38a9b1f99e65fa993b225e48"
+    },
+    {
+      "token": "chord-B-m1-7",
+      "phrase": "ビーフラットセブンス",
+      "file": "chord-B-m1-7.mp3",
+      "bytes": 11645,
+      "gain": 1.2551137628632212,
+      "sha256": "0ad6b4f1100491f9ab6833d9fce945821e3b79a5f26f853426d50a79aef6ff91"
+    },
+    {
+      "token": "chord-C-p1-6",
+      "phrase": "シーシャープシックス",
+      "file": "chord-C-p1-6.mp3",
+      "bytes": 11854,
+      "gain": 1.6352756655694098,
+      "sha256": "07226d59a61dad662c326677c66c946cd6570408c94eb0c20ee0f364393aeb58"
+    },
+    {
+      "token": "chord-C-p1-7",
+      "phrase": "シーシャープセブンス",
+      "file": "chord-C-p1-7.mp3",
+      "bytes": 11645,
+      "gain": 1.443097711701668,
+      "sha256": "ba3137c2cf09c3ee4aaa74d57a8d8e3c333172d2244b2f52f6ce748478260150"
+    },
+    {
+      "token": "chord-C-p1-9",
+      "phrase": "シーシャープナインス",
+      "file": "chord-C-p1-9.mp3",
+      "bytes": 11645,
+      "gain": 1.2279916111397684,
+      "sha256": "bbe8789b36939e950e94919f765fe21e21f9ab87fda1075cc1844933eca84b88"
+    },
+    {
+      "token": "chord-C-p1-major",
+      "phrase": "シーシャープメジャー",
+      "file": "chord-C-p1-major.mp3",
+      "bytes": 10809,
+      "gain": 1.1535806648258802,
+      "sha256": "7af0c9f0fb0d4d263a822f23eae6e67795c51dba0b075c618e1e57bfb2d4ef51"
+    },
+    {
+      "token": "chord-C-p1-minor",
+      "phrase": "シーシャープマイナー",
+      "file": "chord-C-p1-minor.mp3",
+      "bytes": 11645,
+      "gain": 1.1666475742711986,
+      "sha256": "615e33608e47c9e1a65817e85b8f6b8be95c08a65c3d54af62e27b828a0fd497"
+    },
+    {
+      "token": "chord-C-p1-dim",
+      "phrase": "シーシャープディミニッシュ",
+      "file": "chord-C-p1-dim.mp3",
+      "bytes": 12899,
+      "gain": 1.1417903002066818,
+      "sha256": "0d93e4916f3e92474358a23af4d962d4907073af596981041c02918e4316304a"
+    },
+    {
+      "token": "chord-C-p1-aug",
+      "phrase": "シーシャープオーギュメント",
+      "file": "chord-C-p1-aug.mp3",
+      "bytes": 13526,
+      "gain": 1.1278868149955696,
+      "sha256": "1986a59f85a2aa43eb931ae2f2b32bc7e10f9daa633c32ff289aab7e33ba6d9d"
+    },
+    {
+      "token": "chord-C-p1-sus2",
+      "phrase": "シーシャープサスツー",
+      "file": "chord-C-p1-sus2.mp3",
+      "bytes": 11645,
+      "gain": 1.649459794961155,
+      "sha256": "57c4adb3624f0697389abb713acfcf252e69cd2c29ca3de177339deb14a09f16"
+    },
+    {
+      "token": "chord-C-p1-sus4",
+      "phrase": "シーシャープサスフォー",
+      "file": "chord-C-p1-sus4.mp3",
+      "bytes": 11854,
+      "gain": 1.5049176023376136,
+      "sha256": "4702fb273219a17c0e15f1edec95f7cfa3f1697527fac481d80b9cf6d7c5def5"
+    },
+    {
+      "token": "chord-C-p1-maj7",
+      "phrase": "シーシャープメジャーセブンス",
+      "file": "chord-C-p1-maj7.mp3",
+      "bytes": 14362,
+      "gain": 1.25926213344853,
+      "sha256": "78c049e7994068c54f2e5d4ea2a2194eb7b84f5df0143d2638495fd07e44a050"
+    },
+    {
+      "token": "chord-C-p1-m7",
+      "phrase": "シーシャープマイナーセブンス",
+      "file": "chord-C-p1-m7.mp3",
+      "bytes": 15198,
+      "gain": 1.2273306220937328,
+      "sha256": "623641e17679993991137eb619ae9b5bbb96b19d8725a0eeb21835b2cedf9dde"
+    },
+    {
+      "token": "chord-C-p1-m7♭5",
+      "phrase": "シーシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-C-p1-m7♭5.mp3",
+      "bytes": 24184,
+      "gain": 1.2433982288725434,
+      "sha256": "095e627031106fb62584130b93610cbeb6b7ee78f05c6ddf24ed9c4ae763bd14"
+    },
+    {
+      "token": "chord-C-p1-dim7",
+      "phrase": "シーシャープディミニッシュセブンス",
+      "file": "chord-C-p1-dim7.mp3",
+      "bytes": 16034,
+      "gain": 1.2443784744103001,
+      "sha256": "a014f73f6d0a682aad9b4bfb06b716dc43ff512180d1e6827a35b8ce2d7e5957"
+    },
+    {
+      "token": "chord-C-p1-m6",
+      "phrase": "シーシャープマイナーシックス",
+      "file": "chord-C-p1-m6.mp3",
+      "bytes": 15616,
+      "gain": 1.24498676207602,
+      "sha256": "17368773374166cfcf447159e4a0cbff84e84299dc692c6c93f7c4c779e51617"
+    },
+    {
+      "token": "chord-C-p1-add9",
+      "phrase": "シーシャープアドナイン",
+      "file": "chord-C-p1-add9.mp3",
+      "bytes": 12481,
+      "gain": 1.1641050895877574,
+      "sha256": "c58219cf127a69895fe9493a8bd956372c8c692e4b4c01ab6d947afbaa87e382"
+    },
+    {
+      "token": "chord-C-p1-maj9",
+      "phrase": "シーシャープメジャーナインス",
+      "file": "chord-C-p1-maj9.mp3",
+      "bytes": 14362,
+      "gain": 1.1558353067181721,
+      "sha256": "310e5f434e8e1bf3c2a7d6f8dc5423f2e080164ea5f265039179ee6beaf0ece4"
+    },
+    {
+      "token": "chord-C-p1-m9",
+      "phrase": "シーシャープマイナーナインス",
+      "file": "chord-C-p1-m9.mp3",
+      "bytes": 14989,
+      "gain": 1.1505838530985382,
+      "sha256": "2a29036cb9122a80a8de49b4a71ed5d5f79cbba35220bdbba0dac80c855d323a"
+    },
+    {
+      "token": "key-C-p1-major",
+      "phrase": "シーシャープメジャーの調です。主和音を確認します。",
+      "file": "key-C-p1-major.mp3",
+      "bytes": 30454,
+      "gain": 1.29904160637446,
+      "sha256": "fe1e31dfeccf6b66ad53710b98119a77400a62a7f60a59fc57476580ea631f0a"
+    },
+    {
+      "token": "chord-D-p1-minor",
+      "phrase": "ディーシャープマイナー",
+      "file": "chord-D-p1-minor.mp3",
+      "bytes": 11018,
+      "gain": 1.194804733968405,
+      "sha256": "8cf4b32065ba3f0487c60543044c4c4fbbc87de332e55ce9223355d683b04d92"
+    },
+    {
+      "token": "chord-E-p1-minor",
+      "phrase": "イーシャープマイナー",
+      "file": "chord-E-p1-minor.mp3",
+      "bytes": 11018,
+      "gain": 1.2598056680217886,
+      "sha256": "f91b638130be72ac24bf82c1c9969830b40610cf73f815d438d08315ccdad209"
+    },
+    {
+      "token": "chord-F-p1-major",
+      "phrase": "エフシャープメジャー",
+      "file": "chord-F-p1-major.mp3",
+      "bytes": 9974,
+      "gain": 1.161416069734883,
+      "sha256": "da8fbccba8488aa17863e0227ba3c002421fb584d1c4bae76c10f17679b8becc"
+    },
+    {
+      "token": "chord-G-p1-major",
+      "phrase": "ジーシャープメジャー",
+      "file": "chord-G-p1-major.mp3",
+      "bytes": 10601,
+      "gain": 1.2219364732476758,
+      "sha256": "b80ae5374279b968a94564aa10587484fc246b9f881e8e961efe8d4f5e78f763"
+    },
+    {
+      "token": "chord-A-p1-minor",
+      "phrase": "エーシャープマイナー",
+      "file": "chord-A-p1-minor.mp3",
+      "bytes": 11018,
+      "gain": 1.1347633154716428,
+      "sha256": "45e142383664664b4bac45c4487f080cdd3374bbab3c26e294e277ff6351b907"
+    },
+    {
+      "token": "chord-B-p1-dim",
+      "phrase": "ビーシャープディミニッシュ",
+      "file": "chord-B-p1-dim.mp3",
+      "bytes": 12481,
+      "gain": 1.205188718239952,
+      "sha256": "cae94bbd78e93724121ef1629350ee74d9de2d15399b284331a8cd605a481730"
+    },
+    {
+      "token": "chord-D-p1-m7",
+      "phrase": "ディーシャープマイナーセブンス",
+      "file": "chord-D-p1-m7.mp3",
+      "bytes": 14571,
+      "gain": 1.2176970216647118,
+      "sha256": "536c9a47045cd7c27c924f62e9ee7063c90c7c9c31a687a112af9c95ad8b6d7b"
+    },
+    {
+      "token": "chord-E-p1-m7",
+      "phrase": "イーシャープマイナーセブンス",
+      "file": "chord-E-p1-m7.mp3",
+      "bytes": 14362,
+      "gain": 1.294064677653894,
+      "sha256": "3028487067e93e341f90e914334d67cf8958d11ed12b14b875b65b43971870f7"
+    },
+    {
+      "token": "chord-F-p1-maj7",
+      "phrase": "エフシャープメジャーセブンス",
+      "file": "chord-F-p1-maj7.mp3",
+      "bytes": 13526,
+      "gain": 1.312902518293819,
+      "sha256": "cea92b24e3f861fa865b4400066c92a6baac1e678483ef556850f85c98e15c8a"
+    },
+    {
+      "token": "chord-G-p1-7",
+      "phrase": "ジーシャープセブンス",
+      "file": "chord-G-p1-7.mp3",
+      "bytes": 11227,
+      "gain": 1.3574294239572824,
+      "sha256": "578699bd7a11a4271bf3d0cb9bfe56a487ae82691d3faa42a5da7e7ee14abed4"
+    },
+    {
+      "token": "chord-A-p1-m7",
+      "phrase": "エーシャープマイナーセブンス",
+      "file": "chord-A-p1-m7.mp3",
+      "bytes": 14362,
+      "gain": 1.1713171623202,
+      "sha256": "81995f4c4cef0b83867e8508a08984dd1450dfd68d265ce27ae0853cdff38174"
+    },
+    {
+      "token": "chord-B-p1-m7♭5",
+      "phrase": "ビーシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-B-p1-m7♭5.mp3",
+      "bytes": 23557,
+      "gain": 1.25629420004807,
+      "sha256": "c09ce4409367a9140cc49b12b12065d3dd7b2821669e43ddad9d8aab62d5e82c"
+    },
+    {
+      "token": "key-C-p1-minor",
+      "phrase": "シーシャープマイナーの調です。主和音を確認します。",
+      "file": "key-C-p1-minor.mp3",
+      "bytes": 31081,
+      "gain": 1.3228389872294208,
+      "sha256": "2df0b8130c1320b8afc60157c258fc6ca967f047230748d98ce9ff2399826905"
+    },
+    {
+      "token": "chord-D-p1-dim",
+      "phrase": "ディーシャープディミニッシュ",
+      "file": "chord-D-p1-dim.mp3",
+      "bytes": 12481,
+      "gain": 1.1973544031810703,
+      "sha256": "089072153ba7e1107078521306e5c7f0ac35707362628aca94555dcdf28cc102"
+    },
+    {
+      "token": "chord-E-p0-major",
+      "phrase": "イーメジャー",
+      "file": "chord-E-p0-major.mp3",
+      "bytes": 7048,
+      "gain": 1.1925826299256665,
+      "sha256": "00636959f0188d021e28e27076f53b5072885152c13b5256ab6a18c502256acb"
+    },
+    {
+      "token": "chord-F-p1-minor",
+      "phrase": "エフシャープマイナー",
+      "file": "chord-F-p1-minor.mp3",
+      "bytes": 10809,
+      "gain": 1.1983909744904322,
+      "sha256": "db7dfdbefe1f96f268d3d2386f24ce91c028155eac24c61b1e2dbc9693bd86f8"
+    },
+    {
+      "token": "chord-G-p1-minor",
+      "phrase": "ジーシャープマイナー",
+      "file": "chord-G-p1-minor.mp3",
+      "bytes": 11227,
+      "gain": 1.246547752405744,
+      "sha256": "7aee5c2ef8bca5328de3baf6b61ef517682c02b80fdc978a71dc87ce71dd56ca"
+    },
+    {
+      "token": "chord-A-p0-major",
+      "phrase": "エーメジャー",
+      "file": "chord-A-p0-major.mp3",
+      "bytes": 7257,
+      "gain": 1.024168747526379,
+      "sha256": "108abc5c9aa7cb3964a1b01be7214bea44f48f4a208b834c63ea5d07cd0e8774"
+    },
+    {
+      "token": "chord-B-p0-major",
+      "phrase": "ビーメジャー",
+      "file": "chord-B-p0-major.mp3",
+      "bytes": 7466,
+      "gain": 1.1835759161521235,
+      "sha256": "ea3b5c8d93fc0d8eafe477d362776e89cecc712f00d6418955e5e5bb3146a823"
+    },
+    {
+      "token": "chord-D-p1-m7♭5",
+      "phrase": "ディーシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-D-p1-m7♭5.mp3",
+      "bytes": 23557,
+      "gain": 1.2402406508558017,
+      "sha256": "07ebc0f0dbb2d08ec62950b7a917fa658916bd3cc83739dc1b21b2748d4185f1"
+    },
+    {
+      "token": "chord-E-p0-maj7",
+      "phrase": "イーメジャーセブンス",
+      "file": "chord-E-p0-maj7.mp3",
+      "bytes": 10809,
+      "gain": 1.372134821140148,
+      "sha256": "76e9418edab9daed8749e2ccd456cf1ced6fd7a8aa1bb416b32745f185ad86b8"
+    },
+    {
+      "token": "chord-F-p1-m7",
+      "phrase": "エフシャープマイナーセブンス",
+      "file": "chord-F-p1-m7.mp3",
+      "bytes": 14362,
+      "gain": 1.3093197887851866,
+      "sha256": "c6ebef7eed4e30f34abcae2441c2b92fcec3e39d2fc99a81f62de5f4f4da9206"
+    },
+    {
+      "token": "chord-G-p1-m7",
+      "phrase": "ジーシャープマイナーセブンス",
+      "file": "chord-G-p1-m7.mp3",
+      "bytes": 14780,
+      "gain": 1.2566215862864627,
+      "sha256": "2f198601563abba73f9824eb58016de3f5dedae20df6a767a80b35d2222864f1"
+    },
+    {
+      "token": "chord-A-p0-maj7",
+      "phrase": "エーメジャーセブンス",
+      "file": "chord-A-p0-maj7.mp3",
+      "bytes": 10809,
+      "gain": 1.2847468269182527,
+      "sha256": "22923d05544960053c47054c8260cf01514003ddb0e7c3345d6d21769da47232"
+    },
+    {
+      "token": "chord-B-p0-7",
+      "phrase": "ビーセブンス",
+      "file": "chord-B-p0-7.mp3",
+      "bytes": 8511,
+      "gain": 1.3859319336501514,
+      "sha256": "d381b96a6972176d4f08e90370c821ea5f4956b4e4e8c34e3c80436fc6ab20aa"
+    },
+    {
+      "token": "chord-C-p2-6",
+      "phrase": "シーシャープシャープシックス",
+      "file": "chord-C-p2-6.mp3",
+      "bytes": 14780,
+      "gain": 1.6384600683013797,
+      "sha256": "e4f37d2074e63ab81a3af58b37922f61a38043d3f09b6a4f56be826de4deaf7e"
+    },
+    {
+      "token": "chord-C-p2-7",
+      "phrase": "シーシャープシャープセブンス",
+      "file": "chord-C-p2-7.mp3",
+      "bytes": 14362,
+      "gain": 1.4666615840982788,
+      "sha256": "0c6e778db7a51ccb4ff124a0ef2c58cf2c27a387c54182f1ec411518493caddd"
+    },
+    {
+      "token": "chord-C-p2-9",
+      "phrase": "シーシャープシャープナインス",
+      "file": "chord-C-p2-9.mp3",
+      "bytes": 14362,
+      "gain": 1.2530657626946573,
+      "sha256": "bffc4a177c44bfdc5a6b7b15baf42c00e9d7a2225f2224238e2673b708cb92df"
+    },
+    {
+      "token": "chord-C-p2-major",
+      "phrase": "シーシャープシャープメジャー",
+      "file": "chord-C-p2-major.mp3",
+      "bytes": 13526,
+      "gain": 1.2100752974258735,
+      "sha256": "835c0b97049f128a3fc6160a1a59dd9601052d82b4026b495a0c7cdd66f9469a"
+    },
+    {
+      "token": "chord-C-p2-minor",
+      "phrase": "シーシャープシャープマイナー",
+      "file": "chord-C-p2-minor.mp3",
+      "bytes": 14362,
+      "gain": 1.2715456305017254,
+      "sha256": "379a2387e0cf6d0f193fc755f0442fba90d246d874a4e22016c8580ac5586f78"
+    },
+    {
+      "token": "chord-C-p2-dim",
+      "phrase": "シーシャープシャープディミニッシュ",
+      "file": "chord-C-p2-dim.mp3",
+      "bytes": 15616,
+      "gain": 1.210899586197887,
+      "sha256": "d41e78735d554b8ccf55399c4667c1d62a25886d3145a5aa4f00b844e2c94bf6"
+    },
+    {
+      "token": "chord-C-p2-aug",
+      "phrase": "シーシャープシャープオーギュメント",
+      "file": "chord-C-p2-aug.mp3",
+      "bytes": 16243,
+      "gain": 1.2254350001614285,
+      "sha256": "ce794bf01ffea29dd1b8328f6a79a316ee73c2e9702143193218c2b1d6b48d99"
+    },
+    {
+      "token": "chord-C-p2-sus2",
+      "phrase": "シーシャープシャープサスツー",
+      "file": "chord-C-p2-sus2.mp3",
+      "bytes": 14571,
+      "gain": 1.6054094830428285,
+      "sha256": "8434ae2ac6b5bb85b4cc70d300a64714f441f4365833ea40ed8ddcbebb279439"
+    },
+    {
+      "token": "chord-C-p2-sus4",
+      "phrase": "シーシャープシャープサスフォー",
+      "file": "chord-C-p2-sus4.mp3",
+      "bytes": 14571,
+      "gain": 1.5457425246276324,
+      "sha256": "6968243d4a9885a32956d82712c809403c88f0fda8fe0e1f194a55329959b364"
+    },
+    {
+      "token": "chord-C-p2-maj7",
+      "phrase": "シーシャープシャープメジャーセブンス",
+      "file": "chord-C-p2-maj7.mp3",
+      "bytes": 17079,
+      "gain": 1.3373388201478993,
+      "sha256": "a536fe9ae3decca5858b7f1d35a5fc0e1964e50e2c24f6a17586fbe7b710cae0"
+    },
+    {
+      "token": "chord-C-p2-m7",
+      "phrase": "シーシャープシャープマイナーセブンス",
+      "file": "chord-C-p2-m7.mp3",
+      "bytes": 17706,
+      "gain": 1.2864653291542545,
+      "sha256": "e455331b986e20ca3a63824df79d935847cba2fa3d17f7622c317daf64c6cda7"
+    },
+    {
+      "token": "chord-C-p2-m7♭5",
+      "phrase": "シーシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-C-p2-m7♭5.mp3",
+      "bytes": 26692,
+      "gain": 1.2901533656207647,
+      "sha256": "9fcc56b891f033c1b738c5d94c2c6c0c6d16f67b4cfed31f4bd287ccb9b4f1fc"
+    },
+    {
+      "token": "chord-C-p2-dim7",
+      "phrase": "シーシャープシャープディミニッシュセブンス",
+      "file": "chord-C-p2-dim7.mp3",
+      "bytes": 18542,
+      "gain": 1.3278159932983384,
+      "sha256": "b267841e1da9d94dd0975d580ab10c3205312faf7da620b79b3df17adb0c013b"
+    },
+    {
+      "token": "chord-C-p2-m6",
+      "phrase": "シーシャープシャープマイナーシックス",
+      "file": "chord-C-p2-m6.mp3",
+      "bytes": 18124,
+      "gain": 1.2814978422058532,
+      "sha256": "9dbf44ced2de817616844a2afef94273cbf9cf6fc46e03acc8fbee1730891779"
+    },
+    {
+      "token": "chord-C-p2-add9",
+      "phrase": "シーシャープシャープアドナイン",
+      "file": "chord-C-p2-add9.mp3",
+      "bytes": 15407,
+      "gain": 1.26231704191722,
+      "sha256": "91ccc5a160fa9e84424cc92c33094f17fbf431d9d33292daf346d9b7dc9a0a9b"
+    },
+    {
+      "token": "chord-C-p2-maj9",
+      "phrase": "シーシャープシャープメジャーナインス",
+      "file": "chord-C-p2-maj9.mp3",
+      "bytes": 17079,
+      "gain": 1.2269464996508817,
+      "sha256": "008bff6814c54e61c615f9ce02ffb0787af1ad661d2d20bd4004646e2d94f6a8"
+    },
+    {
+      "token": "chord-C-p2-m9",
+      "phrase": "シーシャープシャープマイナーナインス",
+      "file": "chord-C-p2-m9.mp3",
+      "bytes": 17706,
+      "gain": 1.2319678076925733,
+      "sha256": "ecc86b30f4a57a0de856ff7fef227d37130a525351f7129a4e698bc6e38bb0b8"
+    },
+    {
+      "token": "key-C-p2-major",
+      "phrase": "シーシャープシャープメジャーの調です。主和音を確認します。",
+      "file": "key-C-p2-major.mp3",
+      "bytes": 33170,
+      "gain": 1.3538484115811371,
+      "sha256": "b40d72ebf1feb74ddbc91c5b60778e4b39b154bd82166735038665500df45e91"
+    },
+    {
+      "token": "chord-D-p2-minor",
+      "phrase": "ディーシャープシャープマイナー",
+      "file": "chord-D-p2-minor.mp3",
+      "bytes": 13944,
+      "gain": 1.296626572768538,
+      "sha256": "2617766da0ff01cb4bd805f4b7ad378960ae024c2cb9a74a0ccf790d90e00198"
+    },
+    {
+      "token": "chord-E-p2-minor",
+      "phrase": "イーシャープシャープマイナー",
+      "file": "chord-E-p2-minor.mp3",
+      "bytes": 13735,
+      "gain": 1.373515378815272,
+      "sha256": "b0b89744c9468a5b33fb2e058cb096ff783762af65a7796497cc29e9cd56bf0d"
+    },
+    {
+      "token": "chord-F-p2-major",
+      "phrase": "エフシャープシャープメジャー",
+      "file": "chord-F-p2-major.mp3",
+      "bytes": 12690,
+      "gain": 1.2160686093767057,
+      "sha256": "070e1049278dccb16783d31764e3c0a533a62e47f4cf0be9abf2fbebe456bf71"
+    },
+    {
+      "token": "chord-G-p2-major",
+      "phrase": "ジーシャープシャープメジャー",
+      "file": "chord-G-p2-major.mp3",
+      "bytes": 13108,
+      "gain": 1.3289914293130831,
+      "sha256": "2b16977239ef8ee9382b0fa2ef15a12a0e9c60beaee199e381443394cd730fb5"
+    },
+    {
+      "token": "chord-A-p2-minor",
+      "phrase": "エーシャープシャープマイナー",
+      "file": "chord-A-p2-minor.mp3",
+      "bytes": 13735,
+      "gain": 1.2324013442102548,
+      "sha256": "a57c1c62c1f7f1dc31612a00730710d775092d3e65d4a87fb4c934de72ec3127"
+    },
+    {
+      "token": "chord-B-p2-dim",
+      "phrase": "ビーシャープシャープディミニッシュ",
+      "file": "chord-B-p2-dim.mp3",
+      "bytes": 15407,
+      "gain": 1.2384526815913381,
+      "sha256": "957a9cdeaf08b9b1f5aefbf3b398e2febfb36c55c55868ba237fe83575f01f59"
+    },
+    {
+      "token": "chord-D-p2-m7",
+      "phrase": "ディーシャープシャープマイナーセブンス",
+      "file": "chord-D-p2-m7.mp3",
+      "bytes": 17288,
+      "gain": 1.3156815864999418,
+      "sha256": "5f6b5e70b0ba56bac688df6acc90514e1456ab6119927818043b975293a7f892"
+    },
+    {
+      "token": "chord-E-p2-m7",
+      "phrase": "イーシャープシャープマイナーセブンス",
+      "file": "chord-E-p2-m7.mp3",
+      "bytes": 17079,
+      "gain": 1.358453834188293,
+      "sha256": "0d3358189aeffd43b8bedc736a23dd34bd61c0969abcb6946c84b9374349c2be"
+    },
+    {
+      "token": "chord-F-p2-maj7",
+      "phrase": "エフシャープシャープメジャーセブンス",
+      "file": "chord-F-p2-maj7.mp3",
+      "bytes": 16452,
+      "gain": 1.494974698565766,
+      "sha256": "baf363eedaea931166073c94c78aceff2acfaf8fce4efb06abe0805a904a27aa"
+    },
+    {
+      "token": "chord-G-p2-7",
+      "phrase": "ジーシャープシャープセブンス",
+      "file": "chord-G-p2-7.mp3",
+      "bytes": 14153,
+      "gain": 1.5745024080993133,
+      "sha256": "38b9392298997e926aa30c59f583b1bb5cb965b5535840d2a96039638a8957f0"
+    },
+    {
+      "token": "chord-A-p2-m7",
+      "phrase": "エーシャープシャープマイナーセブンス",
+      "file": "chord-A-p2-m7.mp3",
+      "bytes": 17288,
+      "gain": 1.2561224180997392,
+      "sha256": "f703b05f1016a2004fc287550af66bfa9268a01ac1757223e2bb1fb84fb7dd65"
+    },
+    {
+      "token": "chord-B-p2-m7♭5",
+      "phrase": "ビーシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-B-p2-m7♭5.mp3",
+      "bytes": 26483,
+      "gain": 1.316375486744082,
+      "sha256": "c96ac95c099609cbc163aeac42a9355c6ab69bf7c58c8b8b76bbac034c9116da"
+    },
+    {
+      "token": "key-C-p2-minor",
+      "phrase": "シーシャープシャープマイナーの調です。主和音を確認します。",
+      "file": "key-C-p2-minor.mp3",
+      "bytes": 33797,
+      "gain": 1.3779104333654846,
+      "sha256": "7396f5a0fa7a06abc67ac64d6339bf58f491cd51b09a810b4c5eec7481aacbfc"
+    },
+    {
+      "token": "chord-D-p2-dim",
+      "phrase": "ディーシャープシャープディミニッシュ",
+      "file": "chord-D-p2-dim.mp3",
+      "bytes": 15198,
+      "gain": 1.241104166168015,
+      "sha256": "7dae997ced081525352a0589a1d6d06feeec368dae133af8067de2ea800d6c26"
+    },
+    {
+      "token": "chord-E-p1-major",
+      "phrase": "イーシャープメジャー",
+      "file": "chord-E-p1-major.mp3",
+      "bytes": 10183,
+      "gain": 1.2771847666820497,
+      "sha256": "d5c4acfd31297eb39ff1b9095b10b7c93eb4f658cf64704ceb430c42319e8242"
+    },
+    {
+      "token": "chord-F-p2-minor",
+      "phrase": "エフシャープシャープマイナー",
+      "file": "chord-F-p2-minor.mp3",
+      "bytes": 13526,
+      "gain": 1.2272703757376437,
+      "sha256": "a85dda0f534669206fd39259c32ae076bd97f079d6b26b7b2416402473c39c41"
+    },
+    {
+      "token": "chord-G-p2-minor",
+      "phrase": "ジーシャープシャープマイナー",
+      "file": "chord-G-p2-minor.mp3",
+      "bytes": 13944,
+      "gain": 1.3403531784496239,
+      "sha256": "d33b95f128b1bcaa428a024704465b7a6b63d34a49f7049e6d47af99c0d697e5"
+    },
+    {
+      "token": "chord-A-p1-major",
+      "phrase": "エーシャープメジャー",
+      "file": "chord-A-p1-major.mp3",
+      "bytes": 10183,
+      "gain": 1.143497290756878,
+      "sha256": "a8eff23eaa83f84810fff015ad6d8528ee3fb29decaba9a1b1c5e7b17e9ffa58"
+    },
+    {
+      "token": "chord-B-p1-major",
+      "phrase": "ビーシャープメジャー",
+      "file": "chord-B-p1-major.mp3",
+      "bytes": 10392,
+      "gain": 1.328601619013311,
+      "sha256": "a05130ff1f04f9d65b6876715ed8ad5448e3c88aff3c8730bebfcb61f4c3f876"
+    },
+    {
+      "token": "chord-D-p2-m7♭5",
+      "phrase": "ディーシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-D-p2-m7♭5.mp3",
+      "bytes": 26274,
+      "gain": 1.3112667356195684,
+      "sha256": "4a9fcbc642c3638be2f772fa227075c9ab1542df82671d5b54564dc44b24326d"
+    },
+    {
+      "token": "chord-E-p1-maj7",
+      "phrase": "イーシャープメジャーセブンス",
+      "file": "chord-E-p1-maj7.mp3",
+      "bytes": 13735,
+      "gain": 1.3510371488130877,
+      "sha256": "aa2e7a4eade54c7dd1d0f710ae48d254e0e97e69bdc2ab368acdde796bc8b7db"
+    },
+    {
+      "token": "chord-F-p2-m7",
+      "phrase": "エフシャープシャープマイナーセブンス",
+      "file": "chord-F-p2-m7.mp3",
+      "bytes": 17079,
+      "gain": 1.416969166035017,
+      "sha256": "89103e1cfc2debfb96adc0982b28ab1aafe8b51a44c7dc7a7f9c012c0972286a"
+    },
+    {
+      "token": "chord-G-p2-m7",
+      "phrase": "ジーシャープシャープマイナーセブンス",
+      "file": "chord-G-p2-m7.mp3",
+      "bytes": 17497,
+      "gain": 1.3475491784794091,
+      "sha256": "71aa532b03dfd89fea89a8bea4c5a41ab6267c08956882396ad9c18803ae3e92"
+    },
+    {
+      "token": "chord-A-p1-maj7",
+      "phrase": "エーシャープメジャーセブンス",
+      "file": "chord-A-p1-maj7.mp3",
+      "bytes": 13735,
+      "gain": 1.2101464609908659,
+      "sha256": "3536fd91acf0afef45e54a31b63ed1798fe8ffcc4688557d85cd50be23d2b718"
+    },
+    {
+      "token": "chord-B-p1-7",
+      "phrase": "ビーシャープセブンス",
+      "file": "chord-B-p1-7.mp3",
+      "bytes": 11227,
+      "gain": 1.5162129052577358,
+      "sha256": "f8f7a4181da1772ec7217d97f79ab35c2a45cc62f49f2c1d23a1614d231e0440"
+    },
+    {
+      "token": "chord-D-m2-6",
+      "phrase": "ディーフラットフラットシックス",
+      "file": "chord-D-m2-6.mp3",
+      "bytes": 15407,
+      "gain": 1.4770527662521384,
+      "sha256": "aed714fd651f4c73d5c6ae6c5f9a13c2dc686958a8fe435684d614660d96b78d"
+    },
+    {
+      "token": "chord-D-m2-7",
+      "phrase": "ディーフラットフラットセブンス",
+      "file": "chord-D-m2-7.mp3",
+      "bytes": 14989,
+      "gain": 1.372839772440294,
+      "sha256": "9aea606d25def4441fd231697aafb914b30232a1a5ae364f2a1673c0cd08b9cb"
+    },
+    {
+      "token": "chord-D-m2-9",
+      "phrase": "ディーフラットフラットナインス",
+      "file": "chord-D-m2-9.mp3",
+      "bytes": 14571,
+      "gain": 1.2604116287120053,
+      "sha256": "f56b72a1a2d3aeac37e0a1d33a79d1775931bffca6b474002f99f40f14b19277"
+    },
+    {
+      "token": "chord-D-m2-major",
+      "phrase": "ディーフラットフラットメジャー",
+      "file": "chord-D-m2-major.mp3",
+      "bytes": 13944,
+      "gain": 1.1857358429384823,
+      "sha256": "48b044f142fbaa02a1fc5d617ac9155c99206f3f254d2c5317f1a2d890fafc1d"
+    },
+    {
+      "token": "chord-D-m2-aug",
+      "phrase": "ディーフラットフラットオーギュメント",
+      "file": "chord-D-m2-aug.mp3",
+      "bytes": 16661,
+      "gain": 1.2154278461825925,
+      "sha256": "0d4e3a8aff576269ca076f4cce89938360ed8d26b36ee923ac5e91caebaacdd8"
+    },
+    {
+      "token": "chord-D-m2-sus2",
+      "phrase": "ディーフラットフラットサスツー",
+      "file": "chord-D-m2-sus2.mp3",
+      "bytes": 14989,
+      "gain": 1.4879096145056474,
+      "sha256": "b6a18608450e5aea3c19218b1f07aab0bce65faef7e85f9a1efc62b197c4b1e0"
+    },
+    {
+      "token": "chord-D-m2-sus4",
+      "phrase": "ディーフラットフラットサスフォー",
+      "file": "chord-D-m2-sus4.mp3",
+      "bytes": 15198,
+      "gain": 1.3841690772800905,
+      "sha256": "7486182c9f630550df9ec72856d7ac5b4c0c1f28f6c94af3e0743f9f5c16be50"
+    },
+    {
+      "token": "chord-D-m2-maj7",
+      "phrase": "ディーフラットフラットメジャーセブンス",
+      "file": "chord-D-m2-maj7.mp3",
+      "bytes": 17706,
+      "gain": 1.2166894383549935,
+      "sha256": "e8ebc013fa188a656d8d6eccc3deaa03569340e5698940babb5d8d73f8cc6fd4"
+    },
+    {
+      "token": "chord-D-m2-dim7",
+      "phrase": "ディーフラットフラットディミニッシュセブンス",
+      "file": "chord-D-m2-dim7.mp3",
+      "bytes": 18960,
+      "gain": 1.1892244512164973,
+      "sha256": "97361475ae8f16f272aa2c2660567670af4230a689f449f7f9e6b832765b21f4"
+    },
+    {
+      "token": "chord-D-m2-m6",
+      "phrase": "ディーフラットフラットマイナーシックス",
+      "file": "chord-D-m2-m6.mp3",
+      "bytes": 18542,
+      "gain": 1.2783587778157774,
+      "sha256": "b581574b53292ac7ca34e97ff00b4685a62d31665935264eb482bdeeb636921e"
+    },
+    {
+      "token": "chord-D-m2-add9",
+      "phrase": "ディーフラットフラットアドナイン",
+      "file": "chord-D-m2-add9.mp3",
+      "bytes": 15616,
+      "gain": 1.2822931393077688,
+      "sha256": "2dc186158664e427cfe5b20339c361b1729ced2ed44d12e21589d0266d634897"
+    },
+    {
+      "token": "chord-D-m2-maj9",
+      "phrase": "ディーフラットフラットメジャーナインス",
+      "file": "chord-D-m2-maj9.mp3",
+      "bytes": 17497,
+      "gain": 1.1602053383891866,
+      "sha256": "39bcd8276e7599dddd3db4bf1eaf150adb03d9864c141272fb8c2e1b565311f1"
+    },
+    {
+      "token": "chord-D-m2-m9",
+      "phrase": "ディーフラットフラットマイナーナインス",
+      "file": "chord-D-m2-m9.mp3",
+      "bytes": 18124,
+      "gain": 1.1281811426116062,
+      "sha256": "708945e35d777b6ea0eefc6f14d3a25aba7ad90fba8b2908b30e4d0b88279ce2"
+    },
+    {
+      "token": "key-D-m2-major",
+      "phrase": "ディーフラットフラットメジャーの調です。主和音を確認します。",
+      "file": "key-D-m2-major.mp3",
+      "bytes": 33588,
+      "gain": 1.2936630653670593,
+      "sha256": "88a5554fedaf1abc1c9a2d137005c6bfc4a120dc82cc4002e399a938e4dd36c5"
+    },
+    {
+      "token": "chord-B-m2-minor",
+      "phrase": "ビーフラットフラットマイナー",
+      "file": "chord-B-m2-minor.mp3",
+      "bytes": 14780,
+      "gain": 1.1651997616516991,
+      "sha256": "d4e92235f7f0da0d069b47dd11e9bed79658bb0c04de2ae8e0b09782958040d8"
+    },
+    {
+      "token": "chord-G-m2-maj7",
+      "phrase": "ジーフラットフラットメジャーセブンス",
+      "file": "chord-G-m2-maj7.mp3",
+      "bytes": 17706,
+      "gain": 1.258490171725508,
+      "sha256": "29674f63c94ce7f5cd314c38900ec72468ef69232a564b7646692dc6afe15c74"
+    },
+    {
+      "token": "chord-A-m2-7",
+      "phrase": "エーフラットフラットセブンス",
+      "file": "chord-A-m2-7.mp3",
+      "bytes": 14780,
+      "gain": 1.2879644761561078,
+      "sha256": "8d3d2c390e04600d86662005031718e4454f0e28443d8f19f837480c3bf0b6d8"
+    },
+    {
+      "token": "chord-B-m2-m7",
+      "phrase": "ビーフラットフラットマイナーセブンス",
+      "file": "chord-B-m2-m7.mp3",
+      "bytes": 18124,
+      "gain": 1.1701245999503036,
+      "sha256": "ea0d96128da5dfacccc2c318a47df9411919d340b541d931a75621007f855567"
+    },
+    {
+      "token": "key-D-m2-minor",
+      "phrase": "ディーフラットフラットマイナーの調です。主和音を確認します。",
+      "file": "key-D-m2-minor.mp3",
+      "bytes": 34215,
+      "gain": 1.3185110556417572,
+      "sha256": "03b52c0829ffc15f6fe39d969040018c2442487b913cdd61eb44e73d3755e9dc"
+    },
+    {
+      "token": "chord-E-m2-dim",
+      "phrase": "イーフラットフラットディミニッシュ",
+      "file": "chord-E-m2-dim.mp3",
+      "bytes": 16034,
+      "gain": 1.1892081710015663,
+      "sha256": "7725ae500c0580100f98c77b0a969a7ebb603ca3d763f48412d1ded9648b6386"
+    },
+    {
+      "token": "chord-E-m2-m7♭5",
+      "phrase": "イーフラットフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-E-m2-m7♭5.mp3",
+      "bytes": 26901,
+      "gain": 1.1887217250278013,
+      "sha256": "5b198ce09a4ad49a829c35ac37db0d8300d97067de8a52360e1d63ce5bc3d951"
+    },
+    {
+      "token": "chord-B-m3-maj7",
+      "phrase": "ビーフラットフラットフラットメジャーセブンス",
+      "file": "chord-B-m3-maj7.mp3",
+      "bytes": 20841,
+      "gain": 1.2106740024126594,
+      "sha256": "a7ca6499d52b7dc7888583f86de02bd0bb96f270515def3bdcbf5636035a82eb"
+    },
+    {
+      "token": "chord-D-m1-6",
+      "phrase": "ディーフラットシックス",
+      "file": "chord-D-m1-6.mp3",
+      "bytes": 11854,
+      "gain": 1.4963039191950873,
+      "sha256": "c521f21a2dcd156e4f4b254a2e94313e2cae27ae1fb35b88ec4d26f871cd8452"
+    },
+    {
+      "token": "chord-D-m1-7",
+      "phrase": "ディーフラットセブンス",
+      "file": "chord-D-m1-7.mp3",
+      "bytes": 11645,
+      "gain": 1.4463339231776107,
+      "sha256": "6dbe946c38bc1d68ee1e358baca3e3de044cff36c76b92a4a089d4fe86548817"
+    },
+    {
+      "token": "chord-D-m1-9",
+      "phrase": "ディーフラットナインス",
+      "file": "chord-D-m1-9.mp3",
+      "bytes": 11436,
+      "gain": 1.2628651849880037,
+      "sha256": "8c8724e8f23a43ca05f2d5a0e755cf716bbc36d466e127b20fccde9facc5a12c"
+    },
+    {
+      "token": "chord-D-m1-major",
+      "phrase": "ディーフラットメジャー",
+      "file": "chord-D-m1-major.mp3",
+      "bytes": 10601,
+      "gain": 1.1956119590430168,
+      "sha256": "d9a5ea00266664e3cef9060ec8bf7dc367600bef8f8326e181af47a105a9033c"
+    },
+    {
+      "token": "chord-D-m1-aug",
+      "phrase": "ディーフラットオーギュメント",
+      "file": "chord-D-m1-aug.mp3",
+      "bytes": 13317,
+      "gain": 1.2099158745334881,
+      "sha256": "e44472d848260d38565710cd3fd5dc9004a1d39b978ea7d9825acf9f9b100e90"
+    },
+    {
+      "token": "chord-D-m1-sus2",
+      "phrase": "ディーフラットサスツー",
+      "file": "chord-D-m1-sus2.mp3",
+      "bytes": 11854,
+      "gain": 1.5689546272827997,
+      "sha256": "755708411a92a5d41a6c49bdfaf84d36c962b3133b11f27cffcf51a880cdd074"
+    },
+    {
+      "token": "chord-D-m1-sus4",
+      "phrase": "ディーフラットサスフォー",
+      "file": "chord-D-m1-sus4.mp3",
+      "bytes": 11854,
+      "gain": 1.4802351277233183,
+      "sha256": "b9b2c3ef3179d04ef07bb9d81188df7d4098b50e90575c72267453471e8130a9"
+    },
+    {
+      "token": "chord-D-m1-maj7",
+      "phrase": "ディーフラットメジャーセブンス",
+      "file": "chord-D-m1-maj7.mp3",
+      "bytes": 14362,
+      "gain": 1.2079206654579637,
+      "sha256": "2f3e02cdf11012f6716bc3c9909f7338ac8978d83758a469445487ff01a6fbf0"
+    },
+    {
+      "token": "chord-D-m1-dim7",
+      "phrase": "ディーフラットディミニッシュセブンス",
+      "file": "chord-D-m1-dim7.mp3",
+      "bytes": 15825,
+      "gain": 1.1850169039669793,
+      "sha256": "0408ac6d48141a133de283b216869fc8e4d8858bc7210d96d5cbd2ff1bc805a4"
+    },
+    {
+      "token": "chord-D-m1-m6",
+      "phrase": "ディーフラットマイナーシックス",
+      "file": "chord-D-m1-m6.mp3",
+      "bytes": 15407,
+      "gain": 1.2710535362140685,
+      "sha256": "bcd3bf813fcb087741ef042b8fd08517686117ef1e012f75768767da72b8fe23"
+    },
+    {
+      "token": "chord-D-m1-add9",
+      "phrase": "ディーフラットアドナイン",
+      "file": "chord-D-m1-add9.mp3",
+      "bytes": 12272,
+      "gain": 1.2733156195696431,
+      "sha256": "2bf559ea5be358a3fa6460fdfd989bb048b744a452f2c7f38c59f1a16e68077a"
+    },
+    {
+      "token": "chord-D-m1-maj9",
+      "phrase": "ディーフラットメジャーナインス",
+      "file": "chord-D-m1-maj9.mp3",
+      "bytes": 14153,
+      "gain": 1.151719087018718,
+      "sha256": "f21cd567b2320ed51566fb1b8c523bd7992d7daf6010c6abaa117225e95a813f"
+    },
+    {
+      "token": "chord-D-m1-m9",
+      "phrase": "ディーフラットマイナーナインス",
+      "file": "chord-D-m1-m9.mp3",
+      "bytes": 14780,
+      "gain": 1.0998185690179145,
+      "sha256": "81d75befe84445429f6045d6367c2d2e1912f5bf3e8de1f795dd89ff890a3ea7"
+    },
+    {
+      "token": "key-D-m1-major",
+      "phrase": "ディーフラットメジャーの調です。主和音を確認します。",
+      "file": "key-D-m1-major.mp3",
+      "bytes": 30245,
+      "gain": 1.3097602774668708,
+      "sha256": "c7065a1805993a30dd10250c4dbc89d5b7f226ff1afb671b407c7c1e50b8bf23"
+    },
+    {
+      "token": "chord-B-m1-minor",
+      "phrase": "ビーフラットマイナー",
+      "file": "chord-B-m1-minor.mp3",
+      "bytes": 11436,
+      "gain": 1.158790348410313,
+      "sha256": "989751c8f99505221409793b9bb72f7944d59d030a57f85e4d9b1505b04d2cbf"
+    },
+    {
+      "token": "chord-G-m1-maj7",
+      "phrase": "ジーフラットメジャーセブンス",
+      "file": "chord-G-m1-maj7.mp3",
+      "bytes": 14571,
+      "gain": 1.257588951274316,
+      "sha256": "237ee2aec7711e281bb5ff34e5c8051abb2351a3db4e0884d5d32ff63308cbd9"
+    },
+    {
+      "token": "chord-A-m1-7",
+      "phrase": "エーフラットセブンス",
+      "file": "chord-A-m1-7.mp3",
+      "bytes": 11645,
+      "gain": 1.3168263682516002,
+      "sha256": "38cac083cfd61b0e9bb05d6026b616e11a1c1cab57cf944d53798820d0c32cff"
+    },
+    {
+      "token": "chord-B-m1-m7",
+      "phrase": "ビーフラットマイナーセブンス",
+      "file": "chord-B-m1-m7.mp3",
+      "bytes": 14780,
+      "gain": 1.1500281971442476,
+      "sha256": "64a901cfe530885a9e2b3495c6282705770f263c58de14c88e4a6a33bd377566"
+    },
+    {
+      "token": "key-D-m1-minor",
+      "phrase": "ディーフラットマイナーの調です。主和音を確認します。",
+      "file": "key-D-m1-minor.mp3",
+      "bytes": 31081,
+      "gain": 1.3371445443298713,
+      "sha256": "aaf8aedc1a9f9fb09f9f0ac8ffd1ee71c4f9b9541ee56e8e7ddf6b7dc3421ada"
+    },
+    {
+      "token": "chord-E-m1-dim",
+      "phrase": "イーフラットディミニッシュ",
+      "file": "chord-E-m1-dim.mp3",
+      "bytes": 12899,
+      "gain": 1.18164660529147,
+      "sha256": "f70a28e249d79fba5c0e1282e1769cd675484c132d8a0b04f7f465a2741938c1"
+    },
+    {
+      "token": "chord-E-m1-m7♭5",
+      "phrase": "イーフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-E-m1-m7♭5.mp3",
+      "bytes": 23766,
+      "gain": 1.1823050829160318,
+      "sha256": "59831209bb8fd115204510e9ce6b1f7d4844e77e8cc33ea5294f804badbae820"
+    },
+    {
+      "token": "chord-B-m2-maj7",
+      "phrase": "ビーフラットフラットメジャーセブンス",
+      "file": "chord-B-m2-maj7.mp3",
+      "bytes": 17706,
+      "gain": 1.2105239195276376,
+      "sha256": "1fcffd594f1156adbda41c8c6960f90fa3977a2651a46e16d933f8505cb772c0"
+    },
+    {
+      "token": "chord-D-p0-6",
+      "phrase": "ディーシックス",
+      "file": "chord-D-p0-6.mp3",
+      "bytes": 8511,
+      "gain": 1.740528697176334,
+      "sha256": "30b80fdfc1b8224b5d8da28c60d709903d105defd50b0f6d76735202dfb308cb"
+    },
+    {
+      "token": "chord-D-p0-7",
+      "phrase": "ディーセブンス",
+      "file": "chord-D-p0-7.mp3",
+      "bytes": 8302,
+      "gain": 1.2852080006892088,
+      "sha256": "b9815302ceb8b1822048babdf39cb47bc80dc9c2de9130d8949c3748b968ac8b"
+    },
+    {
+      "token": "chord-D-p0-9",
+      "phrase": "ディーナインス",
+      "file": "chord-D-p0-9.mp3",
+      "bytes": 8093,
+      "gain": 1.10597880404152,
+      "sha256": "ebe3400d61b8a5a2c8e0573eb96be8cbfbc81eaff72195544e9da71bdc085bee"
+    },
+    {
+      "token": "chord-D-p0-major",
+      "phrase": "ディーメジャー",
+      "file": "chord-D-p0-major.mp3",
+      "bytes": 7257,
+      "gain": 1.0729056200601756,
+      "sha256": "55a14ae546e5acd120d4896f84d8479609947096685e3c69b0e952bf554a2f19"
+    },
+    {
+      "token": "chord-D-p0-aug",
+      "phrase": "ディーオーギュメント",
+      "file": "chord-D-p0-aug.mp3",
+      "bytes": 9765,
+      "gain": 1.1016511195709704,
+      "sha256": "7920099bb2d4b26342e7cd0f142007c242dd8eba0f1f9a577527f625e811cfc6"
+    },
+    {
+      "token": "chord-D-p0-sus2",
+      "phrase": "ディーサスツー",
+      "file": "chord-D-p0-sus2.mp3",
+      "bytes": 8302,
+      "gain": 1.90920371330997,
+      "sha256": "720b0b1e8670fc5d2e54f3208f35d15e767869a8a54c88517cd2af19a7c49ee2"
+    },
+    {
+      "token": "chord-D-p0-sus4",
+      "phrase": "ディーサスフォー",
+      "file": "chord-D-p0-sus4.mp3",
+      "bytes": 8302,
+      "gain": 1.6895536802688884,
+      "sha256": "1635395c5cab43eb88ff7f94c90025cfa42429b80cf53a92ce1210add965aed3"
+    },
+    {
+      "token": "chord-D-p0-maj7",
+      "phrase": "ディーメジャーセブンス",
+      "file": "chord-D-p0-maj7.mp3",
+      "bytes": 10809,
+      "gain": 1.3323719705147683,
+      "sha256": "6723d99d1eaf58bc60714a42ebc86c5932dc161dc2e133cf9dc543d1d3afca16"
+    },
+    {
+      "token": "chord-D-p0-dim7",
+      "phrase": "ディーディミニッシュセブンス",
+      "file": "chord-D-p0-dim7.mp3",
+      "bytes": 12481,
+      "gain": 1.2444594140673721,
+      "sha256": "e08a5107e346fb1dc20e3e8352e85f94489c6b08e36a6f511e4d35ab9e639a9b"
+    },
+    {
+      "token": "chord-D-p0-m6",
+      "phrase": "ディーマイナーシックス",
+      "file": "chord-D-p0-m6.mp3",
+      "bytes": 11645,
+      "gain": 1.3267140229959782,
+      "sha256": "bf2f0bbd15e13b932676c2061d72fe62ee9fa383d425b3c0e432be94527be257"
+    },
+    {
+      "token": "chord-D-p0-add9",
+      "phrase": "ディーアドナイン",
+      "file": "chord-D-p0-add9.mp3",
+      "bytes": 8929,
+      "gain": 1.0989442345351803,
+      "sha256": "0eeca6b4aabae16dc325c78e4b2f3df99fbbd9816cb5201160520e9ea8dac283"
+    },
+    {
+      "token": "chord-D-p0-maj9",
+      "phrase": "ディーメジャーナインス",
+      "file": "chord-D-p0-maj9.mp3",
+      "bytes": 10809,
+      "gain": 1.1941374646666563,
+      "sha256": "a87c2a5de8164d73db8e9fb2743abaad43ee8f7a430252e6846ca2c08ec0ed89"
+    },
+    {
+      "token": "chord-D-p0-m9",
+      "phrase": "ディーマイナーナインス",
+      "file": "chord-D-p0-m9.mp3",
+      "bytes": 11436,
+      "gain": 1.1903175721102253,
+      "sha256": "9fad73837bbec9da90848fdc08122205b37ae964b0d29c625b1e9c9b735c92d7"
+    },
+    {
+      "token": "key-D-p0-major",
+      "phrase": "ディーメジャーの調です。主和音を確認します。",
+      "file": "key-D-p0-major.mp3",
+      "bytes": 26901,
+      "gain": 1.2766134909139815,
+      "sha256": "b36ea3ffadd8eb6e54b6e14d2d2e1afb2790ad8fbc466a71208b71526430e96b"
+    },
+    {
+      "token": "chord-B-p0-minor",
+      "phrase": "ビーマイナー",
+      "file": "chord-B-p0-minor.mp3",
+      "bytes": 8302,
+      "gain": 1.2560834054428378,
+      "sha256": "529ae0d5c535bd32813bd88af6032fb567d89cda28f8d07b246678c6c5df36a9"
+    },
+    {
+      "token": "chord-G-p0-maj7",
+      "phrase": "ジーメジャーセブンス",
+      "file": "chord-G-p0-maj7.mp3",
+      "bytes": 11227,
+      "gain": 1.1811788490964725,
+      "sha256": "ff6ec74cd08f4902772d793fab6b38ab660ad6da9a2e7f2d50d8ca194be2c8b0"
+    },
+    {
+      "token": "chord-A-p0-7",
+      "phrase": "エーセブンス",
+      "file": "chord-A-p0-7.mp3",
+      "bytes": 8302,
+      "gain": 1.151109064210586,
+      "sha256": "a4dfc7090aceafa3bbe6b70d498e498532775af5fe271e6ce67bcb6ab43b0fba"
+    },
+    {
+      "token": "chord-B-p0-m7",
+      "phrase": "ビーマイナーセブンス",
+      "file": "chord-B-p0-m7.mp3",
+      "bytes": 11645,
+      "gain": 1.2132144740495456,
+      "sha256": "63785fd29efd2f71470e1e7abc25c720f529024df732fb06371367d434b82e63"
+    },
+    {
+      "token": "key-D-p0-minor",
+      "phrase": "ディーマイナーの調です。主和音を確認します。",
+      "file": "key-D-p0-minor.mp3",
+      "bytes": 27528,
+      "gain": 1.3245596985973414,
+      "sha256": "5a8308b87edeaf4c3d7c98ac21eb3d22fe3a3dc726c868e6ace067700e14035a"
+    },
+    {
+      "token": "chord-E-p0-dim",
+      "phrase": "イーディミニッシュ",
+      "file": "chord-E-p0-dim.mp3",
+      "bytes": 9347,
+      "gain": 1.2192945374834712,
+      "sha256": "3eda3819f21939c7049e4096d021ade8d383b596de4ea277c8621b08692d17d8"
+    },
+    {
+      "token": "chord-E-p0-m7♭5",
+      "phrase": "イーマイナーセブンス、フラットファイブ",
+      "file": "chord-E-p0-m7♭5.mp3",
+      "bytes": 20423,
+      "gain": 1.2934584139716938,
+      "sha256": "1bce9d1c394a1fc100cd51f14d3b5a9f56f438386815c39b99a9a86a6bd4d78c"
+    },
+    {
+      "token": "chord-B-m1-maj7",
+      "phrase": "ビーフラットメジャーセブンス",
+      "file": "chord-B-m1-maj7.mp3",
+      "bytes": 14362,
+      "gain": 1.2484940253385368,
+      "sha256": "85b03f718d863e3131dc060a74da52e9e2421ae949ada5d48b314710b74683e1"
+    },
+    {
+      "token": "chord-D-p1-6",
+      "phrase": "ディーシャープシックス",
+      "file": "chord-D-p1-6.mp3",
+      "bytes": 11018,
+      "gain": 1.5734878068786766,
+      "sha256": "f55e34e346501fe3d1ee1c628262a8c77d4624f2af4cc595749d2bbcdad5822c"
+    },
+    {
+      "token": "chord-D-p1-7",
+      "phrase": "ディーシャープセブンス",
+      "file": "chord-D-p1-7.mp3",
+      "bytes": 11018,
+      "gain": 1.545010115526455,
+      "sha256": "1aa0f3213b6568b4ff778eabff8e70ede36d7fd049110f9e9003dee339a52935"
+    },
+    {
+      "token": "chord-D-p1-9",
+      "phrase": "ディーシャープナインス",
+      "file": "chord-D-p1-9.mp3",
+      "bytes": 11018,
+      "gain": 1.2706041181067955,
+      "sha256": "ab46dccfd734834c6c0f2685a2ede5c291ab3d2d944e85c74728a621572fc78b"
+    },
+    {
+      "token": "chord-D-p1-major",
+      "phrase": "ディーシャープメジャー",
+      "file": "chord-D-p1-major.mp3",
+      "bytes": 10183,
+      "gain": 1.1553803002321785,
+      "sha256": "0c0967d5ed9222b8cb54ec075e74ecb0153ca42df520c3b2cebcf5ced9761e96"
+    },
+    {
+      "token": "chord-D-p1-aug",
+      "phrase": "ディーシャープオーギュメント",
+      "file": "chord-D-p1-aug.mp3",
+      "bytes": 12899,
+      "gain": 1.1882921915137896,
+      "sha256": "4cb7da5b56af9a2d697496e6ab123a2d85d1fda58a7f0f72b8f124b230bb374e"
+    },
+    {
+      "token": "chord-D-p1-sus2",
+      "phrase": "ディーシャープサスツー",
+      "file": "chord-D-p1-sus2.mp3",
+      "bytes": 11227,
+      "gain": 1.7644718520628626,
+      "sha256": "5870915865fd22fd61ffeff225733c551bcffd3bfe5b7abb15fdcc689dbc560c"
+    },
+    {
+      "token": "chord-D-p1-sus4",
+      "phrase": "ディーシャープサスフォー",
+      "file": "chord-D-p1-sus4.mp3",
+      "bytes": 11227,
+      "gain": 1.6291043671797734,
+      "sha256": "d046bc4d7c557ef5917bc8c40a27764734caa99a2ce4caa0f0b71df8a9acb1de"
+    },
+    {
+      "token": "chord-D-p1-maj7",
+      "phrase": "ディーシャープメジャーセブンス",
+      "file": "chord-D-p1-maj7.mp3",
+      "bytes": 13944,
+      "gain": 1.2796147138741936,
+      "sha256": "ca6a011abf439a1bd8179e942bc18599b2636832dd4f4ed05ec3b682e3af696b"
+    },
+    {
+      "token": "chord-D-p1-dim7",
+      "phrase": "ディーシャープディミニッシュセブンス",
+      "file": "chord-D-p1-dim7.mp3",
+      "bytes": 15407,
+      "gain": 1.2425594239666502,
+      "sha256": "f97b1eaa294c442ccb83b720894d6d3899d17d91030d5ed703cefe2b9dab23f3"
+    },
+    {
+      "token": "chord-D-p1-m6",
+      "phrase": "ディーシャープマイナーシックス",
+      "file": "chord-D-p1-m6.mp3",
+      "bytes": 14989,
+      "gain": 1.2759076561721578,
+      "sha256": "3f1e6cdc08bb3fdbd85b5e3b3589bc121160ebf22858313ac4ab8f1930f3f0a4"
+    },
+    {
+      "token": "chord-D-p1-add9",
+      "phrase": "ディーシャープアドナイン",
+      "file": "chord-D-p1-add9.mp3",
+      "bytes": 12063,
+      "gain": 1.2491259435498336,
+      "sha256": "fd6b2b8348589ceebc5d4e0a3a5ed242779cb5788a0780a9a2f14f51c75ebc3d"
+    },
+    {
+      "token": "chord-D-p1-maj9",
+      "phrase": "ディーシャープメジャーナインス",
+      "file": "chord-D-p1-maj9.mp3",
+      "bytes": 13735,
+      "gain": 1.1656101610624203,
+      "sha256": "4ed3aaaf3f1aceef4982ec9f3750c7a60426f47aa128f7bc7537c8a48bb52f36"
+    },
+    {
+      "token": "chord-D-p1-m9",
+      "phrase": "ディーシャープマイナーナインス",
+      "file": "chord-D-p1-m9.mp3",
+      "bytes": 14362,
+      "gain": 1.144212406272153,
+      "sha256": "32da3a95cb39f69a4dde4e1d5ca6dd96e313f17372f48cb3edcb3097626414c2"
+    },
+    {
+      "token": "key-D-p1-major",
+      "phrase": "ディーシャープメジャーの調です。主和音を確認します。",
+      "file": "key-D-p1-major.mp3",
+      "bytes": 29827,
+      "gain": 1.3330651073788673,
+      "sha256": "1c557388cfe9f7d6010f29724dca4bd39b489186c99d1bcd1eead0c0013119c9"
+    },
+    {
+      "token": "chord-B-p1-minor",
+      "phrase": "ビーシャープマイナー",
+      "file": "chord-B-p1-minor.mp3",
+      "bytes": 11018,
+      "gain": 1.3374432746752503,
+      "sha256": "fa53dcfd06e1fdac0f40a021f0e06366e99247d143c5341c6e2be563007def4b"
+    },
+    {
+      "token": "chord-G-p1-maj7",
+      "phrase": "ジーシャープメジャーセブンス",
+      "file": "chord-G-p1-maj7.mp3",
+      "bytes": 14153,
+      "gain": 1.3346410441347167,
+      "sha256": "296a2ed5d2d9c8dc7e91052f3bba7c2f62f419fa494ab8eab3567d0971ecbaeb"
+    },
+    {
+      "token": "chord-A-p1-7",
+      "phrase": "エーシャープセブンス",
+      "file": "chord-A-p1-7.mp3",
+      "bytes": 11018,
+      "gain": 1.398311231774794,
+      "sha256": "5e7eacac88c58c18ed7feab7db81bfbb89fd4fe745ba2f226ed692b05cbd111a"
+    },
+    {
+      "token": "chord-B-p1-m7",
+      "phrase": "ビーシャープマイナーセブンス",
+      "file": "chord-B-p1-m7.mp3",
+      "bytes": 14571,
+      "gain": 1.243499154864428,
+      "sha256": "243d35f961692c80737044c048d67a7036e32e9fd48c737d2c87e64cabe37589"
+    },
+    {
+      "token": "key-D-p1-minor",
+      "phrase": "ディーシャープマイナーの調です。主和音を確認します。",
+      "file": "key-D-p1-minor.mp3",
+      "bytes": 30454,
+      "gain": 1.348185933125475,
+      "sha256": "741bf3a648bf0133bdbde6aca200cd86ae050692a6b49c65a8af932867417297"
+    },
+    {
+      "token": "chord-E-p1-dim",
+      "phrase": "イーシャープディミニッシュ",
+      "file": "chord-E-p1-dim.mp3",
+      "bytes": 12272,
+      "gain": 1.2296082909337858,
+      "sha256": "ce6ff1c6505b40b50e7bb18d3b4b6b608b226b75cbc06fe5c8800eec76e650a2"
+    },
+    {
+      "token": "chord-E-p1-m7♭5",
+      "phrase": "イーシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-E-p1-m7♭5.mp3",
+      "bytes": 23348,
+      "gain": 1.2850318313324987,
+      "sha256": "04bcea4f35c7a2f1530eeb84226ebef92fa07eaf21e51b5ec37f6af1f9d0ffd1"
+    },
+    {
+      "token": "chord-B-p0-maj7",
+      "phrase": "ビーメジャーセブンス",
+      "file": "chord-B-p0-maj7.mp3",
+      "bytes": 11018,
+      "gain": 1.2245385172947367,
+      "sha256": "63a755b82f01da431513d7051bb79f8824570a5d4e49e284e01da711a6e649d9"
+    },
+    {
+      "token": "chord-D-p2-6",
+      "phrase": "ディーシャープシャープシックス",
+      "file": "chord-D-p2-6.mp3",
+      "bytes": 14362,
+      "gain": 1.7615780747539391,
+      "sha256": "94be1edbd583594b8e3299b4a4f6b488c3e5284a4d75da29777d7c55227147dd"
+    },
+    {
+      "token": "chord-D-p2-7",
+      "phrase": "ディーシャープシャープセブンス",
+      "file": "chord-D-p2-7.mp3",
+      "bytes": 13944,
+      "gain": 1.5359502816725203,
+      "sha256": "94ce24eee3c45881b108e21f09444bbcfc566f73f6035fd019627813e3a5b1b6"
+    },
+    {
+      "token": "chord-D-p2-9",
+      "phrase": "ディーシャープシャープナインス",
+      "file": "chord-D-p2-9.mp3",
+      "bytes": 13944,
+      "gain": 1.3299706791701773,
+      "sha256": "e1c7e56f11a12126441c7f0f15f3654da4ed7c6864cf4c6f8ae39a687e4b1d61"
+    },
+    {
+      "token": "chord-D-p2-major",
+      "phrase": "ディーシャープシャープメジャー",
+      "file": "chord-D-p2-major.mp3",
+      "bytes": 13108,
+      "gain": 1.2552762246607163,
+      "sha256": "85e56d89e0b4adb97399ea0430c9f4231a00f473f14d69dc8c2682013953fd02"
+    },
+    {
+      "token": "chord-D-p2-aug",
+      "phrase": "ディーシャープシャープオーギュメント",
+      "file": "chord-D-p2-aug.mp3",
+      "bytes": 15825,
+      "gain": 1.2454688826214555,
+      "sha256": "e18c3a7e364a4be7422f6b8d387862baadab4d8da8a562f240d546ba1c34f530"
+    },
+    {
+      "token": "chord-D-p2-sus2",
+      "phrase": "ディーシャープシャープサスツー",
+      "file": "chord-D-p2-sus2.mp3",
+      "bytes": 14153,
+      "gain": 1.7177178672638147,
+      "sha256": "ba8051c483cfde9eff9ebd5b861ead44f9ca2d65cb598184aaa34c98040f8991"
+    },
+    {
+      "token": "chord-D-p2-sus4",
+      "phrase": "ディーシャープシャープサスフォー",
+      "file": "chord-D-p2-sus4.mp3",
+      "bytes": 14153,
+      "gain": 1.6254439996573196,
+      "sha256": "60b31032f049a8aa5ae20c2d2ec03dfb5b88d2b31ca6a628686b512a20056b4f"
+    },
+    {
+      "token": "chord-D-p2-maj7",
+      "phrase": "ディーシャープシャープメジャーセブンス",
+      "file": "chord-D-p2-maj7.mp3",
+      "bytes": 16661,
+      "gain": 1.3781740248537544,
+      "sha256": "522b3eb087cbfbb49aa7311c5f4d1e699e81dff83e454e710f5e43b41b3e3aea"
+    },
+    {
+      "token": "chord-D-p2-dim7",
+      "phrase": "ディーシャープシャープディミニッシュセブンス",
+      "file": "chord-D-p2-dim7.mp3",
+      "bytes": 18124,
+      "gain": 1.3562223608023671,
+      "sha256": "459dac3e29a690e6ebb667055fdd84ce8b253296e595d4a6fdf0b0409ff6aa15"
+    },
+    {
+      "token": "chord-D-p2-m6",
+      "phrase": "ディーシャープシャープマイナーシックス",
+      "file": "chord-D-p2-m6.mp3",
+      "bytes": 17706,
+      "gain": 1.3130193016855616,
+      "sha256": "194ced13dbaeaa09c53a83e9cdfd72e9da92933f826791ebdd6d31352ab7146c"
+    },
+    {
+      "token": "chord-D-p2-add9",
+      "phrase": "ディーシャープシャープアドナイン",
+      "file": "chord-D-p2-add9.mp3",
+      "bytes": 14780,
+      "gain": 1.3055133820652847,
+      "sha256": "85dff06260973d177ce5ca3fe42f75555e32fed23c749dbd9073a05dc1be3df4"
+    },
+    {
+      "token": "chord-D-p2-maj9",
+      "phrase": "ディーシャープシャープメジャーナインス",
+      "file": "chord-D-p2-maj9.mp3",
+      "bytes": 16661,
+      "gain": 1.240644992235814,
+      "sha256": "ebfdc2059a589c7c4bfeab631b8bf98c8ddfa2e6135852cd6202e16d4fd5cfff"
+    },
+    {
+      "token": "chord-D-p2-m9",
+      "phrase": "ディーシャープシャープマイナーナインス",
+      "file": "chord-D-p2-m9.mp3",
+      "bytes": 17288,
+      "gain": 1.2405634778715233,
+      "sha256": "c17061fb9f3d38121be26627664ce0b2eba195d6160a9f2069c8de7817a810ce"
+    },
+    {
+      "token": "key-D-p2-major",
+      "phrase": "ディーシャープシャープメジャーの調です。主和音を確認します。",
+      "file": "key-D-p2-major.mp3",
+      "bytes": 32752,
+      "gain": 1.3827445847532756,
+      "sha256": "b27ab094c1cdf5fde32d59a8a717ce1d825820dc6eedd8b784f0e1658de24950"
+    },
+    {
+      "token": "chord-F-p3-minor",
+      "phrase": "エフシャープシャープシャープマイナー",
+      "file": "chord-F-p3-minor.mp3",
+      "bytes": 16452,
+      "gain": 1.4385456028999035,
+      "sha256": "bc54a220243d3854f30afbdc3e1fcefc0fbebad45d9d4635f8a4e3ad426e0009"
+    },
+    {
+      "token": "chord-A-p2-major",
+      "phrase": "エーシャープシャープメジャー",
+      "file": "chord-A-p2-major.mp3",
+      "bytes": 12899,
+      "gain": 1.1974224232394788,
+      "sha256": "0bc3ea406042f1c78bec44199159dbe54b0ee54d1954e54875ab9bc2d6bb69d0"
+    },
+    {
+      "token": "chord-B-p2-minor",
+      "phrase": "ビーシャープシャープマイナー",
+      "file": "chord-B-p2-minor.mp3",
+      "bytes": 13944,
+      "gain": 1.3050650550214549,
+      "sha256": "d5180764803e03ddc0e55b058374976a2f3e27c6ee45bcf0cff096b24a856575"
+    },
+    {
+      "token": "chord-C-p3-dim",
+      "phrase": "シーシャープシャープシャープディミニッシュ",
+      "file": "chord-C-p3-dim.mp3",
+      "bytes": 18542,
+      "gain": 1.2915987687798967,
+      "sha256": "352edc052872b0a049c14710475bb9ef6893bfb9b60fcf078fe5ba50abc29195"
+    },
+    {
+      "token": "chord-F-p3-m7",
+      "phrase": "エフシャープシャープシャープマイナーセブンス",
+      "file": "chord-F-p3-m7.mp3",
+      "bytes": 20005,
+      "gain": 1.4706458763456243,
+      "sha256": "40caf6376d3bc597d50a07c2851b6d334c194f53de9f5df0fdb35d10eb230f13"
+    },
+    {
+      "token": "chord-G-p2-maj7",
+      "phrase": "ジーシャープシャープメジャーセブンス",
+      "file": "chord-G-p2-maj7.mp3",
+      "bytes": 16870,
+      "gain": 1.4040510617828308,
+      "sha256": "5ffb548eef74b626ffbf7e2fce51d5d9cd27ac663f600daaa17fbd29e3847d1d"
+    },
+    {
+      "token": "chord-A-p2-7",
+      "phrase": "エーシャープシャープセブンス",
+      "file": "chord-A-p2-7.mp3",
+      "bytes": 13944,
+      "gain": 1.4433861644564092,
+      "sha256": "0b2e88ceb29aeef00f7d4b20cf56aeda8ff4ba3899402d11ea0a02d844e52dc6"
+    },
+    {
+      "token": "chord-B-p2-m7",
+      "phrase": "ビーシャープシャープマイナーセブンス",
+      "file": "chord-B-p2-m7.mp3",
+      "bytes": 17497,
+      "gain": 1.3312327603982474,
+      "sha256": "fd41def85c0308509ea95457070a85e5852f1da3a28596376b70fb7a8f85ebcc"
+    },
+    {
+      "token": "chord-C-p3-m7♭5",
+      "phrase": "シーシャープシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-C-p3-m7♭5.mp3",
+      "bytes": 29618,
+      "gain": 1.3265849387727864,
+      "sha256": "a66dc19ae07e88e84d7c4ac7f34631c146d4207c647a2ed587567dad33289efa"
+    },
+    {
+      "token": "key-D-p2-minor",
+      "phrase": "ディーシャープシャープマイナーの調です。主和音を確認します。",
+      "file": "key-D-p2-minor.mp3",
+      "bytes": 33379,
+      "gain": 1.3936594727846967,
+      "sha256": "979625348d84b60976297ca7de0aab0315df6ebd995f76fccff798806fcb2b38"
+    },
+    {
+      "token": "chord-E-p2-dim",
+      "phrase": "イーシャープシャープディミニッシュ",
+      "file": "chord-E-p2-dim.mp3",
+      "bytes": 14989,
+      "gain": 1.2920385906856036,
+      "sha256": "37b2ff853fe4f57469a11e3e8efdcf2ec6725c10d1e30f6839994c5fd9b9ada4"
+    },
+    {
+      "token": "chord-E-p2-m7♭5",
+      "phrase": "イーシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-E-p2-m7♭5.mp3",
+      "bytes": 26065,
+      "gain": 1.3389946227223588,
+      "sha256": "4de3ea2bed86bf595a956da4e1dd5a30c41a745247b075412a2aad7a40195959"
+    },
+    {
+      "token": "chord-B-p1-maj7",
+      "phrase": "ビーシャープメジャーセブンス",
+      "file": "chord-B-p1-maj7.mp3",
+      "bytes": 13944,
+      "gain": 1.2947571092186283,
+      "sha256": "f1e646fc379721a148ca6850a4b3cbdce8e47a80e154e1ea51199f0b7ea14f1f"
+    },
+    {
+      "token": "chord-E-m2-6",
+      "phrase": "イーフラットフラットシックス",
+      "file": "chord-E-m2-6.mp3",
+      "bytes": 15407,
+      "gain": 1.4896528539643508,
+      "sha256": "1d9aead58fdc277264841154889038bc04f368a2038e79899b5e31efe98da5a1"
+    },
+    {
+      "token": "chord-E-m2-7",
+      "phrase": "イーフラットフラットセブンス",
+      "file": "chord-E-m2-7.mp3",
+      "bytes": 14780,
+      "gain": 1.3926181695790982,
+      "sha256": "53bb25736176dcd33626b21395b6f9ec94adfaf798a59be0088838a0500a433c"
+    },
+    {
+      "token": "chord-E-m2-9",
+      "phrase": "イーフラットフラットナインス",
+      "file": "chord-E-m2-9.mp3",
+      "bytes": 14571,
+      "gain": 1.2710082497606265,
+      "sha256": "651e696cefa471373d6d08acdfb3657c49a7fbe3e34492b4248bed28823df099"
+    },
+    {
+      "token": "chord-E-m2-aug",
+      "phrase": "イーフラットフラットオーギュメント",
+      "file": "chord-E-m2-aug.mp3",
+      "bytes": 16452,
+      "gain": 1.2201684158064412,
+      "sha256": "d150d769c5ed5b5494888dab9e2d8aef7c1b4a1292d96b65ddd216dbb809e8e5"
+    },
+    {
+      "token": "chord-E-m2-sus2",
+      "phrase": "イーフラットフラットサスツー",
+      "file": "chord-E-m2-sus2.mp3",
+      "bytes": 14989,
+      "gain": 1.503468845841474,
+      "sha256": "00de6c21c034316f12dac38340df4e3d463fc31e9541b5f1776b365daa27d2d1"
+    },
+    {
+      "token": "chord-E-m2-sus4",
+      "phrase": "イーフラットフラットサスフォー",
+      "file": "chord-E-m2-sus4.mp3",
+      "bytes": 14989,
+      "gain": 1.4023481246193938,
+      "sha256": "6f602004a4d642bf2837d5e347a654f36b6c916d9c7067d81eca2dd3f68e1895"
+    },
+    {
+      "token": "chord-E-m2-dim7",
+      "phrase": "イーフラットフラットディミニッシュセブンス",
+      "file": "chord-E-m2-dim7.mp3",
+      "bytes": 18960,
+      "gain": 1.199791936876589,
+      "sha256": "10d2da08e24e2570d2f0c38b482d43c4dfb96603df79ea62c482c52f607607f8"
+    },
+    {
+      "token": "chord-E-m2-m6",
+      "phrase": "イーフラットフラットマイナーシックス",
+      "file": "chord-E-m2-m6.mp3",
+      "bytes": 18542,
+      "gain": 1.2728617303714869,
+      "sha256": "4edecc169887ac1126edc5a919447b71ac94b2280f0266aecc7ff56e8e6573b4"
+    },
+    {
+      "token": "chord-E-m2-add9",
+      "phrase": "イーフラットフラットアドナイン",
+      "file": "chord-E-m2-add9.mp3",
+      "bytes": 15407,
+      "gain": 1.2889464458458586,
+      "sha256": "c64c8b2cdfc4f5dd35ab07126ad465ebb04f92b97c2ae1bb3322dc4458c4f241"
+    },
+    {
+      "token": "chord-E-m2-maj9",
+      "phrase": "イーフラットフラットメジャーナインス",
+      "file": "chord-E-m2-maj9.mp3",
+      "bytes": 17288,
+      "gain": 1.1606513458379095,
+      "sha256": "0e2b907cc87e24af975eb719dba8ea632a3c18d011f0f72014aaeedc4ef8de4b"
+    },
+    {
+      "token": "chord-E-m2-m9",
+      "phrase": "イーフラットフラットマイナーナインス",
+      "file": "chord-E-m2-m9.mp3",
+      "bytes": 18124,
+      "gain": 1.135116330298194,
+      "sha256": "ed82f7481fd742b03a589387dfa966aa295b82010ab8abf55ccc897490c7534b"
+    },
+    {
+      "token": "key-E-m2-major",
+      "phrase": "イーフラットフラットメジャーの調です。主和音を確認します。",
+      "file": "key-E-m2-major.mp3",
+      "bytes": 33379,
+      "gain": 1.3031218601643522,
+      "sha256": "95af74d72c90783adfa0b9a70d9ce48e67eed78404aa033e1b2c8561545bc37d"
+    },
+    {
+      "token": "key-E-m2-minor",
+      "phrase": "イーフラットフラットマイナーの調です。主和音を確認します。",
+      "file": "key-E-m2-minor.mp3",
+      "bytes": 34215,
+      "gain": 1.3165354976840393,
+      "sha256": "20c48b0baad7487f36b9a5e27140db75cd876712ab2ec2eac57717e3b5661ff6"
+    },
+    {
+      "token": "chord-F-m1-dim",
+      "phrase": "エフフラットディミニッシュ",
+      "file": "chord-F-m1-dim.mp3",
+      "bytes": 12899,
+      "gain": 1.0796008794916288,
+      "sha256": "b06de4ad496289ce021ce0d8d7349ae378b6efe9a9c48fa50247fd26b10dfca4"
+    },
+    {
+      "token": "chord-F-m1-m7♭5",
+      "phrase": "エフフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-F-m1-m7♭5.mp3",
+      "bytes": 23975,
+      "gain": 1.2139336339104385,
+      "sha256": "6421535e5d64a1163edbbae1c938dbed891cea99e941dc1fcbf5f19832462ca7"
+    },
+    {
+      "token": "chord-E-m1-6",
+      "phrase": "イーフラットシックス",
+      "file": "chord-E-m1-6.mp3",
+      "bytes": 12063,
+      "gain": 1.648939407417339,
+      "sha256": "e981a5b225b1168b63eac2dc4a799faac70bd4b503a8be02726b10da3893823e"
+    },
+    {
+      "token": "chord-E-m1-7",
+      "phrase": "イーフラットセブンス",
+      "file": "chord-E-m1-7.mp3",
+      "bytes": 11645,
+      "gain": 1.4754508983552461,
+      "sha256": "54d18cd5f6929d49d9fe0db33848bc809fb75817fe002774480a899bd16315b7"
+    },
+    {
+      "token": "chord-E-m1-9",
+      "phrase": "イーフラットナインス",
+      "file": "chord-E-m1-9.mp3",
+      "bytes": 11227,
+      "gain": 1.2780329066377014,
+      "sha256": "a49e01208c02b779e4904f43a5790f9059898f763dc0382f493ac9b12cc983cd"
+    },
+    {
+      "token": "chord-E-m1-aug",
+      "phrase": "イーフラットオーギュメント",
+      "file": "chord-E-m1-aug.mp3",
+      "bytes": 13317,
+      "gain": 1.2224812678349086,
+      "sha256": "8545e9f7caa379bee27d169ce650fcf8ffb2d278629de1cc906e48d13e3abe37"
+    },
+    {
+      "token": "chord-E-m1-sus2",
+      "phrase": "イーフラットサスツー",
+      "file": "chord-E-m1-sus2.mp3",
+      "bytes": 11645,
+      "gain": 1.6942737142448214,
+      "sha256": "7296c98aefe14a714de8d4ad77ed054832f5df6d40b9ec3ffbb9dc99940381df"
+    },
+    {
+      "token": "chord-E-m1-sus4",
+      "phrase": "イーフラットサスフォー",
+      "file": "chord-E-m1-sus4.mp3",
+      "bytes": 11854,
+      "gain": 1.5331278397864228,
+      "sha256": "430cacecace3abc5e4a667217e331dfa52f5779dc4957e5ec650df95969fcdb0"
+    },
+    {
+      "token": "chord-E-m1-dim7",
+      "phrase": "イーフラットディミニッシュセブンス",
+      "file": "chord-E-m1-dim7.mp3",
+      "bytes": 15825,
+      "gain": 1.2246135597211654,
+      "sha256": "ce2eb8739251271aeec54ad1a5ce4101c071a3f34f21bc77b1053a6f001c7cf4"
+    },
+    {
+      "token": "chord-E-m1-m6",
+      "phrase": "イーフラットマイナーシックス",
+      "file": "chord-E-m1-m6.mp3",
+      "bytes": 15407,
+      "gain": 1.2725253788238253,
+      "sha256": "b11c681cf5315b2da09b1d0ebe98c6719062004783bf1d026e6b0407f739e41e"
+    },
+    {
+      "token": "chord-E-m1-add9",
+      "phrase": "イーフラットアドナイン",
+      "file": "chord-E-m1-add9.mp3",
+      "bytes": 12272,
+      "gain": 1.287693735367716,
+      "sha256": "4ee015a33c9fcbdba0c07a1e33085cd19453ed4fa3db311f94e08c535bc98ae5"
+    },
+    {
+      "token": "chord-E-m1-maj9",
+      "phrase": "イーフラットメジャーナインス",
+      "file": "chord-E-m1-maj9.mp3",
+      "bytes": 14153,
+      "gain": 1.1442288252649513,
+      "sha256": "4e42079d9939d7014cc7a0f6a4b03e422ef9dfda6a12fb51a3f64c7f7b408f8f"
+    },
+    {
+      "token": "chord-E-m1-m9",
+      "phrase": "イーフラットマイナーナインス",
+      "file": "chord-E-m1-m9.mp3",
+      "bytes": 14780,
+      "gain": 1.0994495997016842,
+      "sha256": "d9b1ba56cfd3f3f0b2792089ed80349896470fb806374c58a620a8f378a267de"
+    },
+    {
+      "token": "key-E-m1-major",
+      "phrase": "イーフラットメジャーの調です。主和音を確認します。",
+      "file": "key-E-m1-major.mp3",
+      "bytes": 30245,
+      "gain": 1.2876733990992728,
+      "sha256": "ed0e5711e32acc516924bc7e84663c18221141edc940e65faeb3cc3562a5e8e9"
+    },
+    {
+      "token": "key-E-m1-minor",
+      "phrase": "イーフラットマイナーの調です。主和音を確認します。",
+      "file": "key-E-m1-minor.mp3",
+      "bytes": 31081,
+      "gain": 1.2968151134794983,
+      "sha256": "6a5c7d7cd29c0d729d93afe4ce5823afbc34cc6a707db04ade5f097f3ceca9ed"
+    },
+    {
+      "token": "chord-F-p0-dim",
+      "phrase": "エフディミニッシュ",
+      "file": "chord-F-p0-dim.mp3",
+      "bytes": 9765,
+      "gain": 1.0296621597557576,
+      "sha256": "c9208a9374ba4d7c4736d8cc222c8ce3e7fc9730199add5b7cdaf6fb1df1dda6"
+    },
+    {
+      "token": "chord-F-p0-m7♭5",
+      "phrase": "エフマイナーセブンス、フラットファイブ",
+      "file": "chord-F-p0-m7♭5.mp3",
+      "bytes": 20841,
+      "gain": 1.2169040545995662,
+      "sha256": "eae9b99b376e50bcd63b2466812ac1759e4e5bc356de5a13bf985fa6975ffbe9"
+    },
+    {
+      "token": "chord-E-p0-6",
+      "phrase": "イーシックス",
+      "file": "chord-E-p0-6.mp3",
+      "bytes": 8511,
+      "gain": 1.9663293212561421,
+      "sha256": "7ca2aaac0c48a5e2b2b02b5ffd15986a13b4381ba2dab5bda8380669f88adc4f"
+    },
+    {
+      "token": "chord-E-p0-7",
+      "phrase": "イーセブンス",
+      "file": "chord-E-p0-7.mp3",
+      "bytes": 8511,
+      "gain": 1.4863333041880082,
+      "sha256": "323bf3c09c194275e9ca7cb04f5ee5c9bf03bd3dcb9c561d7c8c9d1c4b21b8e4"
+    },
+    {
+      "token": "chord-E-p0-9",
+      "phrase": "イーナインス",
+      "file": "chord-E-p0-9.mp3",
+      "bytes": 7884,
+      "gain": 1.1116522738417192,
+      "sha256": "eb6a0740860c7e738d74d8ed35bb7d581d4316ec756766258fa0f5afa4c82a6a"
+    },
+    {
+      "token": "chord-E-p0-aug",
+      "phrase": "イーオーギュメント",
+      "file": "chord-E-p0-aug.mp3",
+      "bytes": 9765,
+      "gain": 1.15916566751335,
+      "sha256": "9b8a483aa8b2305eaed4c35cf7db0e103eada28f834da4559931517cff223773"
+    },
+    {
+      "token": "chord-E-p0-sus2",
+      "phrase": "イーサスツー",
+      "file": "chord-E-p0-sus2.mp3",
+      "bytes": 8093,
+      "gain": 2.0307589666956525,
+      "sha256": "e3d9f2377ba22a4ebfb0101d99dfb4586772700d56db87855c48e094e9f2d2fc"
+    },
+    {
+      "token": "chord-E-p0-sus4",
+      "phrase": "イーサスフォー",
+      "file": "chord-E-p0-sus4.mp3",
+      "bytes": 8302,
+      "gain": 1.7796544080467314,
+      "sha256": "98865b90c6a973fa155d38291a0ea669143d9af5bc90745fa051b37d3ff43c43"
+    },
+    {
+      "token": "chord-E-p0-dim7",
+      "phrase": "イーディミニッシュセブンス",
+      "file": "chord-E-p0-dim7.mp3",
+      "bytes": 12272,
+      "gain": 1.2625901690474364,
+      "sha256": "ee439c9ab50fd2c80d146052d47886e73c101888dc05d34bd7da95dadaeccc4a"
+    },
+    {
+      "token": "chord-E-p0-m6",
+      "phrase": "イーマイナーシックス",
+      "file": "chord-E-p0-m6.mp3",
+      "bytes": 11854,
+      "gain": 1.4545424921546095,
+      "sha256": "e2d4b20d5aad6409d44f7d3899dd4f1f8aae3687a4b69ade2776584589d2e8ac"
+    },
+    {
+      "token": "chord-E-p0-add9",
+      "phrase": "イーアドナイン",
+      "file": "chord-E-p0-add9.mp3",
+      "bytes": 9138,
+      "gain": 1.2125935666684182,
+      "sha256": "be08ad1b66d3a6bbec07e051160163b9e2993fbe4c93577c7ea5e4d4255835ed"
+    },
+    {
+      "token": "chord-E-p0-maj9",
+      "phrase": "イーメジャーナインス",
+      "file": "chord-E-p0-maj9.mp3",
+      "bytes": 10601,
+      "gain": 1.2098846046285998,
+      "sha256": "659919fa2b272079191f34a7a6a1352ccd20a40318106f53be076268fac5a112"
+    },
+    {
+      "token": "chord-E-p0-m9",
+      "phrase": "イーマイナーナインス",
+      "file": "chord-E-p0-m9.mp3",
+      "bytes": 11436,
+      "gain": 1.2199583485500098,
+      "sha256": "35a1527f0d5446c6730f2538ad557f2ca1341a5aaebd0d1589b3de330d962587"
+    },
+    {
+      "token": "key-E-p0-major",
+      "phrase": "イーメジャーの調です。主和音を確認します。",
+      "file": "key-E-p0-major.mp3",
+      "bytes": 26901,
+      "gain": 1.3219143547413137,
+      "sha256": "bb71cd395459fcec5a89c6f15be731d45017f2a3324838aaf01ca286bf040018"
+    },
+    {
+      "token": "key-E-p0-minor",
+      "phrase": "イーマイナーの調です。主和音を確認します。",
+      "file": "key-E-p0-minor.mp3",
+      "bytes": 27319,
+      "gain": 1.3528249738067895,
+      "sha256": "1697bf9dd684619f699826eb227aa9fd50d09e60972d84c87c6145dac64aa751"
+    },
+    {
+      "token": "chord-F-p1-dim",
+      "phrase": "エフシャープディミニッシュ",
+      "file": "chord-F-p1-dim.mp3",
+      "bytes": 12063,
+      "gain": 1.2133391585794517,
+      "sha256": "0843114bcce3ef714e84585a5508a012dce7b516931d5f34888791c1943662fc"
+    },
+    {
+      "token": "chord-F-p1-m7♭5",
+      "phrase": "エフシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-F-p1-m7♭5.mp3",
+      "bytes": 23139,
+      "gain": 1.2918509695473457,
+      "sha256": "72f1fb44e6c4362eb388cbb5eee63d9341022d491bbffcc6ef849b09776edfde"
+    },
+    {
+      "token": "chord-E-p1-6",
+      "phrase": "イーシャープシックス",
+      "file": "chord-E-p1-6.mp3",
+      "bytes": 11436,
+      "gain": 1.8941866681516766,
+      "sha256": "8fb17353bfa5752eebb521e10c00d1680ebb8e21e879bdd4a217c4e438434de5"
+    },
+    {
+      "token": "chord-E-p1-7",
+      "phrase": "イーシャープセブンス",
+      "file": "chord-E-p1-7.mp3",
+      "bytes": 11018,
+      "gain": 1.6054927440239175,
+      "sha256": "98609269a80ec2e57693875a819f7cf752bd6b20d7654dec71d5b5a63f2ad3e4"
+    },
+    {
+      "token": "chord-E-p1-9",
+      "phrase": "イーシャープナインス",
+      "file": "chord-E-p1-9.mp3",
+      "bytes": 11018,
+      "gain": 1.3130879582307002,
+      "sha256": "09356231f8ab9151b26d147505792cfbb51587c9518b44a5cd4dccfb8d6b6be3"
+    },
+    {
+      "token": "chord-E-p1-aug",
+      "phrase": "イーシャープオーギュメント",
+      "file": "chord-E-p1-aug.mp3",
+      "bytes": 12899,
+      "gain": 1.2242120628914994,
+      "sha256": "236cd0762d7c347a8a959d551d69105a2f3f1a0d3d63a21ea29f3a97f4d5798d"
+    },
+    {
+      "token": "chord-E-p1-sus2",
+      "phrase": "イーシャープサスツー",
+      "file": "chord-E-p1-sus2.mp3",
+      "bytes": 11018,
+      "gain": 1.9009095570580588,
+      "sha256": "affda6b91a9637a56408a44562feeeba2ce6b2c573e9b9b7c1646c10ee2175a3"
+    },
+    {
+      "token": "chord-E-p1-sus4",
+      "phrase": "イーシャープサスフォー",
+      "file": "chord-E-p1-sus4.mp3",
+      "bytes": 11227,
+      "gain": 1.7555048809144957,
+      "sha256": "615b90abf1ea7f3f8aee1aa5705c601f3dae5c47fabfb8e01467d1f059ae53e6"
+    },
+    {
+      "token": "chord-E-p1-dim7",
+      "phrase": "イーシャープディミニッシュセブンス",
+      "file": "chord-E-p1-dim7.mp3",
+      "bytes": 15407,
+      "gain": 1.3290597013207983,
+      "sha256": "240f740ab294fac042e0ae354a84baebef0753c78da0bceeb9c9f6835c3d81d4"
+    },
+    {
+      "token": "chord-E-p1-m6",
+      "phrase": "イーシャープマイナーシックス",
+      "file": "chord-E-p1-m6.mp3",
+      "bytes": 14780,
+      "gain": 1.320597611855025,
+      "sha256": "a250c097d386538514e380b9c1308e0f9eeb0573ec42ec093f5775f9081a6146"
+    },
+    {
+      "token": "chord-E-p1-add9",
+      "phrase": "イーシャープアドナイン",
+      "file": "chord-E-p1-add9.mp3",
+      "bytes": 11854,
+      "gain": 1.2836725936764688,
+      "sha256": "465e952a22571e49d18a3ef166a2879686ac0a788dad7eadbcd6bda28266ea25"
+    },
+    {
+      "token": "chord-E-p1-maj9",
+      "phrase": "イーシャープメジャーナインス",
+      "file": "chord-E-p1-maj9.mp3",
+      "bytes": 13735,
+      "gain": 1.2427319585011056,
+      "sha256": "db0304cb4db291291e08a286f53b03ea543b2f4585804177f4cfaa977e2a44c6"
+    },
+    {
+      "token": "chord-E-p1-m9",
+      "phrase": "イーシャープマイナーナインス",
+      "file": "chord-E-p1-m9.mp3",
+      "bytes": 14362,
+      "gain": 1.195456310780408,
+      "sha256": "ee3b463178510fd60ebda75f9a7228d492a885b271852224b7065d5aebf009a7"
+    },
+    {
+      "token": "key-E-p1-major",
+      "phrase": "イーシャープメジャーの調です。主和音を確認します。",
+      "file": "key-E-p1-major.mp3",
+      "bytes": 29827,
+      "gain": 1.3472233936965357,
+      "sha256": "79fc8c7fad66169737f07813fdbef53550ab9098a2b1beb3e20057a36144d102"
+    },
+    {
+      "token": "key-E-p1-minor",
+      "phrase": "イーシャープマイナーの調です。主和音を確認します。",
+      "file": "key-E-p1-minor.mp3",
+      "bytes": 30454,
+      "gain": 1.366433284319834,
+      "sha256": "806c28392c0565ebfd6ae0fdb2742798079e31c26bbecb3a9326d5070da924a7"
+    },
+    {
+      "token": "chord-F-p2-dim",
+      "phrase": "エフシャープシャープディミニッシュ",
+      "file": "chord-F-p2-dim.mp3",
+      "bytes": 14989,
+      "gain": 1.389763782483635,
+      "sha256": "55802843ff93d9a2b6367b80fdd5ef96e3a7260f5e04abfe146da2d55e10e7f3"
+    },
+    {
+      "token": "chord-F-p2-m7♭5",
+      "phrase": "エフシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-F-p2-m7♭5.mp3",
+      "bytes": 26065,
+      "gain": 1.3708768296385294,
+      "sha256": "687f13d881d57e7894c455705d74e5cc18a9b9067b9d7c169d973dd8de7721f7"
+    },
+    {
+      "token": "chord-E-p2-6",
+      "phrase": "イーシャープシャープシックス",
+      "file": "chord-E-p2-6.mp3",
+      "bytes": 14153,
+      "gain": 1.865612591219279,
+      "sha256": "f415e6a4680dd2d906977d4308d519a8bac42e45d389bece5a00651d605c0c50"
+    },
+    {
+      "token": "chord-E-p2-7",
+      "phrase": "イーシャープシャープセブンス",
+      "file": "chord-E-p2-7.mp3",
+      "bytes": 13735,
+      "gain": 1.6231507087951738,
+      "sha256": "40707aa58e58ba5d2aed9270bfb342caf1f59e770fd317b56812e427a48c94ab"
+    },
+    {
+      "token": "chord-E-p2-9",
+      "phrase": "イーシャープシャープナインス",
+      "file": "chord-E-p2-9.mp3",
+      "bytes": 13735,
+      "gain": 1.3460723907684988,
+      "sha256": "8888cbe6de857c58923b3680aafe6ffc18785398dc4042a5167eee25f4c70557"
+    },
+    {
+      "token": "chord-E-p2-major",
+      "phrase": "イーシャープシャープメジャー",
+      "file": "chord-E-p2-major.mp3",
+      "bytes": 12899,
+      "gain": 1.3220361564511078,
+      "sha256": "4416fe1a4701557bb0571221cab80d759b64b4f7b9af1a223f61c38e34e7d35a"
+    },
+    {
+      "token": "chord-E-p2-aug",
+      "phrase": "イーシャープシャープオーギュメント",
+      "file": "chord-E-p2-aug.mp3",
+      "bytes": 15616,
+      "gain": 1.318029812853905,
+      "sha256": "914b20e05e0642202718558d8dc699317322ce27404e72de72547eef3b730c45"
+    },
+    {
+      "token": "chord-E-p2-sus2",
+      "phrase": "イーシャープシャープサスツー",
+      "file": "chord-E-p2-sus2.mp3",
+      "bytes": 13944,
+      "gain": 1.8663134980744167,
+      "sha256": "63da1abf379a5f82a55df70b5c4e341469f0430a8a9a2566fbe0f63a486faf80"
+    },
+    {
+      "token": "chord-E-p2-sus4",
+      "phrase": "イーシャープシャープサスフォー",
+      "file": "chord-E-p2-sus4.mp3",
+      "bytes": 13944,
+      "gain": 1.7417930328214555,
+      "sha256": "fa89860735b2120bedb3f4eb5da00b67f518dab53fabf3d7716a74fae96e3c74"
+    },
+    {
+      "token": "chord-E-p2-maj7",
+      "phrase": "イーシャープシャープメジャーセブンス",
+      "file": "chord-E-p2-maj7.mp3",
+      "bytes": 16452,
+      "gain": 1.447669365891849,
+      "sha256": "be09bcebd4e40a7bfecafc8243469913218b7ceb78b8172f200322fb2a9b0b1d"
+    },
+    {
+      "token": "chord-E-p2-dim7",
+      "phrase": "イーシャープシャープディミニッシュセブンス",
+      "file": "chord-E-p2-dim7.mp3",
+      "bytes": 18124,
+      "gain": 1.4087424666182804,
+      "sha256": "dde501897cbb61d82c49ff9a389a60d20c05d179c1eea62abf9caf28bf4bed2e"
+    },
+    {
+      "token": "chord-E-p2-m6",
+      "phrase": "イーシャープシャープマイナーシックス",
+      "file": "chord-E-p2-m6.mp3",
+      "bytes": 17706,
+      "gain": 1.366485747480371,
+      "sha256": "7daff5b2329d92378bf10d83efb583608e89684bff3c3cf8beb259ffc30c5d80"
+    },
+    {
+      "token": "chord-E-p2-add9",
+      "phrase": "イーシャープシャープアドナイン",
+      "file": "chord-E-p2-add9.mp3",
+      "bytes": 14780,
+      "gain": 1.3502341880022763,
+      "sha256": "2139ab83a0462766f02c280a44afca8ffd89270d87fab1654196ddb6594e8c42"
+    },
+    {
+      "token": "chord-E-p2-maj9",
+      "phrase": "イーシャープシャープメジャーナインス",
+      "file": "chord-E-p2-maj9.mp3",
+      "bytes": 16452,
+      "gain": 1.305841035165599,
+      "sha256": "98dbb55bef4ed2d42c4577782aa40363a782b2cdd5f832e04b93db102a67bed4"
+    },
+    {
+      "token": "chord-E-p2-m9",
+      "phrase": "イーシャープシャープマイナーナインス",
+      "file": "chord-E-p2-m9.mp3",
+      "bytes": 17079,
+      "gain": 1.293805345713529,
+      "sha256": "2180ac3438c919e3a63126e30367dfedd493c51323f40331ec8103b2a28f5e04"
+    },
+    {
+      "token": "key-E-p2-major",
+      "phrase": "イーシャープシャープメジャーの調です。主和音を確認します。",
+      "file": "key-E-p2-major.mp3",
+      "bytes": 32543,
+      "gain": 1.4072104026813812,
+      "sha256": "54fe381a23e2e416edc908f41b448dea752d3bc916c9f3ce7954f4002cd99efc"
+    },
+    {
+      "token": "chord-G-p3-minor",
+      "phrase": "ジーシャープシャープシャープマイナー",
+      "file": "chord-G-p3-minor.mp3",
+      "bytes": 16870,
+      "gain": 1.4072696863487852,
+      "sha256": "146f1238bc21f8eba298b0f2d30ffcf70718a26401af188d8363153e57458e19"
+    },
+    {
+      "token": "chord-B-p2-major",
+      "phrase": "ビーシャープシャープメジャー",
+      "file": "chord-B-p2-major.mp3",
+      "bytes": 13108,
+      "gain": 1.2586835300969357,
+      "sha256": "aab17717fd26f4f5121b8635f7a4d6a0608c34633c25c8e5932020b2ba4cfefc"
+    },
+    {
+      "token": "chord-C-p3-minor",
+      "phrase": "シーシャープシャープシャープマイナー",
+      "file": "chord-C-p3-minor.mp3",
+      "bytes": 17079,
+      "gain": 1.350292676841549,
+      "sha256": "f60995a708cfc060763aaea219957e0ec4cfbdb0b437b193dd5bc9c08cd5352b"
+    },
+    {
+      "token": "chord-D-p3-dim",
+      "phrase": "ディーシャープシャープシャープディミニッシュ",
+      "file": "chord-D-p3-dim.mp3",
+      "bytes": 18124,
+      "gain": 1.3237480844926064,
+      "sha256": "d25645148cb763c3e1a238dd0d796d0493b3e63f8ac8c64f72b66a7069b7ae89"
+    },
+    {
+      "token": "chord-G-p3-m7",
+      "phrase": "ジーシャープシャープシャープマイナーセブンス",
+      "file": "chord-G-p3-m7.mp3",
+      "bytes": 20423,
+      "gain": 1.3980479952583467,
+      "sha256": "f22191b1a356bf30480f8a0053bf58268b2703f3fc088c6a92ab497a6d9c6d6c"
+    },
+    {
+      "token": "chord-A-p2-maj7",
+      "phrase": "エーシャープシャープメジャーセブンス",
+      "file": "chord-A-p2-maj7.mp3",
+      "bytes": 16661,
+      "gain": 1.3155522140975253,
+      "sha256": "9295ee4b231eae58f227e4fc2b0c34474f50de121fdd05f5c5ecd2539f2c46c7"
+    },
+    {
+      "token": "chord-B-p2-7",
+      "phrase": "ビーシャープシャープセブンス",
+      "file": "chord-B-p2-7.mp3",
+      "bytes": 13944,
+      "gain": 1.533533027366611,
+      "sha256": "4c3e2b12059cce1e0919d303c62c178d1799e6914a572fcd449513bf80ddcf92"
+    },
+    {
+      "token": "chord-C-p3-m7",
+      "phrase": "シーシャープシャープシャープマイナーセブンス",
+      "file": "chord-C-p3-m7.mp3",
+      "bytes": 20632,
+      "gain": 1.3511993163020226,
+      "sha256": "e2c12623a38f63232fd6b35eb8013541dd69192abf2bd01973ec3e12957e2caf"
+    },
+    {
+      "token": "chord-D-p3-m7♭5",
+      "phrase": "ディーシャープシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-D-p3-m7♭5.mp3",
+      "bytes": 29200,
+      "gain": 1.3439209393637306,
+      "sha256": "146f3812f93e8c10a67f19ea710725df1c7bc969e1af634f863ad938a7e0840b"
+    },
+    {
+      "token": "key-E-p2-minor",
+      "phrase": "イーシャープシャープマイナーの調です。主和音を確認します。",
+      "file": "key-E-p2-minor.mp3",
+      "bytes": 33170,
+      "gain": 1.4283014349962924,
+      "sha256": "f565109bfbcdf16d8dc6482074ba4048b13a4c5ef88b61e3569463a9f55e9818"
+    },
+    {
+      "token": "chord-F-p3-dim",
+      "phrase": "エフシャープシャープシャープディミニッシュ",
+      "file": "chord-F-p3-dim.mp3",
+      "bytes": 17915,
+      "gain": 1.4106557815884433,
+      "sha256": "73c682cdf9da68c314315b6e89c7be103d60a00ab6be2e5a1aab0188781055c0"
+    },
+    {
+      "token": "chord-F-p3-m7♭5",
+      "phrase": "エフシャープシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-F-p3-m7♭5.mp3",
+      "bytes": 28991,
+      "gain": 1.4234866910435549,
+      "sha256": "14a925d8073c5ec25b4704f7e385c3812ec2dc457b06096258370e7250fe1880"
+    },
+    {
+      "token": "chord-F-m2-6",
+      "phrase": "エフフラットフラットシックス",
+      "file": "chord-F-m2-6.mp3",
+      "bytes": 15198,
+      "gain": 1.2844721752139001,
+      "sha256": "bd9fa1c4c10d9b71f7c0527d2a9c5b0e3f68715f0062656b391f1af749d6b420"
+    },
+    {
+      "token": "chord-F-m2-7",
+      "phrase": "エフフラットフラットセブンス",
+      "file": "chord-F-m2-7.mp3",
+      "bytes": 14989,
+      "gain": 1.206702702729203,
+      "sha256": "b7521f91fd65794a4892d8abdf6944d24a65d841d2ec53176dea03d8be68b6f3"
+    },
+    {
+      "token": "chord-F-m2-9",
+      "phrase": "エフフラットフラットナインス",
+      "file": "chord-F-m2-9.mp3",
+      "bytes": 14780,
+      "gain": 1.0909141558259272,
+      "sha256": "20877f860e1f8df505443b495aba399d6f8778c5a5634be83454b5caff3dceed"
+    },
+    {
+      "token": "chord-F-m2-dim",
+      "phrase": "エフフラットフラットディミニッシュ",
+      "file": "chord-F-m2-dim.mp3",
+      "bytes": 16243,
+      "gain": 1.0795724794596413,
+      "sha256": "54aa2bdb16ccfb28a43953a85ae31564188f2d40bf9418d8ca09746ba3725839"
+    },
+    {
+      "token": "chord-F-m2-aug",
+      "phrase": "エフフラットフラットオーギュメント",
+      "file": "chord-F-m2-aug.mp3",
+      "bytes": 16661,
+      "gain": 1.08056188306344,
+      "sha256": "f3c818ddf7f2e5721874aada5e24f6574f0b82a1e16704a07959a140d9733b54"
+    },
+    {
+      "token": "chord-F-m2-sus2",
+      "phrase": "エフフラットフラットサスツー",
+      "file": "chord-F-m2-sus2.mp3",
+      "bytes": 14780,
+      "gain": 1.268364556747162,
+      "sha256": "e41b4c1239b24bd489e2150c8f47ad45892a835a8f99a31e461d16adcde40036"
+    },
+    {
+      "token": "chord-F-m2-sus4",
+      "phrase": "エフフラットフラットサスフォー",
+      "file": "chord-F-m2-sus4.mp3",
+      "bytes": 15198,
+      "gain": 1.214450414034311,
+      "sha256": "018dd246c54eb93fe8fe38de7433b737e09c273f6d27fa0fda5778e46533d3e4"
+    },
+    {
+      "token": "chord-F-m2-m7♭5",
+      "phrase": "エフフラットフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-F-m2-m7♭5.mp3",
+      "bytes": 27110,
+      "gain": 1.2074017537603112,
+      "sha256": "958c4ebbacb4925b11fbcce61a89899b8d0f9341520eb5df969d39e3721d07bd"
+    },
+    {
+      "token": "chord-F-m2-dim7",
+      "phrase": "エフフラットフラットディミニッシュセブンス",
+      "file": "chord-F-m2-dim7.mp3",
+      "bytes": 18960,
+      "gain": 1.194907832702448,
+      "sha256": "5119abddd929bd253fa3a54118de8b25ec3f1642ed67fb1d60060525ad7a723a"
+    },
+    {
+      "token": "chord-F-m2-m6",
+      "phrase": "エフフラットフラットマイナーシックス",
+      "file": "chord-F-m2-m6.mp3",
+      "bytes": 18542,
+      "gain": 1.2249036087316556,
+      "sha256": "492686c4c81e66b5151cf2f8b544729c8cc4881012d7a62cd89d105614a9405e"
+    },
+    {
+      "token": "chord-F-m2-add9",
+      "phrase": "エフフラットフラットアドナイン",
+      "file": "chord-F-m2-add9.mp3",
+      "bytes": 15616,
+      "gain": 1.0737024166109166,
+      "sha256": "890f5be873eecf9583aba7b8e3e00d845c57393bd1e6883d4b6bd6c087fde045"
+    },
+    {
+      "token": "chord-F-m2-maj9",
+      "phrase": "エフフラットフラットメジャーナインス",
+      "file": "chord-F-m2-maj9.mp3",
+      "bytes": 17497,
+      "gain": 1.093112285478862,
+      "sha256": "c409d618959767f6cefd9b34276143a74577a2d7a61fc552f07e286181f7f3f6"
+    },
+    {
+      "token": "chord-F-m2-m9",
+      "phrase": "エフフラットフラットマイナーナインス",
+      "file": "chord-F-m2-m9.mp3",
+      "bytes": 18124,
+      "gain": 1.0982350684068214,
+      "sha256": "14ea97299888e9be8f6aab29ec4c0e977160494a249fc9fc57b3e2c4f604f586"
+    },
+    {
+      "token": "key-F-m2-major",
+      "phrase": "エフフラットフラットメジャーの調です。主和音を確認します。",
+      "file": "key-F-m2-major.mp3",
+      "bytes": 33588,
+      "gain": 1.2309359037193273,
+      "sha256": "1a234e84d04d7ba893ebe67b62f99da8ea8a8f5db51204ebbd870119a0c54fcb"
+    },
+    {
+      "token": "key-F-m2-minor",
+      "phrase": "エフフラットフラットマイナーの調です。主和音を確認します。",
+      "file": "key-F-m2-minor.mp3",
+      "bytes": 34424,
+      "gain": 1.2609291967300509,
+      "sha256": "3a4b2371035c3d9d7671393c9de34a3a2f9ce6965f45ff4c10444e632639e3ba"
+    },
+    {
+      "token": "chord-G-m2-dim",
+      "phrase": "ジーフラットフラットディミニッシュ",
+      "file": "chord-G-m2-dim.mp3",
+      "bytes": 16243,
+      "gain": 1.2214734278886403,
+      "sha256": "50b10589e1c067d73a236d62caf7ae006b72de51788b5e86d449e1328be7d95b"
+    },
+    {
+      "token": "chord-B-m3-minor",
+      "phrase": "ビーフラットフラットフラットマイナー",
+      "file": "chord-B-m3-minor.mp3",
+      "bytes": 17915,
+      "gain": 1.1585750345717396,
+      "sha256": "1af96a931816e62b5978a9e04f066781b44922d312452ae0e16975b481057cdf"
+    },
+    {
+      "token": "chord-D-m3-major",
+      "phrase": "ディーフラットフラットフラットメジャー",
+      "file": "chord-D-m3-major.mp3",
+      "bytes": 17079,
+      "gain": 1.1789258678570105,
+      "sha256": "8795a7e77ffff9f14b01883f15355a8eb9af8a4dca01e284d5e8003d176434f5"
+    },
+    {
+      "token": "chord-G-m2-m7♭5",
+      "phrase": "ジーフラットフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-G-m2-m7♭5.mp3",
+      "bytes": 27319,
+      "gain": 1.2201989009391025,
+      "sha256": "6efe076e3a3f9aa78f91b906750477b8fc66f2ae15c2ac6e89ee2821b6dd20dc"
+    },
+    {
+      "token": "chord-B-m3-m7",
+      "phrase": "ビーフラットフラットフラットマイナーセブンス",
+      "file": "chord-B-m3-m7.mp3",
+      "bytes": 21258,
+      "gain": 1.1731521461496592,
+      "sha256": "21cda73a5b7fbc80c085759bb6f1ee02e46b782a628ab246900c6235a17b6d36"
+    },
+    {
+      "token": "chord-D-m3-maj7",
+      "phrase": "ディーフラットフラットフラットメジャーセブンス",
+      "file": "chord-D-m3-maj7.mp3",
+      "bytes": 20841,
+      "gain": 1.2167474819474415,
+      "sha256": "72aedf94432916eb5b1c4b4d834652929594291e5ffa8e3917b7f13139da6610"
+    },
+    {
+      "token": "chord-E-m3-7",
+      "phrase": "イーフラットフラットフラットセブンス",
+      "file": "chord-E-m3-7.mp3",
+      "bytes": 18124,
+      "gain": 1.3294744077530785,
+      "sha256": "a27bb20efd1da9df6a036c61fca711afab41203679d6100367b6fcfe23705b1e"
+    },
+    {
+      "token": "chord-F-m1-6",
+      "phrase": "エフフラットシックス",
+      "file": "chord-F-m1-6.mp3",
+      "bytes": 12063,
+      "gain": 1.3114205669083718,
+      "sha256": "d224e7d527d988f047b841c25614dbde91a62d2adb0c5a54d1370a732f0d2b77"
+    },
+    {
+      "token": "chord-F-m1-7",
+      "phrase": "エフフラットセブンス",
+      "file": "chord-F-m1-7.mp3",
+      "bytes": 11854,
+      "gain": 1.2079718607731231,
+      "sha256": "440c406ef01fd825118d3a113928a882564a5ace14ecac642507add271a8fbed"
+    },
+    {
+      "token": "chord-F-m1-9",
+      "phrase": "エフフラットナインス",
+      "file": "chord-F-m1-9.mp3",
+      "bytes": 11436,
+      "gain": 1.07870816531745,
+      "sha256": "864a579817c7ac09f924fd1b59b09dc14d5db78c4256fdb5c4944fdc91bf8b3a"
+    },
+    {
+      "token": "chord-F-m1-aug",
+      "phrase": "エフフラットオーギュメント",
+      "file": "chord-F-m1-aug.mp3",
+      "bytes": 13526,
+      "gain": 1.0910480440475652,
+      "sha256": "f7bd95be322c1b19ecf846ea30ffce05213ddc685e24ad14d1307e69014ad68d"
+    },
+    {
+      "token": "chord-F-m1-sus2",
+      "phrase": "エフフラットサスツー",
+      "file": "chord-F-m1-sus2.mp3",
+      "bytes": 11645,
+      "gain": 1.3673211895758814,
+      "sha256": "618b86800708192a18f9aaa8bdf4bd63f89aac597af99232ca135d7835cad780"
+    },
+    {
+      "token": "chord-F-m1-sus4",
+      "phrase": "エフフラットサスフォー",
+      "file": "chord-F-m1-sus4.mp3",
+      "bytes": 12063,
+      "gain": 1.2394003277003915,
+      "sha256": "753305160a8956ef33f4608734461be5f409efbaf726d411cdc791c7253e5453"
+    },
+    {
+      "token": "chord-F-m1-dim7",
+      "phrase": "エフフラットディミニッシュセブンス",
+      "file": "chord-F-m1-dim7.mp3",
+      "bytes": 15825,
+      "gain": 1.2110619739765898,
+      "sha256": "71e7fb4a42e2cf267ef573cd83c125272f7d3fb8b040ea2be2a198dc310f7575"
+    },
+    {
+      "token": "chord-F-m1-m6",
+      "phrase": "エフフラットマイナーシックス",
+      "file": "chord-F-m1-m6.mp3",
+      "bytes": 15198,
+      "gain": 1.2393199246304947,
+      "sha256": "28cb3b1afac5785e920c7ebdf6635cd929ca98f3ae9b8cc1a9cb4844b152a10c"
+    },
+    {
+      "token": "chord-F-m1-add9",
+      "phrase": "エフフラットアドナイン",
+      "file": "chord-F-m1-add9.mp3",
+      "bytes": 12481,
+      "gain": 1.023388518555626,
+      "sha256": "32feacb8282f7b1b2fa06dd8645e8e74da186688ab28226f5ec7a4b293ee0923"
+    },
+    {
+      "token": "chord-F-m1-maj9",
+      "phrase": "エフフラットメジャーナインス",
+      "file": "chord-F-m1-maj9.mp3",
+      "bytes": 14362,
+      "gain": 1.0892797578912503,
+      "sha256": "50b540b0c0bc7ab929c698b51c55bc0a24cb21c4829e6d8559bc27a1703321f9"
+    },
+    {
+      "token": "chord-F-m1-m9",
+      "phrase": "エフフラットマイナーナインス",
+      "file": "chord-F-m1-m9.mp3",
+      "bytes": 14989,
+      "gain": 1.0968775384101621,
+      "sha256": "49c59dcaf009ae0317da79418c6d5e42b947a3fcdd21bb9f66e2ab3d38dec036"
+    },
+    {
+      "token": "key-F-m1-major",
+      "phrase": "エフフラットメジャーの調です。主和音を確認します。",
+      "file": "key-F-m1-major.mp3",
+      "bytes": 30454,
+      "gain": 1.2633561643835616,
+      "sha256": "b5255d87e0a5c42c0e18ff248554ef1ea4213013f2921ccfdd468544d9ce443b"
+    },
+    {
+      "token": "key-F-m1-minor",
+      "phrase": "エフフラットマイナーの調です。主和音を確認します。",
+      "file": "key-F-m1-minor.mp3",
+      "bytes": 31081,
+      "gain": 1.2786926794322175,
+      "sha256": "adad8085f7dbf1f94a334daefea6f07e2b8c81ba214e5dcbe87d2c0ccaa299b6"
+    },
+    {
+      "token": "chord-G-m1-dim",
+      "phrase": "ジーフラットディミニッシュ",
+      "file": "chord-G-m1-dim.mp3",
+      "bytes": 12899,
+      "gain": 1.2127014980320114,
+      "sha256": "aa8971402f5836998abbf845ca5a6fcd4292f79f643d5d9a66d6b9340020cba1"
+    },
+    {
+      "token": "chord-G-m1-m7♭5",
+      "phrase": "ジーフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-G-m1-m7♭5.mp3",
+      "bytes": 23975,
+      "gain": 1.2048216277382526,
+      "sha256": "0e66d851e565661d05f689f1fefa66397f41cd3f4934200a676264b76bc5b076"
+    },
+    {
+      "token": "chord-F-p0-6",
+      "phrase": "エフシックス",
+      "file": "chord-F-p0-6.mp3",
+      "bytes": 8302,
+      "gain": 1.6060000428547272,
+      "sha256": "9273f04d03ecbd6b9f088832206e8d6249c21f784ed9af1f40fe3aa6702bcebf"
+    },
+    {
+      "token": "chord-F-p0-7",
+      "phrase": "エフセブンス",
+      "file": "chord-F-p0-7.mp3",
+      "bytes": 8093,
+      "gain": 1.2853540431786117,
+      "sha256": "b9af4bc67c09eb1e926314653cb7fd793d055e1a3e34658b019016417fb55627"
+    },
+    {
+      "token": "chord-F-p0-9",
+      "phrase": "エフナインス",
+      "file": "chord-F-p0-9.mp3",
+      "bytes": 8302,
+      "gain": 1.1438596224160733,
+      "sha256": "c1dda5631859173fe0f3b6e9b13aad09ecfba2cadebfcb8d5c7d257b707dbfdc"
+    },
+    {
+      "token": "chord-F-p0-aug",
+      "phrase": "エフオーギュメント",
+      "file": "chord-F-p0-aug.mp3",
+      "bytes": 10183,
+      "gain": 1.1405868934269836,
+      "sha256": "08406161dc0a9317ffa5520f48a0630b570761ad37506ad35bf7116ac6cc24d2"
+    },
+    {
+      "token": "chord-F-p0-sus2",
+      "phrase": "エフサスツー",
+      "file": "chord-F-p0-sus2.mp3",
+      "bytes": 8093,
+      "gain": 1.6298532839639401,
+      "sha256": "4e9eded13231f8eab12805ea8d6c72d5f00a45f0784f871b71ebd98c110cb150"
+    },
+    {
+      "token": "chord-F-p0-sus4",
+      "phrase": "エフサスフォー",
+      "file": "chord-F-p0-sus4.mp3",
+      "bytes": 8302,
+      "gain": 1.3428054428070335,
+      "sha256": "afba054e5fe7c3c15d95991f08ccaf95bb954a813ec266952913b3bb09b0e86b"
+    },
+    {
+      "token": "chord-F-p0-dim7",
+      "phrase": "エフディミニッシュセブンス",
+      "file": "chord-F-p0-dim7.mp3",
+      "bytes": 12481,
+      "gain": 1.128877698692809,
+      "sha256": "79f1666c7a5ce44a8033707772f9b6fa35b8b603e6be1afbfe44f9dde60436d1"
+    },
+    {
+      "token": "chord-F-p0-m6",
+      "phrase": "エフマイナーシックス",
+      "file": "chord-F-p0-m6.mp3",
+      "bytes": 12063,
+      "gain": 1.2434683772941884,
+      "sha256": "96e32c13cb08e4d77c171fc805555131118488df46f8b314f6682bc9b9d21573"
+    },
+    {
+      "token": "chord-F-p0-add9",
+      "phrase": "エフアドナイン",
+      "file": "chord-F-p0-add9.mp3",
+      "bytes": 9347,
+      "gain": 1.0217747620432955,
+      "sha256": "d4659454e8ac7fae164a0b2cc2f21f9373710f72b97515eae746d0c26b4c493e"
+    },
+    {
+      "token": "chord-F-p0-maj9",
+      "phrase": "エフメジャーナインス",
+      "file": "chord-F-p0-maj9.mp3",
+      "bytes": 11018,
+      "gain": 1.0354343177181573,
+      "sha256": "4695b38341f4d4ed51dde83daccff8d6c6af7f02a315fc7fe164474cd5dea85a"
+    },
+    {
+      "token": "chord-F-p0-m9",
+      "phrase": "エフマイナーナインス",
+      "file": "chord-F-p0-m9.mp3",
+      "bytes": 11854,
+      "gain": 1.0748221574534211,
+      "sha256": "7ab47ceb5c369f426ece0c05d01fa822951f4a5f09ad20abab6d1390dd2d2ca0"
+    },
+    {
+      "token": "key-F-p0-major",
+      "phrase": "エフメジャーの調です。主和音を確認します。",
+      "file": "key-F-p0-major.mp3",
+      "bytes": 27110,
+      "gain": 1.2222609866753675,
+      "sha256": "d8d9dfcdb2856f82493d203e001693543f620663e911773c53eb8775412f4739"
+    },
+    {
+      "token": "key-F-p0-minor",
+      "phrase": "エフマイナーの調です。主和音を確認します。",
+      "file": "key-F-p0-minor.mp3",
+      "bytes": 27946,
+      "gain": 1.2546498839177518,
+      "sha256": "47a6a47d2ab4b3cfc4a1a8d1fb03bd4e69b186f7dfb1adf0604b87fcab20ab44"
+    },
+    {
+      "token": "chord-G-p0-dim",
+      "phrase": "ジーディミニッシュ",
+      "file": "chord-G-p0-dim.mp3",
+      "bytes": 9765,
+      "gain": 1.221619809685067,
+      "sha256": "d2a71bfe33e654dec46639a4752e8687f19a2f98d092c38171232511822ea3dd"
+    },
+    {
+      "token": "chord-G-p0-m7♭5",
+      "phrase": "ジーマイナーセブンス、フラットファイブ",
+      "file": "chord-G-p0-m7♭5.mp3",
+      "bytes": 20841,
+      "gain": 1.3138675710286034,
+      "sha256": "b0e7f6ec12d52d0f0753a0bb3cd95b9e5220680f30cf46fd683d5840a32d635e"
+    },
+    {
+      "token": "chord-F-p1-6",
+      "phrase": "エフシャープシックス",
+      "file": "chord-F-p1-6.mp3",
+      "bytes": 10809,
+      "gain": 1.5770969020808452,
+      "sha256": "1fb0537112757c9bfb548dece088ed9cf8e6184150d7c9d07542a4c2c10fd4dd"
+    },
+    {
+      "token": "chord-F-p1-7",
+      "phrase": "エフシャープセブンス",
+      "file": "chord-F-p1-7.mp3",
+      "bytes": 10809,
+      "gain": 1.2918972520964371,
+      "sha256": "5db2e7b3695dabcb690acf4af8f226e9cb8164a67342c21e0137de356721df67"
+    },
+    {
+      "token": "chord-F-p1-9",
+      "phrase": "エフシャープナインス",
+      "file": "chord-F-p1-9.mp3",
+      "bytes": 10809,
+      "gain": 1.118245786308039,
+      "sha256": "8c1ff723fad53e4c5bdfc3e1c64f5401be57d4d5d2344887d607e9c704d50746"
+    },
+    {
+      "token": "chord-F-p1-aug",
+      "phrase": "エフシャープオーギュメント",
+      "file": "chord-F-p1-aug.mp3",
+      "bytes": 12690,
+      "gain": 1.1607228234682847,
+      "sha256": "8a95007adb1ff44001230e8c832ab249613e0966261fe9c5f6cc971c66d9c0ca"
+    },
+    {
+      "token": "chord-F-p1-sus2",
+      "phrase": "エフシャープサスツー",
+      "file": "chord-F-p1-sus2.mp3",
+      "bytes": 11018,
+      "gain": 1.8705378645492279,
+      "sha256": "d893c26cb72ba8fbb2267e5d1ecd2ebf2a416e612c214ff5511ae474c30e69fe"
+    },
+    {
+      "token": "chord-F-p1-sus4",
+      "phrase": "エフシャープサスフォー",
+      "file": "chord-F-p1-sus4.mp3",
+      "bytes": 11018,
+      "gain": 1.6770836653786279,
+      "sha256": "e76d4176365987be45ce2e62ef337342bf9b919155da55faf1cb9f6b4200744f"
+    },
+    {
+      "token": "chord-F-p1-dim7",
+      "phrase": "エフシャープディミニッシュセブンス",
+      "file": "chord-F-p1-dim7.mp3",
+      "bytes": 15198,
+      "gain": 1.3736341248505375,
+      "sha256": "b5c4ff9b67ebb9e7fc7aeb1cb6f8f1fa4b0f0202bfa3c31987b7fe374792f449"
+    },
+    {
+      "token": "chord-F-p1-m6",
+      "phrase": "エフシャープマイナーシックス",
+      "file": "chord-F-p1-m6.mp3",
+      "bytes": 14571,
+      "gain": 1.3489609659149204,
+      "sha256": "dc536fa2d44c4ee318e6b2697393f4120933c37cba178653edebe4de51aa00fa"
+    },
+    {
+      "token": "chord-F-p1-add9",
+      "phrase": "エフシャープアドナイン",
+      "file": "chord-F-p1-add9.mp3",
+      "bytes": 11645,
+      "gain": 1.087674752272491,
+      "sha256": "827cb9bd0cef7024c344185c17499ac8298472aa96d0cefed9ab25d50e43ed09"
+    },
+    {
+      "token": "chord-F-p1-maj9",
+      "phrase": "エフシャープメジャーナインス",
+      "file": "chord-F-p1-maj9.mp3",
+      "bytes": 13526,
+      "gain": 1.1622411905528631,
+      "sha256": "2d8b8406ea6da4c1049c9f412f4656a33591a74aed79ef2e34b7e64409e0ecc3"
+    },
+    {
+      "token": "chord-F-p1-m9",
+      "phrase": "エフシャープマイナーナインス",
+      "file": "chord-F-p1-m9.mp3",
+      "bytes": 14153,
+      "gain": 1.1770606042396423,
+      "sha256": "8ff8b2562f7e81fc5b086d77ca1fa79b2d737f06a276e9dc361b7cfc736c1cfa"
+    },
+    {
+      "token": "key-F-p1-major",
+      "phrase": "エフシャープメジャーの調です。主和音を確認します。",
+      "file": "key-F-p1-major.mp3",
+      "bytes": 29618,
+      "gain": 1.3142593231174322,
+      "sha256": "34a02e1a39e3014faf8d328c6f536983971e7b46f35884d2bc9fa3679f2c1b9d"
+    },
+    {
+      "token": "key-F-p1-minor",
+      "phrase": "エフシャープマイナーの調です。主和音を確認します。",
+      "file": "key-F-p1-minor.mp3",
+      "bytes": 30245,
+      "gain": 1.3348651764580206,
+      "sha256": "eb8a3966e5024270029712e8b1437decedc9bb2cc0e824595bba4ab4694ce197"
+    },
+    {
+      "token": "chord-G-p1-dim",
+      "phrase": "ジーシャープディミニッシュ",
+      "file": "chord-G-p1-dim.mp3",
+      "bytes": 12690,
+      "gain": 1.2355862360345902,
+      "sha256": "b3a218a1eccff06e2949b60d22c459dcc01649d2f71518d8c0b9a2ba3c8ef51e"
+    },
+    {
+      "token": "chord-G-p1-m7♭5",
+      "phrase": "ジーシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-G-p1-m7♭5.mp3",
+      "bytes": 23766,
+      "gain": 1.2865181349812738,
+      "sha256": "6e9fed71e65d1fdf188fe2af5cbde11f120819d9e45599981b48a0512e26321d"
+    },
+    {
+      "token": "chord-F-p2-6",
+      "phrase": "エフシャープシャープシックス",
+      "file": "chord-F-p2-6.mp3",
+      "bytes": 13526,
+      "gain": 1.5910973732579436,
+      "sha256": "80019cf8ea89a4715989ad26570ba9e590d975c65d76f62e1e2b474186df2a5c"
+    },
+    {
+      "token": "chord-F-p2-7",
+      "phrase": "エフシャープシャープセブンス",
+      "file": "chord-F-p2-7.mp3",
+      "bytes": 13735,
+      "gain": 1.583297694479839,
+      "sha256": "668a151bd8422f95da839a1a892a31eaf3ea5a6d66a2c6ad62fdeadc3241d894"
+    },
+    {
+      "token": "chord-F-p2-9",
+      "phrase": "エフシャープシャープナインス",
+      "file": "chord-F-p2-9.mp3",
+      "bytes": 13526,
+      "gain": 1.3454354206355106,
+      "sha256": "16950458d53a947899b9ab1c06ba39b74c1cbba0ed5c527a66e9871fc6ede252"
+    },
+    {
+      "token": "chord-F-p2-aug",
+      "phrase": "エフシャープシャープオーギュメント",
+      "file": "chord-F-p2-aug.mp3",
+      "bytes": 15407,
+      "gain": 1.281094593048166,
+      "sha256": "e826165f3df9afaba5327acc983758f2a6a3f80dd1396a54d98f21d748f9d942"
+    },
+    {
+      "token": "chord-F-p2-sus2",
+      "phrase": "エフシャープシャープサスツー",
+      "file": "chord-F-p2-sus2.mp3",
+      "bytes": 13944,
+      "gain": 1.832511979143191,
+      "sha256": "17412de359e24811b033eb030d6523cb7edff568d8a7f7c7043efe63159e69be"
+    },
+    {
+      "token": "chord-F-p2-sus4",
+      "phrase": "エフシャープシャープサスフォー",
+      "file": "chord-F-p2-sus4.mp3",
+      "bytes": 13944,
+      "gain": 1.781400215426392,
+      "sha256": "072a77a0e79abde94baf2fb4fc77c53b0ceb377a331b1cb52b35ff766d87935e"
+    },
+    {
+      "token": "chord-F-p2-dim7",
+      "phrase": "エフシャープシャープディミニッシュセブンス",
+      "file": "chord-F-p2-dim7.mp3",
+      "bytes": 17915,
+      "gain": 1.4616972572412337,
+      "sha256": "11350f45a3a3ca71c9823c2dbdc9b70050c4a0ee92f166aa5918a850ef6bb828"
+    },
+    {
+      "token": "chord-F-p2-m6",
+      "phrase": "エフシャープシャープマイナーシックス",
+      "file": "chord-F-p2-m6.mp3",
+      "bytes": 17497,
+      "gain": 1.5047301482123852,
+      "sha256": "d44d08b1e24847250274904523f2aa3aeadb6b6a47873313aa7bf802b760935f"
+    },
+    {
+      "token": "chord-F-p2-add9",
+      "phrase": "エフシャープシャープアドナイン",
+      "file": "chord-F-p2-add9.mp3",
+      "bytes": 14571,
+      "gain": 1.292578684523983,
+      "sha256": "dc7d61dbc35c317864ea340a763a8d74013c0ca573718b63e5fae90c55fe0412"
+    },
+    {
+      "token": "chord-F-p2-maj9",
+      "phrase": "エフシャープシャープメジャーナインス",
+      "file": "chord-F-p2-maj9.mp3",
+      "bytes": 16243,
+      "gain": 1.3717240410135105,
+      "sha256": "8255015cdd996a479c09238e7957bc9e699a33be6139071fcab5b18019446017"
+    },
+    {
+      "token": "chord-F-p2-m9",
+      "phrase": "エフシャープシャープマイナーナインス",
+      "file": "chord-F-p2-m9.mp3",
+      "bytes": 17079,
+      "gain": 1.3205494412421583,
+      "sha256": "b2425a6d0a80d5d66e52efe0fe1be8c564b9b04752f1b9576fdc2087cb48fcf2"
+    },
+    {
+      "token": "key-F-p2-major",
+      "phrase": "エフシャープシャープメジャーの調です。主和音を確認します。",
+      "file": "key-F-p2-major.mp3",
+      "bytes": 32334,
+      "gain": 1.342056580999917,
+      "sha256": "fa0aefad408ab548288b4c16e8be7f630130d769d9589fedeeecfbac0f9331f3"
+    },
+    {
+      "token": "key-F-p2-minor",
+      "phrase": "エフシャープシャープマイナーの調です。主和音を確認します。",
+      "file": "key-F-p2-minor.mp3",
+      "bytes": 32961,
+      "gain": 1.3661161202310401,
+      "sha256": "430f55ac7950dd807c2cf57288abd78fe6d986dd35ae93ff54584177dd1c727a"
+    },
+    {
+      "token": "chord-G-p2-dim",
+      "phrase": "ジーシャープシャープディミニッシュ",
+      "file": "chord-G-p2-dim.mp3",
+      "bytes": 15407,
+      "gain": 1.2597964065650036,
+      "sha256": "ac14aeaa8bc2a8858a1c40ce857e6967d6e312265e161f9049b06d22d84458c3"
+    },
+    {
+      "token": "chord-G-p2-m7♭5",
+      "phrase": "ジーシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-G-p2-m7♭5.mp3",
+      "bytes": 26483,
+      "gain": 1.3340193073980173,
+      "sha256": "fa2d0643a9ea1604175e5c8bc5aa91a24e88cbab45296ba17e7f66df70f49584"
+    },
+    {
+      "token": "chord-G-m2-6",
+      "phrase": "ジーフラットフラットシックス",
+      "file": "chord-G-m2-6.mp3",
+      "bytes": 15407,
+      "gain": 1.4882159758307922,
+      "sha256": "8ba8be1292c1f62bae8ff4d903a40e49c50abe8ed8ebd308d621d09d38225f2d"
+    },
+    {
+      "token": "chord-G-m2-9",
+      "phrase": "ジーフラットフラットナインス",
+      "file": "chord-G-m2-9.mp3",
+      "bytes": 14780,
+      "gain": 1.31199023149455,
+      "sha256": "240eb9ed8b19e44565902c34a9bdbd549c4448bea8bf29842167397d7b02363b"
+    },
+    {
+      "token": "chord-G-m2-aug",
+      "phrase": "ジーフラットフラットオーギュメント",
+      "file": "chord-G-m2-aug.mp3",
+      "bytes": 16661,
+      "gain": 1.2478281891823166,
+      "sha256": "caa03795377ef224b7cd28749471d1067cd27aecf7911decd059dde72efcc6b9"
+    },
+    {
+      "token": "chord-G-m2-sus2",
+      "phrase": "ジーフラットフラットサスツー",
+      "file": "chord-G-m2-sus2.mp3",
+      "bytes": 15198,
+      "gain": 1.5459740251828014,
+      "sha256": "1785961e8b69ab1fc4d23ffd49a5bc8ea09d5a06dcce0aaf5ad585b7e431e9cc"
+    },
+    {
+      "token": "chord-G-m2-sus4",
+      "phrase": "ジーフラットフラットサスフォー",
+      "file": "chord-G-m2-sus4.mp3",
+      "bytes": 15407,
+      "gain": 1.4449529876499252,
+      "sha256": "85dd221f45e3a67f345b330dd3e6e721725b83c8d9e39725c436501485cd6c9c"
+    },
+    {
+      "token": "chord-G-m2-dim7",
+      "phrase": "ジーフラットフラットディミニッシュセブンス",
+      "file": "chord-G-m2-dim7.mp3",
+      "bytes": 19169,
+      "gain": 1.2254001703456663,
+      "sha256": "7ef67eee57a911182079f6bd19b84cfe50f78d2117a8b716d4e7612b3299b66b"
+    },
+    {
+      "token": "chord-G-m2-m6",
+      "phrase": "ジーフラットフラットマイナーシックス",
+      "file": "chord-G-m2-m6.mp3",
+      "bytes": 18751,
+      "gain": 1.3139918422258265,
+      "sha256": "7ca7b21b9b8290750f8a056117d6c1007fd6f5f1a29a6996864fa09dd15247ec"
+    },
+    {
+      "token": "chord-G-m2-add9",
+      "phrase": "ジーフラットフラットアドナイン",
+      "file": "chord-G-m2-add9.mp3",
+      "bytes": 15825,
+      "gain": 1.3302066851974843,
+      "sha256": "4c624ee00873b8c66583babcedcb5f664a06c8b82f421a348fee69df0f612e92"
+    },
+    {
+      "token": "chord-G-m2-maj9",
+      "phrase": "ジーフラットフラットメジャーナインス",
+      "file": "chord-G-m2-maj9.mp3",
+      "bytes": 17706,
+      "gain": 1.196509696190597,
+      "sha256": "8f0ef031114a1b8561f8690eb91850ec875258b426bd8d365b4d546e50e44eae"
+    },
+    {
+      "token": "chord-G-m2-m9",
+      "phrase": "ジーフラットフラットマイナーナインス",
+      "file": "chord-G-m2-m9.mp3",
+      "bytes": 18333,
+      "gain": 1.1658615223707873,
+      "sha256": "7540b3c534e93f26b42ee29cbc2f5ed9f859a251d84a93bd69564d909e4d4403"
+    },
+    {
+      "token": "key-G-m2-major",
+      "phrase": "ジーフラットフラットメジャーの調です。主和音を確認します。",
+      "file": "key-G-m2-major.mp3",
+      "bytes": 33797,
+      "gain": 1.307398299683029,
+      "sha256": "92816c1b695bd1a994a2f668d267abbb8ee50e3bb37b489f9f66383b3d4a26fd"
+    },
+    {
+      "token": "key-G-m2-minor",
+      "phrase": "ジーフラットフラットマイナーの調です。主和音を確認します。",
+      "file": "key-G-m2-minor.mp3",
+      "bytes": 34424,
+      "gain": 1.328851804853623,
+      "sha256": "71ee1f1f1a3f877b544d8c34a6d0122d94105e81f9bcdb68e799ac5928d00e1c"
+    },
+    {
+      "token": "chord-A-m2-dim",
+      "phrase": "エーフラットフラットディミニッシュ",
+      "file": "chord-A-m2-dim.mp3",
+      "bytes": 16034,
+      "gain": 1.1280858036505517,
+      "sha256": "6c5050ed561f290243964350e8433e19997fe65409c79a8e5a69729cdf731efd"
+    },
+    {
+      "token": "chord-A-m2-m7♭5",
+      "phrase": "エーフラットフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-A-m2-m7♭5.mp3",
+      "bytes": 26901,
+      "gain": 1.1434952792754438,
+      "sha256": "ecebb301ac69b878c291fec2f9b8fa0374323f5245bea7bdebb2082e07b4f5c4"
+    },
+    {
+      "token": "chord-G-m1-6",
+      "phrase": "ジーフラットシックス",
+      "file": "chord-G-m1-6.mp3",
+      "bytes": 12063,
+      "gain": 1.604060903022359,
+      "sha256": "cefc515ad1f579a38ff4470d828a692db32418f3e4fc656c3eab70790bd4852a"
+    },
+    {
+      "token": "chord-G-m1-9",
+      "phrase": "ジーフラットナインス",
+      "file": "chord-G-m1-9.mp3",
+      "bytes": 11645,
+      "gain": 1.2271018272660266,
+      "sha256": "297be16f90fd34e82db435886918fb134abbb80072f61d9cfc8a8c8e30b8ea83"
+    },
+    {
+      "token": "chord-G-m1-aug",
+      "phrase": "ジーフラットオーギュメント",
+      "file": "chord-G-m1-aug.mp3",
+      "bytes": 13526,
+      "gain": 1.220878165039242,
+      "sha256": "d2a9633a4c96bbc4e9c2df44c28c9cc88d3d9c8c8198159659398cc20fcb441d"
+    },
+    {
+      "token": "chord-G-m1-sus2",
+      "phrase": "ジーフラットサスツー",
+      "file": "chord-G-m1-sus2.mp3",
+      "bytes": 12063,
+      "gain": 1.6789102898193755,
+      "sha256": "4e74cf97ab841693013bb399509a81d97e88dd12139fea7238648ea91b1874e0"
+    },
+    {
+      "token": "chord-G-m1-sus4",
+      "phrase": "ジーフラットサスフォー",
+      "file": "chord-G-m1-sus4.mp3",
+      "bytes": 12063,
+      "gain": 1.5634359056867382,
+      "sha256": "0091b19921133ac88052c5542ed8621d67e4e14c2be4bdc96ddd659d20e2c643"
+    },
+    {
+      "token": "chord-G-m1-dim7",
+      "phrase": "ジーフラットディミニッシュセブンス",
+      "file": "chord-G-m1-dim7.mp3",
+      "bytes": 16034,
+      "gain": 1.2297573141030578,
+      "sha256": "b70eee5aef1b953d89d6acc512a10fd9ccc042dbc9d2e28fe4e96aa2811a96e1"
+    },
+    {
+      "token": "chord-G-m1-m6",
+      "phrase": "ジーフラットマイナーシックス",
+      "file": "chord-G-m1-m6.mp3",
+      "bytes": 15407,
+      "gain": 1.4344352877515547,
+      "sha256": "d05a3850d25b2ec876b19b4f85e1b007d3ccee53dc19ac0ff1b7da66b2867cb4"
+    },
+    {
+      "token": "chord-G-m1-add9",
+      "phrase": "ジーフラットアドナイン",
+      "file": "chord-G-m1-add9.mp3",
+      "bytes": 12481,
+      "gain": 1.1299570847666365,
+      "sha256": "101761c00a6cf64c24329c3fb1301345a07353dcbc971187cf410b4c4f7126a9"
+    },
+    {
+      "token": "chord-G-m1-maj9",
+      "phrase": "ジーフラットメジャーナインス",
+      "file": "chord-G-m1-maj9.mp3",
+      "bytes": 14362,
+      "gain": 1.1826044179719664,
+      "sha256": "3fb11b729493320128169e7e5d6c23aad73b947fbfbf421c5a45fb04e265e313"
+    },
+    {
+      "token": "chord-G-m1-m9",
+      "phrase": "ジーフラットマイナーナインス",
+      "file": "chord-G-m1-m9.mp3",
+      "bytes": 14989,
+      "gain": 1.1399744509491825,
+      "sha256": "4ce31cda87551156f6a30ec2db2b36211301f69d349b1200e2ef279ad0c31f95"
+    },
+    {
+      "token": "key-G-m1-major",
+      "phrase": "ジーフラットメジャーの調です。主和音を確認します。",
+      "file": "key-G-m1-major.mp3",
+      "bytes": 30454,
+      "gain": 1.3483352077894042,
+      "sha256": "a0de7eb12d90d5d19209ac1596ca402e21e9c87ebbd7dae728fe1ee00b02a971"
+    },
+    {
+      "token": "key-G-m1-minor",
+      "phrase": "ジーフラットマイナーの調です。主和音を確認します。",
+      "file": "key-G-m1-minor.mp3",
+      "bytes": 31081,
+      "gain": 1.3635780722683266,
+      "sha256": "7ebe29f1d2f0392430310ab750fb8c97532821dbaf2eb19ce73d1210f00ec640"
+    },
+    {
+      "token": "chord-A-m1-dim",
+      "phrase": "エーフラットディミニッシュ",
+      "file": "chord-A-m1-dim.mp3",
+      "bytes": 12690,
+      "gain": 1.114261207594768,
+      "sha256": "b7257f8e1a47539778c7ece0d2de51b9082298bfd7dbc186f85eff0fd5236cf6"
+    },
+    {
+      "token": "chord-A-m1-m7♭5",
+      "phrase": "エーフラットマイナーセブンス、フラットファイブ",
+      "file": "chord-A-m1-m7♭5.mp3",
+      "bytes": 23766,
+      "gain": 1.1277481624285057,
+      "sha256": "02953a9ad7e72631d6c43d13fc863667d607d82a9804855a1e33553ba17e55b1"
+    },
+    {
+      "token": "chord-G-p0-6",
+      "phrase": "ジーシックス",
+      "file": "chord-G-p0-6.mp3",
+      "bytes": 8511,
+      "gain": 1.9192382452887724,
+      "sha256": "da0e677d3f08a835cf8e37afa74a868aa41316f03c94fbd7a27fa485c3528a49"
+    },
+    {
+      "token": "chord-G-p0-9",
+      "phrase": "ジーナインス",
+      "file": "chord-G-p0-9.mp3",
+      "bytes": 8511,
+      "gain": 1.162862951415459,
+      "sha256": "cb7bc3cd964a3d09b9dd16c1a509f629e1d7410f7cf7b60c71d7f6338b41cdf3"
+    },
+    {
+      "token": "chord-G-p0-aug",
+      "phrase": "ジーオーギュメント",
+      "file": "chord-G-p0-aug.mp3",
+      "bytes": 10183,
+      "gain": 1.1764281022122205,
+      "sha256": "29f1b99b07fd5fedc4d9083e513c6c26b2c14d61f94d6247d95bd8d0285a037a"
+    },
+    {
+      "token": "chord-G-p0-sus2",
+      "phrase": "ジーサスツー",
+      "file": "chord-G-p0-sus2.mp3",
+      "bytes": 8511,
+      "gain": 2.004731567261816,
+      "sha256": "93ae5682582129fb9b211ec40911e4c92a58a8ef66ed240a877a6dfc4dffba45"
+    },
+    {
+      "token": "chord-G-p0-sus4",
+      "phrase": "ジーサスフォー",
+      "file": "chord-G-p0-sus4.mp3",
+      "bytes": 8720,
+      "gain": 1.75386002496419,
+      "sha256": "93197ea6f98bf4fa7607a0c879f34bb5a3e0491813b6a71ec6c0a1ead2b3cd53"
+    },
+    {
+      "token": "chord-G-p0-dim7",
+      "phrase": "ジーディミニッシュセブンス",
+      "file": "chord-G-p0-dim7.mp3",
+      "bytes": 12690,
+      "gain": 1.2720960170998405,
+      "sha256": "dc7cf757b172cf3755f6ecfed6b7a9c819f676b3d396e020d50029eb9296b67f"
+    },
+    {
+      "token": "chord-G-p0-m6",
+      "phrase": "ジーマイナーシックス",
+      "file": "chord-G-p0-m6.mp3",
+      "bytes": 12063,
+      "gain": 1.3342390366066976,
+      "sha256": "3d40e829d7361275423f263a0acf38f0d46571893ab4749397e3fe540e0310dd"
+    },
+    {
+      "token": "chord-G-p0-add9",
+      "phrase": "ジーアドナイン",
+      "file": "chord-G-p0-add9.mp3",
+      "bytes": 9347,
+      "gain": 1.1428732543652877,
+      "sha256": "7f4e0bcb2f0385a0bfc935b03d3dcdf3fe4fc520418ee2b6bc8caed49b50a6cd"
+    },
+    {
+      "token": "chord-G-p0-maj9",
+      "phrase": "ジーメジャーナインス",
+      "file": "chord-G-p0-maj9.mp3",
+      "bytes": 11018,
+      "gain": 1.0822977696202456,
+      "sha256": "1a8a4fd7413dec8c4e5a455348473afe9c4e94b9992de275f748628095f6a379"
+    },
+    {
+      "token": "chord-G-p0-m9",
+      "phrase": "ジーマイナーナインス",
+      "file": "chord-G-p0-m9.mp3",
+      "bytes": 11645,
+      "gain": 1.2159462830234078,
+      "sha256": "628eb756c096be8bd34748180a9acb4254f78fbadf603c13a8d198835ccb6e21"
+    },
+    {
+      "token": "key-G-p0-major",
+      "phrase": "ジーメジャーの調です。主和音を確認します。",
+      "file": "key-G-p0-major.mp3",
+      "bytes": 27319,
+      "gain": 1.2931368538920223,
+      "sha256": "12efa6ca5be6bd42988d23e0aa56cdc4c1c392b38546f44c025d1b16649c4ee6"
+    },
+    {
+      "token": "key-G-p0-minor",
+      "phrase": "ジーマイナーの調です。主和音を確認します。",
+      "file": "key-G-p0-minor.mp3",
+      "bytes": 27737,
+      "gain": 1.3508124230111556,
+      "sha256": "a2c91f51fb3a67c9f5571ab1673d7e260930d0b72397defa0af6746f69501060"
+    },
+    {
+      "token": "chord-A-p0-dim",
+      "phrase": "エーディミニッシュ",
+      "file": "chord-A-p0-dim.mp3",
+      "bytes": 9556,
+      "gain": 1.0037863608527862,
+      "sha256": "11e91ed37f3c4e3cddc24a97243d80a36b3a867463d9579f7b64fa87073f51ab"
+    },
+    {
+      "token": "chord-A-p0-m7♭5",
+      "phrase": "エーマイナーセブンス、フラットファイブ",
+      "file": "chord-A-p0-m7♭5.mp3",
+      "bytes": 20423,
+      "gain": 1.2069607167482657,
+      "sha256": "540c06012684074a196c6abcec3b01421bea258bd7479bdcc00ea147d771e2ac"
+    },
+    {
+      "token": "chord-G-p1-6",
+      "phrase": "ジーシャープシックス",
+      "file": "chord-G-p1-6.mp3",
+      "bytes": 11227,
+      "gain": 1.6619194674573148,
+      "sha256": "1b91d9e85698ea75d5c4a1b3ee17b23d8b4641b20eddd467aa0265e829755066"
+    },
+    {
+      "token": "chord-G-p1-9",
+      "phrase": "ジーシャープナインス",
+      "file": "chord-G-p1-9.mp3",
+      "bytes": 11227,
+      "gain": 1.1758138930063413,
+      "sha256": "37ea9e1cb621e822c3f0b3222d8674c36dac85abecae97b5a6f6eb1b35b779f7"
+    },
+    {
+      "token": "chord-G-p1-aug",
+      "phrase": "ジーシャープオーギュメント",
+      "file": "chord-G-p1-aug.mp3",
+      "bytes": 13108,
+      "gain": 1.2679096691955338,
+      "sha256": "a3513924c529f2c2a41783885f766e69c825ccb490022bff2cd0a00642dd3d4b"
+    },
+    {
+      "token": "chord-G-p1-sus2",
+      "phrase": "ジーシャープサスツー",
+      "file": "chord-G-p1-sus2.mp3",
+      "bytes": 11436,
+      "gain": 1.796530499992006,
+      "sha256": "2437781621a8fd3f26e5b91035fa503712b6f08b9ed120e6be76827632427dde"
+    },
+    {
+      "token": "chord-G-p1-sus4",
+      "phrase": "ジーシャープサスフォー",
+      "file": "chord-G-p1-sus4.mp3",
+      "bytes": 11436,
+      "gain": 1.6689834438787585,
+      "sha256": "1d69e80f2447167efb2faf1434d8e4efaac53a461bdf0809c2b35548d3a49323"
+    },
+    {
+      "token": "chord-G-p1-dim7",
+      "phrase": "ジーシャープディミニッシュセブンス",
+      "file": "chord-G-p1-dim7.mp3",
+      "bytes": 15616,
+      "gain": 1.2633173547257128,
+      "sha256": "f6b35ea3e7233e9531a35fbe3600310b0e527ef282db416811de671c22e36a98"
+    },
+    {
+      "token": "chord-G-p1-m6",
+      "phrase": "ジーシャープマイナーシックス",
+      "file": "chord-G-p1-m6.mp3",
+      "bytes": 14989,
+      "gain": 1.4169141752053926,
+      "sha256": "96fbf6ece0ab88a844616864083fdf551ff4e148c307b8adf1d0d098a7408c6e"
+    },
+    {
+      "token": "chord-G-p1-add9",
+      "phrase": "ジーシャープアドナイン",
+      "file": "chord-G-p1-add9.mp3",
+      "bytes": 12272,
+      "gain": 1.160709741706837,
+      "sha256": "d293c4a2ad315836d211805e9df39725190cb0a0dc0aa59e223aaf1610ad0966"
+    },
+    {
+      "token": "chord-G-p1-maj9",
+      "phrase": "ジーシャープメジャーナインス",
+      "file": "chord-G-p1-maj9.mp3",
+      "bytes": 13944,
+      "gain": 1.1941422077397785,
+      "sha256": "bad8ef55416b898d2efa0b5d6a159f6a6e13b410dfc2e90be7469b1c9b6a4f29"
+    },
+    {
+      "token": "chord-G-p1-m9",
+      "phrase": "ジーシャープマイナーナインス",
+      "file": "chord-G-p1-m9.mp3",
+      "bytes": 14780,
+      "gain": 1.1835828039125922,
+      "sha256": "3b389e5a3a4425c5f2ad7a34beb40a3a4d8f00fabf98aae071f6e3be71012cbf"
+    },
+    {
+      "token": "key-G-p1-major",
+      "phrase": "ジーシャープメジャーの調です。主和音を確認します。",
+      "file": "key-G-p1-major.mp3",
+      "bytes": 30245,
+      "gain": 1.354134879825039,
+      "sha256": "dd91cdaf6b78c1dc7d4bce842868f931de0d66005d9ab351418db3acafcbe749"
+    },
+    {
+      "token": "key-G-p1-minor",
+      "phrase": "ジーシャープマイナーの調です。主和音を確認します。",
+      "file": "key-G-p1-minor.mp3",
+      "bytes": 30663,
+      "gain": 1.3739725781472993,
+      "sha256": "bf1309763032aa6f35039f6b213f97029bfd5649e30b7fd0ef410b991d3b4b5e"
+    },
+    {
+      "token": "chord-A-p1-dim",
+      "phrase": "エーシャープディミニッシュ",
+      "file": "chord-A-p1-dim.mp3",
+      "bytes": 12481,
+      "gain": 1.1424103156359637,
+      "sha256": "181932a8d3a83d293c8a912e881dc13220a842939979885c09104e5953039fe2"
+    },
+    {
+      "token": "chord-A-p1-m7♭5",
+      "phrase": "エーシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-A-p1-m7♭5.mp3",
+      "bytes": 23348,
+      "gain": 1.1995072572083865,
+      "sha256": "bc5520ac8381a9ce9090ffa5916b0ad5af4b60d23dff4590ea1f877e181a0b09"
+    },
+    {
+      "token": "chord-G-p2-6",
+      "phrase": "ジーシャープシャープシックス",
+      "file": "chord-G-p2-6.mp3",
+      "bytes": 13944,
+      "gain": 1.675524091313922,
+      "sha256": "01da7510b437d4a082b241116eea7b81553362fad7b4b7182a32c973368727b9"
+    },
+    {
+      "token": "chord-G-p2-9",
+      "phrase": "ジーシャープシャープナインス",
+      "file": "chord-G-p2-9.mp3",
+      "bytes": 13944,
+      "gain": 1.3334451330222195,
+      "sha256": "08e46f0523befb0fc3c4bf9be170e90806fdc0d2c9fd0001b12b6cb7da3aef75"
+    },
+    {
+      "token": "chord-G-p2-aug",
+      "phrase": "ジーシャープシャープオーギュメント",
+      "file": "chord-G-p2-aug.mp3",
+      "bytes": 15825,
+      "gain": 1.27429481174814,
+      "sha256": "b7f31ff0750b6fbe93e6d523c0a318cf09fc3975460c5e94ade13e48dfe4880f"
+    },
+    {
+      "token": "chord-G-p2-sus2",
+      "phrase": "ジーシャープシャープサスツー",
+      "file": "chord-G-p2-sus2.mp3",
+      "bytes": 14362,
+      "gain": 1.7480220190848703,
+      "sha256": "59749c073f188d7c11c765138de7659538114497df049e11dcfa7a2c0ef49448"
+    },
+    {
+      "token": "chord-G-p2-sus4",
+      "phrase": "ジーシャープシャープサスフォー",
+      "file": "chord-G-p2-sus4.mp3",
+      "bytes": 14362,
+      "gain": 1.6687182318276543,
+      "sha256": "dec0ffac91dba8a6e17098fc8a89d5934a3e529977ab4b1abdadbd9f0b78afc8"
+    },
+    {
+      "token": "chord-G-p2-dim7",
+      "phrase": "ジーシャープシャープディミニッシュセブンス",
+      "file": "chord-G-p2-dim7.mp3",
+      "bytes": 18333,
+      "gain": 1.3693012464350138,
+      "sha256": "9fa39646f28ca31a1cf4edeaf034020b6510315ff7db1357a9c1894b05bb878a"
+    },
+    {
+      "token": "chord-G-p2-m6",
+      "phrase": "ジーシャープシャープマイナーシックス",
+      "file": "chord-G-p2-m6.mp3",
+      "bytes": 17915,
+      "gain": 1.338306109901896,
+      "sha256": "6e9658780966d63f7812e793ce88f4df25f3ee47ecb07e92fb0b6504bce2e566"
+    },
+    {
+      "token": "chord-G-p2-add9",
+      "phrase": "ジーシャープシャープアドナイン",
+      "file": "chord-G-p2-add9.mp3",
+      "bytes": 14989,
+      "gain": 1.3346314826247727,
+      "sha256": "0cf42b386e1d1b51ef630f445cdf129db7937671147c39dd81b5fe7bd9ebc28e"
+    },
+    {
+      "token": "chord-G-p2-maj9",
+      "phrase": "ジーシャープシャープメジャーナインス",
+      "file": "chord-G-p2-maj9.mp3",
+      "bytes": 16661,
+      "gain": 1.259425437836285,
+      "sha256": "f4c77412b8bc43dc7f22183fa0f5b5706e700be1586e8ccac62660c9ed17c172"
+    },
+    {
+      "token": "chord-G-p2-m9",
+      "phrase": "ジーシャープシャープマイナーナインス",
+      "file": "chord-G-p2-m9.mp3",
+      "bytes": 17497,
+      "gain": 1.2730454236394046,
+      "sha256": "f09a84fa8ad74ba3636fb16e377f10ab55d62c314bfeb0cc4d4a6404d9c21e8a"
+    },
+    {
+      "token": "key-G-p2-major",
+      "phrase": "ジーシャープシャープメジャーの調です。主和音を確認します。",
+      "file": "key-G-p2-major.mp3",
+      "bytes": 32752,
+      "gain": 1.359656309287074,
+      "sha256": "4d85bb0a348453ea5d3b798f802064622130fafb5c3e76b79b0df5f8c6c33951"
+    },
+    {
+      "token": "key-G-p2-minor",
+      "phrase": "ジーシャープシャープマイナーの調です。主和音を確認します。",
+      "file": "key-G-p2-minor.mp3",
+      "bytes": 33379,
+      "gain": 1.3663673928580662,
+      "sha256": "a7027908e95c1f90ad2c38f8584159ae56330d1abeaf8ef34c0dbfd0333b2345"
+    },
+    {
+      "token": "chord-A-p2-dim",
+      "phrase": "エーシャープシャープディミニッシュ",
+      "file": "chord-A-p2-dim.mp3",
+      "bytes": 15198,
+      "gain": 1.1978316681569119,
+      "sha256": "c3df0fd4327dfd5ee53490acb1f49463c1598afffc3a7340cdbce7d85c9730ab"
+    },
+    {
+      "token": "chord-A-p2-m7♭5",
+      "phrase": "エーシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-A-p2-m7♭5.mp3",
+      "bytes": 26274,
+      "gain": 1.2636451478851378,
+      "sha256": "e1e1af91bff67be56e54bcd0dce53970cb9617abe0641f314ff50b24924075ef"
+    },
+    {
+      "token": "chord-A-m2-6",
+      "phrase": "エーフラットフラットシックス",
+      "file": "chord-A-m2-6.mp3",
+      "bytes": 15407,
+      "gain": 1.3616611555570384,
+      "sha256": "df5c1508f39ad9cc557756c1f6bcd13da70384dec614bd1453606acec6371c9f"
+    },
+    {
+      "token": "chord-A-m2-9",
+      "phrase": "エーフラットフラットナインス",
+      "file": "chord-A-m2-9.mp3",
+      "bytes": 14571,
+      "gain": 1.193079770483341,
+      "sha256": "f10d9e34e5afee0c9e21e8b3afa7ed34afc630ef19fd382d906f64bb3521eab9"
+    },
+    {
+      "token": "chord-A-m2-aug",
+      "phrase": "エーフラットフラットオーギュメント",
+      "file": "chord-A-m2-aug.mp3",
+      "bytes": 16452,
+      "gain": 1.1601372914018235,
+      "sha256": "7f7e500af23a1e3c30d360c3d45e018a715d3c19c8d2faecf796609153d40f36"
+    },
+    {
+      "token": "chord-A-m2-sus2",
+      "phrase": "エーフラットフラットサスツー",
+      "file": "chord-A-m2-sus2.mp3",
+      "bytes": 14989,
+      "gain": 1.368722615479038,
+      "sha256": "f388b27dbdfe31e3fcf7bcf72bc3e199e64b5358e5a9f4f587303aa3bc19923b"
+    },
+    {
+      "token": "chord-A-m2-sus4",
+      "phrase": "エーフラットフラットサスフォー",
+      "file": "chord-A-m2-sus4.mp3",
+      "bytes": 14989,
+      "gain": 1.289020286989283,
+      "sha256": "4220f8487496e866b2114d0e2dd39c80d7ce60001bdcb2e00f35206eb47158e2"
+    },
+    {
+      "token": "chord-A-m2-dim7",
+      "phrase": "エーフラットフラットディミニッシュセブンス",
+      "file": "chord-A-m2-dim7.mp3",
+      "bytes": 18960,
+      "gain": 1.146367258871484,
+      "sha256": "e9d024b29cc8e5b15e1d9d6c20dcc138aacd40272d0b6de58832323dadba9ae8"
+    },
+    {
+      "token": "chord-A-m2-m6",
+      "phrase": "エーフラットフラットマイナーシックス",
+      "file": "chord-A-m2-m6.mp3",
+      "bytes": 18542,
+      "gain": 1.2121422702569709,
+      "sha256": "0d20f9433b81ffd7d75a5a87f88514d8b1daa93a741326faacf1123aeb657221"
+    },
+    {
+      "token": "chord-A-m2-add9",
+      "phrase": "エーフラットフラットアドナイン",
+      "file": "chord-A-m2-add9.mp3",
+      "bytes": 15407,
+      "gain": 1.199842385627426,
+      "sha256": "ae9997e570a38c0ab64fa1e0567d9eea3496d55f00710309b5977f52f08b6a00"
+    },
+    {
+      "token": "chord-A-m2-maj9",
+      "phrase": "エーフラットフラットメジャーナインス",
+      "file": "chord-A-m2-maj9.mp3",
+      "bytes": 17288,
+      "gain": 1.1057000173886993,
+      "sha256": "38081a2321f97c07732dec3485bfeb580e9efe2a6239c79a176184d21354db70"
+    },
+    {
+      "token": "chord-A-m2-m9",
+      "phrase": "エーフラットフラットマイナーナインス",
+      "file": "chord-A-m2-m9.mp3",
+      "bytes": 18124,
+      "gain": 1.0883105828676813,
+      "sha256": "9b6e770bbf078cc68bd8408dcbf6feaf2dd5685b2bb58d522a410cbc669dca8d"
+    },
+    {
+      "token": "key-A-m2-major",
+      "phrase": "エーフラットフラットメジャーの調です。主和音を確認します。",
+      "file": "key-A-m2-major.mp3",
+      "bytes": 33379,
+      "gain": 1.2650378173830623,
+      "sha256": "4cf29bcb57b7aa007645d73b6b01718aa64c5196830ce632741a989d6c6fb956"
+    },
+    {
+      "token": "key-A-m2-minor",
+      "phrase": "エーフラットフラットマイナーの調です。主和音を確認します。",
+      "file": "key-A-m2-minor.mp3",
+      "bytes": 34215,
+      "gain": 1.283830766938527,
+      "sha256": "92d29bd72541b02584c30bbffc56678c9ac1359ac8f8912b4836d528a69ab140"
+    },
+    {
+      "token": "chord-A-m1-6",
+      "phrase": "エーフラットシックス",
+      "file": "chord-A-m1-6.mp3",
+      "bytes": 11645,
+      "gain": 1.2333256380840143,
+      "sha256": "3ed0fae8bd4081ffa8c92818f8e559ff703545bca8d3ddc130f8bacbc50522ac"
+    },
+    {
+      "token": "chord-A-m1-9",
+      "phrase": "エーフラットナインス",
+      "file": "chord-A-m1-9.mp3",
+      "bytes": 11227,
+      "gain": 1.1823511040161843,
+      "sha256": "aec85f0a2db89a6ae7bc01c07296b7a49814c2c2ca2d74174398b3f35de90227"
+    },
+    {
+      "token": "chord-A-m1-aug",
+      "phrase": "エーフラットオーギュメント",
+      "file": "chord-A-m1-aug.mp3",
+      "bytes": 13108,
+      "gain": 1.1517228337936174,
+      "sha256": "fd2cc5cbbc0cc871a1abd94958182deb14c4921d9f3ca2e5446ab3f12e593242"
+    },
+    {
+      "token": "chord-A-m1-sus2",
+      "phrase": "エーフラットサスツー",
+      "file": "chord-A-m1-sus2.mp3",
+      "bytes": 11645,
+      "gain": 1.4341909812079494,
+      "sha256": "8b3bd28c990dea372f2a4c94225a4c777d1e5a4a81730f05e0ed9844d5591faa"
+    },
+    {
+      "token": "chord-A-m1-sus4",
+      "phrase": "エーフラットサスフォー",
+      "file": "chord-A-m1-sus4.mp3",
+      "bytes": 11645,
+      "gain": 1.3378293724243324,
+      "sha256": "dd7bade09779ae3c17ecece19fec217595cb801e22d07ef75422a7254f049d55"
+    },
+    {
+      "token": "chord-A-m1-dim7",
+      "phrase": "エーフラットディミニッシュセブンス",
+      "file": "chord-A-m1-dim7.mp3",
+      "bytes": 15825,
+      "gain": 1.1443560552220873,
+      "sha256": "b1508ed594badd953b4a711305e8635108f4855c6198873ba97f5b2768d293aa"
+    },
+    {
+      "token": "chord-A-m1-m6",
+      "phrase": "エーフラットマイナーシックス",
+      "file": "chord-A-m1-m6.mp3",
+      "bytes": 15198,
+      "gain": 1.2136860460809313,
+      "sha256": "b03ac7b8c46283fcb5d850ee70a2af4cffff5b45fb0a89c271ef5552321abe32"
+    },
+    {
+      "token": "chord-A-m1-add9",
+      "phrase": "エーフラットアドナイン",
+      "file": "chord-A-m1-add9.mp3",
+      "bytes": 12272,
+      "gain": 1.206455578376828,
+      "sha256": "7ca74d4585e8f14133b78b2319d4684cfc77048d5809e3781f94fe279c4e6452"
+    },
+    {
+      "token": "chord-A-m1-maj9",
+      "phrase": "エーフラットメジャーナインス",
+      "file": "chord-A-m1-maj9.mp3",
+      "bytes": 14153,
+      "gain": 1.1066464180065723,
+      "sha256": "b7ba0625915d391adff3db07cc2f09adfa36bd10c95050a12d920d6af831d34d"
+    },
+    {
+      "token": "chord-A-m1-m9",
+      "phrase": "エーフラットマイナーナインス",
+      "file": "chord-A-m1-m9.mp3",
+      "bytes": 14780,
+      "gain": 1.0604601700362235,
+      "sha256": "a6de5254572eb35171f1784424ce2d80a433efad94de2b9b932946d99b0d4f93"
+    },
+    {
+      "token": "key-A-m1-major",
+      "phrase": "エーフラットメジャーの調です。主和音を確認します。",
+      "file": "key-A-m1-major.mp3",
+      "bytes": 30245,
+      "gain": 1.2545552720405628,
+      "sha256": "ba203d20564c02e258db79bbcc5e5d55373241d1925e01360dda4334086249b4"
+    },
+    {
+      "token": "key-A-m1-minor",
+      "phrase": "エーフラットマイナーの調です。主和音を確認します。",
+      "file": "key-A-m1-minor.mp3",
+      "bytes": 30872,
+      "gain": 1.2687008087657436,
+      "sha256": "c7314aaade6292e9dbdd720b7340447d08854678191ba2e92fa3f9ced621cf3a"
+    },
+    {
+      "token": "chord-A-p0-6",
+      "phrase": "エーシックス",
+      "file": "chord-A-p0-6.mp3",
+      "bytes": 8511,
+      "gain": 1.3117194672175287,
+      "sha256": "2340bae79f47a6c1dd1c091ae8af38efe01f35825e073008b439f9661ef33318"
+    },
+    {
+      "token": "chord-A-p0-9",
+      "phrase": "エーナインス",
+      "file": "chord-A-p0-9.mp3",
+      "bytes": 7884,
+      "gain": 1.0443176482602998,
+      "sha256": "972ec09833fd8d29cb9be7467fd2d7c4afb45beb555a0bdb73b0fbbcac0e420e"
+    },
+    {
+      "token": "chord-A-p0-aug",
+      "phrase": "エーオーギュメント",
+      "file": "chord-A-p0-aug.mp3",
+      "bytes": 10183,
+      "gain": 1.0622954278419303,
+      "sha256": "99692d464175e3c5b0cc3b91e671989e811a8c8a40e1be5ae5c3fa069585b3cf"
+    },
+    {
+      "token": "chord-A-p0-sus2",
+      "phrase": "エーサスツー",
+      "file": "chord-A-p0-sus2.mp3",
+      "bytes": 8302,
+      "gain": 1.6825815988402335,
+      "sha256": "3402be710419ebba45bcc48bdfa1ea1fb7c076ab3445150e70896b769d5e7992"
+    },
+    {
+      "token": "chord-A-p0-sus4",
+      "phrase": "エーサスフォー",
+      "file": "chord-A-p0-sus4.mp3",
+      "bytes": 8302,
+      "gain": 1.5178050267042529,
+      "sha256": "a541a59f6b7e471c00ef8cb06417a3ced22e441198c1a762a11e936aa8fa4016"
+    },
+    {
+      "token": "chord-A-p0-dim7",
+      "phrase": "エーディミニッシュセブンス",
+      "file": "chord-A-p0-dim7.mp3",
+      "bytes": 12481,
+      "gain": 1.1333634637518477,
+      "sha256": "4fbb3d5113159b6288e8fb2a1b38fe186e93dbd65b942a652cdfd7ad40a240f6"
+    },
+    {
+      "token": "chord-A-p0-m6",
+      "phrase": "エーマイナーシックス",
+      "file": "chord-A-p0-m6.mp3",
+      "bytes": 11645,
+      "gain": 1.2348125798689948,
+      "sha256": "6b51c3e0cb55b0e3d7496453a80e99c8177dab5ead2f89cfd831666bf3f8ffa2"
+    },
+    {
+      "token": "chord-A-p0-add9",
+      "phrase": "エーアドナイン",
+      "file": "chord-A-p0-add9.mp3",
+      "bytes": 9138,
+      "gain": 1.2902752236405146,
+      "sha256": "d7486916ff296fca57ef41f59489c5216e7b3c753f4135369d7089b30f6e5f18"
+    },
+    {
+      "token": "chord-A-p0-maj9",
+      "phrase": "エーメジャーナインス",
+      "file": "chord-A-p0-maj9.mp3",
+      "bytes": 10809,
+      "gain": 1.1717803868282854,
+      "sha256": "ec486173aba6d4aaaca55d285bb7e90041250e6e98ecc7cdb52b3ef96ff8b375"
+    },
+    {
+      "token": "chord-A-p0-m9",
+      "phrase": "エーマイナーナインス",
+      "file": "chord-A-p0-m9.mp3",
+      "bytes": 11436,
+      "gain": 1.139254731488783,
+      "sha256": "1e2f8a8941910ebc213f1ceb542269dbc47101742b465e2ec97aeb23bd40c0d3"
+    },
+    {
+      "token": "key-A-p0-major",
+      "phrase": "エーメジャーの調です。主和音を確認します。",
+      "file": "key-A-p0-major.mp3",
+      "bytes": 26901,
+      "gain": 1.2416133126570414,
+      "sha256": "f19b2565cf29594a6e7d390a44de159a663a472f5f4c0d27fe0a00792639a9de"
+    },
+    {
+      "token": "key-A-p0-minor",
+      "phrase": "エーマイナーの調です。主和音を確認します。",
+      "file": "key-A-p0-minor.mp3",
+      "bytes": 27528,
+      "gain": 1.2771426415776646,
+      "sha256": "789d9ce7d02af72b4e74748d63d22c5842991a5edbf274065393060fbf9ffe1e"
+    },
+    {
+      "token": "chord-A-p1-6",
+      "phrase": "エーシャープシックス",
+      "file": "chord-A-p1-6.mp3",
+      "bytes": 11436,
+      "gain": 1.5369516989102183,
+      "sha256": "df60cd552d2f07b072e75196fde481893d95772631302d9cb96c9cb45efa847b"
+    },
+    {
+      "token": "chord-A-p1-9",
+      "phrase": "エーシャープナインス",
+      "file": "chord-A-p1-9.mp3",
+      "bytes": 10809,
+      "gain": 1.1893474742440788,
+      "sha256": "53f59df04ec69efc6d2117e9883807caef137d994e04bb8caac1a895d8fe6a8e"
+    },
+    {
+      "token": "chord-A-p1-aug",
+      "phrase": "エーシャープオーギュメント",
+      "file": "chord-A-p1-aug.mp3",
+      "bytes": 12899,
+      "gain": 1.1391552786443253,
+      "sha256": "ae41ebc44fbd7604371ad67d16f669f3f931405558d420b6010434a37d844793"
+    },
+    {
+      "token": "chord-A-p1-sus2",
+      "phrase": "エーシャープサスツー",
+      "file": "chord-A-p1-sus2.mp3",
+      "bytes": 11018,
+      "gain": 1.5686267539738916,
+      "sha256": "a77171165e250c05b6d4dfbb561cb5b6eddc1825e18c5bb74af0a5fa53509444"
+    },
+    {
+      "token": "chord-A-p1-sus4",
+      "phrase": "エーシャープサスフォー",
+      "file": "chord-A-p1-sus4.mp3",
+      "bytes": 11227,
+      "gain": 1.4674134971067538,
+      "sha256": "19cfa9e38b1bfe84920e314a987a3c07dd5173f7731000ba8ba36b251e7b49c6"
+    },
+    {
+      "token": "chord-A-p1-dim7",
+      "phrase": "エーシャープディミニッシュセブンス",
+      "file": "chord-A-p1-dim7.mp3",
+      "bytes": 15407,
+      "gain": 1.192017201453628,
+      "sha256": "e8460ddccf512cab6ca8e5905190e8268fd7c8e0a50c0bb3234ef21403df0590"
+    },
+    {
+      "token": "chord-A-p1-m6",
+      "phrase": "エーシャープマイナーシックス",
+      "file": "chord-A-p1-m6.mp3",
+      "bytes": 14780,
+      "gain": 1.2044328212973519,
+      "sha256": "e94a07a88273207b05f5a85b6938db5c1a5944c0d3b439b9a347879fa1bce907"
+    },
+    {
+      "token": "chord-A-p1-add9",
+      "phrase": "エーシャープアドナイン",
+      "file": "chord-A-p1-add9.mp3",
+      "bytes": 11854,
+      "gain": 1.1837710512755582,
+      "sha256": "3e0bd0f7ea8ed6be400fb2705df46af5d9cd6c43e69c095965063415136b974d"
+    },
+    {
+      "token": "chord-A-p1-maj9",
+      "phrase": "エーシャープメジャーナインス",
+      "file": "chord-A-p1-maj9.mp3",
+      "bytes": 13735,
+      "gain": 1.1225604509214535,
+      "sha256": "850d33b5270b89a01b6f6381f0ac4ad57e267d0c63b1a5c9ca4ed7537816163c"
+    },
+    {
+      "token": "chord-A-p1-m9",
+      "phrase": "エーシャープマイナーナインス",
+      "file": "chord-A-p1-m9.mp3",
+      "bytes": 14362,
+      "gain": 1.1128620833670366,
+      "sha256": "9bb46166c02a891d533d3fb9b66fc4304bcaba95d31ebf6cf0a4209fcba98a8c"
+    },
+    {
+      "token": "key-A-p1-major",
+      "phrase": "エーシャープメジャーの調です。主和音を確認します。",
+      "file": "key-A-p1-major.mp3",
+      "bytes": 29827,
+      "gain": 1.2776190786117265,
+      "sha256": "ed9fb583ced7b395feaacaea165bc7daa747810e94ef12c91fe31e59625d5686"
+    },
+    {
+      "token": "key-A-p1-minor",
+      "phrase": "エーシャープマイナーの調です。主和音を確認します。",
+      "file": "key-A-p1-minor.mp3",
+      "bytes": 30454,
+      "gain": 1.2953252976943115,
+      "sha256": "6aa6011802a85280fb9f9d3b00f21fa57473047482f13671afa7ce0cb60a130e"
+    },
+    {
+      "token": "chord-A-p2-6",
+      "phrase": "エーシャープシャープシックス",
+      "file": "chord-A-p2-6.mp3",
+      "bytes": 14362,
+      "gain": 1.586788191884422,
+      "sha256": "9f87c665107afe15ab17db41429f0b666b47f6d29dc1e72b49f88adac6bd038d"
+    },
+    {
+      "token": "chord-A-p2-9",
+      "phrase": "エーシャープシャープナインス",
+      "file": "chord-A-p2-9.mp3",
+      "bytes": 13735,
+      "gain": 1.2366979407682255,
+      "sha256": "d4e1cba66d6e0c990502af794564483499c3b7569ed0524d0ce1d6cfd5dd683d"
+    },
+    {
+      "token": "chord-A-p2-aug",
+      "phrase": "エーシャープシャープオーギュメント",
+      "file": "chord-A-p2-aug.mp3",
+      "bytes": 15616,
+      "gain": 1.2103442693844066,
+      "sha256": "1c11da1dbd5fd108f3d6b2c3b9c2b109d770c015afaafe6133b6d8eb3292de49"
+    },
+    {
+      "token": "chord-A-p2-sus2",
+      "phrase": "エーシャープシャープサスツー",
+      "file": "chord-A-p2-sus2.mp3",
+      "bytes": 13944,
+      "gain": 1.5833219768674884,
+      "sha256": "054666716197386c3aad2730178c9b13324b7ac8c11eac61eae1cf9132635730"
+    },
+    {
+      "token": "chord-A-p2-sus4",
+      "phrase": "エーシャープシャープサスフォー",
+      "file": "chord-A-p2-sus4.mp3",
+      "bytes": 14153,
+      "gain": 1.5056599270891586,
+      "sha256": "e28cb080aad8a3cde48271fbe44c1662eba37b8317efc059decf0753795556c7"
+    },
+    {
+      "token": "chord-A-p2-dim7",
+      "phrase": "エーシャープシャープディミニッシュセブンス",
+      "file": "chord-A-p2-dim7.mp3",
+      "bytes": 18124,
+      "gain": 1.303577524136354,
+      "sha256": "f8b76c059763fb62f2a7fa1e8ea550feadedd4c62cbf686d1873088d286cae0f"
+    },
+    {
+      "token": "chord-A-p2-m6",
+      "phrase": "エーシャープシャープマイナーシックス",
+      "file": "chord-A-p2-m6.mp3",
+      "bytes": 17706,
+      "gain": 1.262248418714343,
+      "sha256": "aa40d7196f2d416417a7ca3e6866e63a015aa49189d826ee7bce482b2fe8973d"
+    },
+    {
+      "token": "chord-A-p2-add9",
+      "phrase": "エーシャープシャープアドナイン",
+      "file": "chord-A-p2-add9.mp3",
+      "bytes": 14780,
+      "gain": 1.2410241621648623,
+      "sha256": "4544d4cc980d85d108189f41b89eafbb57bf25c9f350eefbb46600c171f56ecb"
+    },
+    {
+      "token": "chord-A-p2-maj9",
+      "phrase": "エーシャープシャープメジャーナインス",
+      "file": "chord-A-p2-maj9.mp3",
+      "bytes": 16452,
+      "gain": 1.2257612900687642,
+      "sha256": "956327850cc2d03cae449725e14ff5e267fd58f842903f337614bde82c8d8022"
+    },
+    {
+      "token": "chord-A-p2-m9",
+      "phrase": "エーシャープシャープマイナーナインス",
+      "file": "chord-A-p2-m9.mp3",
+      "bytes": 17079,
+      "gain": 1.2149489172411285,
+      "sha256": "27163a654eef2867e9647a686d97dee6490ac58ff900652fe35a39d1f6464362"
+    },
+    {
+      "token": "key-A-p2-major",
+      "phrase": "エーシャープシャープメジャーの調です。主和音を確認します。",
+      "file": "key-A-p2-major.mp3",
+      "bytes": 32543,
+      "gain": 1.3558119118687515,
+      "sha256": "f66b2735bee5f4539d1e7f3fb6ae92df200802feeb46394c3d4be51c464cbd85"
+    },
+    {
+      "token": "chord-G-p3-dim",
+      "phrase": "ジーシャープシャープシャープディミニッシュ",
+      "file": "chord-G-p3-dim.mp3",
+      "bytes": 18333,
+      "gain": 1.3434172643648103,
+      "sha256": "92825cd2c2ad3dcde78611c5201b5b21e7b0099f9b5898a6682833cdab373fac"
+    },
+    {
+      "token": "chord-G-p3-m7♭5",
+      "phrase": "ジーシャープシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-G-p3-m7♭5.mp3",
+      "bytes": 29409,
+      "gain": 1.3628380813895133,
+      "sha256": "ccb26cd08166368e66da2e0e06cde5e1369b4c18eaff801f2e7031e099732b89"
+    },
+    {
+      "token": "key-A-p2-minor",
+      "phrase": "エーシャープシャープマイナーの調です。主和音を確認します。",
+      "file": "key-A-p2-minor.mp3",
+      "bytes": 33170,
+      "gain": 1.3704887369435073,
+      "sha256": "93f9e1c65a1630c9223454866b56e619e92178676e30d2817f4ce48a1ea56190"
+    },
+    {
+      "token": "chord-B-m2-6",
+      "phrase": "ビーフラットフラットシックス",
+      "file": "chord-B-m2-6.mp3",
+      "bytes": 15198,
+      "gain": 1.3463682315148007,
+      "sha256": "448cdfce7b40b7f7830fa134bc7f7b37a4cb547da72be65d12df19815920544b"
+    },
+    {
+      "token": "chord-B-m2-9",
+      "phrase": "ビーフラットフラットナインス",
+      "file": "chord-B-m2-9.mp3",
+      "bytes": 14571,
+      "gain": 1.247187466548557,
+      "sha256": "d19174ab1be2ab9255c72911f1f40ba16842ba8fd2e7c9d155ad3d792649fee1"
+    },
+    {
+      "token": "chord-B-m2-aug",
+      "phrase": "ビーフラットフラットオーギュメント",
+      "file": "chord-B-m2-aug.mp3",
+      "bytes": 16661,
+      "gain": 1.2088941164090203,
+      "sha256": "df6cfed254736ee0e54773fe6416594ddceb45e7a8a7c4029895232433a2d84c"
+    },
+    {
+      "token": "chord-B-m2-sus2",
+      "phrase": "ビーフラットフラットサスツー",
+      "file": "chord-B-m2-sus2.mp3",
+      "bytes": 14989,
+      "gain": 1.455542991118121,
+      "sha256": "0a696705ef618916a1de1ec717b005fca16c01edbaacf948a8deecef4ba45e4f"
+    },
+    {
+      "token": "chord-B-m2-sus4",
+      "phrase": "ビーフラットフラットサスフォー",
+      "file": "chord-B-m2-sus4.mp3",
+      "bytes": 15198,
+      "gain": 1.3734386396199703,
+      "sha256": "cebde1582b435112eca5eb9d43692c16355a1e7356ea4375ef9a5d1571dc03ad"
+    },
+    {
+      "token": "chord-B-m2-dim7",
+      "phrase": "ビーフラットフラットディミニッシュセブンス",
+      "file": "chord-B-m2-dim7.mp3",
+      "bytes": 18960,
+      "gain": 1.1815908288133514,
+      "sha256": "706d94c944fb5af186f01770cf243d27eb744432eaed49cf8ad01afb3eaa5723"
+    },
+    {
+      "token": "chord-B-m2-m6",
+      "phrase": "ビーフラットフラットマイナーシックス",
+      "file": "chord-B-m2-m6.mp3",
+      "bytes": 18333,
+      "gain": 1.2397048455111828,
+      "sha256": "29a716ae2ac2e7af1d465fb4c3120e6108c964b96dcae800af256a1d12888ab7"
+    },
+    {
+      "token": "chord-B-m2-add9",
+      "phrase": "ビーフラットフラットアドナイン",
+      "file": "chord-B-m2-add9.mp3",
+      "bytes": 15616,
+      "gain": 1.127106935573203,
+      "sha256": "128bc87b9dc87903ff350db4d48267996a98b4bde81510333bffe5f4b1cef24c"
+    },
+    {
+      "token": "chord-B-m2-maj9",
+      "phrase": "ビーフラットフラットメジャーナインス",
+      "file": "chord-B-m2-maj9.mp3",
+      "bytes": 17497,
+      "gain": 1.152059199934334,
+      "sha256": "3da0c85590820ada12426dd4dcb676f68845d87aa99a607cea159999c38027a2"
+    },
+    {
+      "token": "chord-B-m2-m9",
+      "phrase": "ビーフラットフラットマイナーナインス",
+      "file": "chord-B-m2-m9.mp3",
+      "bytes": 18124,
+      "gain": 1.1217582553604997,
+      "sha256": "296312535b4df2f92a50ed9f27268773bf600a66c7430978d633d03e6330e305"
+    },
+    {
+      "token": "key-B-m2-major",
+      "phrase": "ビーフラットフラットメジャーの調です。主和音を確認します。",
+      "file": "key-B-m2-major.mp3",
+      "bytes": 33588,
+      "gain": 1.2741172637793317,
+      "sha256": "2739eff10598278ca75a53afc83d08512b2e4c065a0b412e39c5db68fb9ff73a"
+    },
+    {
+      "token": "key-B-m2-minor",
+      "phrase": "ビーフラットフラットマイナーの調です。主和音を確認します。",
+      "file": "key-B-m2-minor.mp3",
+      "bytes": 34215,
+      "gain": 1.3016877763815107,
+      "sha256": "df0bb87688a5c1b048cdd41f013d64d8c451a970ea5b2d71134d66e3400f55aa"
+    },
+    {
+      "token": "chord-B-m1-6",
+      "phrase": "ビーフラットシックス",
+      "file": "chord-B-m1-6.mp3",
+      "bytes": 11854,
+      "gain": 1.3847785558063723,
+      "sha256": "e82d9f7e9fff60f509b544d4fd5894be51bac990645a9640b1ab8b0732c6ce34"
+    },
+    {
+      "token": "chord-B-m1-9",
+      "phrase": "ビーフラットナインス",
+      "file": "chord-B-m1-9.mp3",
+      "bytes": 11436,
+      "gain": 1.105703748509533,
+      "sha256": "0ecc822acfa50b95eb3771b0fdf315bbdccaf5a336b53d18d328912cc6fd31ae"
+    },
+    {
+      "token": "chord-B-m1-aug",
+      "phrase": "ビーフラットオーギュメント",
+      "file": "chord-B-m1-aug.mp3",
+      "bytes": 13317,
+      "gain": 1.1409032518004072,
+      "sha256": "fa4e6d6902b80954bbfeba24cf978c0d45bb72138dff55f4f4e669d4e6004524"
+    },
+    {
+      "token": "chord-B-m1-sus2",
+      "phrase": "ビーフラットサスツー",
+      "file": "chord-B-m1-sus2.mp3",
+      "bytes": 11854,
+      "gain": 1.5639090674913385,
+      "sha256": "4fa29e520576ca29144b376bfd4fb709d06a60d3b89d366ae0f32b2c33fbff9d"
+    },
+    {
+      "token": "chord-B-m1-sus4",
+      "phrase": "ビーフラットサスフォー",
+      "file": "chord-B-m1-sus4.mp3",
+      "bytes": 11854,
+      "gain": 1.447024005229173,
+      "sha256": "3ac0b39f643afb892bdba2cc54e8c1b1a0d8ef1eefa262bac5612e69e3df2d54"
+    },
+    {
+      "token": "chord-B-m1-dim7",
+      "phrase": "ビーフラットディミニッシュセブンス",
+      "file": "chord-B-m1-dim7.mp3",
+      "bytes": 15825,
+      "gain": 1.1800060529905454,
+      "sha256": "6f397a7e0b005e0b22407952d8345834e5f05cde4b234e5ae0f126efcc17e44a"
+    },
+    {
+      "token": "chord-B-m1-m6",
+      "phrase": "ビーフラットマイナーシックス",
+      "file": "chord-B-m1-m6.mp3",
+      "bytes": 15198,
+      "gain": 1.3186208301796647,
+      "sha256": "25458b1d9195dfd5e368fc714ac74d3e1ba4e207917163f5bb770d55ed32d5be"
+    },
+    {
+      "token": "chord-B-m1-add9",
+      "phrase": "ビーフラットアドナイン",
+      "file": "chord-B-m1-add9.mp3",
+      "bytes": 12272,
+      "gain": 1.099395546344875,
+      "sha256": "afae55d41cdb3720c76f3f5796962030842b2f71db39cb8a10022137fa6c1cce"
+    },
+    {
+      "token": "chord-B-m1-maj9",
+      "phrase": "ビーフラットメジャーナインス",
+      "file": "chord-B-m1-maj9.mp3",
+      "bytes": 14153,
+      "gain": 1.1326870387742431,
+      "sha256": "0bfb8b166fe535b5d360047fa9e6ec185ad3b2c7ff61f7b27278acd50d596244"
+    },
+    {
+      "token": "chord-B-m1-m9",
+      "phrase": "ビーフラットマイナーナインス",
+      "file": "chord-B-m1-m9.mp3",
+      "bytes": 14780,
+      "gain": 1.0894166307613333,
+      "sha256": "5a080dbe4c67cb8b695d529b44de1897a13a9cbc26a73d18137c5cb3df871054"
+    },
+    {
+      "token": "key-B-m1-major",
+      "phrase": "ビーフラットメジャーの調です。主和音を確認します。",
+      "file": "key-B-m1-major.mp3",
+      "bytes": 30245,
+      "gain": 1.3001644873041391,
+      "sha256": "c520979925b4a60da8d2e1a399a7aef76ba5bf5f0cedb97a4ccac0deec713e9f"
+    },
+    {
+      "token": "key-B-m1-minor",
+      "phrase": "ビーフラットマイナーの調です。主和音を確認します。",
+      "file": "key-B-m1-minor.mp3",
+      "bytes": 31081,
+      "gain": 1.3215305371598625,
+      "sha256": "d622f4436721fe8f3bce5d4b629d64e95964482094e3031d6b9a1372c71a5741"
+    },
+    {
+      "token": "chord-B-p0-6",
+      "phrase": "ビーシックス",
+      "file": "chord-B-p0-6.mp3",
+      "bytes": 8511,
+      "gain": 1.8183326088674392,
+      "sha256": "0b341cbbd7a2671db450fe1c1665d2d15e4b97d3770501aa96700a9aac3e5f2a"
+    },
+    {
+      "token": "chord-B-p0-9",
+      "phrase": "ビーナインス",
+      "file": "chord-B-p0-9.mp3",
+      "bytes": 8302,
+      "gain": 1.062996997038478,
+      "sha256": "6b4add1cf5ebd405506e6758abb7c1e247b3b356f164d4f339bd9af99197af37"
+    },
+    {
+      "token": "chord-B-p0-aug",
+      "phrase": "ビーオーギュメント",
+      "file": "chord-B-p0-aug.mp3",
+      "bytes": 9974,
+      "gain": 1.1111409640889942,
+      "sha256": "899fe0d4a35c30326f8049679c9bb647992b3a78488c5bb5149e11714ba9d57a"
+    },
+    {
+      "token": "chord-B-p0-sus2",
+      "phrase": "ビーサスツー",
+      "file": "chord-B-p0-sus2.mp3",
+      "bytes": 8511,
+      "gain": 1.8823254761500114,
+      "sha256": "0bf383df7f9d905ba4ce935e6d1062ced27948c0ac5cc102d4ce02f04e43143d"
+    },
+    {
+      "token": "chord-B-p0-sus4",
+      "phrase": "ビーサスフォー",
+      "file": "chord-B-p0-sus4.mp3",
+      "bytes": 8720,
+      "gain": 1.668386331947367,
+      "sha256": "00e50330806e5809b86b70354e9e72feae61099b7f5aacd4256d592eb0c3ae31"
+    },
+    {
+      "token": "chord-B-p0-dim7",
+      "phrase": "ビーディミニッシュセブンス",
+      "file": "chord-B-p0-dim7.mp3",
+      "bytes": 12481,
+      "gain": 1.2467252535014715,
+      "sha256": "beee0e9a894da1d28818f14c858b9488276e340185f84ab434c256b2d0e0455e"
+    },
+    {
+      "token": "chord-B-p0-m6",
+      "phrase": "ビーマイナーシックス",
+      "file": "chord-B-p0-m6.mp3",
+      "bytes": 11854,
+      "gain": 1.3134999678491555,
+      "sha256": "0db2c29e7b0bd09514a13f8dabb9e36450dde91dca6b95cae22b01b0c2dd27f2"
+    },
+    {
+      "token": "chord-B-p0-add9",
+      "phrase": "ビーアドナイン",
+      "file": "chord-B-p0-add9.mp3",
+      "bytes": 9138,
+      "gain": 1.083531949360373,
+      "sha256": "54bd0352ef3c4595ba0aa4eae1626482ecc41e3767ee9e4f4fa358b4409a4cf3"
+    },
+    {
+      "token": "chord-B-p0-maj9",
+      "phrase": "ビーメジャーナインス",
+      "file": "chord-B-p0-maj9.mp3",
+      "bytes": 11018,
+      "gain": 1.0526035355006342,
+      "sha256": "84d88b87dd471639fc7d91e1cfdcaf773872bb3523db5faabc7fc13d22e0c609"
+    },
+    {
+      "token": "chord-B-p0-m9",
+      "phrase": "ビーマイナーナインス",
+      "file": "chord-B-p0-m9.mp3",
+      "bytes": 11645,
+      "gain": 1.0911703363733087,
+      "sha256": "79f52e4c5c694b4a6e14686a8d4e55623fddb71f253aadfa631808b166bb26db"
+    },
+    {
+      "token": "key-B-p0-major",
+      "phrase": "ビーメジャーの調です。主和音を確認します。",
+      "file": "key-B-p0-major.mp3",
+      "bytes": 27110,
+      "gain": 1.3218732616847944,
+      "sha256": "bfb17acbf90b4fa51d3c1a571f8bea78dcb898042ed964e72b22d803747f8c35"
+    },
+    {
+      "token": "key-B-p0-minor",
+      "phrase": "ビーマイナーの調です。主和音を確認します。",
+      "file": "key-B-p0-minor.mp3",
+      "bytes": 27737,
+      "gain": 1.362176792919923,
+      "sha256": "d12dcbdd5188af56c90a0c927ce1ef7fa986cac2f9b13b693e5cc4449b0b7cbb"
+    },
+    {
+      "token": "chord-B-p1-6",
+      "phrase": "ビーシャープシックス",
+      "file": "chord-B-p1-6.mp3",
+      "bytes": 11227,
+      "gain": 1.831949815317372,
+      "sha256": "4294ee4f99266e48a0b9d2bbee71ff730c04c164c0405abc23dece3dfc9cce86"
+    },
+    {
+      "token": "chord-B-p1-9",
+      "phrase": "ビーシャープナインス",
+      "file": "chord-B-p1-9.mp3",
+      "bytes": 11227,
+      "gain": 1.2644992404735582,
+      "sha256": "c7cb95377701f1629c43beed3c1fcdbf39bbd35fde2a8f76646370af747bb4de"
+    },
+    {
+      "token": "chord-B-p1-aug",
+      "phrase": "ビーシャープオーギュメント",
+      "file": "chord-B-p1-aug.mp3",
+      "bytes": 12899,
+      "gain": 1.193539167896232,
+      "sha256": "5598c459c245d29b8bb0a0341174ca21073fb4b13190ba36a2e887a771bc6587"
+    },
+    {
+      "token": "chord-B-p1-sus2",
+      "phrase": "ビーシャープサスツー",
+      "file": "chord-B-p1-sus2.mp3",
+      "bytes": 11227,
+      "gain": 1.7264873184967258,
+      "sha256": "ea1a03589e164673af3458a2721b39ad0d0339cd52eb1ab341016acfeb73fca8"
+    },
+    {
+      "token": "chord-B-p1-sus4",
+      "phrase": "ビーシャープサスフォー",
+      "file": "chord-B-p1-sus4.mp3",
+      "bytes": 11436,
+      "gain": 1.5981619310927677,
+      "sha256": "16b07f24c685d22eba5cca86810134cbf6f47c43e80ac374f6d112869b65a86e"
+    },
+    {
+      "token": "chord-B-p1-dim7",
+      "phrase": "ビーシャープディミニッシュセブンス",
+      "file": "chord-B-p1-dim7.mp3",
+      "bytes": 15407,
+      "gain": 1.2495430155132017,
+      "sha256": "2e3d496fa6042ed62a370138d5915774e05f547e5220bbb5186bb41abf61ffbf"
+    },
+    {
+      "token": "chord-B-p1-m6",
+      "phrase": "ビーシャープマイナーシックス",
+      "file": "chord-B-p1-m6.mp3",
+      "bytes": 14989,
+      "gain": 1.2969078634067581,
+      "sha256": "228c0ddfd88b7c6bbc1e560a57fcc1db8ff0918e1be773858dd2f96f2b5a1617"
+    },
+    {
+      "token": "chord-B-p1-add9",
+      "phrase": "ビーシャープアドナイン",
+      "file": "chord-B-p1-add9.mp3",
+      "bytes": 12063,
+      "gain": 1.2440318366780043,
+      "sha256": "a66cf6d65447e2c708cafc29e126411266de4e1870589fa9b7259389d7b76a60"
+    },
+    {
+      "token": "chord-B-p1-maj9",
+      "phrase": "ビーシャープメジャーナインス",
+      "file": "chord-B-p1-maj9.mp3",
+      "bytes": 13944,
+      "gain": 1.1779738537358262,
+      "sha256": "cc3ffd292a1c77ea099bcbeffc048cc78d98ecf12e74ccda8fb461f515402f07"
+    },
+    {
+      "token": "chord-B-p1-m9",
+      "phrase": "ビーシャープマイナーナインス",
+      "file": "chord-B-p1-m9.mp3",
+      "bytes": 14571,
+      "gain": 1.1562648091688918,
+      "sha256": "118d2f47a23c3e94938698990639b92722ccf1aeb7a39abb6ccfe6aee073db8f"
+    },
+    {
+      "token": "key-B-p1-major",
+      "phrase": "ビーシャープメジャーの調です。主和音を確認します。",
+      "file": "key-B-p1-major.mp3",
+      "bytes": 30036,
+      "gain": 1.359759694872013,
+      "sha256": "e071945908549bccd661ba21ea13970a550e5ff524c4f6c1b8a280878b57289a"
+    },
+    {
+      "token": "key-B-p1-minor",
+      "phrase": "ビーシャープマイナーの調です。主和音を確認します。",
+      "file": "key-B-p1-minor.mp3",
+      "bytes": 30663,
+      "gain": 1.372004226894303,
+      "sha256": "57f2063a388165d3b999c1cb354e5bffed4da2243f67fd86986b9abef761de04"
+    },
+    {
+      "token": "chord-B-p2-6",
+      "phrase": "ビーシャープシャープシックス",
+      "file": "chord-B-p2-6.mp3",
+      "bytes": 14362,
+      "gain": 1.7349226408832095,
+      "sha256": "31bd04630dca6618e076cc872ee5f920fe7b55266fa28bfe28c7e47d836a9069"
+    },
+    {
+      "token": "chord-B-p2-9",
+      "phrase": "ビーシャープシャープナインス",
+      "file": "chord-B-p2-9.mp3",
+      "bytes": 13944,
+      "gain": 1.306021852977465,
+      "sha256": "81822ab266df8c7bb0f8aa79c9ed4a9667790f9daccd09e3afa521f1ce4b8ce1"
+    },
+    {
+      "token": "chord-B-p2-aug",
+      "phrase": "ビーシャープシャープオーギュメント",
+      "file": "chord-B-p2-aug.mp3",
+      "bytes": 15825,
+      "gain": 1.2554631116623973,
+      "sha256": "677d6d70a9aa823470659974feba4e06259ff2ad33d884809a76e3aeef56c716"
+    },
+    {
+      "token": "chord-B-p2-sus2",
+      "phrase": "ビーシャープシャープサスツー",
+      "file": "chord-B-p2-sus2.mp3",
+      "bytes": 14153,
+      "gain": 1.7067233419388508,
+      "sha256": "41ec6ae0e033b42714d02993463ad7630736271e30951daa93883b155be587dc"
+    },
+    {
+      "token": "chord-B-p2-sus4",
+      "phrase": "ビーシャープシャープサスフォー",
+      "file": "chord-B-p2-sus4.mp3",
+      "bytes": 14362,
+      "gain": 1.6180971259920827,
+      "sha256": "23e5c637ee8f5097ef6b78d8bb8a28f9c5f48c23d304c8c6e5e32288efed8e2a"
+    },
+    {
+      "token": "chord-B-p2-maj7",
+      "phrase": "ビーシャープシャープメジャーセブンス",
+      "file": "chord-B-p2-maj7.mp3",
+      "bytes": 16661,
+      "gain": 1.3914756337756924,
+      "sha256": "3a380bfaf6b36b8ca1effb8a0420d9429cd65b006334fd9e3cef44415db6b012"
+    },
+    {
+      "token": "chord-B-p2-dim7",
+      "phrase": "ビーシャープシャープディミニッシュセブンス",
+      "file": "chord-B-p2-dim7.mp3",
+      "bytes": 18333,
+      "gain": 1.3609032536170094,
+      "sha256": "dc5ce7ca6a96436065853878b113213b6cbb2d6d4064fd897995e6590d3cb189"
+    },
+    {
+      "token": "chord-B-p2-m6",
+      "phrase": "ビーシャープシャープマイナーシックス",
+      "file": "chord-B-p2-m6.mp3",
+      "bytes": 17915,
+      "gain": 1.3201979226893088,
+      "sha256": "1a868be3ea52122f3937d45ce7d4859ceb3e66634f2b7a72c037f71f75161786"
+    },
+    {
+      "token": "chord-B-p2-add9",
+      "phrase": "ビーシャープシャープアドナイン",
+      "file": "chord-B-p2-add9.mp3",
+      "bytes": 14989,
+      "gain": 1.3087113638243304,
+      "sha256": "38a48cd5c2157b602887b43a75248814ad8cc77e5f2675d307d8d35dff4c55e0"
+    },
+    {
+      "token": "chord-B-p2-maj9",
+      "phrase": "ビーシャープシャープメジャーナインス",
+      "file": "chord-B-p2-maj9.mp3",
+      "bytes": 16661,
+      "gain": 1.255073100080015,
+      "sha256": "f25ada3e8a401ca81dab0505a68608e8903991ec8dea47a5b24929ff596f6c25"
+    },
+    {
+      "token": "chord-B-p2-m9",
+      "phrase": "ビーシャープシャープマイナーナインス",
+      "file": "chord-B-p2-m9.mp3",
+      "bytes": 17288,
+      "gain": 1.2619602361978202,
+      "sha256": "e8a4be118ad2f4f5280d7fd0e4a922641571344c5b82cd881c6cdf40c68cc34c"
+    },
+    {
+      "token": "key-B-p2-major",
+      "phrase": "ビーシャープシャープメジャーの調です。主和音を確認します。",
+      "file": "key-B-p2-major.mp3",
+      "bytes": 32752,
+      "gain": 1.3859567674369075,
+      "sha256": "5fe292ef538d5a2b144f23c4fc733be53785f1f8ac985fbea250af0a4344d90b"
+    },
+    {
+      "token": "chord-D-p3-minor",
+      "phrase": "ディーシャープシャープシャープマイナー",
+      "file": "chord-D-p3-minor.mp3",
+      "bytes": 16661,
+      "gain": 1.3860608940005759,
+      "sha256": "f98b2b0c8448a1299afb04e01d77532f0b43f39f02096cb86fd8518dd5a5c2c8"
+    },
+    {
+      "token": "chord-F-p3-major",
+      "phrase": "エフシャープシャープシャープメジャー",
+      "file": "chord-F-p3-major.mp3",
+      "bytes": 15825,
+      "gain": 1.428303721944745,
+      "sha256": "e1ca209f688f0503a8b1861ad0362a8835bff7c5f1a05607c7bd1b7800ea71c7"
+    },
+    {
+      "token": "chord-A-p3-dim",
+      "phrase": "エーシャープシャープシャープディミニッシュ",
+      "file": "chord-A-p3-dim.mp3",
+      "bytes": 18124,
+      "gain": 1.285629045517155,
+      "sha256": "1e4198db75d62a08fd5dd82fc5330f78ebcc11e506211b4653df2e2b81a34e7d"
+    },
+    {
+      "token": "chord-D-p3-m7",
+      "phrase": "ディーシャープシャープシャープマイナーセブンス",
+      "file": "chord-D-p3-m7.mp3",
+      "bytes": 20214,
+      "gain": 1.3698150546966577,
+      "sha256": "1d138221b69b21775e8381a86ae1c20cbc7c2229df5965ffc9e80b765494d861"
+    },
+    {
+      "token": "chord-F-p3-7",
+      "phrase": "エフシャープシャープシャープセブンス",
+      "file": "chord-F-p3-7.mp3",
+      "bytes": 16661,
+      "gain": 1.6488559905335367,
+      "sha256": "06e7b9e8ba7e8bd58ef4f4819345911de344aa1c30e06016765bee119e6234d9"
+    },
+    {
+      "token": "chord-A-p3-m7♭5",
+      "phrase": "エーシャープシャープシャープマイナーセブンス、フラットファイブ",
+      "file": "chord-A-p3-m7♭5.mp3",
+      "bytes": 29200,
+      "gain": 1.3181240550272983,
+      "sha256": "bec6bbbc53e18d411e4df16a63968b7b607f64f69bf1d9b193f149e84d00a95e"
+    },
+    {
+      "token": "key-B-p2-minor",
+      "phrase": "ビーシャープシャープマイナーの調です。主和音を確認します。",
+      "file": "key-B-p2-minor.mp3",
+      "bytes": 33379,
+      "gain": 1.4002592196311887,
+      "sha256": "aaecb79a12c1b99f4b154c54939a9c57112f390a1050942c3696abad05810a99"
+    },
+    {
+      "token": "degree-1--2",
+      "phrase": "フラットフラット一度",
+      "file": "degree-1--2.mp3",
+      "bytes": 12899,
+      "gain": 1.1042279077062112,
+      "sha256": "6bd04b19a91fe057618d90e1c65aee3a3438da3688ce2ee64276d59842a76e32"
+    },
+    {
+      "token": "degree-1--1",
+      "phrase": "フラット一度",
+      "file": "degree-1--1.mp3",
+      "bytes": 9765,
+      "gain": 1.0779035857762567,
+      "sha256": "c68aaec033c596597b904003df82c14d7697f1e8ad56c94606749ed124cab479"
+    },
+    {
+      "token": "degree-1-0",
+      "phrase": "一度",
+      "file": "degree-1-0.mp3",
+      "bytes": 5794,
+      "gain": 1.2899572284357832,
+      "sha256": "784f9c7182c4bf6d65acb0f21b57d3aa649f8b8f2c5d147ee1b986f0f4dbc5a5"
+    },
+    {
+      "token": "degree-1-1",
+      "phrase": "シャープ一度",
+      "file": "degree-1-1.mp3",
+      "bytes": 9138,
+      "gain": 1.3353007449050753,
+      "sha256": "1036e40259ee01c139e3f9f4dde0c4c96d361825d20bd860f08790bb67bf1e37"
+    },
+    {
+      "token": "degree-1-2",
+      "phrase": "シャープシャープ一度",
+      "file": "degree-1-2.mp3",
+      "bytes": 11854,
+      "gain": 1.5708432868233198,
+      "sha256": "adcda1d7accbe16b5c3a6a53635a15b7017324afe847f6a6637dfff1b724a02b"
+    },
+    {
+      "token": "degree-2--2",
+      "phrase": "フラットフラット二度",
+      "file": "degree-2--2.mp3",
+      "bytes": 11854,
+      "gain": 1.0242565497275702,
+      "sha256": "3bc3381c064cc5cf8c1878870d4b345f6cba1b315febdf8d00ea3cf702d9acf8"
+    },
+    {
+      "token": "degree-2--1",
+      "phrase": "フラット二度",
+      "file": "degree-2--1.mp3",
+      "bytes": 8720,
+      "gain": 0.9630178020129113,
+      "sha256": "77daec6e05f5d02012b8956f5a1fef8a8c438e5ddb4976d1ec6092b9db9ab884"
+    },
+    {
+      "token": "degree-2-0",
+      "phrase": "二度",
+      "file": "degree-2-0.mp3",
+      "bytes": 5167,
+      "gain": 1.0213807433745663,
+      "sha256": "351d3bcbd2956e77c9fe634d319c95619bbc38a74cda4d5a9c22e2a8a99aba32"
+    },
+    {
+      "token": "degree-2-1",
+      "phrase": "シャープ二度",
+      "file": "degree-2-1.mp3",
+      "bytes": 8302,
+      "gain": 1.1859111641221298,
+      "sha256": "c8590e10376bfdb4813c7c2b17f6fcdfe9409ae77fb6676ee59a70bae24beb33"
+    },
+    {
+      "token": "degree-2-2",
+      "phrase": "シャープシャープ二度",
+      "file": "degree-2-2.mp3",
+      "bytes": 11018,
+      "gain": 1.3593398553125773,
+      "sha256": "03709d6d254be7b10a372b12fc9e9a4d92cca5c9eb79f282c4e7be3562cde730"
+    },
+    {
+      "token": "degree-3--2",
+      "phrase": "フラットフラット三度",
+      "file": "degree-3--2.mp3",
+      "bytes": 12690,
+      "gain": 1.0963162098114552,
+      "sha256": "7cee9e3322fbde1c224227fbc47008665af4787b9363748d2169b77e6dcc78a6"
+    },
+    {
+      "token": "degree-3--1",
+      "phrase": "フラット三度",
+      "file": "degree-3--1.mp3",
+      "bytes": 9556,
+      "gain": 1.0808676515450093,
+      "sha256": "13c3153c52c6e16d1ac7329571eadfc63d7e1d2d71bdf5b2f9389488b40aa27a"
+    },
+    {
+      "token": "degree-3-0",
+      "phrase": "三度",
+      "file": "degree-3-0.mp3",
+      "bytes": 6003,
+      "gain": 1.1003695015963857,
+      "sha256": "2b7c53a41b9b59342a42d4794296f56ab8f08d99b61cf044236b24309ff2ac2d"
+    },
+    {
+      "token": "degree-3-1",
+      "phrase": "シャープ三度",
+      "file": "degree-3-1.mp3",
+      "bytes": 8929,
+      "gain": 1.4216307084322843,
+      "sha256": "776798e37345f978a21c6d2d8e5974a3859679584d09e7b995da281240bffd51"
+    },
+    {
+      "token": "degree-3-2",
+      "phrase": "シャープシャープ三度",
+      "file": "degree-3-2.mp3",
+      "bytes": 11645,
+      "gain": 1.4513984095129282,
+      "sha256": "335c421c3b7b40ee8db945ff60437034f604ff63614f4edacd69cdc696b56a10"
+    },
+    {
+      "token": "degree-4--2",
+      "phrase": "フラットフラット四度",
+      "file": "degree-4--2.mp3",
+      "bytes": 12481,
+      "gain": 1.0227028622955134,
+      "sha256": "831d4c27139a3764b9a67e60a51c2b21019b416fc36948ccb2692a594d34d4e4"
+    },
+    {
+      "token": "degree-4--1",
+      "phrase": "フラット四度",
+      "file": "degree-4--1.mp3",
+      "bytes": 9347,
+      "gain": 0.997983964606459,
+      "sha256": "ef538ea3e56d95517a2285f9e7acce081b90dbb9a22ccb4d5d4564c6eba91306"
+    },
+    {
+      "token": "degree-4-0",
+      "phrase": "四度",
+      "file": "degree-4-0.mp3",
+      "bytes": 5585,
+      "gain": 0.9433979048828095,
+      "sha256": "e1adfa934a60def3e79164881596a291f7b9073062a98a25fe231e5a84d728e3"
+    },
+    {
+      "token": "degree-4-1",
+      "phrase": "シャープ四度",
+      "file": "degree-4-1.mp3",
+      "bytes": 8929,
+      "gain": 1.0924858638379746,
+      "sha256": "c5008c8462c3a7c73fbc87eb6b12df1a19d1421f268bcf4b51b1e8ffc8ad649e"
+    },
+    {
+      "token": "degree-4-2",
+      "phrase": "シャープシャープ四度",
+      "file": "degree-4-2.mp3",
+      "bytes": 11645,
+      "gain": 1.3138468948517572,
+      "sha256": "4a1918987e7804e63fde93d42897e654a531980b4fd39ce2f21e1af0b7f9e945"
+    },
+    {
+      "token": "degree-5--2",
+      "phrase": "フラットフラット五度",
+      "file": "degree-5--2.mp3",
+      "bytes": 11645,
+      "gain": 1.0281100744494243,
+      "sha256": "7d3ef7a3843b6d4a816a9c737cb1fcc57ee0aefd7a8519957b7067d53747a74d"
+    },
+    {
+      "token": "degree-5--1",
+      "phrase": "フラット五度",
+      "file": "degree-5--1.mp3",
+      "bytes": 8511,
+      "gain": 0.985510256839827,
+      "sha256": "85baa33916bf30914dc804122be3a5383e16cd013347aed2fbe3f2ae1d30331d"
+    },
+    {
+      "token": "degree-5-0",
+      "phrase": "五度",
+      "file": "degree-5-0.mp3",
+      "bytes": 5167,
+      "gain": 1.1107462041505256,
+      "sha256": "778b9a318fdde37c39eae82443e695f69ed226d1ae02ec15f255551d2a0abc3d"
+    },
+    {
+      "token": "degree-5-1",
+      "phrase": "シャープ五度",
+      "file": "degree-5-1.mp3",
+      "bytes": 8302,
+      "gain": 1.216142790716239,
+      "sha256": "79419f8354f5ec668526dee171efb9b539cba73ecc2f5729a26c808218a326ec"
+    },
+    {
+      "token": "degree-5-2",
+      "phrase": "シャープシャープ五度",
+      "file": "degree-5-2.mp3",
+      "bytes": 11018,
+      "gain": 1.4601992307090914,
+      "sha256": "19abc9e8481eb26cc9f33ad0a0170d33490a48cf4310e60d8fd1bfc6f5f36e22"
+    },
+    {
+      "token": "degree-6--2",
+      "phrase": "フラットフラット六度",
+      "file": "degree-6--2.mp3",
+      "bytes": 12481,
+      "gain": 1.0537405645155533,
+      "sha256": "112ebe807e1f4fd86a76a4bd1d8430f2479345a8fbce6a06c9d7248ac7cac5b1"
+    },
+    {
+      "token": "degree-6--1",
+      "phrase": "フラット六度",
+      "file": "degree-6--1.mp3",
+      "bytes": 9347,
+      "gain": 1.0019015160103502,
+      "sha256": "9117c0e66daf3ab46ee1934f895f557981c6c0db4a111fbd84cd5d3b2743af1f"
+    },
+    {
+      "token": "degree-6-0",
+      "phrase": "六度",
+      "file": "degree-6-0.mp3",
+      "bytes": 6003,
+      "gain": 1.0871453308665457,
+      "sha256": "8ee0cc51f09bfb25341cd78592669106441d7292941f076c6e385d301599fb3a"
+    },
+    {
+      "token": "degree-6-1",
+      "phrase": "シャープ六度",
+      "file": "degree-6-1.mp3",
+      "bytes": 8929,
+      "gain": 1.199211268858441,
+      "sha256": "c38fd31374effa14a7471dab4476c418d369b041f53b2ee41be51ac79beaff49"
+    },
+    {
+      "token": "degree-6-2",
+      "phrase": "シャープシャープ六度",
+      "file": "degree-6-2.mp3",
+      "bytes": 11645,
+      "gain": 1.4607919708552788,
+      "sha256": "3e393eb015d6cd6033393625df8c74486110f6c37481682bb85174e63d871625"
+    },
+    {
+      "token": "degree-7--2",
+      "phrase": "フラットフラット七度",
+      "file": "degree-7--2.mp3",
+      "bytes": 12690,
+      "gain": 1.0366800483689953,
+      "sha256": "b385d4e5a02112ba0d99337bb76722775f1f5c530b0f8fb597d4b1283d9eea7e"
+    },
+    {
+      "token": "degree-7--1",
+      "phrase": "フラット七度",
+      "file": "degree-7--1.mp3",
+      "bytes": 9556,
+      "gain": 0.9860831729480385,
+      "sha256": "81f0dca1620d10d80c4262b0f201df00a78e40dad4981827639e8bc5d83757e6"
+    },
+    {
+      "token": "degree-7-0",
+      "phrase": "七度",
+      "file": "degree-7-0.mp3",
+      "bytes": 6003,
+      "gain": 1.04046098494711,
+      "sha256": "6c7d580ab81aa567e042ddf5c9c462b029739a9ad8f5c5d01aa5e150169d39bc"
+    },
+    {
+      "token": "degree-7-1",
+      "phrase": "シャープ七度",
+      "file": "degree-7-1.mp3",
+      "bytes": 9138,
+      "gain": 1.1496089432208594,
+      "sha256": "aa856c2d8edd81bb0c3d3b6bf5e571a6d8d18fe920529b853c0441e9c35af7c2"
+    },
+    {
+      "token": "degree-7-2",
+      "phrase": "シャープシャープ七度",
+      "file": "degree-7-2.mp3",
+      "bytes": 11645,
+      "gain": 1.3948637935438135,
+      "sha256": "356fbd2c23afc3b30291381be572fbbd41c1e8f5c14b109d2deeb5fce187d695"
+    },
+    {
+      "token": "inversion0",
+      "phrase": "基本形",
+      "file": "inversion0.mp3",
+      "bytes": 7675,
+      "gain": 1.3105084417637276,
+      "sha256": "7058eccaa9b6ba5492fe7053a498125e7bc13ccc1bd9a75f35b11aa262c71911"
+    },
+    {
+      "token": "inversion1",
+      "phrase": "第一転回形",
+      "file": "inversion1.mp3",
+      "bytes": 12063,
+      "gain": 1.3083859975389724,
+      "sha256": "b1d9c6d4aeddeda0f8958bd4d44a3c4363df312540b6e50323bb190445d14516"
+    },
+    {
+      "token": "inversion2",
+      "phrase": "第二転回形",
+      "file": "inversion2.mp3",
+      "bytes": 11018,
+      "gain": 1.139854816938562,
+      "sha256": "1f738ddc99f48e4926388094df167456dd97c600f0a0cbc8b8e3a4ffdc77b97e"
+    },
+    {
+      "token": "inversion3",
+      "phrase": "第三転回形",
+      "file": "inversion3.mp3",
+      "bytes": 11645,
+      "gain": 1.2140128538021162,
+      "sha256": "df7ea9371d91e1ea3e854343a7c7f33a7999a30cdd6b8aecc9da3b00d9eefc31"
+    },
+    {
+      "token": "inversion4",
+      "phrase": "第四転回形",
+      "file": "inversion4.mp3",
+      "bytes": 11436,
+      "gain": 1.2060337268227914,
+      "sha256": "19c60d623224863af1af4f06ac4bda0fb9033c69a9ee339266981f41114e76c2"
+    }
+  ]
+}

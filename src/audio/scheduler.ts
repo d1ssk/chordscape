@@ -1,11 +1,20 @@
 import type { Key } from '../music/harmony';
 import type { ChordEvent } from '../state/session';
+import type { MelodyNote } from '../music/melody';
+import type { LiveState } from './live';
 export interface AudioPort {
   now(): number;
   schedule(event: ChordEvent, time: number, durationSeconds: number): void;
+  scheduleMelody?(
+    note: MelodyNote,
+    time: number,
+    durationSeconds: number,
+  ): void;
   cancel(): void;
 }
 export interface PlaybackState {
+  melody?: MelodyNote | null;
+  live?: LiveState;
   key?: Key | null;
   status: 'stopped' | 'playing' | 'paused';
   beat: number;
@@ -23,6 +32,7 @@ interface Cycle {
 }
 interface Slot {
   event: ChordEvent;
+  melody?: MelodyNote;
   start: number;
   end: number;
 }
@@ -71,8 +81,20 @@ export class Scheduler {
           start: start + Math.max(beat, offset) * seconds,
           end: start + end * seconds,
         });
+      for (const note of event.melody ?? []) {
+        const noteStart = beat + note.beat;
+        const noteEnd = noteStart + note.duration;
+        if (note.midi !== null && noteEnd > offset)
+          this.slots.push({
+            event,
+            melody: note,
+            start: start + Math.max(noteStart, offset) * seconds,
+            end: start + noteEnd * seconds,
+          });
+      }
       beat = end;
     }
+    this.slots.sort((a, b) => a.start - b.start);
     return cycle;
   }
   play(
@@ -130,7 +152,12 @@ export class Scheduler {
       });
       return;
     }
+    let additions = 0;
     while (this.loop && last.end <= horizon) {
+      if (++additions > 256) {
+        this.stop();
+        return;
+      }
       const next = this.source(last.index + 1);
       if (next.length) last = this.addCycle(next, last.end, 0, last.index + 1);
       else this.loop = false;
@@ -138,12 +165,20 @@ export class Scheduler {
     // Missed a whole event after a long browser stall? Never burst stale notes.
     while (this.slots.length && this.slots[0].start <= horizon) {
       const slot = this.slots.shift()!;
-      if (slot.end > now)
-        this.port.schedule(
-          slot.event,
-          Math.max(slot.start, now),
-          slot.end - Math.max(slot.start, now),
-        );
+      if (slot.end > now) {
+        if (slot.melody)
+          this.port.scheduleMelody?.(
+            slot.melody,
+            Math.max(slot.start, now),
+            slot.end - Math.max(slot.start, now),
+          );
+        else
+          this.port.schedule(
+            slot.event,
+            Math.max(slot.start, now),
+            slot.end - Math.max(slot.start, now),
+          );
+      }
     }
     if (now >= last.end && !this.loop) {
       this.stop();
@@ -162,10 +197,18 @@ export class Scheduler {
     let event: ChordEvent | null = null;
     let next: ChordEvent | null = null;
     let previous: ChordEvent | null = null;
+    let melody: MelodyNote | null = null;
     for (let i = 0; i < cycle.events.length; i++) {
       const e = cycle.events[i];
       if (beat >= cursor && beat < cursor + e.duration) {
         event = now >= this.anchor ? e : null;
+        melody =
+          event?.melody?.find(
+            (n) =>
+              n.midi !== null &&
+              beat - cursor >= n.beat &&
+              beat - cursor < n.beat + n.duration,
+          ) ?? null;
         previous =
           cycle.events[i - 1] ??
           precedingCycle?.events.at(-1) ??
@@ -191,6 +234,7 @@ export class Scheduler {
       event,
       next,
       previous,
+      melody,
       key: event?.key ?? this.state.key,
       cycle: cycle.index,
     });
@@ -203,7 +247,13 @@ export class Scheduler {
     this.port.cancel();
     this.slots = [];
     this.cycles = [];
-    this.emit({ ...this.state, status: 'paused', event: null, next: null });
+    this.emit({
+      ...this.state,
+      status: 'paused',
+      event: null,
+      next: null,
+      melody: null,
+    });
   }
   resume() {
     if (this.state.status === 'paused')

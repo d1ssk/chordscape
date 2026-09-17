@@ -114,6 +114,10 @@ input[type='range'] {
 .app-header h1:focus {
   outline: none;
 }
+.brand-mark {
+  color: #bd6544;
+  margin-left: 10px;
+}
 .sound-shortcut {
   font-size: 0.8rem;
   background: transparent;
@@ -230,7 +234,23 @@ section {
 }
 .outside .palette {
   margin-top: 8px;
-  grid-template-columns: repeat(auto-fit, minmax(76px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 4px;
+}
+.outside .palette button {
+  min-height: 44px;
+  padding: 4px 1px;
+  gap: 1px;
+}
+.outside .palette strong {
+  font-size: 0.65rem;
+}
+.outside .palette span {
+  font-size: 0.55rem;
+  line-height: 1.1;
+}
+.outside .palette small {
+  display: none;
 }
 .outside p {
   padding: 6px 0;
@@ -467,15 +487,31 @@ details > summary:focus-visible {
   text-align: left;
   background: transparent;
 }
-.advanced {
+.timeline-controls {
   border-top: 1px solid var(--border);
-  margin-top: 5px;
+  margin-top: 8px;
+  padding-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
-.advanced p {
-  margin: 8px 0;
+.timeline-controls .controls {
+  gap: 6px;
 }
-.voicing-controls {
-  margin: 8px 0;
+.timeline-controls label {
+  flex-direction: row;
+  align-items: center;
+}
+.timeline-controls button,
+.timeline-controls select {
+  font-size: 0.75rem;
+  padding: 6px;
+}
+.playback-controls {
+  width: 100%;
+}
+.compact-label {
+  display: none;
 }
 .library-controls {
   margin-bottom: 16px;
@@ -553,7 +589,8 @@ details > summary:focus-visible {
   backdrop-filter: blur(12px);
 }
 .scene-nav button {
-  flex: 1;
+  flex: 1 1 auto;
+  white-space: nowrap;
   max-width: 220px;
   border: 0;
   background: transparent;
@@ -619,50 +656,110 @@ details > summary:focus-visible {
     border-radius: 10px;
   }
   .transport {
-    gap: 5px;
-    padding: 7px;
+    display: grid;
+    grid-template-columns: repeat(4, auto) minmax(0, 1fr) 12px;
+    gap: 3px;
+    padding: 4px;
   }
   .transport button {
-    font-size: 0.72rem;
-    padding: 6px 9px;
-    min-height: 36px;
+    font-size: 0.65rem;
+    padding: 3px;
+    min-height: 28px;
+    white-space: nowrap;
   }
   .transport > span {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
+    line-height: 1.2;
   }
   .transport meter {
-    width: 22px;
+    width: 12px;
   }
   .key-panel .controls {
     display: grid;
-    grid-template-columns: 52px minmax(0, 1fr) minmax(0, 1fr) 60px;
-    gap: 6px 8px;
+    grid-template-columns: 52px minmax(0, 110px) minmax(0, 94px);
+    gap: 4px;
+    align-items: center;
+  }
+  .key-panel {
+    padding: 4px 6px;
   }
   .key-panel label {
     font-size: 0.6rem;
     min-width: 0;
-  }
-  .key-panel select,
-  .key-panel input[type='number'] {
-    width: 100%;
-    padding: 5px 4px;
-    min-height: 32px;
-    font-size: 0.75rem;
-  }
-  .key-panel label:nth-child(5) {
-    grid-column: 1 / span 2;
     flex-direction: row;
     align-items: center;
-    gap: 7px;
+    gap: 2px;
   }
-  .key-panel label:nth-child(5) > select {
-    width: 54px;
-  }
-  .key-panel .toggle {
-    padding: 0;
-    align-self: center;
-    font-size: 0.75rem;
+  .key-panel .key-field-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
     white-space: nowrap;
+  }
+  .key-panel select {
+    width: 100%;
+    padding: 2px 4px;
+    min-height: 28px;
+    min-width: 0;
+    font-size: 0.8rem;
+  }
+  .timeline-controls {
+    gap: 4px;
+    margin-top: 4px;
+    padding-top: 4px;
+  }
+  .timeline-controls .controls {
+    gap: 3px;
+  }
+  .timeline-controls label {
+    font-size: 0.6rem;
+    gap: 3px;
+    white-space: nowrap;
+  }
+  .timeline-controls button,
+  .timeline-controls select,
+  .timeline-controls input[type='number'] {
+    min-height: 28px;
+    padding: 2px 4px;
+    font-size: 0.75rem;
+  }
+  .timeline-controls input[type='number'],
+  .playback-controls select {
+    width: 48px;
+  }
+  .playback-controls {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .playback-controls .toggle {
+    padding: 0;
+    min-height: 28px;
+  }
+  .playback-controls .toggle input {
+    width: 14px;
+    height: 14px;
+  }
+  .voicing-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    width: 100%;
+  }
+  .voicing-controls label,
+  .voicing-controls select {
+    min-width: 0;
+  }
+  .voicing-controls select {
+    flex: 1;
+  }
+  .voicing-controls .wide-label,
+  .playback-controls .wide-label {
+    display: none;
+  }
+  .voicing-controls .compact-label,
+  .playback-controls .compact-label {
+    display: inline;
   }
   .section-title {
     gap: 4px;
@@ -695,9 +792,6 @@ details > summary:focus-visible {
   }
   .outside {
     margin-top: 6px;
-  }
-  .outside .palette {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .outside summary {
     min-height: 28px;
@@ -788,10 +882,12 @@ details > summary:focus-visible {
   }
   .scene-nav {
     gap: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
     padding-top: 5px;
   }
   .scene-nav button {
-    min-height: 40px;
+    min-height: 44px;
   }
   .generator-form {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -942,4 +1038,212 @@ details > summary:focus-visible {
   .circle-scene {
     grid-template-columns: 1fr 1.1fr;
   }
+}
+.melody-shortcut {
+  padding: 4px 8px;
+  min-height: 32px;
+  font-size: 0.75rem;
+  margin-left: 8px;
+}
+.melody-form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.melody-form input {
+  max-width: 100%;
+  width: 100%;
+}
+.melody-form .toggle input {
+  width: auto;
+}
+.melody-scene > section {
+  margin-bottom: 16px;
+}
+.melody-scene > section > label,
+.live-status > label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.live-status {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+}
+.live-status small {
+  display: block;
+  margin-top: 8px;
+  color: #586959;
+}
+.live-status p {
+  margin: 6px 0;
+  font-weight: 600;
+}
+.piano-key.melody-key {
+  background: #f4bc74;
+  box-shadow: inset 0 -3px #7f4710;
+}
+.piano-key.black.melody-key {
+  background: #a7591d;
+}
+.piano-key.melody-key.active {
+  background: linear-gradient(90deg, #a8d6bd 50%, #f4bc74 50%);
+}
+.piano-roll-section {
+  min-width: 0;
+  grid-column: 1 / -1;
+}
+.piano-roll {
+  width: 100%;
+  display: block;
+  background: #fafbf5;
+  border: 1px solid #dce2d5;
+  border-radius: 6px;
+  margin: 8px 0;
+}
+.piano-roll text {
+  font-size: 10px;
+  fill: #405441;
+}
+.roll-grid {
+  stroke: #e9edde;
+  stroke-width: 0.5;
+}
+.roll-octave {
+  stroke: #a9b8a6;
+  stroke-width: 0.75;
+}
+.roll-note.chord rect {
+  fill: #2f7555;
+}
+.roll-note.scale rect {
+  fill: #4076a0;
+}
+.roll-note.chromatic rect {
+  fill: #a85228;
+}
+.roll-note.rest rect {
+  fill: #95998e;
+}
+.piano-roll .roll-shape {
+  font-size: 6px;
+  fill: white;
+}
+.roll-playhead {
+  stroke: #c03120;
+  stroke-width: 1.5;
+}
+.roll-legend {
+  display: flex;
+  gap: 8px 12px;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+}
+.melody-notes {
+  max-height: 180px;
+  overflow: auto;
+  font-size: 0.8rem;
+  padding-left: 24px;
+}
+@media (max-width: 600px) {
+  .melody-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .melody-form input {
+    font-size: 16px;
+  }
+}
+
+.listen-modes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.listen-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.listen-form label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+}
+.listen-form .toggle {
+  flex-direction: row;
+  align-items: center;
+}
+.listen-qualities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  margin: 0 0 12px;
+}
+.listen-qualities label {
+  min-height: 28px;
+}
+.listen-qualities legend {
+  font-size: 0.8rem;
+}
+.listen-actions {
+  margin-top: 12px;
+}
+.listen-player audio {
+  width: 100%;
+  margin: 12px 0;
+}
+.listen-player > p {
+  margin: 8px 0;
+}
+.listen-now {
+  margin: 12px 0;
+}
+.listen-now > strong {
+  font-size: 1.5rem;
+  margin-right: 12px;
+}
+.listen-now > p {
+  min-height: 28px;
+}
+.listen-now .keyboard {
+  margin: 6px 0;
+}
+@media (max-width: 640px) {
+  .listen-modes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .listen-modes button,
+  .listen-player button {
+    font-size: 0.75rem;
+    padding: 5px;
+    min-height: 32px;
+  }
+  .listen-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .listen-form select {
+    font-size: 1rem;
+    min-width: 0;
+    padding: 4px;
+  }
+  .listen-player .controls {
+    gap: 4px;
+  }
+  .listen-player .section-title > span {
+    white-space: nowrap;
+  }
+}
+.listen-scene {
+  display: flex;
+  flex-direction: column;
+}
+.listen-scene.has-set .listen-player {
+  order: -1;
 }

@@ -1,4 +1,13 @@
 import {
+  defaultMelody,
+  isMelodySettings,
+  generateMelody,
+  analyzeMelody,
+  melodyKind,
+  type MelodySettings,
+  type MelodyNote,
+} from '../music/melody';
+import {
   keyEventsFor,
   sameKey,
   commonChords,
@@ -52,9 +61,12 @@ export interface ChordEvent extends VoicingInput {
   notes: number[];
   intent?: GenerationIntent;
   modulation?: ModulationIntent;
+  melody?: MelodyNote[];
+  live?: { appliedBeat: number; requestedBeat: number | null };
 }
 export interface Settings {
   generator: GeneratorSettings;
+  melody: MelodySettings;
   instrument: Instrument;
   key: Key;
   seventh: boolean;
@@ -67,7 +79,7 @@ export interface Settings {
   policy: VoicingPolicy;
 }
 export interface Session {
-  schemaVersion: 3;
+  schemaVersion: 4;
   revision: number;
   settings: Settings;
   events: ChordEvent[];
@@ -76,10 +88,11 @@ export interface Session {
 }
 export function newSession(): Session {
   return {
-    schemaVersion: 3,
+    schemaVersion: 4,
     revision: 0,
     settings: {
       generator: defaultGenerator(),
+      melody: defaultMelody(),
       instrument: DEFAULT_INSTRUMENT,
       key: defaultKey,
       seventh: false,
@@ -116,6 +129,10 @@ export function revoice(events: ChordEvent[], loop: boolean): ChordEvent[] {
   return events.map((event, i) => ({ ...event, notes: notes[i] }));
 }
 export type Edit =
+  | { type: 'melody'; patch: Partial<MelodySettings> }
+  | { type: 'regenerateMelody' }
+  | { type: 'beginLive' }
+  | { type: 'liveCapture'; events: ChordEvent[] }
   | { type: 'bridge'; events: ChordEvent[] }
   | { type: 'travel'; events: ChordEvent[] }
   | { type: 'clockKey'; key: Key }
@@ -140,6 +157,43 @@ export function editSession(session: Session, action: Edit): Session {
   let events = session.events;
   let generation = session.generation;
   switch (action.type) {
+    case 'beginLive':
+      break;
+    case 'liveCapture':
+      events = action.events.slice(0, MAX_EVENTS);
+      generation = generation ? { ...generation, modified: true } : null;
+      break;
+    case 'melody':
+      settings = {
+        ...settings,
+        melody: { ...settings.melody, ...action.patch },
+      };
+      if (action.patch.seed !== undefined && !settings.melody.holdMotif)
+        settings.melody.motifSeed = settings.melody.seed;
+      if (
+        Object.keys(action.patch).some(
+          (k) => !['volume', 'timing', 'enabled', 'holdMotif'].includes(k),
+        ) ||
+        (action.patch.enabled && events.some((e) => !e.melody))
+      )
+        events = generateMelody(events, settings.melody);
+      break;
+    case 'regenerateMelody': {
+      const seed = (settings.melody.seed + 1) >>> 0;
+      settings = {
+        ...settings,
+        melody: {
+          ...settings.melody,
+          enabled: true,
+          seed,
+          motifSeed: settings.melody.holdMotif
+            ? settings.melody.motifSeed
+            : seed,
+        },
+      };
+      events = generateMelody(events, settings.melody);
+      break;
+    }
     case 'clockKey':
       if (sameKey(settings.key, action.key)) return session;
       settings = { ...settings, key: action.key };
@@ -221,9 +275,18 @@ export function editSession(session: Session, action: Edit): Session {
       );
       break;
     case 'transpose': {
+      const shift = Math.max(
+        48 - settings.melody.min,
+        Math.min(96 - settings.melody.max, action.semitones),
+      );
       settings = {
         ...settings,
         key: transposeKey(settings.key, action.semitones),
+        melody: {
+          ...settings.melody,
+          min: settings.melody.min + shift,
+          max: settings.melody.max + shift,
+        },
       };
       events = events.map((e) => {
         const key = transposeKey(e.key, action.semitones);
@@ -238,11 +301,20 @@ export function editSession(session: Session, action: Edit): Session {
               to: transposeKey(e.modulation.to, action.semitones),
             }
           : undefined;
+        const melody = e.melody?.map((note) => {
+          let midi = note.midi === null ? null : note.midi + action.semitones;
+          if (midi !== null) {
+            while (midi < settings.melody.min) midi += 12;
+            while (midi > settings.melody.max) midi -= 12;
+          }
+          return { ...note, midi };
+        });
         return {
           ...e,
           key,
           chord,
           notes,
+          ...(melody ? { melody } : {}),
           ...(modulation ? { modulation } : {}),
         };
       });
@@ -252,10 +324,31 @@ export function editSession(session: Session, action: Edit): Session {
       return { ...action.session, revision: session.revision + 1 };
   }
   if (
+    events !== session.events &&
+    !['melody', 'regenerateMelody', 'liveCapture'].includes(action.type)
+  ) {
+    events = events.map((e) => {
+      const { live: _live, ...retained } = e;
+      void _live;
+      return retained;
+    });
+    if (action.type === 'transpose') events = analyzeMelody(events);
+    else if (settings.melody.enabled)
+      events = generateMelody(events, settings.melody);
+    else
+      events = events.map((e) => {
+        const { melody: _melody, ...retained } = e;
+        void _melody;
+        return retained;
+      });
+  }
+  if (
     generation &&
     events !== session.events &&
     action.type !== 'generate' &&
-    action.type !== 'autoPhrase'
+    action.type !== 'autoPhrase' &&
+    action.type !== 'melody' &&
+    action.type !== 'regenerateMelody'
   )
     generation = { ...generation, modified: true };
   return {
@@ -296,7 +389,11 @@ export function reducer(history: History, action: Action): History {
   }
   const next = editSession(history.present, action);
   if (next === history.present) return history;
-  if (action.type === 'autoPhrase' || action.type === 'clockKey')
+  if (
+    action.type === 'autoPhrase' ||
+    action.type === 'clockKey' ||
+    action.type === 'liveCapture'
+  )
     return { ...history, present: next };
   return {
     past: [...history.past.slice(-49), history.present],
@@ -338,19 +435,21 @@ function isHarmony(value: unknown): value is Harmony {
   );
 }
 export function importSession(text: string): Session {
-  if (text.length > 1_000_000) throw new Error('Session too large');
+  if (text.length > 5_000_000) throw new Error('Session too large');
   const value: unknown = JSON.parse(text);
   if (
     !object(value) ||
     (value.schemaVersion !== 1 &&
       value.schemaVersion !== 2 &&
-      value.schemaVersion !== 3)
+      value.schemaVersion !== 3 &&
+      value.schemaVersion !== 4)
   )
     throw new Error('Unsupported schema');
   const s = value.settings;
   if (
     !object(s) ||
     !isKey(s.key) ||
+    (value.schemaVersion === 4 && !isMelodySettings(s.melody)) ||
     (value.schemaVersion !== 1 && !isGeneratorSettings(s.generator)) ||
     (s.instrument !== undefined && !isInstrument(s.instrument)) ||
     !numberIn(s.tempo, 40, 200) ||
@@ -372,7 +471,7 @@ export function importSession(text: string): Session {
       ids.has(e.id) ||
       !isKey(e.key) ||
       !isHarmony(e.chord) ||
-      !numberIn(e.duration, 0.25, 16) ||
+      !numberIn(e.duration, Number.MIN_VALUE, 16) ||
       !['root', 'smooth'].includes(String(e.policy))
     )
       throw new Error('Invalid event');
@@ -421,6 +520,51 @@ export function importSession(text: string): Session {
       )
         throw new Error('Invalid modulation intent');
     }
+    let melody: MelodyNote[] | undefined;
+    if (e.melody !== undefined) {
+      if (!Array.isArray(e.melody) || e.melody.length > 128)
+        throw new Error('Invalid melody');
+      let end = 0;
+      melody = e.melody.map((n: unknown) => {
+        if (
+          !object(n) ||
+          !numberIn(n.beat, 0, e.duration as number) ||
+          !numberIn(n.duration, Number.MIN_VALUE, e.duration as number) ||
+          n.beat + n.duration > (e.duration as number) + 1e-7 ||
+          n.beat < end - 1e-7 ||
+          !(
+            n.midi === null ||
+            (numberIn(n.midi, 48, 96) && Number.isInteger(n.midi))
+          ) ||
+          (n.midi === null
+            ? n.pitch !== null
+            : !isPitch(n.pitch) || pc(n.pitch) !== n.midi % 12) ||
+          !['chord', 'scale', 'chromatic', 'rest'].includes(String(n.kind)) ||
+          !(
+            n.ornament === null ||
+            ['passing', 'approach'].includes(String(n.ornament))
+          )
+        )
+          throw new Error('Invalid melody note');
+        end = n.beat + n.duration;
+        if (
+          n.kind !==
+          melodyKind(n.midi as number | null, e as unknown as ChordEvent)
+        )
+          throw new Error('Contradictory melody category');
+        return structuredClone(n) as unknown as MelodyNote;
+      });
+    }
+    if (
+      e.live !== undefined &&
+      (!object(e.live) ||
+        !numberIn(e.live.appliedBeat, 0, 1e9) ||
+        !(
+          e.live.requestedBeat === null ||
+          numberIn(e.live.requestedBeat, 0, e.live.appliedBeat)
+        ))
+    )
+      throw new Error('Invalid live timing');
     return {
       id: e.id,
       key: e.key,
@@ -429,6 +573,10 @@ export function importSession(text: string): Session {
       bass: e.bass as number | null,
       policy: e.policy as VoicingPolicy,
       notes,
+      ...(melody === undefined ? {} : { melody }),
+      ...(e.live === undefined
+        ? {}
+        : { live: structuredClone(e.live) as ChordEvent['live'] }),
       ...(e.modulation === undefined
         ? {}
         : { modulation: structuredClone(e.modulation) as ModulationIntent }),
@@ -437,7 +585,7 @@ export function importSession(text: string): Session {
         : { intent: e.intent as GenerationIntent }),
     };
   });
-  if (value.schemaVersion === 3) {
+  if (value.schemaVersion === 3 || value.schemaVersion === 4) {
     const expected = keyEventsFor(events);
     if (
       !Array.isArray(value.keyEvents) ||
@@ -454,6 +602,18 @@ export function importSession(text: string): Session {
     )
       throw new Error('Key events contradict timeline');
   }
+  if (events.reduce((n, e) => n + (e.melody?.length ?? 0), 0) > 32768)
+    throw new Error('Too many melody notes');
+  const analyzed = analyzeMelody(events);
+  for (let i = 0; i < events.length; i++)
+    for (let j = 0; j < (events[i].melody?.length ?? 0); j++) {
+      const note = events[i].melody![j];
+      if (
+        note.ornament !== null &&
+        note.ornament !== analyzed[i].melody![j].ornament
+      )
+        throw new Error('Unsubstantiated melody ornament');
+    }
   let generation: Session['generation'] = null;
   if (value.schemaVersion !== 1 && value.generation !== null) {
     const g = value.generation;
@@ -505,9 +665,13 @@ export function importSession(text: string): Session {
     }
   }
   return {
-    schemaVersion: 3,
+    schemaVersion: 4,
     revision: 0,
     settings: {
+      melody:
+        value.schemaVersion === 4
+          ? (structuredClone(s.melody) as MelodySettings)
+          : defaultMelody(),
       generator:
         value.schemaVersion === 1
           ? defaultGenerator()
@@ -536,11 +700,12 @@ export function keyFromName(name: string, mode: Key['mode']): Key {
 export function exportSession(session: Session) {
   return JSON.stringify(session, null, 2);
 }
-export const STORAGE_KEY = 'chordscape.session.v3';
+export const STORAGE_KEY = 'chordscape.session.v4';
 export function loadSession(): { session: Session; failed: boolean } {
   try {
     const text =
       localStorage.getItem(STORAGE_KEY) ??
+      localStorage.getItem('chordscape.session.v3') ??
       localStorage.getItem('chordscape.session.v2') ??
       localStorage.getItem('chordscape.session.v1');
     return {

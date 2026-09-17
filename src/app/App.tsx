@@ -1,3 +1,6 @@
+import { Listen } from '../components/Listen';
+import { Melody, PianoRoll } from '../components/Melody';
+import { generateMelody, type MelodySettings } from '../music/melody';
 import { Circle, DualAnalysis, keyLabel } from '../components/Circle';
 import { buildCircleTravel, sameKey } from '../music/modulation';
 import { useEffect, useReducer, useRef, useState } from 'react';
@@ -61,6 +64,7 @@ export function App() {
   const t = messages[s.locale];
   const { engine, ready, level, playback, sound, observer } = useAudio();
   const { scene, navigate } = useScene();
+  const [listenInitial, setListenInitial] = useState<Harmony | null>(null);
   const [error, setError] = useState<keyof typeof t | null>(null);
   const [storage, setStorage] = useState<'saved' | 'saving' | 'storageError'>(
     loaded.failed ? 'storageError' : 'saved',
@@ -71,6 +75,10 @@ export function App() {
   );
   const [comparison, setComparison] = useState<VoicingPolicy | null>(null);
   const [transpose, setTranspose] = useState(2);
+  const [nextReady, setNextReady] = useState(false);
+  const [liveMode, setLiveMode] = useState(false);
+  const liveBase = useRef<ChordEvent[] | null>(null);
+  const liveVersion = useRef(-1);
   const [continuous, setContinuous] = useState(false);
   const [auditionPlan, setAuditionPlan] = useState<ChordEvent[] | null>(null);
   const auditioning = useRef(false);
@@ -84,11 +92,7 @@ export function App() {
     playback.status !== 'stopped' ? (playback.key ?? s.key) : s.key;
   const selected = session.events.find((e) => e.id === selectedId);
   const displayed = playback.event ?? selected ?? preview;
-  const viewEvents =
-    auditionPlan ??
-    (continuous && playback.cycle !== undefined
-      ? (autoRun.current?.get(playback.cycle)?.events ?? session.events)
-      : session.events);
+  const viewEvents = auditionPlan ?? session.events;
   const index = viewEvents.findIndex((e) => e.id === displayed.id);
   const previous = running
     ? (playback.previous ?? undefined)
@@ -107,7 +111,7 @@ export function App() {
     document.title =
       scene === 'play'
         ? 'Chordscape'
-        : `${scene === 'library' ? t.library : scene === 'generate' ? t.generateScene : scene === 'circle' ? t.circleScene : t.settings} · Chordscape`;
+        : `${scene === 'library' ? t.library : scene === 'generate' ? t.generateScene : scene === 'circle' ? t.circleScene : scene === 'melody' ? t.melodyScene : scene === 'listen' ? t.listenScene : t.settings} · Chordscape`;
   }, [scene, t]);
   useEffect(() => {
     sessionRef.current = session;
@@ -116,11 +120,31 @@ export function App() {
     document.documentElement.lang = s.locale;
   }, [s.locale]);
   useEffect(() => {
+    engine.current?.setMelody(s.melody);
+  }, [engine, s.melody]);
+  useEffect(() => {
     engine.current?.setVolume(s.volume);
     engine.current?.configure(s.tempo, !auditionPlan && (continuous || s.loop));
   }, [engine, s.volume, s.tempo, s.loop, continuous, auditionPlan]);
   useEffect(() => {
     observer.current = (state) => {
+      if (
+        state.live &&
+        liveBase.current &&
+        state.live.recordVersion !== liveVersion.current
+      ) {
+        liveVersion.current = state.live.recordVersion;
+        if (state.live.recorded.length) {
+          const action: Edit = {
+            type: 'liveCapture',
+            events: [...liveBase.current, ...state.live.recorded],
+          };
+          sessionRef.current = editSession(sessionRef.current, action);
+          dispatch(action);
+          setStorage('saving');
+        }
+        if (state.live.limit) setError('limit');
+      }
       if (state.status === 'stopped' && auditioning.current) {
         auditioning.current = false;
         setAuditionPlan(null);
@@ -143,6 +167,7 @@ export function App() {
         return;
       }
       const cycle = state.cycle;
+      setNextReady(Boolean(run.get((cycle ?? 0) + 1)));
       const phrase = cycle === undefined ? undefined : run.get(cycle);
       if (phrase && cycle !== autoApplied.current) {
         autoApplied.current = cycle!;
@@ -181,7 +206,12 @@ export function App() {
     };
   }, [session, loaded]);
   function edit(action: Edit) {
-    if ((autoRun.current || auditioning.current) && action.type !== 'settings')
+    if (
+      (autoRun.current ||
+        auditioning.current ||
+        (playback.live && playback.status !== 'stopped')) &&
+      action.type !== 'settings'
+    )
       stop();
     if (playback.status === 'paused' && action.type !== 'settings') stop();
     setStorage('saving');
@@ -211,17 +241,41 @@ export function App() {
     autoRun.current?.stop();
     autoRun.current = null;
     setContinuous(false);
-    engine.current!.stop();
+    engine.current?.stop();
+    liveBase.current = null;
     setComparison(null);
   }
   function choose(chord: Harmony, record = s.record) {
-    if (running) return;
+    if (running && !(liveMode && scene === 'play')) return;
     const event = makeEvent(
       chord,
       { ...session, settings: { ...s, key: currentKey } },
       crypto.randomUUID(),
-      previousRef.current?.notes,
+      liveMode && playback.live
+        ? playback.event?.notes
+        : previousRef.current?.notes,
     );
+    if (liveMode && scene === 'play') {
+      if (playback.live && playback.status === 'playing') {
+        engine.current!.changeLive(event, s.melody.timing, record);
+      } else {
+        stop();
+        liveBase.current = [...sessionRef.current.events];
+        liveVersion.current = -1;
+        if (record) dispatch({ type: 'beginLive' });
+        engine.current!.startLive(
+          event,
+          s.tempo,
+          s.melody,
+          record,
+          MAX_EVENTS - liveBase.current.length,
+        );
+      }
+      setPreview(event);
+      setSelectedId(null);
+      previousRef.current = event;
+      return;
+    }
     if (record) {
       if (session.events.length >= MAX_EVENTS) {
         setError('limit');
@@ -268,6 +322,8 @@ export function App() {
     }
   }
   function play(policy?: VoicingPolicy) {
+    if (playback.live && playback.status !== 'stopped') stop();
+    setLiveMode(false);
     auditioning.current = false;
     setAuditionPlan(null);
     autoRun.current?.stop();
@@ -302,7 +358,17 @@ export function App() {
         generated(generateProgression(options));
         return;
       }
-      const run = new PreparedProgressions(options);
+      const run = new PreparedProgressions(options, 0, (phrase) => {
+        if (!s.melody.enabled) return phrase;
+        const withMelody = generateMelody(phrase.events, s.melody);
+        return {
+          ...phrase,
+          events: phrase.events.map((e, i) => ({
+            ...e,
+            melody: withMelody[i].melody,
+          })),
+        };
+      });
       generated(run.get(0)!);
       autoRun.current = run;
       autoApplied.current = 0;
@@ -339,6 +405,20 @@ export function App() {
       setError('generationFailed');
     }
   }
+  function melodySettings(patch: Partial<MelodySettings>) {
+    if (Object.keys(patch).some((key) => key !== 'volume')) {
+      stop();
+      edit({ type: 'melody', patch });
+    } else {
+      setStorage('saving');
+      dispatch({ type: 'melody', patch });
+    }
+  }
+  function melodyMode(live: boolean) {
+    stop();
+    setLiveMode(live);
+    navigate('play');
+  }
   function appendBridge(events: ChordEvent[]) {
     if (playback.status !== 'stopped') return;
     const added = events.map((e) => ({ ...e, id: crypto.randomUUID() }));
@@ -350,12 +430,15 @@ export function App() {
   function auditionBridge(events: ChordEvent[]) {
     stop();
     auditioning.current = true;
-    setAuditionPlan(events);
-    engine.current!.play(events, s.tempo, false, () => events);
+    const prepared = s.melody.enabled
+      ? generateMelody(events, s.melody)
+      : events;
+    setAuditionPlan(prepared);
+    engine.current!.play(prepared, s.tempo, false, () => events);
   }
   function travel(direction: 1 | -1, cadence: boolean) {
     stop();
-    const events = buildCircleTravel(
+    let events = buildCircleTravel(
       {
         from: s.key,
         duration: s.duration,
@@ -366,6 +449,7 @@ export function App() {
       direction,
       crypto.randomUUID(),
     );
+    if (s.melody.enabled) events = generateMelody(events, s.melody);
     edit({ type: 'travel', events });
     setSelectedId(null);
     setPreview(events[0]);
@@ -386,7 +470,7 @@ export function App() {
   async function readFile(upload: File | undefined) {
     if (!upload) return;
     try {
-      if (upload.size > 1_000_000) throw new Error('Too large');
+      if (upload.size > 5_000_000) throw new Error('Too large');
       const imported = importSession(await upload.text());
       stop();
       edit({ type: 'replace', session: imported });
@@ -426,7 +510,16 @@ export function App() {
                 ? t.generateScene
                 : scene === 'circle'
                   ? t.circleScene
-                  : t.settings}
+                  : scene === 'melody'
+                    ? t.melodyScene
+                    : scene === 'listen'
+                      ? t.listenScene
+                      : t.settings}
+          {scene === 'play' && (
+            <span className="brand-mark" aria-hidden="true">
+              ◌
+            </span>
+          )}
         </h1>
         <button
           className="sound-shortcut"
@@ -436,49 +529,55 @@ export function App() {
           {t[sound.instrument]}
         </button>
       </header>
-      <section className="transport" aria-label={t.playScene}>
-        <button className="primary" onClick={() => void enable()}>
-          {ready ? t.ready : t.enable}
-        </button>
-        <button
-          disabled={
-            !ready || !session.events.length || running || sound.loading
-          }
-          onClick={() => play()}
-        >
-          {t.play}
-        </button>
-        <button
-          disabled={!ready || playback.status === 'stopped'}
-          onClick={() =>
-            playback.status === 'paused'
-              ? engine.current!.resume()
-              : engine.current!.pause()
-          }
-        >
-          {playback.status === 'paused' ? t.resume : t.pause}
-        </button>
-        <button className="stop" onClick={stop}>
-          ■ {t.stop}
-        </button>
-        <span role="status">
-          {running
-            ? t.playing
-            : playback.status === 'paused'
-              ? t.paused
-              : playback.event
-                ? t.sounding
-                : t.idle}{' '}
-          · {t.beat} {(playback.beat + 1).toFixed(1)}
-        </span>
-        <meter
-          aria-label={t.level}
-          min="0"
-          max="1"
-          value={level}
-          data-testid="audio-level"
-        />
-      </section>
+      {scene !== 'listen' && (
+        <section className="transport" aria-label={t.playScene}>
+          <button className="primary" onClick={() => void enable()}>
+            {ready ? t.ready : t.enable}
+          </button>
+          <button
+            disabled={
+              !ready ||
+              (!session.events.length &&
+                !(playback.live && playback.event && s.record)) ||
+              (running && !playback.live) ||
+              sound.loading
+            }
+            onClick={() => play()}
+          >
+            {t.play}
+          </button>
+          <button
+            disabled={!ready || playback.status === 'stopped'}
+            onClick={() =>
+              playback.status === 'paused'
+                ? engine.current!.resume()
+                : engine.current!.pause()
+            }
+          >
+            {playback.status === 'paused' ? t.resume : t.pause}
+          </button>
+          <button className="stop" onClick={stop}>
+            ■ {t.stop}
+          </button>
+          <span role="status">
+            {running
+              ? t.playing
+              : playback.status === 'paused'
+                ? t.paused
+                : playback.event
+                  ? t.sounding
+                  : t.idle}{' '}
+            · {t.beat} {(playback.beat + 1).toFixed(1)}
+          </span>
+          <meter
+            aria-label={t.level}
+            min="0"
+            max="1"
+            value={level}
+            data-testid="audio-level"
+          />
+        </section>
+      )}
 
       {error && (
         <p className="notice" role={error === 'imported' ? 'status' : 'alert'}>
@@ -510,9 +609,7 @@ export function App() {
       {continuous && (
         <p className="continuous-status" role="status">
           {t.continuous} · {t.phrase} {(playback.cycle ?? 0) + 1} ·{' '}
-          {autoRun.current?.get((playback.cycle ?? 0) + 1)
-            ? t.nextPhraseReady
-            : t.nextPhrasePreparing}
+          {nextReady ? t.nextPhraseReady : t.nextPhrasePreparing}
         </p>
       )}
       {auditionPlan && (
@@ -544,6 +641,19 @@ export function App() {
           )}
         </>
       )}
+      {scene === 'melody' && (
+        <Melody
+          settings={s.melody}
+          events={session.events}
+          t={t}
+          onSettings={melodySettings}
+          onRegenerate={() => {
+            stop();
+            edit({ type: 'regenerateMelody' });
+          }}
+          onMode={melodyMode}
+        />
+      )}
       {scene === 'generate' && (
         <Generator
           settings={s}
@@ -558,10 +668,44 @@ export function App() {
       )}
       {scene === 'play' && (
         <div className="play-scene">
+          {liveMode && (
+            <section className="live-status">
+              <div className="section-title">
+                <strong>
+                  {playback.live && running ? t.livePlaying : t.liveReady}
+                </strong>
+                <button onClick={() => melodyMode(false)}>
+                  {t.melodyTimeline}
+                </button>
+              </div>
+              <label>
+                {t.liveTiming}
+                <select
+                  disabled={playback.status !== 'stopped'}
+                  value={s.melody.timing}
+                  onChange={(e) =>
+                    melodySettings({
+                      timing: e.target.value as MelodySettings['timing'],
+                    })
+                  }
+                >
+                  <option value="immediate">{t.immediate}</option>
+                  <option value="nextBeat">{t.nextBeat}</option>
+                </select>
+              </label>
+              {playback.live?.pending && (
+                <p data-testid="live-pending">
+                  {t.pendingChord}: {chordSymbol(playback.live.pending.chord)} ·{' '}
+                  {t.beat} {(playback.live.pendingBeat! + 1).toFixed(2)}
+                </p>
+              )}
+              <small>{t.liveRecordHint}</small>
+            </section>
+          )}
           <section className="key-panel">
             <div className="controls">
               <label>
-                {t.key}
+                <span className="key-field-label">{t.key}</span>
                 <select
                   disabled={running}
                   value={pitchName(currentKey.tonic)}
@@ -580,7 +724,7 @@ export function App() {
                 </select>
               </label>
               <label>
-                {t.mode}
+                <span className="key-field-label">{t.mode}</span>
                 <select
                   disabled={running}
                   value={currentKey.mode}
@@ -591,7 +735,7 @@ export function App() {
                 </select>
               </label>
               <label>
-                {t.chordSize}
+                <span className="key-field-label">{t.chordSize}</span>
                 <select
                   value={s.seventh ? '7' : '3'}
                   onChange={(e) =>
@@ -605,88 +749,30 @@ export function App() {
                   <option value="7">{t.sevenths}</option>
                 </select>
               </label>
-              <label>
-                {t.tempo}
-                <input
-                  type="number"
-                  min="40"
-                  max="200"
-                  value={s.tempo}
-                  onChange={(e) => {
-                    const tempo = Number(e.target.value);
-                    if (tempo >= 40 && tempo <= 200)
-                      edit({ type: 'settings', patch: { tempo } });
-                  }}
-                />
-              </label>
-              <label>
-                {t.duration}
-                <select
-                  value={s.duration}
-                  onChange={(e) =>
-                    edit({
-                      type: 'settings',
-                      patch: { duration: Number(e.target.value) },
-                    })
-                  }
-                >
-                  {[
-                    0.25,
-                    0.5,
-                    1,
-                    2,
-                    4,
-                    8,
-                    16,
-                    ...([0.25, 0.5, 1, 2, 4, 8, 16].includes(s.duration)
-                      ? []
-                      : [s.duration]),
-                  ].map((d) => (
-                    <option key={d} value={d}>
-                      {d}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="toggle">
-                <input
-                  type="checkbox"
-                  checked={s.record}
-                  onChange={(e) =>
-                    edit({
-                      type: 'settings',
-                      patch: { record: e.target.checked },
-                    })
-                  }
-                />
-                {t.record}
-              </label>
-              <label className="toggle">
-                <input
-                  type="checkbox"
-                  checked={s.loop}
-                  disabled={continuous}
-                  onChange={(e) =>
-                    edit({
-                      type: 'settings',
-                      patch: { loop: e.target.checked },
-                    })
-                  }
-                />
-                {t.loop}
-              </label>
             </div>
           </section>
           <section className="palette-panel">
             <div className="section-title">
               <h2>{t.palette}</h2>
-              <span>{keyLabel(currentKey, t)}</span>
+              <span>
+                {keyLabel(currentKey, t)}{' '}
+                <button
+                  className="melody-shortcut"
+                  aria-label={t.melodyScene}
+                  onClick={() => navigate('melody')}
+                >
+                  ♪ {t.melodyScene}
+                  {s.melody.enabled ? ' ✓' : ''}
+                </button>
+              </span>
             </div>
-            {running && <p className="muted playback-hint">{t.recordHint}</p>}
+            {running && !liveMode && (
+              <p className="muted playback-hint">{t.recordHint}</p>
+            )}
             <Palette
               chords={diatonic(currentKey, s.seventh)}
               context={currentKey}
-              disabled={!ready || running || sound.loading}
+              disabled={!ready || (running && !liveMode) || sound.loading}
               onChoose={choose}
               selected={chordSymbol(displayed.chord)}
             />
@@ -696,7 +782,7 @@ export function App() {
               <Palette
                 chords={outside(currentKey)}
                 context={currentKey}
-                disabled={!ready || running || sound.loading}
+                disabled={!ready || (running && !liveMode) || sound.loading}
                 onChoose={choose}
                 selected={chordSymbol(displayed.chord)}
               />
@@ -708,10 +794,32 @@ export function App() {
             next={next}
             currentKey={currentKey}
             sounding={playback.event?.notes ?? []}
+            melodyNote={s.melody.enabled ? playback.melody : null}
             t={t}
             onBass={bass}
             disabled={running}
           />
+          {s.melody.enabled && (
+            <PianoRoll
+              events={
+                playback.live && playback.event ? [playback.event] : viewEvents
+              }
+              beat={
+                playback.live
+                  ? playback.live.phraseBeat
+                  : running || playback.status === 'paused'
+                    ? playback.beat
+                    : Math.max(
+                        0,
+                        viewEvents
+                          .slice(0, index)
+                          .reduce((sum, e) => sum + e.duration, 0),
+                      )
+              }
+              active={playback.melody}
+              t={t}
+            />
+          )}
           <section className="timeline-panel">
             <div className="section-title">
               <h2>
@@ -725,6 +833,7 @@ export function App() {
                     if (
                       autoRun.current ||
                       auditioning.current ||
+                      playback.live ||
                       playback.status === 'paused'
                     )
                       stop();
@@ -740,6 +849,7 @@ export function App() {
                     if (
                       autoRun.current ||
                       auditioning.current ||
+                      playback.live ||
                       playback.status === 'paused'
                     )
                       stop();
@@ -774,16 +884,84 @@ export function App() {
                 {t.comparison}: {comparison === 'root' ? t.rootMode : t.smooth}
               </p>
             )}
-            <Timeline
-              events={viewEvents}
-              selectedId={selectedId}
-              playingId={playback.event?.id}
-              onSelect={select}
-              onEdit={edit}
-              t={t}
-            />
-            <details className="advanced">
-              <summary>{t.advanced}</summary>
+            <div className="timeline-controls">
+              <div className="controls playback-controls">
+                <label>
+                  <span className="key-field-label">{t.tempo}</span>
+                  <input
+                    type="number"
+                    min="40"
+                    max="200"
+                    value={s.tempo}
+                    onChange={(e) => {
+                      const tempo = Number(e.target.value);
+                      if (tempo >= 40 && tempo <= 200)
+                        edit({ type: 'settings', patch: { tempo } });
+                    }}
+                  />
+                </label>
+                <label>
+                  <span className="wide-label">{t.duration}</span>
+                  <span className="compact-label" aria-hidden="true">
+                    {t.beat}
+                  </span>
+                  <select
+                    aria-label={t.duration}
+                    value={s.duration}
+                    onChange={(e) =>
+                      edit({
+                        type: 'settings',
+                        patch: { duration: Number(e.target.value) },
+                      })
+                    }
+                  >
+                    {[
+                      0.25,
+                      0.5,
+                      1,
+                      2,
+                      4,
+                      8,
+                      16,
+                      ...([0.25, 0.5, 1, 2, 4, 8, 16].includes(s.duration)
+                        ? []
+                        : [s.duration]),
+                    ].map((d) => (
+                      <option key={d} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    disabled={liveMode && playback.status !== 'stopped'}
+                    checked={s.record}
+                    onChange={(e) =>
+                      edit({
+                        type: 'settings',
+                        patch: { record: e.target.checked },
+                      })
+                    }
+                  />
+                  {t.record}
+                </label>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={s.loop}
+                    disabled={continuous || liveMode}
+                    onChange={(e) =>
+                      edit({
+                        type: 'settings',
+                        patch: { loop: e.target.checked },
+                      })
+                    }
+                  />
+                  {t.loop}
+                </label>
+              </div>
               <div className="controls voicing-controls">
                 <label>
                   {t.voicing}
@@ -803,57 +981,81 @@ export function App() {
                 <button
                   disabled={!ready || !session.events.length || sound.loading}
                   onClick={() => play('root')}
+                  aria-label={t.compareRoot}
                 >
-                  {t.compareRoot}
+                  <span className="wide-label">{t.compareRoot}</span>
+                  <span className="compact-label" aria-hidden="true">
+                    {t.compareRootShort}
+                  </span>
                 </button>
                 <button
                   disabled={!ready || !session.events.length || sound.loading}
                   onClick={() => play('smooth')}
+                  aria-label={t.compareSmooth}
                 >
-                  {t.compareSmooth}
+                  <span className="wide-label">{t.compareSmooth}</span>
+                  <span className="compact-label" aria-hidden="true">
+                    {t.compareSmoothShort}
+                  </span>
                 </button>
               </div>
-              <p className="muted">{t.compareHint}</p>
-              <p className="muted">{t.smoothHint}</p>
-              <details>
-                <summary>{t.transpose}</summary>
-                <p className="muted">{t.transposeHint}</p>
-                <div className="controls">
-                  <label>
-                    {t.semitones}
-                    <input
-                      type="number"
-                      min="-12"
-                      max="12"
-                      value={transpose}
-                      onChange={(e) =>
-                        setTranspose(
-                          Math.max(
-                            -12,
-                            Math.min(12, Math.trunc(Number(e.target.value))),
-                          ),
-                        )
-                      }
-                    />
-                  </label>
-                  <button
-                    disabled={running || transpose === 0}
-                    onClick={() => {
-                      stop();
-                      edit({ type: 'transpose', semitones: transpose });
-                    }}
-                  >
-                    {t.transpose}
-                  </button>
-                </div>
-              </details>
-            </details>
+              <div className="controls transpose-controls">
+                <label>
+                  {t.semitones}
+                  <input
+                    type="number"
+                    min="-12"
+                    max="12"
+                    value={transpose}
+                    onChange={(e) =>
+                      setTranspose(
+                        Math.max(
+                          -12,
+                          Math.min(12, Math.trunc(Number(e.target.value))),
+                        ),
+                      )
+                    }
+                  />
+                </label>
+                <button
+                  disabled={running || transpose === 0}
+                  onClick={() => {
+                    stop();
+                    edit({ type: 'transpose', semitones: transpose });
+                  }}
+                >
+                  {t.transpose}
+                </button>
+              </div>
+            </div>
+            <Timeline
+              events={viewEvents}
+              selectedId={selectedId}
+              playingId={playback.event?.id}
+              onSelect={select}
+              onEdit={edit}
+              t={t}
+            />
           </section>
         </div>
+      )}
+      {scene === 'listen' && (
+        <Listen
+          initial={listenInitial}
+          context={currentKey}
+          t={t}
+          onEnter={stop}
+          onBack={() => navigate('library')}
+        />
       )}
       {scene === 'library' && (
         <div className="library-scene">
           <Library
+            onListen={(chord) => {
+              setListenInitial(chord);
+              stop();
+              navigate('listen');
+            }}
             locale={s.locale}
             t={t}
             initial={displayed.chord}
@@ -874,6 +1076,7 @@ export function App() {
             next={next}
             currentKey={currentKey}
             sounding={playback.event?.notes ?? []}
+            melodyNote={s.melody.enabled ? playback.melody : null}
             t={t}
             onBass={bass}
             disabled={running}
@@ -975,7 +1178,13 @@ export function App() {
           (item) => (
             <button
               key={item}
-              aria-current={scene === item ? 'page' : undefined}
+              aria-current={
+                scene === item ||
+                (scene === 'melody' && item === 'play') ||
+                (scene === 'listen' && item === 'library')
+                  ? 'page'
+                  : undefined
+              }
               onClick={() => navigate(item)}
             >
               {item === 'play'

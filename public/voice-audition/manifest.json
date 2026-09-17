@@ -1,0 +1,173 @@
+{
+  "created": "2026-09-17",
+  "sampleRate": 24000,
+  "normalization": "Active-sample RMS target 0.13; peak ceiling 0.85; linear gain only. Combined examples separated by 1 second.",
+  "engines": {
+    "nemo": "0.24.0",
+    "aivis": "1.2.0",
+    "current": "existing Open JTalk / Mei tokens with 60 ms gaps"
+  },
+  "styles": {
+    "nemo-female1": 10005,
+    "nemo-male1": 10001,
+    "aivis-kohaku": 1878365376,
+    "aivis-mao": 888753760
+  },
+  "models": {
+    "kohaku": {
+      "uuid": "22e8ed77-94fe-4ef2-871f-a86f94e9a579",
+      "version": "1.1.0"
+    },
+    "mao": {
+      "uuid": "a59cb814-0083-4369-8542-f51a29e72af7",
+      "version": "1.2.0"
+    }
+  },
+  "files": [
+    {
+      "file": "nemo-female1-cmaj7.wav",
+      "chord": "Cmaj7",
+      "text": "シーメジャーセブンス",
+      "frames": 32512,
+      "gain": 1.3824926321134874,
+      "sha256": "f07e91c3030ad250b4f78d3b31afcb71b6bf9038748eeb0af75b8d148523733e"
+    },
+    {
+      "file": "nemo-female1-fsharp-m7.wav",
+      "chord": "F♯m7",
+      "text": "エフシャープマイナーセブンス",
+      "frames": 40192,
+      "gain": 1.3093197887851866,
+      "sha256": "4fb9c59e13099587cd7b84368e171f59bb854cdcdce25c0055cf5e97f114741f"
+    },
+    {
+      "file": "nemo-female1-bm7-flat5.wav",
+      "chord": "Bm7♭5",
+      "text": "ビーマイナーセブンス、フラットファイブ",
+      "frames": 59136,
+      "gain": 1.2904590558076652,
+      "sha256": "890fcb64e0aa1b80e291053f5fa7a2276341c9b386227c829f54bb256943337e"
+    },
+    {
+      "file": "nemo-female1-all.wav",
+      "frames": 179840,
+      "sha256": "6cf5e67fd89ae0c437033c2cfdd773446ba4888e8359c4bbf5f8b977b253059f"
+    },
+    {
+      "file": "nemo-male1-cmaj7.wav",
+      "chord": "Cmaj7",
+      "text": "シーメジャーセブンス",
+      "frames": 28160,
+      "gain": 1.36750676091103,
+      "sha256": "669af15920f343803187848c8d91705d9f94cb38cfb064839e63e175c7040084"
+    },
+    {
+      "file": "nemo-male1-fsharp-m7.wav",
+      "chord": "F♯m7",
+      "text": "エフシャープマイナーセブンス",
+      "frames": 33536,
+      "gain": 1.4017178051094004,
+      "sha256": "b657ce9c13872eb57871e1959b5d9a61bf0f17f85ae742c2c49ee8c0833093c1"
+    },
+    {
+      "file": "nemo-male1-bm7-flat5.wav",
+      "chord": "Bm7♭5",
+      "text": "ビーマイナーセブンス、フラットファイブ",
+      "frames": 47104,
+      "gain": 1.357922527665638,
+      "sha256": "4e18fca4ebb3b1ba3cb7fb1883cfd2f79f8124e34e012c2a320f6d58710e6198"
+    },
+    {
+      "file": "nemo-male1-all.wav",
+      "frames": 156800,
+      "sha256": "7cc82e31e91bc2b26aada5a2354700e667b93e9daa54fea262bd294fe46538e7"
+    },
+    {
+      "file": "aivis-kohaku-cmaj7.wav",
+      "chord": "Cmaj7",
+      "text": "シーメジャーセブンス",
+      "frames": 39964,
+      "gain": 0.6149800665796604,
+      "sha256": "785b8962e7c570592cc630a3e44e0b302106578dacd5f9bc3420dd920a3b2ab2"
+    },
+    {
+      "file": "aivis-kohaku-fsharp-m7.wav",
+      "chord": "F♯m7",
+      "text": "エフシャープマイナーセブンス",
+      "frames": 51549,
+      "gain": 0.5844702288485124,
+      "sha256": "346690f98451030c26ee9f6fb5e50e2fb71f64dd86e563a5fc78825e621bc52b"
+    },
+    {
+      "file": "aivis-kohaku-bm7-flat5.wav",
+      "chord": "Bm7♭5",
+      "text": "ビーマイナーセブンス、フラットファイブ",
+      "frames": 71798,
+      "gain": 0.6831932033659578,
+      "sha256": "4910e4e9150a327b4bdf2061b60a1e6077db267edacbef10db94f38e1a3c772d"
+    },
+    {
+      "file": "aivis-kohaku-all.wav",
+      "frames": 211311,
+      "sha256": "0008c2e63968f0d669cb3808f3ddedf3ccbd2b8e8458b7a20cab61a8bc5bc754"
+    },
+    {
+      "file": "aivis-mao-cmaj7.wav",
+      "chord": "Cmaj7",
+      "text": "シーメジャーセブンス",
+      "frames": 39350,
+      "gain": 0.7202147005872129,
+      "sha256": "27eb7ef8081b07b57de7a3913c0f5cdc0ba1c39cf60787b50c3eaccc1d65c588"
+    },
+    {
+      "file": "aivis-mao-fsharp-m7.wav",
+      "chord": "F♯m7",
+      "text": "エフシャープマイナーセブンス",
+      "frames": 46791,
+      "gain": 0.7788632158864377,
+      "sha256": "4854a8b142c44556dfafc96eb07e80df288d91324f58e459a25260a7a69fc48a"
+    },
+    {
+      "file": "aivis-mao-bm7-flat5.wav",
+      "chord": "Bm7♭5",
+      "text": "ビーマイナーセブンス、フラットファイブ",
+      "frames": 71839,
+      "gain": 0.759582957626353,
+      "sha256": "752dc858bde9a6e8fd0b8930d2aaa02394c6728a4dd4e1095d9c143b01d1b5af"
+    },
+    {
+      "file": "aivis-mao-all.wav",
+      "frames": 205980,
+      "sha256": "dd29652758335007d0efc66d076d4fcc233bf843e699843c437368ac3a1bc27b"
+    },
+    {
+      "file": "current-mei-cmaj7.wav",
+      "chord": "Cmaj7",
+      "text": "シーメジャーセブンス",
+      "frames": 32035,
+      "gain": 0.6596738618678526,
+      "sha256": "37f79806882f5954a7d12f9dcfc1bf6397aedf2b0bc26f856cacc449f68942a3"
+    },
+    {
+      "file": "current-mei-fsharp-m7.wav",
+      "chord": "F♯m7",
+      "text": "エフシャープマイナーセブンス",
+      "frames": 45392,
+      "gain": 0.7051479455051667,
+      "sha256": "b93cc60c4060d87cefca89b90e70ab5434c21d6c1c56fd920a4bceabe9664691"
+    },
+    {
+      "file": "current-mei-bm7-flat5.wav",
+      "chord": "Bm7♭5",
+      "text": "ビーマイナーセブンス、フラットファイブ",
+      "frames": 65368,
+      "gain": 0.598174614547144,
+      "sha256": "971e704bcd02c6ff68e840b38468a1da19d8c67b13e86cedfbc7ac09b2e9c995"
+    },
+    {
+      "file": "current-mei-all.wav",
+      "frames": 190795,
+      "sha256": "2445cd7555a3c08b128fff4b3a5168eeb2783994b0bb5141702ecbd51bf78a64"
+    }
+  ]
+}

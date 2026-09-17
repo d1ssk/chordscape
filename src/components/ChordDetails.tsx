@@ -1,3 +1,4 @@
+import type { MelodyNote } from '../music/melody';
 import { DualAnalysis, roleLabel } from './Circle';
 import {
   analyze,
@@ -23,6 +24,7 @@ export function ChordDetails({
   next,
   currentKey,
   sounding,
+  melodyNote,
   t,
   onBass,
   disabled,
@@ -32,6 +34,7 @@ export function ChordDetails({
   next?: ChordEvent;
   currentKey: Key;
   sounding: number[];
+  melodyNote?: MelodyNote | null;
   t: Messages;
   onBass: (bass: number | null) => void;
   disabled: boolean;
@@ -80,7 +83,11 @@ export function ChordDetails({
           <DualAnalysis event={event} t={t} />
         </div>
       )}
-      <Keyboard notes={sounding} t={t} />
+      <Keyboard
+        notes={sounding}
+        melody={melodyNote?.midi == null ? [] : [melodyNote.midi]}
+        t={t}
+      />
       <div className="inversion-line">
         <label>
           {t.inversion}

@@ -4,6 +4,7 @@ import {
   chordSymbol,
   defaultKey,
   diatonic,
+  outside,
   MAJOR_KEYS,
   MINOR_KEYS,
   parsePitch,
@@ -133,6 +134,51 @@ describe('spelled harmony', () => {
       'minorDominant',
     );
     expect(roman(analyze(chord('E', '7'), key('A', 'minor')))).toBe('V7');
+  });
+  it('offers outside triads, sevenths and ninths with unique names and playable spelled tones in every key', () => {
+    for (const [names, mode] of [
+      [MAJOR_KEYS, 'major'],
+      [MINOR_KEYS, 'minor'],
+    ] as const) {
+      for (const name of names) {
+        const context = key(name, mode);
+        const choices = outside(context);
+        expect(choices.length).toBeGreaterThanOrEqual(24);
+        expect(new Set(choices.map(chordSymbol)).size).toBe(choices.length);
+        for (const choice of choices) {
+          expect(analyze(choice, context).changed.length).toBeGreaterThan(0);
+          expect(new Set(rootVoicing(choice).map((n) => n % 12))).toEqual(
+            new Set(tones(choice).map(pc)),
+          );
+        }
+      }
+    }
+    expect(outside(defaultKey).map(chordSymbol)).toEqual(
+      expect.arrayContaining([
+        'A',
+        'A7',
+        'A9',
+        'Fm7',
+        'A♭maj7',
+        'B♭7',
+        'Dm7♭5',
+      ]),
+    );
+    expect(roman(analyze(chord('A', '9'), defaultKey))).toBe('V9/ii');
+    expect(tones(chord('A', '9')).map(pitchName)).toEqual([
+      'A',
+      'C♯',
+      'E',
+      'G',
+      'B',
+    ]);
+    const leading = outside(key('A', 'minor')).find(
+      (c) => chordSymbol(c) === 'G♯dim7',
+    )!;
+    expect(analyze(leading, key('A', 'minor')).kind).toBe('minorLeading');
+    expect(tones(leading).map(pitchName)).toEqual(['G♯', 'B', 'D', 'F']);
+    expect(outside(key('C♯')).map(chordSymbol)).toContain('D♯9');
+    expect(outside(key('C♭')).map(chordSymbol)).toContain('D♭9');
   });
   it('separates bass slash from applied Roman slash', () => {
     expect(voicedSymbol(chord('C'), [52, 55, 60])).toBe('C/E');

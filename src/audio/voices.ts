@@ -90,20 +90,21 @@ export function createNoteVoice(
     source.stop(time + duration + 0.005);
     nodes.push(source);
   }
-  let stopped = false;
+  let stoppedAt = Infinity;
   let disposed = false;
   const voice: NoteVoice = {
     end: time + duration + 0.01,
     stop(now) {
-      if (stopped || disposed) return;
-      stopped = true;
+      if (now >= stoppedAt || disposed) return;
+      stoppedAt = now;
       // A future source never starts. A sounding source fades out in 18ms.
       const end =
-        now < time || now >= time + duration
+        now <= time || now >= time + duration
           ? now
           : Math.min(now + 0.018, time + duration);
       // Keep the timbre envelope intact. A separate unity gain avoids jumps
       // from replacing an in-progress exponential ramp with a stop ramp.
+      cutoff.gain.cancelScheduledValues(now);
       cutoff.gain.setValueAtTime(1, now);
       cutoff.gain.linearRampToValueAtTime(0, end);
       for (const source of sources) source.stop(end);

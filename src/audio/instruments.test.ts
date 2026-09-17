@@ -30,12 +30,13 @@ it('bundled samples match the licensed upstream manifest', () => {
 });
 it('sound settings round trip while old sessions migrate and invalid names are rejected', () => {
   const session = newSession();
+  expect(session.settings.instrument).toBe('piano');
   session.settings.instrument = 'pad';
   expect(importSession(exportSession(session)).settings.instrument).toBe('pad');
   const legacy = JSON.parse(exportSession(session));
   delete legacy.settings.instrument;
   expect(importSession(JSON.stringify(legacy)).settings.instrument).toBe(
-    'electric',
+    'piano',
   );
   legacy.settings.instrument = 'invalid';
   expect(() => importSession(JSON.stringify(legacy))).toThrow();

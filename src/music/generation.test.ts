@@ -218,7 +218,7 @@ it('validates generation metadata and migrates legacy schema without changing th
   delete legacy.settings.generator;
   for (const event of legacy.events) delete event.intent;
   const migrated = importSession(JSON.stringify(legacy));
-  expect(migrated.schemaVersion).toBe(3);
+  expect(migrated.schemaVersion).toBe(4);
   expect(migrated.events.map((e) => e.notes)).toEqual(
     original.events.map((e) => e.notes),
   );

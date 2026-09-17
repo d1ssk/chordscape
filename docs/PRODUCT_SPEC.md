@@ -236,28 +236,32 @@ Circle travelはC → G → D → A等を経由する連続モード。各区間
 
 ## 11. Listen / Passive Learning / Ear（P5）
 
-日常の聞き流しでコード名と音を対応づける。Web Speech APIの音声合成を利用し、字幕も必ず表示する。
+日常の聞き流しでコード名と音を対応づける。コード辞典の「聞き流し」から専用sceneへ入る。
 
-順序：Name → Sound、Sound → Delay → Name。対象：Chord name、Roman numeral、Function、Progression name、Inversion。
+2026-09-17の合意により、**既定20分のセットを事前生成し、同じセットを繰り返す**方式を採用。ブラウザのライブ読み上げを繰り返す旧案に代え、同梱の日本語音声（VOICEVOX Nemo 女声1、コード名全体を一続きで合成）とPianoを1本の音声へまとめ、通常のaudio要素で画面オフ再生を目指す。
 
-例：
+| モード | 選曲・案内 |
+| --- | --- |
+| 根音固定 | 指定root × 選択したquality。名前と音を対応づける |
+| 調の感覚 | 指定調の7和音。名前とdegreeを読み、開始時と12和音ごとに主和音で基準を確認 |
+| 完全ランダム | 12 pitch classes × 選択したqualityを独立抽選。同じ和音の連続も許可 |
+| 調内・音だけ | 指定調の7和音をランダムに流す。読み上げと基準和音の割込みなし |
 
-- 「C major seven」→ Cmaj7。
-- 「C major、two five one」→ Dm7 → G7 → Cmaj7。
-- 「C majorのfive of five」→ D7 → G。
-- 「C major、first inversion」→ C/E。
+名前を使うモードはName → SoundとSound → Delay → Name → Same Soundを選択可能。コード名をそのまま機械に読ませず、root / accidental / qualityの発音辞書からコード名全体を事前合成する。degree / inversionの案内は独立したフレーズとして続ける。字幕、コード、鍵盤、最低音は同一cueから導出。
 
-設定：日本語／英語、voice、話速、名前と音の間隔、和音の長さ、反復回数、対象root/quality/key、root固定／転回あり、session時間。コード記号をそのまま読み上げず、発音用phraseを別辞書で生成する。
+設定：root / key / quality、三和音／七の和音、転回、和音2 / 3 / 4 / 6秒、間隔0.5 / 1 / 2 / 3秒、セット5 / 10 / 20分。生成ごとに新しいSeed。反復オンなら同じセットをループし、オフならセット末尾で終了。日本語音声・Pianoを提供し、英語音声・声の切替・quizは後続。
 
-### 読み上げと再生の同期
+### 事前生成と再生の同期
 
-- speechの長さは音声ごとに異なるため固定秒数で完了を推測しない。
-- state machineをidle / speaking / gap / playing / answer-gap / pausedで管理。
-- onend/onerrorとwatchdogを用い、終了しないspeechでも永久停止しない。
-- Stopはspeech cancelとaudio停止に加え、古いcallbackを無効化するsession tokenを更新。
-- voice一覧の遅延取得、希望言語voiceなし、API非対応を処理。字幕と音だけでも続行可能。
-- speechと演奏は原則順番に再生。speechの音量制御はToneのmasterではなく別管理。
-- OS/browserの背景タブ制限や画面ロックで無期限に動くとは保証しない。context中断時はpauseして復帰操作を提示し、溜まった音をまとめて鳴らさない。
+- 名前と和音を1本の22,050 Hz mono PCM16 WAVへ合成。短い和音を順次生成し、キャッシュに上限を設ける。
+- 20分の長さを守り、最後の名前・和音を途中で切らない。末尾の端数は無音。
+- 作成中は進捗とキャンセルを表示。完成後のユーザー操作で再生を開始。
+- Stopとscene離脱で作成ジョブを破棄し、古い非同期完了は反映しない。URL、native audio、OSメディア操作を適切に解放。
+- 背景で和音・speechの予約を継続する必要がない構成。聞き流しのaudioを通常演奏のvisibility pauseに接続しない。
+- currentTimeで字幕と鍵盤を更新。Pause、シーク、ループ、復帰後も同じcueを表示。
+- Media Sessionでロック画面／イヤホン操作に対応する。対応可否はfeature detectionし、実機で画面ロック・長時間反復・通話割込みを確認する。
+- 音声取得失敗は成功表示しない。調内・音だけでは読み上げ音声を取得しない。
+- 設定は進行とは独立保存。WAVダウンロードに著作者とライセンスを付記。
 
 ### Quizの段階的追加
 

@@ -1,9 +1,11 @@
+import { LiveScheduler } from './live';
+import type { MelodyNote, MelodySettings } from '../music/melody';
 import * as Tone from 'tone';
 import type { ChordEvent } from '../state/session';
 import { Scheduler, type PlaybackState } from './scheduler';
 import { createNoteVoice, type NoteVoice } from './voices';
 import {
-  DEFAULT_INSTRUMENT,
+  FALLBACK_INSTRUMENT,
   PIANO_NOTES,
   pianoFile,
   type Instrument,
@@ -16,9 +18,15 @@ export interface SoundState {
 export class AudioEngine {
   private voices: NoteVoice[] = [];
   private bus?: GainNode;
+  private chordBus?: GainNode;
+  private melodyBus?: GainNode;
+  private melodyEnabled = false;
+  private melodyVolume = 0.65;
+  private liveActive = false;
+  private live: LiveScheduler;
   private highpass?: BiquadFilterNode;
   private samples = new Map<number, AudioBuffer>();
-  private instrument: Instrument = DEFAULT_INSTRUMENT;
+  private instrument: Instrument = FALLBACK_INSTRUMENT;
   private soundRequest = 0;
   private sampleLoad?: Promise<void>;
   private abort = new AbortController();
@@ -41,17 +49,23 @@ export class AudioEngine {
     private ready: (ready: boolean) => void,
     private sound: (state: SoundState) => void,
   ) {
-    this.scheduler = new Scheduler(
-      {
-        now: () => Tone.immediate(),
-        schedule: (event, time, duration) =>
-          this.schedule(event, time, duration),
-        cancel: () => this.cancel(),
+    const port = {
+      now: () => Tone.immediate(),
+      schedule: (event: ChordEvent, time: number, duration: number) =>
+        this.schedule(event, time, duration),
+      scheduleMelody: (note: MelodyNote, time: number, duration: number) =>
+        this.scheduleMelody(note, time, duration),
+      cancel: () => this.cancel(),
+      cancelAt: (time: number) => {
+        for (const voice of this.voices) voice.stop(time);
       },
-      (state) => {
-        this.playback = state;
-      },
-    );
+    };
+    this.scheduler = new Scheduler(port, (state) => {
+      this.playback = state;
+    });
+    this.live = new LiveScheduler(port, (state) => {
+      this.playback = state;
+    });
   }
   private contextChanged = () => {
     if (Tone.getContext().state !== 'running') {
@@ -68,6 +82,11 @@ export class AudioEngine {
     if (!this.master) {
       this.master = new Tone.Gain(this.volume);
       this.bus = Tone.getContext().createGain();
+      this.chordBus = Tone.getContext().createGain();
+      this.melodyBus = Tone.getContext().createGain();
+      this.chordBus.connect(this.bus);
+      this.melodyBus.connect(this.bus);
+      this.melodyBus.gain.value = this.melodyVolume;
       this.highpass = Tone.getContext().createBiquadFilter();
       this.highpass.type = 'highpass';
       this.highpass.frequency.value = 35;
@@ -138,17 +157,17 @@ export class AudioEngine {
       this.sound({ instrument, loading: false, failed: false });
     } catch {
       if (this.disposed || request !== this.soundRequest) return;
-      this.instrument = DEFAULT_INSTRUMENT;
+      this.instrument = FALLBACK_INSTRUMENT;
       this.sound({ instrument: this.instrument, loading: false, failed: true });
     }
   }
   private schedule(event: ChordEvent, time: number, duration: number) {
-    if (!this.bus || this.disposed) return;
+    if (!this.chordBus || this.disposed) return;
     for (const note of event.notes)
       this.voices.push(
         createNoteVoice(
           Tone.getContext(),
-          this.bus,
+          this.chordBus,
           this.instrument,
           note,
           time,
@@ -162,6 +181,58 @@ export class AudioEngine {
       voice.dispose();
     }
   }
+  private scheduleMelody(note: MelodyNote, time: number, duration: number) {
+    if (
+      !this.melodyEnabled ||
+      !this.melodyBus ||
+      this.disposed ||
+      note.midi === null
+    )
+      return;
+    this.voices.push(
+      createNoteVoice(
+        Tone.getContext(),
+        this.melodyBus,
+        'soft',
+        note.midi,
+        time,
+        duration,
+        this.samples,
+      ),
+    );
+  }
+  setMelody(settings: MelodySettings) {
+    this.melodyEnabled = settings.enabled;
+    this.melodyVolume = settings.volume;
+    this.melodyBus?.gain.setTargetAtTime(
+      settings.volume,
+      Tone.immediate(),
+      0.015,
+    );
+  }
+  startLive(
+    event: ChordEvent,
+    tempo: number,
+    settings: MelodySettings,
+    record: boolean,
+    capacity: number,
+  ) {
+    this.stop();
+    this.liveActive = true;
+    this.setMelody(settings);
+    this.live.start(event, tempo, settings, record, capacity);
+    this.tick();
+  }
+  changeLive(
+    event: ChordEvent,
+    timing: MelodySettings['timing'],
+    record: boolean,
+  ) {
+    if (this.liveActive) {
+      this.live.change(event, timing, record);
+      this.tick();
+    }
+  }
   private cancel() {
     this.auditioning = undefined;
     const now = Tone.immediate();
@@ -169,7 +240,8 @@ export class AudioEngine {
   }
   private tick() {
     const now = Tone.immediate();
-    this.scheduler.tick();
+    if (this.liveActive) this.live.tick();
+    else this.scheduler.tick();
     this.voices = this.voices.filter((voice) => {
       if (voice.end <= now) {
         voice.dispose();
@@ -216,23 +288,29 @@ export class AudioEngine {
     cycle = 0,
     peek?: (index: number) => ChordEvent[],
   ) {
+    if (this.liveActive) this.stop();
     this.scheduler.play(events, tempo, loop, source, 0, cycle, peek);
     this.tick();
   }
   pause() {
-    this.scheduler.pause();
+    if (this.liveActive) this.live.pause();
+    else this.scheduler.pause();
     this.cancel();
     this.tick();
   }
   resume() {
-    this.scheduler.resume();
+    if (this.liveActive) this.live.resume();
+    else this.scheduler.resume();
     this.tick();
   }
   configure(tempo: number, loop: boolean) {
-    this.scheduler.configure(tempo, loop);
+    if (this.liveActive) this.live.configure(tempo);
+    else this.scheduler.configure(tempo, loop);
   }
   stop() {
     this.scheduler.stop();
+    if (this.liveActive) this.live.stop();
+    this.liveActive = false;
     this.tick();
   }
   dispose() {
@@ -241,6 +319,8 @@ export class AudioEngine {
     this.abort.abort();
     clearInterval(this.interval);
     this.scheduler.stop();
+    if (this.liveActive) this.live.stop();
+    this.liveActive = false;
     this.voices.forEach((v) => {
       v.dispose();
     });
@@ -249,6 +329,8 @@ export class AudioEngine {
       Tone.getContext().off('statechange', this.contextChanged);
       document.removeEventListener('visibilitychange', this.visibilityChanged);
     }
+    this.chordBus?.disconnect();
+    this.melodyBus?.disconnect();
     this.bus?.disconnect();
     this.highpass?.disconnect();
     this.samples.clear();

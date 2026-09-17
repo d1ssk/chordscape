@@ -333,13 +333,19 @@ export class PreparedProgressions {
   constructor(
     readonly options: GenerationOptions,
     readonly startPhrase = 0,
+    private transform: (phrase: GeneratedPhrase) => GeneratedPhrase = (
+      phrase,
+    ) => phrase,
   ) {
     this.prepare(startPhrase);
     this.prepare(startPhrase + 1);
   }
   prepare(index: number) {
     if (!this.active || this.phrases.has(index)) return;
-    this.phrases.set(index, generateProgression(this.options, index));
+    this.phrases.set(
+      index,
+      this.transform(generateProgression(this.options, index)),
+    );
     for (const key of this.phrases.keys())
       if (key < index - 2) this.phrases.delete(key);
   }
