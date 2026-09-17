@@ -1,9 +1,32 @@
 import { type Harmony, tones, pc, inversionOf } from './harmony';
-export type VoicingPolicy = 'root' | 'smooth';
+export type VoicingPolicy = 'manual' | 'root' | 'smooth';
 export interface VoicingInput {
   chord: Harmony;
   bass: number | null;
   policy: VoicingPolicy;
+  notes?: number[];
+}
+export const EDITED_RANGE = { low: 36, high: 96 };
+export function canShiftOctave(notes: number[], octaves: number) {
+  return notes.every(
+    (n) =>
+      n + octaves * 12 >= EDITED_RANGE.low &&
+      n + octaves * 12 <= EDITED_RANGE.high,
+  );
+}
+export function manualInversion(
+  input: VoicingInput & { notes: number[] },
+  bass: number | null,
+) {
+  const previousRoot = rootVoicing(
+    input.chord,
+    inversionOf(input.chord, input.notes),
+  );
+  const shift = input.notes[0] - previousRoot[0];
+  let notes = rootVoicing(input.chord, bass ?? 0).map((n) => n + shift);
+  while (notes[0] < EDITED_RANGE.low) notes = notes.map((n) => n + 12);
+  while (notes.at(-1)! > EDITED_RANGE.high) notes = notes.map((n) => n - 12);
+  return notes;
 }
 export function rootVoicing(chord: Harmony, inversion = 0) {
   const pitches = tones(chord).map(pc);
@@ -17,7 +40,8 @@ export function rootVoicing(chord: Harmony, inversion = 0) {
   });
 }
 export function candidates(input: VoicingInput): number[][] {
-  if (input.policy === 'root')
+  if (input.policy === 'manual' && input.notes) return [[...input.notes]];
+  if (input.policy !== 'smooth')
     return [rootVoicing(input.chord, input.bass ?? 0)];
   const result: number[][] = [];
   for (let inversion = 0; inversion < tones(input.chord).length; inversion++) {
@@ -69,7 +93,8 @@ export function movementCost(from: number[], to: number[]) {
   );
 }
 export function chooseVoicing(input: VoicingInput, previous?: number[]) {
-  if (!previous || input.policy === 'root')
+  if (input.policy === 'manual' && input.notes) return [...input.notes];
+  if (!previous || input.policy !== 'smooth')
     return rootVoicing(input.chord, input.bass ?? 0);
   return candidates(input).reduce((best, next) =>
     movementCost(previous, next) < movementCost(previous, best) ? next : best,
@@ -82,7 +107,7 @@ export function optimizeVoicings(
 ): number[][] {
   if (!inputs.length) return [];
   const options = inputs.map((input, index) =>
-    index === 0
+    index === 0 && input.policy !== 'manual'
       ? [rootVoicing(input.chord, input.bass ?? 0)]
       : candidates(input),
   );

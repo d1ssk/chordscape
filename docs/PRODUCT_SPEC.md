@@ -29,7 +29,9 @@ Theory、Playground、Earを別アプリにしない。同じ和音・進行・�
 
 ## 2. 画面と操作原則
 
-### メイン画面：Playground
+### メイン画面：ホーム（Playground）
+
+全ページの左上にChordscapeと既存ロゴを表示し、ホーム以外はその横に現在のページ名を表示。下部ナビゲーションの演奏画面の名称は「ホーム」。PCの最大幅を共通にする。演奏画面は進行編集を主旨とし、「選択イベントの編集」は折りたたまず常時表示する。
 
 上部にKey / mode、BPM、Play / Pause / Stop、Record、Loop、音量。コード選択・試聴・再生の最初のユーザー操作で音声を開始し、音源の準備後にその操作を実行する。独立した「音声を開始」は任意の事前準備とし、操作の前提にしない。詳細操作を開いてもStopは常に到達可能にする。準備待ちの操作は停止・編集・画面移動・非表示で取り消す。
 
@@ -45,9 +47,13 @@ Theory、Playground、Earを別アプリにしない。同じ和音・進行・�
 
 発音は直前の配置と上位の次候補を考慮するautomatic voice leadingを使う。調変更では発音・待機を止め、探索文脈を消し、styleのみ保持。探索履歴は保存せず、演奏画面のsessionは変更しない。edge・trail・minor key・tritone substitution専用UI等は対象外。構造・推薦規則・検証範囲は [HARMONIC_SPACE.md](HARMONIC_SPACE.md) を参照。
 
+### 生成ページ
+
+「生成」にコード生成と旋律生成をまとめる。入力済みまたは生成済みの進行がある場合だけ旋律生成を有効にし、進行がない場合は入力・コード生成への案内を表示する。既存のLive演奏とTimeline演奏は維持。旧 `#melody` は生成ページとして開く。
+
 ### 初回体験
 
-C major、triads、90 BPM、root position、melody off、speech off、Record onをデフォルトとする。Cを押すだけで音声の準備と発音を行い、C / I / C–E–Gが表示され、timelineへ追加される。説明を読まずに遊べること。
+C major、triads、90 BPM、手動（最初は基本形、編集後の配置を保持）、melody off、speech off、Record onをデフォルトとする。Cを押すだけで音声の準備と発音を行い、C / I / C–E–Gが表示され、timelineへ追加される。説明を読まずに遊べること。
 
 ### 演奏・記録・編集の区別
 
@@ -143,7 +149,7 @@ C3–E3–G3はroot、E3–G3–C4は第1転回、G2–C3–E3は第2転回。C3
 - timelineにはC / C/E / C/G等、実際の響きに対応するsymbolを表示する。
 - Romanの転回数字は別の表記層：triadの6、6/4、seventhの7、6/5、4/3、4/2。secondary dominantのslashとbass slashを混同しない。
 - 鍵盤は実音MIDIを点灯し、bassを強調。根音とbassを別ラベルで表示。
-- voicing modeはRoot position / SmoothをP1で実装。Keep common tones / Bass motion / open配置は後から追加。
+- voicing modeは手動（配置を保持） / Root position / Smooth。新規sessionは手動を初期値とし、保存済み設定は保持する。全転回形で和音全体の±1 octave移動を提供し、MIDI 36〜96で保存・再生・鍵盤表示を一致させる。転回編集は現在の音域を引き継ぎ、他イベントの配置は変えない。Keep common tones / Bass motion / open配置は後から追加。
 - 手動bass指定はautoより優先する。autoを有効にしても固定したイベントを勝手に変更しない。
 
 ### 最低音の定義

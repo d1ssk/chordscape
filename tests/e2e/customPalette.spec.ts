@@ -118,7 +118,7 @@ test('custom palette stays usable when browser storage is blocked', async ({
     .click();
   await page
     .getByRole('navigation')
-    .getByRole('button', { name: '演奏', exact: true })
+    .getByRole('button', { name: 'ホーム', exact: true })
     .click();
   await outside.locator('summary').click();
   await expect(outside.getByRole('button', { name: /^CM9 / })).toHaveCount(1);

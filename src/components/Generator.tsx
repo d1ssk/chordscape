@@ -41,6 +41,7 @@ export function Generator({
   }
   return (
     <section className="generator-panel">
+      <h2>{t.chordGeneration}</h2>
       <p className="muted">{t.generateHint}</p>
       {!stopped && (
         <p role="status" className="notice">
@@ -159,6 +160,7 @@ export function Generator({
               onSettings({ policy: e.target.value as Settings['policy'] })
             }
           >
+            <option value="manual">{t.manualMode}</option>
             <option value="root">{t.rootMode}</option>
             <option value="smooth">{t.smooth}</option>
           </select>

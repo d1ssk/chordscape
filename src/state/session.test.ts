@@ -15,7 +15,13 @@ import {
   outside,
   MAJOR_KEYS,
   MINOR_KEYS,
+  QUALITIES,
+  parsePitch,
+  tones,
+  pc,
+  type Quality,
 } from '../music/harmony';
+import { rootVoicing, EDITED_RANGE } from '../music/voicing';
 function example() {
   const s = newSession();
   return editSession(s, {
@@ -131,4 +137,69 @@ it('duration-only edits keep a saved open voicing exactly', () => {
     patch: { duration: 2 },
   });
   expect(changed.events[0].notes).toEqual([48, 55, 64]);
+});
+
+it('manual is the default and preserves edits through reordering, melody, undo and JSON', () => {
+  let s = example();
+  expect(s.settings.policy).toBe('manual');
+  s = editSession(s, {
+    type: 'append',
+    event: makeEvent(diatonic(s.settings.key)[4], s, 'two'),
+  });
+  const other = s.events[1].notes;
+  s = editSession(s, { type: 'event', id: 'one', patch: { bass: 1 } });
+  s = editSession(s, { type: 'octave', id: 'one', octaves: 1 });
+  expect(s.events[0].notes).toEqual([64, 67, 72]);
+  s = editSession(s, { type: 'event', id: 'one', patch: { bass: 2 } });
+  expect(s.events[0].notes).toEqual([67, 72, 76]);
+  expect(s.events[1].notes).toEqual(other);
+  const edited = s.events.map((e) => e.notes);
+  s = editSession(s, { type: 'policy', policy: 'manual' });
+  s = editSession(s, { type: 'regenerateMelody' });
+  expect(s.events.map((e) => e.notes)).toEqual(edited);
+  expect(importSession(exportSession(s)).events).toEqual(s.events);
+  const history = reducer(
+    { past: [], present: s, future: [] },
+    { type: 'octave', id: 'one', octaves: -1 },
+  );
+  expect(reducer(history, { type: 'undo' }).present).toEqual(s);
+  s = editSession(s, { type: 'move', id: 'one', direction: 1 });
+  expect(s.events.map((e) => e.notes)).toEqual([...edited].reverse());
+  // Automatic policies remain explicit operations; switching back freezes them.
+  s = editSession(s, { type: 'policy', policy: 'smooth' });
+  const smooth = s.events.map((e) => e.notes);
+  s = editSession(s, { type: 'policy', policy: 'manual' });
+  expect(s.events.map((e) => e.notes)).toEqual(smooth);
+});
+
+it('all chord inversions support an octave above and below and validate on reload', () => {
+  for (const root of ['C', 'B'])
+    for (const quality of Object.keys(QUALITIES) as Quality[]) {
+      const chord = { root: parsePitch(root), quality };
+      for (let bass = 0; bass < tones(chord).length; bass++)
+        for (const octaves of [-1, 1] as const) {
+          let s = newSession();
+          s.events = [
+            {
+              ...makeEvent(chord, s, 'one'),
+              bass,
+              notes: rootVoicing(chord, bass),
+            },
+          ];
+          const original = s.events[0].notes;
+          s = editSession(s, { type: 'octave', id: 'one', octaves });
+          expect(s.events[0].notes).toEqual(
+            original.map((n) => n + octaves * 12),
+          );
+          expect(s.events[0].notes[0] % 12).toBe(pc(tones(chord)[bass]));
+          expect(importSession(exportSession(s)).events).toEqual(s.events);
+        }
+    }
+  let s = example();
+  for (let n = 0; n < 8; n++)
+    s = editSession(s, { type: 'octave', id: 'one', octaves: -1 });
+  expect(s.events[0].notes[0]).toBe(EDITED_RANGE.low);
+  const invalid = structuredClone(s);
+  invalid.events[0].notes = invalid.events[0].notes.map((n) => n + 72);
+  expect(() => importSession(exportSession(invalid))).toThrow();
 });

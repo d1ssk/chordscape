@@ -46,3 +46,26 @@ it('history and recommendation coexist on the tonic after I-IV-iv', () => {
     type: 'resolve',
   });
 });
+
+it('can disable automatic voice leading without changing harmonic context or fixed bass', () => {
+  const first = chooseSpaceChord(newSpaceContext(), 'c');
+  expect(first.automaticVoicing).toBe(true);
+  const automatic = chooseSpaceChord(first, 'g');
+  const root = chooseSpaceChord({ ...first, automaticVoicing: false }, 'g');
+  expect(root.current?.notes).toEqual([55, 59, 62]);
+  expect(root.current?.policy).toBe('root');
+  expect(automatic.current?.notes).not.toEqual(root.current?.notes);
+  expect(root.history).toEqual(automatic.history);
+  expect(root.recommendations).toEqual(automatic.recommendations);
+  const slash = chooseSpaceChord(root, 'db-f');
+  expect(slash.current?.notes).toEqual([53, 56, 61]);
+  const changed = changeSpaceKey(changeSpaceStyle(root, 'jazz'), {
+    tonic: parsePitch('D'),
+    mode: 'major',
+  });
+  expect(changed.automaticVoicing).toBe(false);
+  expect(chooseSpaceChord(changed, 'c').current?.notes).toEqual([50, 54, 57]);
+  const resumed = chooseSpaceChord({ ...first, automaticVoicing: true }, 'g');
+  expect(resumed.current?.notes).toEqual(automatic.current?.notes);
+  expect(resumed.current?.policy).toBe('smooth');
+});

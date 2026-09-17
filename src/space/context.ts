@@ -1,5 +1,6 @@
 import { defaultKey, type Key } from '../music/harmony';
 import type { ChordEvent } from '../state/session';
+import { rootVoicing } from '../music/voicing';
 import { spaceNodes } from './layout';
 import {
   getRecommendations,
@@ -11,6 +12,7 @@ import { selectSpaceVoicing } from './voiceLeading';
 export interface SpaceContext {
   key: Key;
   style: SpaceStyle;
+  automaticVoicing: boolean;
   history: string[];
   current: ChordEvent | null;
   recommendations: Recommendation[];
@@ -18,12 +20,20 @@ export interface SpaceContext {
 export function newSpaceContext(
   key: Key = defaultKey,
   style: SpaceStyle = 'free',
+  automaticVoicing = true,
 ): SpaceContext {
-  return { key, style, history: [], current: null, recommendations: [] };
+  return {
+    key,
+    style,
+    automaticVoicing,
+    history: [],
+    current: null,
+    recommendations: [],
+  };
 }
 export function changeSpaceKey(context: SpaceContext, key: Key): SpaceContext {
   if (key.mode !== 'major') throw new Error('Major keys only');
-  return newSpaceContext(key, context.style);
+  return newSpaceContext(key, context.style, context.automaticVoicing);
 }
 export function changeSpaceStyle(
   context: SpaceContext,
@@ -56,12 +66,14 @@ export function chooseSpaceChord(
     input: availableChords.find((n) => n.id === r.chordId)!,
     score: r.score,
   }));
-  const notes = selectSpaceVoicing(context.current?.notes, node, next);
+  const notes = context.automaticVoicing
+    ? selectSpaceVoicing(context.current?.notes, node, next)
+    : rootVoicing(node.chord, node.bass ?? 0);
   const current: ChordEvent = {
     id: `space-${node.id}`,
     chord: node.chord,
     bass: node.bass,
-    policy: 'smooth',
+    policy: context.automaticVoicing ? 'smooth' : 'root',
     key: context.key,
     duration: 1,
     notes,

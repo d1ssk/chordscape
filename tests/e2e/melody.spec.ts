@@ -10,7 +10,10 @@ async function enable(page: Page) {
   ).toBeVisible();
 }
 async function melody(page: Page) {
-  await page.getByRole('button', { name: '旋律', exact: true }).click();
+  await page
+    .getByRole('navigation')
+    .getByRole('button', { name: '生成', exact: true })
+    .click();
 }
 async function saved(page: Page): Promise<Session | null> {
   return page.evaluate(() =>
@@ -40,13 +43,15 @@ test('continuous generation prepares melody with the next phrase and persists th
 }) => {
   await enable(page);
   await page.getByRole('spinbutton', { name: 'BPM', exact: true }).fill('200');
+  await page.getByRole('button', { name: 'C I', exact: true }).click();
+  await stop(page);
   await melody(page);
   await page
     .getByRole('checkbox', { name: '旋律を鳴らす', exact: true })
     .check();
   await page
     .getByRole('navigation')
-    .getByRole('button', { name: '進行生成', exact: true })
+    .getByRole('button', { name: '生成', exact: true })
     .click();
   await page
     .getByRole('combobox', { name: '和音を変える間隔', exact: true })
@@ -141,6 +146,8 @@ test('Next beat Live applies the last pending chord, records applied timing and 
     .selectOption('smooth');
   await page.getByRole('spinbutton', { name: 'BPM', exact: true }).fill('40');
   await enable(page);
+  await page.getByRole('button', { name: 'C I', exact: true }).click();
+  await stop(page);
   await melody(page);
   await page
     .getByRole('checkbox', { name: '旋律を鳴らす', exact: true })
@@ -162,24 +169,27 @@ test('Next beat Live applies the last pending chord, records applied timing and 
   await expect(page.locator('.live-status')).toHaveCount(0);
   await expect(page.getByTestId('chord-symbol')).toHaveText('C');
   await stop(page);
-  await expect.poll(async () => (await saved(page))?.events.length).toBe(2);
+  await expect.poll(async () => (await saved(page))?.events.length).toBe(3);
   const session = await savedSnapshot(page);
-  expect(session.events.map((e) => e.chord.root.letter)).toEqual(['C', 'G']);
-  expect(session.events[1].notes).toEqual(
-    chooseVoicing(session.events[1], session.events[0].notes),
+  const liveEvents = session.events.slice(1);
+  expect(liveEvents.map((e) => e.chord.root.letter)).toEqual(['C', 'G']);
+  expect(liveEvents[1].notes).toEqual(
+    chooseVoicing(liveEvents[1], liveEvents[0].notes),
   );
-  expect(session.events[0].duration).toBeCloseTo(1);
-  expect(session.events[1].live?.appliedBeat).toBe(1);
-  expect(session.events[1].live!.requestedBeat).toBeLessThan(1);
+  expect(liveEvents[0].duration).toBeCloseTo(1);
+  expect(liveEvents[1].live?.appliedBeat).toBe(1);
+  expect(liveEvents[1].live!.requestedBeat).toBeLessThan(1);
   expect(session.events.every((e) => e.melody!.length > 0)).toBe(true);
   await page.getByRole('button', { name: '元に戻す', exact: true }).click();
-  await expect(page.locator('.timeline .event')).toHaveCount(0);
+  await expect(page.locator('.timeline .event')).toHaveCount(1);
 });
 
 test('Immediate Live follows new chord tones, stops both parts, and supports melody off', async ({
   page,
 }) => {
   await enable(page);
+  await page.getByRole('button', { name: 'C I', exact: true }).click();
+  await stop(page);
   await melody(page);
   await page
     .getByRole('checkbox', { name: '旋律を鳴らす', exact: true })
@@ -194,10 +204,11 @@ test('Immediate Live follows new chord tones, stops both parts, and supports mel
   );
   expect([9, 0, 4]).toContain(midi % 12);
   await stop(page);
-  await expect.poll(async () => (await saved(page))?.events.length).toBe(2);
+  await expect.poll(async () => (await saved(page))?.events.length).toBe(3);
   const session = await savedSnapshot(page);
-  expect(session.events[0].duration).toBeLessThan(1);
-  expect(session.events[0].duration).toBeGreaterThan(0);
+  const liveEvents = session.events.slice(1);
+  expect(liveEvents[0].duration).toBeLessThan(1);
+  expect(liveEvents[0].duration).toBeGreaterThan(0);
   await melody(page);
   await page
     .getByRole('checkbox', { name: '旋律を鳴らす', exact: true })

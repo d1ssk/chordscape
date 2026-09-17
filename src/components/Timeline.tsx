@@ -10,6 +10,7 @@ import {
   tones,
 } from '../music/harmony';
 import type { ChordEvent, Edit } from '../state/session';
+import { canShiftOctave } from '../music/voicing';
 export function Timeline({
   events,
   selectedId,
@@ -120,11 +121,14 @@ export function Timeline({
             ` · ${t.liveRequested}: ${(selected.live.requestedBeat + 1).toFixed(3)}`}
         </p>
       )}
+      {!selected && (
+        <fieldset className="editor" disabled>
+          <legend>{t.editing}</legend>
+          <p>{t.selectEvent}</p>
+        </fieldset>
+      )}
       {selected && (
-        <details className="editor-disclosure">
-          <summary>
-            {t.editing}: {voicedSymbol(selected.chord, selected.notes)}
-          </summary>
+        <div className="event-editor">
           <fieldset className="editor">
             <legend>
               {t.editing}: {voicedSymbol(selected.chord, selected.notes)}
@@ -199,14 +203,42 @@ export function Timeline({
                 <option value="auto">{t.auto}</option>
                 {tones(selected.chord).map((p, i) => (
                   <option key={i} value={i}>
-                    {[t.rootPosition, t.first, t.second, t.third, t.fourth][i]}{' '}
+                    {
+                      [
+                        t.rootPosition,
+                        t.first,
+                        t.second,
+                        t.third,
+                        t.fourth,
+                        t.fifth,
+                        t.sixth,
+                      ][i]
+                    }{' '}
                     · {pitchName(p)}
                   </option>
                 ))}
               </select>
             </label>
+            <div className="octave-controls" role="group" aria-label={t.octave}>
+              <button
+                disabled={!canShiftOctave(selected.notes, -1)}
+                onClick={() =>
+                  onEdit({ type: 'octave', id: selected.id, octaves: -1 })
+                }
+              >
+                {t.octaveDown}
+              </button>
+              <button
+                disabled={!canShiftOctave(selected.notes, 1)}
+                onClick={() =>
+                  onEdit({ type: 'octave', id: selected.id, octaves: 1 })
+                }
+              >
+                {t.octaveUp}
+              </button>
+            </div>
           </fieldset>
-        </details>
+        </div>
       )}
       {events.length > 0 && (
         <details className="motion">

@@ -39,6 +39,9 @@ import {
 import {
   chooseVoicing,
   optimizeVoicings,
+  canShiftOctave,
+  manualInversion,
+  EDITED_RANGE,
   type VoicingInput,
   type VoicingPolicy,
 } from '../music/voicing';
@@ -102,7 +105,7 @@ export function newSession(): Session {
       locale: 'ja',
       record: true,
       loop: false,
-      policy: 'root',
+      policy: 'manual',
     },
     events: [],
     keyEvents: [],
@@ -149,6 +152,7 @@ export type Edit =
       patch: Partial<Pick<ChordEvent, 'duration' | 'bass'>>;
     }
   | { type: 'clear' }
+  | { type: 'octave'; id: string; octaves: -1 | 1 }
   | { type: 'policy'; policy: VoicingPolicy }
   | { type: 'transpose'; semitones: number }
   | { type: 'replace'; session: Session };
@@ -267,12 +271,37 @@ export function editSession(session: Session, action: Edit): Session {
       [events[index], events[to]] = [events[to], events[index]];
       break;
     }
+    case 'octave': {
+      const event = events.find((e) => e.id === action.id);
+      if (!event || !canShiftOctave(event.notes, action.octaves))
+        return session;
+      settings = { ...settings, policy: 'manual' };
+      events = events.map((e) => ({
+        ...e,
+        policy: 'manual',
+        notes:
+          e.id === action.id
+            ? e.notes.map((n) => n + action.octaves * 12)
+            : e.notes,
+      }));
+      break;
+    }
     case 'event':
       events = events.map((e) =>
-        e.id === action.id ? { ...e, ...action.patch } : e,
+        e.id === action.id
+          ? {
+              ...e,
+              ...action.patch,
+              ...(Object.hasOwn(action.patch, 'bass')
+                ? { notes: manualInversion(e, action.patch.bass ?? null) }
+                : {}),
+            }
+          : e,
       );
-      if (Object.hasOwn(action.patch, 'bass'))
-        events = revoice(events, settings.loop);
+      if (Object.hasOwn(action.patch, 'bass')) {
+        settings = { ...settings, policy: 'manual' };
+        events = events.map((e) => ({ ...e, policy: 'manual' }));
+      }
       break;
     case 'clear':
       events = [];
@@ -303,8 +332,9 @@ export function editSession(session: Session, action: Edit): Session {
         const key = transposeKey(e.key, action.semitones);
         const chord = transposeHarmony(e.chord, e.key, key, action.semitones);
         let notes = e.notes.map((n) => n + action.semitones);
-        while (notes[0] < 36) notes = notes.map((n) => n + 12);
-        while (notes.at(-1)! > 84) notes = notes.map((n) => n - 12);
+        while (notes[0] < EDITED_RANGE.low) notes = notes.map((n) => n + 12);
+        while (notes.at(-1)! > EDITED_RANGE.high)
+          notes = notes.map((n) => n - 12);
         const modulation = e.modulation
           ? {
               ...e.modulation,
@@ -467,7 +497,7 @@ export function importSession(text: string): Session {
     !numberIn(s.duration, 0.25, 16) ||
     !numberIn(s.volume, 0, 1) ||
     !['ja', 'en'].includes(String(s.locale)) ||
-    !['root', 'smooth'].includes(String(s.policy)) ||
+    !['manual', 'root', 'smooth'].includes(String(s.policy)) ||
     !['seventh', 'record', 'loop'].every((k) => typeof s[k] === 'boolean')
   )
     throw new Error('Invalid settings');
@@ -483,7 +513,7 @@ export function importSession(text: string): Session {
       !isKey(e.key) ||
       !isHarmony(e.chord) ||
       !numberIn(e.duration, Number.MIN_VALUE, 16) ||
-      !['root', 'smooth'].includes(String(e.policy))
+      !['manual', 'root', 'smooth'].includes(String(e.policy))
     )
       throw new Error('Invalid event');
     ids.add(e.id);
@@ -496,7 +526,11 @@ export function importSession(text: string): Session {
     if (
       !Array.isArray(e.notes) ||
       e.notes.length !== pitches.length ||
-      !e.notes.every((n) => numberIn(n, 36, 84) && Number.isInteger(n)) ||
+      !e.notes.every(
+        (n) =>
+          numberIn(n, EDITED_RANGE.low, EDITED_RANGE.high) &&
+          Number.isInteger(n),
+      ) ||
       e.notes.some((n, i) => i > 0 && n <= (e.notes as number[])[i - 1])
     )
       throw new Error('Invalid notes');
@@ -633,7 +667,7 @@ export function importSession(text: string): Session {
       !object(g.options) ||
       !isGeneratorSettings(g.options) ||
       !isKey(g.options.key) ||
-      !['root', 'smooth'].includes(String(g.options.policy)) ||
+      !['manual', 'root', 'smooth'].includes(String(g.options.policy)) ||
       !numberIn(g.phrase, 0, Number.MAX_SAFE_INTEGER) ||
       !Number.isSafeInteger(g.phrase) ||
       !(

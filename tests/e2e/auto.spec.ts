@@ -33,12 +33,15 @@ async function saved(page: Page): Promise<Session> {
   );
 }
 async function jazz(page: Page) {
-  await navigate(page, '進行生成');
+  await navigate(page, '生成');
   await page
     .getByRole('combobox', { name: 'スタイル', exact: true })
     .selectOption('jazz');
   await page.getByRole('slider', { name: /調外和音を使う確率/ }).press('End');
-  await page.getByLabel('Seed', { exact: true }).fill('42');
+  await page
+    .locator('.generator-panel')
+    .getByLabel('Seed', { exact: true })
+    .fill('42');
   await page.getByRole('button', { name: '生成する', exact: true }).click();
   await expect(page.locator('.timeline .event strong')).toHaveText([
     'CM7',
@@ -72,14 +75,13 @@ test('Jazz generates editable, reproducible notes and distinguishes intent from 
   await expect(page.locator('.explanation')).toContainText('Dm7');
   await expect(page.locator('.explanation')).toContainText('解決として解釈');
   await page.locator('.timeline .event').nth(2).click();
-  await page.locator('.editor-disclosure summary').click();
   await page.getByRole('button', { name: '後へ →', exact: true }).click();
   await page.locator('.timeline .event').nth(1).click();
   await expect(page.locator('.explanation')).toContainText('解決は前後関係');
   await expect(page.getByTestId('generation-intent')).toContainText(
     '生成時の意図',
   );
-  await navigate(page, '進行生成');
+  await navigate(page, '生成');
   await page.getByRole('button', { name: '生成する', exact: true }).click();
   await expect
     .poll(async () => (await saved(page)).events)
@@ -135,7 +137,7 @@ test('generated JSON, inversion edits and seed survive export, import and reload
   expect(data.generation?.options.seed).toBe(42);
   expect(data.generation?.modified).toBe(true);
   expect(data.events[1].intent?.appliedTo).toBe(1);
-  await navigate(page, '演奏');
+  await navigate(page, 'ホーム');
   await page.getByRole('button', { name: '全消去', exact: true }).click();
   await navigate(page, '設定');
   await page.getByLabel('セッションJSON').setInputFiles({
@@ -159,8 +161,10 @@ test('generated JSON, inversion edits and seed survive export, import and reload
     'Dm7',
     'G7/F',
   ]);
-  await navigate(page, '進行生成');
-  await expect(page.getByLabel('Seed', { exact: true })).toHaveValue('42');
+  await navigate(page, '生成');
+  await expect(
+    page.locator('.generator-panel').getByLabel('Seed', { exact: true }),
+  ).toHaveValue('42');
   await expect(
     page.getByRole('combobox', { name: 'スタイル', exact: true }),
   ).toHaveValue('jazz');
@@ -196,7 +200,7 @@ test('continuous generation changes only at phrase boundaries and stops on editi
 }) => {
   await enable(page);
   await page.getByLabel('BPM', { exact: true }).fill('200');
-  await navigate(page, '進行生成');
+  await navigate(page, '生成');
   await page
     .getByRole('button', { name: '連続生成を開始', exact: true })
     .click();
@@ -204,11 +208,11 @@ test('continuous generation changes only at phrase boundaries and stops on editi
   const first = await page.locator('.timeline .event strong').allTextContents();
   await page.waitForTimeout(1000);
   await expect(page.locator('.timeline .event strong')).toHaveText(first);
-  await navigate(page, '進行生成');
+  await navigate(page, '生成');
   await expect(
     page.getByRole('button', { name: '生成する', exact: true }),
   ).toBeDisabled();
-  await navigate(page, '演奏');
+  await navigate(page, 'ホーム');
   await expect(page.locator('.continuous-status')).toContainText('フレーズ 2', {
     timeout: 6500,
   });
@@ -222,7 +226,6 @@ test('continuous generation changes only at phrase boundaries and stops on editi
   await expect(page.locator('.continuous-status')).toContainText('フレーズ 2');
   await expect(page.locator('.timeline .event strong')).toHaveText(second);
   await page.locator('.timeline .event').first().click();
-  await page.locator('.editor-disclosure summary').click();
   await page.getByRole('button', { name: '削除', exact: true }).click();
   await expect(page.locator('.continuous-status')).toHaveCount(0);
   await expect(page.locator('.timeline li')).toHaveCount(3);
@@ -238,7 +241,7 @@ test('short phrase fallback and mobile generation scene remain usable', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 320, height: 812 });
-  await navigate(page, '進行生成');
+  await navigate(page, '生成');
   await page
     .getByRole('combobox', { name: '和音を変える間隔', exact: true })
     .selectOption('8');

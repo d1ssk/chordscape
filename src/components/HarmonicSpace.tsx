@@ -63,6 +63,8 @@ export function HarmonicSpace({
   sounding: ChordEvent | null;
 }) {
   const [context, setContext] = useState(newSpaceContext);
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  const [showHistory, setShowHistory] = useState(true);
   const contextRef = useRef(context);
   const nodes = useMemo(() => spaceNodes(context.key), [context.key]);
   const events = useMemo(
@@ -117,7 +119,7 @@ export function HarmonicSpace({
         return {
           other,
           forward: x * dx + y * dy,
-          score: Math.hypot(x, y) + Math.abs(x * dy - y * dx) * 3,
+          score: Math.hypot(x, y) + Math.abs(x * dy - y * dx) * 4,
         };
       })
       .filter(({ forward }) => forward > 0)
@@ -165,17 +167,69 @@ export function HarmonicSpace({
             ))}
           </div>
         </div>
-        <p>{t.spaceHint}</p>
-        <div
-          className="space-suggestion-legend"
-          aria-label={t.spaceSuggestions}
-        >
-          {RECOMMENDATION_TYPES.map((type) => (
-            <span key={type} data-suggestion={type}>
-              <i aria-hidden="true" />
-              {t[typeLabels[type]]}
-            </span>
-          ))}
+        <div className="space-layer-legend" aria-label={t.spaceLayers}>
+          <span className="space-layer-core">{t.spaceCore}</span>
+          <span className="space-layer-near">{t.spaceNear}</span>
+          <span className="space-layer-outer">{t.spaceOuter}</span>
+        </div>
+        <div className="space-display-controls">
+          <div className="space-visibility">
+            <label>
+              <input
+                type="checkbox"
+                checked={showSuggestions}
+                onChange={(e) => setShowSuggestions(e.target.checked)}
+              />
+              {t.spaceShowSuggestions}
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={showHistory}
+                onChange={(e) => setShowHistory(e.target.checked)}
+              />
+              {t.spaceShowHistory}
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={context.automaticVoicing}
+                onChange={(e) =>
+                  update({
+                    ...contextRef.current,
+                    automaticVoicing: e.target.checked,
+                  })
+                }
+              />
+              {t.spaceAutomaticVoicing}
+            </label>
+          </div>
+          <div
+            className="space-suggestion-legend"
+            aria-label={t.spaceSuggestions}
+          >
+            {RECOMMENDATION_TYPES.map((type) => (
+              <span key={type} data-suggestion={type}>
+                <i aria-hidden="true" />
+                {t[typeLabels[type]]}
+              </span>
+            ))}
+          </div>
+          <button
+            className="space-reset"
+            onClick={() => {
+              onResetAudio();
+              update(
+                newSpaceContext(
+                  contextRef.current.key,
+                  contextRef.current.style,
+                  contextRef.current.automaticVoicing,
+                ),
+              );
+            }}
+          >
+            {t.spaceReset}
+          </button>
         </div>
       </div>
       <p className="sr-only" id="space-instructions">
@@ -195,11 +249,13 @@ export function HarmonicSpace({
             const event = events.get(node.id)!;
             const name = symbol(event);
             const age = historyAge(context.history, node.id);
-            const recommendation = recommendations.get(node.id);
+            const recommendation = showSuggestions
+              ? recommendations.get(node.id)
+              : undefined;
             const description = [
               age === 0
                 ? t.spaceCurrent
-                : age !== undefined
+                : showHistory && age !== undefined
                   ? `${age} ${t.spaceStepsAgo}`
                   : '',
               recommendation
@@ -219,7 +275,7 @@ export function HarmonicSpace({
                 className={`space-node space-node-${node.layer}${node.satelliteOf ? ' space-satellite' : ''}`}
                 data-node-id={node.id}
                 data-region={node.region}
-                data-history={age}
+                data-history={showHistory ? age : undefined}
                 data-suggestion={recommendation?.type}
                 data-score={recommendation?.score}
                 data-sounding={sounding?.id === event.id || undefined}

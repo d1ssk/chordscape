@@ -88,7 +88,7 @@ test('prepares an actual 20-minute named WAV, plays, seeks, pauses, stops and do
 
   await page
     .getByRole('navigation')
-    .getByRole('button', { name: '演奏', exact: true })
+    .getByRole('button', { name: 'ホーム', exact: true })
     .click();
   await expect(page.locator('audio')).toHaveCount(0);
   expect(errors).toEqual([]);
@@ -220,7 +220,7 @@ test('cancel, missing speech, and leaving preparation never start delayed playba
   await page.getByRole('button', { name: 'セットを作る', exact: true }).click();
   await page
     .getByRole('navigation')
-    .getByRole('button', { name: '演奏', exact: true })
+    .getByRole('button', { name: 'ホーム', exact: true })
     .click();
   await expect(page.locator('audio')).toHaveCount(0);
   await page.waitForTimeout(700);

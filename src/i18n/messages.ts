@@ -1,4 +1,18 @@
 const ja = {
+  manualMode: '手動（配置を保持）',
+  octave: 'オクターブ',
+  octaveDown: '−1 oct',
+  octaveUp: '+1 oct',
+  selectEvent: '進行のコードを選択すると編集できます。',
+  chordGeneration: 'コードの生成',
+  melodyGeneration: '旋律の生成',
+  melodyNeedsProgression:
+    '先にホームでコードを入力するか、コードを生成してください。',
+  spaceReset: 'リセット',
+  spaceLayers: 'ボタンの種類',
+  spaceShowSuggestions: '提案',
+  spaceShowHistory: '履歴',
+  spaceAutomaticVoicing: '自動voice leading',
   spaceSelectKey: '和声空間の調',
   spaceKeyOption: '{key} major',
   spaceStyle: '候補のスタイル',
@@ -173,7 +187,7 @@ const ja = {
   keyEvents: '調の切替一覧',
   initialKey: '開始調',
   selectedContext: '記録した調の変更',
-  playScene: '演奏',
+  playScene: 'ホーム',
   settings: '設定',
   navigation: '画面切替',
   tone: '音色',
@@ -193,7 +207,7 @@ const ja = {
   pianoCredit:
     'Piano: Salamander Grand Piano — Alexander Holm / CC BY 3.0。MP3の音声内容は変更せず、一部音域を同梱しています。',
 
-  generateScene: '進行生成',
+  generateScene: '生成',
   generatorSettings: '進行生成の設定',
   generate: '生成する',
   generateHint:
@@ -389,6 +403,20 @@ const ja = {
   exportError: 'JSONを書き出せませんでした。',
 };
 const en: Record<keyof typeof ja, string> = {
+  manualMode: 'Manual (keep voicing)',
+  octave: 'Octave',
+  octaveDown: '−1 oct',
+  octaveUp: '+1 oct',
+  selectEvent: 'Select a chord in the progression to edit it.',
+  chordGeneration: 'Generate chords',
+  melodyGeneration: 'Generate melody',
+  melodyNeedsProgression:
+    'Enter chords on the Home page or generate a progression first.',
+  spaceReset: 'Reset',
+  spaceLayers: 'Node types',
+  spaceShowSuggestions: 'Suggestions',
+  spaceShowHistory: 'History',
+  spaceAutomaticVoicing: 'Automatic voice leading',
   spaceSelectKey: 'Harmonic Space key',
   spaceKeyOption: '{key} major',
   spaceStyle: 'Suggestion style',
@@ -565,7 +593,7 @@ const en: Record<keyof typeof ja, string> = {
   keyEvents: 'Key changes',
   initialKey: 'Starting key',
   selectedContext: 'Recorded context change',
-  playScene: 'Play',
+  playScene: 'Home',
   settings: 'Settings',
   navigation: 'Navigation',
   tone: 'Sound',

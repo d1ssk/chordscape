@@ -52,7 +52,7 @@ test('independent exploration keeps the saved progression, key and settings; sup
   expect(await stored(page)).toBe(before);
   await page
     .getByRole('navigation')
-    .getByRole('button', { name: '演奏', exact: true })
+    .getByRole('button', { name: 'ホーム', exact: true })
     .click();
   await expect(page.locator('.timeline li')).toHaveCount(1);
   await expect(
@@ -212,7 +212,7 @@ test('first click sounds directly and scene changes stop both timeline and explo
   await expect(page.locator('.space-readout strong')).toHaveText('Fm');
   await page
     .getByRole('navigation')
-    .getByRole('button', { name: '演奏', exact: true })
+    .getByRole('button', { name: 'ホーム', exact: true })
     .click();
   await expect.poll(() => level(page)).toBe(0);
   await page.getByRole('button', { name: 'C I', exact: true }).click();
@@ -257,7 +257,7 @@ test('history fill and suggestion halos coexist; style preserves context and key
   await expect(node(page, 'c')).toHaveAttribute('data-suggestion', 'resolve');
   await expect(node(page, 'c')).toHaveCSS(
     'background-color',
-    'rgb(165, 168, 171)',
+    'rgb(223, 225, 226)',
   );
   expect(
     await node(page, 'c').evaluate((n) => getComputedStyle(n).boxShadow),
@@ -335,4 +335,84 @@ test('key change cancels a pending first audition and never restores old context
   } finally {
     release();
   }
+});
+
+test('node legend and independent visibility switches preserve the exploration context', async ({
+  page,
+}, testInfo) => {
+  await page.goto('./#space');
+  const legend = page.locator('.space-layer-legend');
+  await expect(legend).toContainText('ダイアトニック');
+  await expect(legend).toContainText('近い調外和音');
+  await expect(legend).toContainText('さらに外側の色彩');
+  const suggestions = page.getByRole('checkbox', { name: '提案', exact: true });
+  const history = page.getByRole('checkbox', { name: '履歴', exact: true });
+  await expect(suggestions).toBeChecked();
+  await expect(history).toBeChecked();
+  for (const id of ['c', 'f', 'fm']) {
+    await node(page, id).click();
+    await expect(node(page, id)).toHaveAttribute('data-history', '0');
+  }
+  await suggestions.uncheck();
+  await expect(page.locator('.space-node[data-suggestion]')).toHaveCount(0);
+  await expect(page.locator('.space-node[data-history]')).toHaveCount(3);
+  await suggestions.check();
+  await expect(node(page, 'c')).toHaveAttribute('data-suggestion', 'resolve');
+  await history.uncheck();
+  await expect(page.locator('.space-node[data-history]')).toHaveCount(0);
+  await expect(node(page, 'c')).toHaveAttribute('data-suggestion', 'resolve');
+  await expect(node(page, 'fm')).toHaveAttribute('aria-current', 'true');
+  await expect(node(page, 'fm')).not.toHaveCSS(
+    'background-color',
+    'rgb(197, 200, 202)',
+  );
+  await suggestions.uncheck();
+  await node(page, 'g').click();
+  await expect(node(page, 'g')).toHaveAttribute('aria-current', 'true');
+  await expect(page.locator('.space-node[data-history]')).toHaveCount(0);
+  await expect(page.locator('.space-node[data-suggestion]')).toHaveCount(0);
+  await history.check();
+  await suggestions.check();
+  await expect(node(page, 'g')).toHaveAttribute('data-history', '0');
+  await expect(node(page, 'fm')).toHaveAttribute('data-history', '1');
+  await expect(node(page, 'c')).toHaveAttribute('data-suggestion', 'resolve');
+  await expect(page.locator('.space-node[data-suggestion]')).toHaveCount(6);
+  await page.screenshot({
+    path: testInfo.outputPath('harmonic-space-display-options.png'),
+    fullPage: true,
+  });
+});
+
+test('automatic voice leading switches on the next audition and survives reset and key changes', async ({
+  page,
+}) => {
+  await page.goto('./#space');
+  const automatic = page.getByRole('checkbox', {
+    name: '自動voice leading',
+    exact: true,
+  });
+  await expect(automatic).toBeChecked();
+  for (const id of ['c', 'g']) {
+    await node(page, id).click();
+    await expect(node(page, id)).toHaveAttribute('data-history', '0');
+  }
+  const sounding = await page.locator('.space-readout').textContent();
+  expect(sounding).not.toContain('G3 · B3 · D4');
+  await automatic.uncheck();
+  await expect(page.locator('.space-readout')).toHaveText(sounding!);
+  await expect(node(page, 'g')).toHaveAttribute('data-history', '0');
+  await node(page, 'g').click();
+  await expect(page.locator('.space-readout')).toContainText('G3 · B3 · D4');
+  await node(page, 'db-f').click();
+  await expect(page.locator('.space-readout')).toContainText('最低音: F3');
+  await page.getByRole('button', { name: 'リセット', exact: true }).click();
+  await expect(automatic).not.toBeChecked();
+  await page.getByRole('combobox', { name: '和声空間の調' }).selectOption('D');
+  await expect(automatic).not.toBeChecked();
+  await page.getByRole('combobox', { name: '和声空間の調' }).selectOption('C');
+  await node(page, 'c').click();
+  await expect(node(page, 'c')).toHaveAttribute('data-history', '0');
+  await automatic.check();
+  await node(page, 'g').click();
+  await expect(page.locator('.space-readout')).toHaveText(sounding!);
 });

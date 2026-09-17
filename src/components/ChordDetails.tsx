@@ -18,6 +18,7 @@ import {
 import type { ChordEvent } from '../state/session';
 import type { Messages } from '../i18n/messages';
 import { Keyboard } from './Keyboard';
+import { canShiftOctave } from '../music/voicing';
 export function ChordDetails({
   event,
   previous,
@@ -27,6 +28,7 @@ export function ChordDetails({
   melodyNote,
   t,
   onBass,
+  onOctave,
   disabled,
 }: {
   event: ChordEvent;
@@ -37,6 +39,7 @@ export function ChordDetails({
   melodyNote?: MelodyNote | null;
   t: Messages;
   onBass: (bass: number | null) => void;
+  onOctave: (octaves: -1 | 1) => void;
   disabled: boolean;
 }) {
   const analysis = analyze(event.chord, event.key);
@@ -128,6 +131,20 @@ export function ChordDetails({
             ))}
           </select>
         </label>
+        <div className="octave-controls" role="group" aria-label={t.octave}>
+          <button
+            disabled={disabled || !canShiftOctave(event.notes, -1)}
+            onClick={() => onOctave(-1)}
+          >
+            {t.octaveDown}
+          </button>
+          <button
+            disabled={disabled || !canShiftOctave(event.notes, 1)}
+            onClick={() => onOctave(1)}
+          >
+            {t.octaveUp}
+          </button>
+        </div>
       </div>
       <details className="theory-details">
         <summary>{t.theory}</summary>

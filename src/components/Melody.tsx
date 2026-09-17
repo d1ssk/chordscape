@@ -202,7 +202,10 @@ export function Melody({
   return (
     <div className="melody-scene">
       <section>
-        <div className="controls melody-form">
+        <h2>{t.melodyGeneration}</h2>
+        {!events.length && <p className="notice">{t.melodyNeedsProgression}</p>}
+        <fieldset disabled={!events.length} className="controls melody-form">
+          <legend className="sr-only">{t.melodyGeneration}</legend>
           <label className="toggle">
             <input
               type="checkbox"
@@ -287,7 +290,7 @@ export function Melody({
             />
             {t.holdMotif}
           </label>
-        </div>
+        </fieldset>
         <p className="muted">
           {t.melodySettingsHint} {t.melodyToggleHint}
         </p>

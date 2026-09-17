@@ -1,20 +1,13 @@
 import { useEffect, useState } from 'react';
 export type Scene =
-  | 'play'
-  | 'library'
-  | 'settings'
-  | 'generate'
-  | 'circle'
-  | 'melody'
-  | 'listen'
-  | 'space';
+  'play' | 'library' | 'settings' | 'generate' | 'circle' | 'listen' | 'space';
 function readScene(): Scene {
-  const hash = window.location.hash.slice(1);
+  const raw = window.location.hash.slice(1);
+  const hash = raw === 'melody' ? 'generate' : raw;
   return hash === 'library' ||
     hash === 'settings' ||
     hash === 'generate' ||
     hash === 'circle' ||
-    hash === 'melody' ||
     hash === 'listen' ||
     hash === 'space'
     ? hash

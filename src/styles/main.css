@@ -1381,9 +1381,6 @@ details > summary:focus-visible {
 .header-actions > button {
   font-size: 0.8rem;
 }
-.scene-space {
-  max-width: 960px;
-}
 .harmonic-space {
   padding: 0;
   overflow: hidden;
@@ -1512,7 +1509,7 @@ details > summary:focus-visible {
     margin-left: auto;
   }
   .space-map {
-    height: clamp(430px, calc(100svh - 230px), 450px);
+    height: clamp(420px, calc(100svh - 248px), 450px);
   }
   .space-node {
     left: var(--space-portrait-x);
@@ -1565,12 +1562,13 @@ details > summary:focus-visible {
 }
 
 .harmonic-space {
-  --history-current: #414548;
-  --history-1: #686c70;
-  --history-2: #a5a8ab;
-  --history-3: #c5c7c9;
-  --history-4: #dedfe0;
-  --history-5: #ececed;
+  /* History fills: current is the latest; 1–5 are progressively older visits. */
+  --history-current: #c5c8ca;
+  --history-1: #d3d5d7;
+  --history-2: #dfe1e2;
+  --history-3: #e8e9ea;
+  --history-4: #eff0f1;
+  --history-5: #f5f5f6;
   --suggestion-resolve: 184 104 15;
   --suggestion-continue: 39 108 196;
   --suggestion-color: 137 76 187;
@@ -1663,12 +1661,6 @@ details > summary:focus-visible {
   background: var(--history-fill);
   color: #222426;
 }
-.space-node[data-history='0'],
-.space-node[data-history='1'],
-.space-node[data-history='0']:hover,
-.space-node[data-history='1']:hover {
-  color: #fff;
-}
 .space-node[aria-current='true'] {
   font-weight: 800;
 }
@@ -1719,5 +1711,143 @@ details > summary:focus-visible {
   .space-suggestion-legend {
     font-size: 0.6rem;
     gap: 10px;
+  }
+}
+
+/* Shared identity stays visible alongside each page title. */
+.header-identity {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  min-width: 0;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.6rem;
+  font-weight: 750;
+  letter-spacing: -0.045em;
+}
+.app-header h1 {
+  font-size: 1rem;
+  letter-spacing: 0;
+  margin: 0;
+}
+.octave-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.inversion-line {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.event-editor {
+  margin-top: 12px;
+}
+.generation-scene > .generator-panel {
+  margin-bottom: 16px;
+}
+.melody-form {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.space-reset {
+  margin-left: auto;
+  min-height: 24px;
+  padding: 2px 7px;
+  font-size: 0.65rem;
+}
+@media (max-width: 700px) {
+  .header-identity {
+    gap: 7px;
+  }
+  .brand {
+    font-size: 1rem;
+  }
+  .brand-mark {
+    margin-left: 4px;
+  }
+  .app-header h1 {
+    font-size: 0.7rem;
+  }
+  .header-actions {
+    gap: 4px;
+  }
+  .header-actions button {
+    padding: 4px 6px;
+    min-height: 28px;
+    font-size: 0.65rem;
+  }
+  .space-reset {
+    min-height: 18px;
+    padding: 0 5px;
+    font-size: 0.6rem;
+  }
+}
+
+.space-layer-legend,
+.space-display-controls,
+.space-visibility,
+.space-visibility label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.space-layer-legend,
+.space-visibility {
+  font-size: 0.65rem;
+}
+.space-layer-legend span {
+  border: 1px solid #9aac9c;
+  border-radius: 5px;
+  padding: 0 5px;
+  white-space: nowrap;
+}
+.space-layer-legend .space-layer-core {
+  border: 2px solid #517860;
+  background: #e3ecdc;
+}
+.space-layer-legend .space-layer-outer {
+  border-style: dashed;
+}
+.space-display-controls {
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.space-visibility label {
+  gap: 3px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.space-visibility input {
+  margin: 0;
+  width: 13px;
+  height: 13px;
+}
+@media (max-width: 700px) {
+  .space-layer-legend,
+  .space-visibility {
+    font-size: 0.6rem;
+  }
+  .space-layer-legend {
+    gap: 5px;
+  }
+  .space-layer-legend span {
+    padding-inline: 3px;
+  }
+  .space-display-controls,
+  .space-visibility,
+  .space-display-controls .space-suggestion-legend {
+    gap: 4px;
+  }
+  .space-visibility input {
+    width: 12px;
+    height: 12px;
   }
 }

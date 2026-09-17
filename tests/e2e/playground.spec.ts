@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import ts from 'typescript';
-async function scene(page: Page, name = '演奏') {
+async function scene(page: Page, name = 'ホーム') {
   await (
     name === '設定' ? page.locator('.app-header') : page.getByRole('navigation')
   )
@@ -53,7 +53,9 @@ test('production assets, audio, stop, keyboard and scene navigation', async ({
   });
   page.on('requestfailed', (r) => errors.push(r.url()));
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Chordscape' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'ホーム', exact: true }),
+  ).toBeVisible();
   await expect(page.getByText(/HARMONY PLAYGROUND|和音に触れて/)).toHaveCount(
     0,
   );
@@ -79,7 +81,9 @@ test('production assets, audio, stop, keyboard and scene navigation', async ({
   ).toBeFocused();
   await expect(page.locator('.palette-panel')).toHaveCount(0);
   await page.goBack();
-  await expect(page.getByRole('heading', { name: 'Chordscape' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'ホーム', exact: true }),
+  ).toBeVisible();
   await expect(page.locator('.timeline li')).toHaveCount(3);
   await scene(page, '設定');
   await page.getByLabel('言語').selectOption('en');
@@ -275,7 +279,6 @@ test('event edits, undo, record off and reload preserve the session', async ({
   await chord(page, 'C I');
   await chord(page, 'G V');
   await stop(page);
-  await expand(page, '.editor-disclosure');
   await page.getByRole('button', { name: '複製', exact: true }).click();
   await expect(page.locator('.timeline li')).toHaveCount(3);
   await page.getByRole('button', { name: '← 前へ', exact: true }).click();
@@ -378,7 +381,6 @@ test('loop, pause/resume, tempo changes and smooth comparison stop cleanly', asy
   await silent(page);
   await page.getByRole('button', { name: '再開', exact: true }).click();
   await sounding(page);
-  await expand(page, '.editor-disclosure');
   await page
     .getByRole('spinbutton', { name: '長さ（拍）', exact: true })
     .fill('2');

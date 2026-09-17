@@ -63,7 +63,7 @@ test('circle compares without editing; keyboard, relative minor, enharmonic spel
   await expect(
     page.getByRole('button', { name: 'F メジャー', exact: true }),
   ).toBeInViewport();
-  await nav(page, '演奏');
+  await nav(page, 'ホーム');
   await expect(page.locator('.timeline .event')).toHaveCount(0);
   await expect(
     page.getByRole('combobox', { name: '調', exact: true }),
@@ -261,7 +261,7 @@ test('direct modulation, destination cadence and seventh comparison are explicit
     .selectOption('7');
   await expect(page.getByTestId('common-chords')).toHaveText('CM7 · Em7 · Am7');
   await page.getByRole('button', { name: 'この調を選ぶ', exact: true }).click();
-  await nav(page, '演奏');
+  await nav(page, 'ホーム');
   await expect(page.locator('.timeline .event strong')).toHaveText([
     'C',
     'C♯7',

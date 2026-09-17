@@ -21,7 +21,11 @@ import {
   type Harmony,
   type Key,
 } from '../music/harmony';
-import { chooseVoicing, type VoicingPolicy } from '../music/voicing';
+import {
+  manualInversion,
+  canShiftOctave,
+  type VoicingPolicy,
+} from '../music/voicing';
 import {
   editSession,
   exportSession,
@@ -68,6 +72,15 @@ export function App() {
   const t = messages[s.locale];
   const { engine, ready, level, playback, sound, observer } = useAudio();
   const { scene, navigate } = useScene();
+  const sceneTitle = {
+    play: t.playScene,
+    library: t.library,
+    generate: t.generateScene,
+    circle: t.circleScene,
+    listen: t.listenScene,
+    space: t.spaceScene,
+    settings: t.settings,
+  }[scene];
   const [listenInitial, setListenInitial] = useState<Harmony | null>(null);
   const [error, setError] = useState<keyof typeof t | null>(null);
   const [storage, setStorage] = useState<'saved' | 'saving' | 'storageError'>(
@@ -149,11 +162,8 @@ export function App() {
     };
   }, [engine]);
   useEffect(() => {
-    document.title =
-      scene === 'play'
-        ? 'Chordscape'
-        : `${scene === 'library' ? t.library : scene === 'generate' ? t.generateScene : scene === 'circle' ? t.circleScene : scene === 'melody' ? t.melodyScene : scene === 'listen' ? t.listenScene : scene === 'space' ? t.spaceTitle : t.settings} · Chordscape`;
-  }, [scene, t]);
+    document.title = `${sceneTitle} · Chordscape`;
+  }, [sceneTitle]);
   useEffect(() => {
     sessionRef.current = session;
   }, [session]);
@@ -389,14 +399,28 @@ export function App() {
       edit(action);
       if (!sound.loading) runAudio(() => engine.current!.audition(changed));
     } else {
-      const input = { ...preview, bass: value };
+      const input = { ...preview, bass: value, policy: 'manual' as const };
       const changed = {
         ...input,
-        notes: chooseVoicing(input, previousRef.current?.notes),
+        notes: manualInversion(preview, value),
       };
       setPreview(changed);
       if (!sound.loading) runAudio(() => engine.current!.audition(changed));
     }
+  }
+  function octave(octaves: -1 | 1) {
+    if (running) return;
+    const current = selected ?? preview;
+    if (!canShiftOctave(current.notes, octaves)) return;
+    const changed = {
+      ...current,
+      policy: 'manual' as const,
+      notes: current.notes.map((n) => n + octaves * 12),
+    };
+    if (selected) edit({ type: 'octave', id: selected.id, octaves });
+    else setPreview(changed);
+    previousRef.current = changed;
+    if (!sound.loading) runAudio(() => engine.current!.audition(changed));
   }
   function play(policy?: VoicingPolicy) {
     runAudio(() => playReady(policy));
@@ -581,28 +605,21 @@ export function App() {
   return (
     <main className={`app scene-${scene}`}>
       <header className="app-header">
-        <h1 id="scene-heading" tabIndex={-1}>
-          {scene === 'play'
-            ? 'Chordscape'
-            : scene === 'library'
-              ? t.library
-              : scene === 'generate'
-                ? t.generateScene
-                : scene === 'circle'
-                  ? t.circleScene
-                  : scene === 'melody'
-                    ? t.melodyScene
-                    : scene === 'listen'
-                      ? t.listenScene
-                      : scene === 'space'
-                        ? t.spaceTitle
-                        : t.settings}
-          {scene === 'play' && (
+        <div className="header-identity">
+          <a className="brand" href="#play">
+            Chordscape
             <span className="brand-mark" aria-hidden="true">
               ◌
             </span>
-          )}
-        </h1>
+          </a>
+          <h1
+            id="scene-heading"
+            className={scene === 'play' ? 'sr-only' : undefined}
+            tabIndex={-1}
+          >
+            {sceneTitle}
+          </h1>
+        </div>
         <div className="header-actions">
           <button
             className="sound-shortcut"
@@ -769,30 +786,30 @@ export function App() {
           )}
         </>
       )}
-      {scene === 'melody' && (
-        <Melody
-          settings={s.melody}
-          events={session.events}
-          t={t}
-          onSettings={melodySettings}
-          onRegenerate={() => {
-            stop();
-            edit({ type: 'regenerateMelody' });
-          }}
-          onMode={melodyMode}
-        />
-      )}
       {scene === 'generate' && (
-        <Generator
-          settings={s}
-          record={session.generation}
-          stopped={playback.status === 'stopped'}
-          canPlay={!sound.loading}
-          onSettings={(patch) => edit({ type: 'settings', patch })}
-          onGenerate={() => generate()}
-          onContinuous={() => runAudio(() => generate(true))}
-          t={t}
-        />
+        <div className="generation-scene">
+          <Generator
+            settings={s}
+            record={session.generation}
+            stopped={playback.status === 'stopped'}
+            canPlay={!sound.loading}
+            onSettings={(patch) => edit({ type: 'settings', patch })}
+            onGenerate={() => generate()}
+            onContinuous={() => runAudio(() => generate(true))}
+            t={t}
+          />
+          <Melody
+            settings={s.melody}
+            events={session.events}
+            t={t}
+            onSettings={melodySettings}
+            onRegenerate={() => {
+              stop();
+              edit({ type: 'regenerateMelody' });
+            }}
+            onMode={melodyMode}
+          />
+        </div>
       )}
       {scene === 'play' && (
         <div className="play-scene">
@@ -867,17 +884,7 @@ export function App() {
           <section className="palette-panel">
             <div className="section-title">
               <h2>{t.palette}</h2>
-              <span>
-                {keyLabel(currentKey, t)}{' '}
-                <button
-                  className="melody-shortcut"
-                  aria-label={t.melodyScene}
-                  onClick={() => navigate('melody')}
-                >
-                  ♪ {t.melodyScene}
-                  {s.melody.enabled ? ' ✓' : ''}
-                </button>
-              </span>
+              <span>{keyLabel(currentKey, t)}</span>
             </div>
             {running && !liveMode && (
               <p className="muted playback-hint">{t.recordHint}</p>
@@ -922,6 +929,7 @@ export function App() {
             melodyNote={s.melody.enabled ? playback.melody : null}
             t={t}
             onBass={bass}
+            onOctave={octave}
             disabled={running}
           />
           {s.melody.enabled && (
@@ -1099,6 +1107,7 @@ export function App() {
                       })
                     }
                   >
+                    <option value="manual">{t.manualMode}</option>
                     <option value="root">{t.rootMode}</option>
                     <option value="smooth">{t.smooth}</option>
                   </select>
@@ -1158,7 +1167,24 @@ export function App() {
               selectedId={selectedId}
               playingId={playback.event?.id}
               onSelect={select}
-              onEdit={edit}
+              onEdit={(action) => {
+                edit(action);
+                if (
+                  !running &&
+                  !sound.loading &&
+                  (action.type === 'octave' ||
+                    (action.type === 'event' &&
+                      Object.hasOwn(action.patch, 'bass')))
+                ) {
+                  const changed = editSession(session, action).events.find(
+                    (e) => e.id === action.id,
+                  );
+                  if (changed) {
+                    previousRef.current = changed;
+                    runAudio(() => engine.current!.audition(changed));
+                  }
+                }
+              }}
               t={t}
             />
           </section>
@@ -1205,6 +1231,7 @@ export function App() {
             melodyNote={s.melody.enabled ? playback.melody : null}
             t={t}
             onBass={bass}
+            onOctave={octave}
             disabled={running}
           />
         </div>
@@ -1305,9 +1332,7 @@ export function App() {
             <button
               key={item}
               aria-current={
-                scene === item ||
-                (scene === 'melody' && item === 'play') ||
-                (scene === 'listen' && item === 'library')
+                scene === item || (scene === 'listen' && item === 'library')
                   ? 'page'
                   : undefined
               }
