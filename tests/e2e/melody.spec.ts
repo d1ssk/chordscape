@@ -120,7 +120,7 @@ test('Timeline saves deterministic melody, regenerates without changing chords, 
     .toEqual(original.events);
   await page.reload();
   await page
-    .getByRole('navigation')
+    .locator('.app-header')
     .getByRole('button', { name: '設定', exact: true })
     .click();
   const download = page.waitForEvent('download');

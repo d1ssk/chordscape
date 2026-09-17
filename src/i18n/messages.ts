@@ -1,4 +1,19 @@
 const ja = {
+  spaceScene: 'コード探索',
+  spaceTitle: 'Harmonic Space',
+  spaceKey: 'C major の和声空間',
+  spaceHint: 'コードを押して、近くの響きを探索。進行には記録されません。',
+  spaceLayers: '中心から外側への層',
+  spaceCore: 'ダイアトニック',
+  spaceNear: '近い調外和音',
+  spaceOuter: 'さらに外側の色彩',
+  spaceNavigation:
+    'スクロールで地図を移動 · Tab / 矢印キーでコードへ · Enter / Spaceで鳴らす',
+  spaceMap: 'コードの空間配置',
+  spaceFlat: '♭ 借用・短調側',
+  spaceSharp: '♯ シャープ・クロマチック側',
+  spaceReady: 'コードを選ぶと、ここに響きと最低音を表示します。',
+
   listenScene: '聞き流し',
   listenBack: 'コード辞典へ',
   listenSetup: '聞き流しの設定',
@@ -361,6 +376,22 @@ const ja = {
   exportError: 'JSONを書き出せませんでした。',
 };
 const en: Record<keyof typeof ja, string> = {
+  spaceScene: 'Explore',
+  spaceTitle: 'Harmonic Space',
+  spaceKey: 'C major harmonic space',
+  spaceHint:
+    'Tap a chord and explore nearby sounds. Nothing is recorded to your progression.',
+  spaceLayers: 'Layers from the center outward',
+  spaceCore: 'Diatonic',
+  spaceNear: 'Near chromatic',
+  spaceOuter: 'Outer colors',
+  spaceNavigation:
+    'Scroll to explore · Tab / arrow keys to move · Enter / Space to play',
+  spaceMap: 'Spatial chord map',
+  spaceFlat: '♭ Borrowed / minor side',
+  spaceSharp: '♯ Sharp / chromatic side',
+  spaceReady: 'Choose a chord to see its notes and bass here.',
+
   listenScene: 'Listen',
   listenBack: 'Back to chord library',
   listenSetup: 'Listening settings',

@@ -1,3 +1,4 @@
+import { HarmonicSpace } from '../components/HarmonicSpace';
 import { Listen } from '../components/Listen';
 import { Melody, PianoRoll } from '../components/Melody';
 import { generateMelody, type MelodySettings } from '../music/melody';
@@ -119,22 +120,39 @@ export function App() {
     const cancelPending = () => {
       audioRequest.current++;
     };
+    let lastHash = window.location.hash;
+    const spaceBoundary = () => {
+      const nextHash = window.location.hash;
+      if (lastHash === '#space' || nextHash === '#space') {
+        // End the old transport before accepting independent space auditions.
+        engine.current?.stop();
+        autoRun.current?.stop();
+        autoRun.current = null;
+        liveBase.current = null;
+        auditioning.current = false;
+        setContinuous(false);
+        setAuditionPlan(null);
+      }
+      lastHash = nextHash;
+    };
     const hidden = () => {
       if (document.hidden) cancelPending();
     };
     window.addEventListener('hashchange', cancelPending);
+    window.addEventListener('hashchange', spaceBoundary);
     document.addEventListener('visibilitychange', hidden);
     return () => {
       cancelPending();
       window.removeEventListener('hashchange', cancelPending);
+      window.removeEventListener('hashchange', spaceBoundary);
       document.removeEventListener('visibilitychange', hidden);
     };
-  }, []);
+  }, [engine]);
   useEffect(() => {
     document.title =
       scene === 'play'
         ? 'Chordscape'
-        : `${scene === 'library' ? t.library : scene === 'generate' ? t.generateScene : scene === 'circle' ? t.circleScene : scene === 'melody' ? t.melodyScene : scene === 'listen' ? t.listenScene : t.settings} · Chordscape`;
+        : `${scene === 'library' ? t.library : scene === 'generate' ? t.generateScene : scene === 'circle' ? t.circleScene : scene === 'melody' ? t.melodyScene : scene === 'listen' ? t.listenScene : scene === 'space' ? t.spaceTitle : t.settings} · Chordscape`;
   }, [scene, t]);
   useEffect(() => {
     sessionRef.current = session;
@@ -576,22 +594,32 @@ export function App() {
                     ? t.melodyScene
                     : scene === 'listen'
                       ? t.listenScene
-                      : t.settings}
+                      : scene === 'space'
+                        ? t.spaceTitle
+                        : t.settings}
           {scene === 'play' && (
             <span className="brand-mark" aria-hidden="true">
               ◌
             </span>
           )}
         </h1>
-        <button
-          className="sound-shortcut"
-          aria-label={`${t.currentTone}: ${t[sound.instrument]}`}
-          onClick={() => navigate('settings')}
-        >
-          {t[sound.instrument]}
-        </button>
+        <div className="header-actions">
+          <button
+            className="sound-shortcut"
+            aria-label={`${t.currentTone}: ${t[sound.instrument]}`}
+            onClick={() => navigate('settings')}
+          >
+            {t[sound.instrument]}
+          </button>
+          <button
+            aria-current={scene === 'settings' ? 'page' : undefined}
+            onClick={() => navigate('settings')}
+          >
+            {t.settings}
+          </button>
+        </div>
       </header>
-      {scene !== 'listen' && (
+      {scene !== 'listen' && scene !== 'space' && (
         <section className="transport" aria-label={t.playScene}>
           <button className="primary" onClick={() => void enable()}>
             {ready ? t.ready : t.enable}
@@ -678,6 +706,38 @@ export function App() {
         <p className="notice" role="status">
           {t.bridgeAudition}
         </p>
+      )}
+      {scene === 'space' && (
+        <>
+          <section className="transport" aria-label={t.spaceScene}>
+            <button className="stop" onClick={stop}>
+              ■ {t.stop}
+            </button>
+            <span role="status">
+              {sound.loading
+                ? t.soundLoading
+                : playback.event
+                  ? t.sounding
+                  : t.idle}
+            </span>
+            <meter
+              aria-label={t.level}
+              min="0"
+              max="1"
+              value={level}
+              data-testid="audio-level"
+            />
+          </section>
+          <HarmonicSpace
+            t={t}
+            sounding={
+              playback.event?.id.startsWith('space-') ? playback.event : null
+            }
+            onChoose={(event) =>
+              runAudio(() => engine.current!.audition(event))
+            }
+          />
+        </>
       )}
       {scene === 'circle' && (
         <>
@@ -1239,7 +1299,7 @@ export function App() {
         </div>
       )}
       <nav className="scene-nav" aria-label={t.navigation}>
-        {(['play', 'generate', 'circle', 'library', 'settings'] as const).map(
+        {(['play', 'generate', 'circle', 'library', 'space'] as const).map(
           (item) => (
             <button
               key={item}
@@ -1260,7 +1320,7 @@ export function App() {
                     ? t.generateScene
                     : item === 'circle'
                       ? t.circleScene
-                      : t.settings}
+                      : t.spaceScene}
             </button>
           ),
         )}

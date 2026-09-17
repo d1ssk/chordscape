@@ -1,0 +1,29 @@
+# Harmonic Space
+
+下部ナビゲーション右端の「コード探索」（`#space`）から開く、演奏・記録とは独立した探索画面。設定はヘッダー右上へ移動。
+
+## 実装範囲
+
+- C major固定。中央の7三和音はEm/G、Am/C/B°、F/Dmの蜂の巣状配置。それぞれの七の和音だけを小さなsatelliteとして配置。
+- near 15個、outer 13個、core 14個の計42ノード。借用・同主短調は左〜左下、sharp系は上〜右側へ展開。色彩和音は同rootの近傍に置く。
+- 座標は編集上の配置であり、距離が厳密な楽理上の尺度を表すものではない。Cmなどの同root変化は中心に近く、layerが同心円の境界を意味するわけではない。
+- 各ノードで既存音源を直接試聴。音色・音量は共有するが、演奏画面の調・Record・Smooth・旋律設定は探索イベントへ適用しない。D♭/Fだけは明示した第1転回、それ以外は基本位置。発音中の音名・実際の最低音は同一イベントから表示する。
+- 演奏進行の追加・編集・保存は行わない。探索画面への移動・離脱で旧再生を停止し、読み込み中のクリックは停止・画面移動・非表示で取り消す。
+- Tab、方向キー、Enter/Space、フォーカス表示に対応。スクロールで地図を移動でき、画面が狭くてもノードの文字・操作サイズを維持する。
+- coreは太枠、大きい三和音と小さい七の和音、nearは実線、outerは破線で識別。edge・connection line・選択後の発光は表示しない。
+
+## 構造
+
+`src/space/layout.ts` が安定ID、Harmony、bass制約、layer、region、anchor、satelliteOf、座標を保持。anchorは配置関係を示し、進行推薦を意味しない。`spaceEvent` は固定の試聴イベントを生成し、前後のコードに依存しない。
+
+`src/components/HarmonicSpace.tsx` はデータを描画し、クリックを既存のaudio開始・試聴経路へ渡す。探索のローカル表示を演奏画面のpreviewや保存済みsessionに書き込まない。
+
+## 今回の対象外
+
+調切替・移調、進行推薦、解決候補・発光、style切替、substitution表示、automatic voice leading。未実装の操作ボタンは設置しない。
+
+## 検証
+
+`src/space/layout.test.ts` は42和音、7satellite、音名の綴り、七の和音の区別、D♭/Fの実際のbassを検証。`tests/e2e/space.spec.ts` はdesktop/mobileで直接発音、停止、移動時の取消、演奏進行・調・設定の保持、キーボード操作、ノードの重なりとページoverflowを検証する。
+
+実機Safari/iOSと人による聴感確認は別途必要。

@@ -2,8 +2,9 @@ import { test, expect, type Page } from '@playwright/test';
 import type { Session } from '../../src/state/session';
 
 async function navigate(page: Page, name: string) {
-  await page
-    .getByRole('navigation')
+  await (
+    name === '設定' ? page.locator('.app-header') : page.getByRole('navigation')
+  )
     .getByRole('button', { name, exact: true })
     .click();
 }

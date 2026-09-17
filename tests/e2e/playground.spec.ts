@@ -2,8 +2,9 @@ import { test, expect, type Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import ts from 'typescript';
 async function scene(page: Page, name = '演奏') {
-  await page
-    .getByRole('navigation')
+  await (
+    name === '設定' ? page.locator('.app-header') : page.getByRole('navigation')
+  )
     .getByRole('button', { name, exact: true })
     .click();
 }

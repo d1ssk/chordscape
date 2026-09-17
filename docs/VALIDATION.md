@@ -222,3 +222,12 @@ P3を `npm run check` で再検証し、`ac4620f` にコミットしてから着
 
 - 音源の読み込み表示を独立した通知パネルから再生操作欄の既存ステータスへ移動。長い表示は一行で省略し、下のパネルを押し下げません。
 - 読み込みを意図的に遅延させ、320 / 390 / 1280pxで調パネル・ダイアトニックパネルの上端位置が表示前と読み込み中で一致することをブラウザで確認。型検査・buildと、コミット前の `npm run check`（78 unit testsを含む）が成功しました。
+
+## Harmonic Space（2026-09-17）
+
+- 設定をヘッダー右上へ移動し、下部右端に独立した「コード探索」を追加。C majorのcore 14、near 15、outer 13、計42ノードを配置。今回の範囲と構造は `docs/HARMONIC_SPACE.md` に記載。
+- `npm run check`: strict型検査、ESLint、Prettier、80 unit tests、production build。
+- Playwright Chromium: 既存機能を含む50シナリオ × desktop/mobile = 100 testsが成功。設定への操作経路の変更を既存テストへ反映。
+- `/chordscape-smoke/` で探索専用6シナリオ × desktop/mobile = 12 testsが成功。初回クリックの実際の音声出力、停止、画面移動・戻るによる読込待ちの取消、演奏進行・設定・調が不変であることを確認。
+- 全ノード間の重なりなし、Tab/方向キー/Enter/Spaceによる操作、端のノードへのスクロール、320pxのページoverflowなしを検査。desktopの全体配置とmobileの画面画像も目視確認。
+- 進行推薦、候補の発光、style切替、調切替、automatic voice leadingは未実装。人による聴感評価・実機Safari/iOS検証・公開は実施していない。
