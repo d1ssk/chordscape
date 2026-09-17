@@ -1,9 +1,13 @@
+import {
+  makeExpressiveMotif,
+  generateExpressiveMelody,
+} from './melodyExpressive';
 import { pc, pitchName, parsePitch, scale, tones, type Pitch } from './harmony';
 import { seededRandom } from './generation';
 import type { ChordEvent } from '../state/session';
 
 export interface MelodySettings {
-  version: 1;
+  version: 1 | 2;
   enabled: boolean;
   density: number;
   min: number;
@@ -24,7 +28,7 @@ export interface MelodyNote {
   ornament: 'passing' | 'approach' | null;
 }
 export const defaultMelody = (): MelodySettings => ({
-  version: 1,
+  version: 2,
   enabled: false,
   density: 0.55,
   min: 60,
@@ -40,7 +44,7 @@ export function isMelodySettings(value: unknown): value is MelodySettings {
   if (!value || typeof value !== 'object') return false;
   const s = value as Record<string, unknown>;
   return (
-    s.version === 1 &&
+    (s.version === 1 || s.version === 2) &&
     typeof s.enabled === 'boolean' &&
     typeof s.holdMotif === 'boolean' &&
     ['density', 'activity', 'volume'].every(
@@ -99,7 +103,7 @@ export interface MotifStep {
   contour: number;
   rest: boolean;
 }
-export function makeMotif(settings: MelodySettings): MotifStep[] {
+function makeLegacyMotif(settings: MelodySettings): MotifStep[] {
   const random = seededRandom(settings.motifSeed);
   const step = settings.density < 0.34 ? 2 : settings.density < 0.7 ? 1 : 0.5;
   const length = random() < 0.5 ? 4 : 8;
@@ -174,14 +178,14 @@ export function analyzeMelody(
     melody: (event.melody ?? []).map(() => flat[cursor++].note),
   }));
 }
-export function generateMelody(
+function generateLegacyMelody(
   events: ChordEvent[],
   settings: MelodySettings,
   live = false,
   previousMidi?: number,
 ): ChordEvent[] {
   const random = seededRandom(settings.seed);
-  const motif = makeMotif(settings);
+  const motif = makeLegacyMotif(settings);
   const motifLength = motif.at(-1)!.beat + motif.at(-1)!.duration;
   const step = motif[0].duration;
   let absolute = 0,
@@ -318,4 +322,20 @@ export function captureMelody(
         });
     }
   return result;
+}
+
+export function makeMotif(settings: MelodySettings): MotifStep[] {
+  return settings.version === 1
+    ? makeLegacyMotif(settings)
+    : makeExpressiveMotif(settings);
+}
+export function generateMelody(
+  events: ChordEvent[],
+  settings: MelodySettings,
+  live = false,
+  previousMidi?: number,
+): ChordEvent[] {
+  return settings.version === 1
+    ? generateLegacyMelody(events, settings, live, previousMidi)
+    : generateExpressiveMelody(events, settings, live, previousMidi);
 }

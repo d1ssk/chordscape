@@ -8,7 +8,7 @@ async function scene(page: Page, name = '演奏') {
     .click();
 }
 async function enable(page: Page) {
-  await page.getByRole('button', { name: '音声を開始', exact: true }).click();
+  await page.getByRole('button', { name: /^(音声を開始|音声オン)$/ }).click();
   await expect(
     page.getByRole('button', { name: '音声オン', exact: true }),
   ).toBeVisible();
@@ -438,8 +438,7 @@ test('suspension resumes at the held beat; paused clear discards the snapshot', 
   ).toBeVisible();
   await expect(
     page.getByRole('button', { name: '再開', exact: true }),
-  ).toBeDisabled();
-  await enable(page);
+  ).toBeEnabled();
   await page.getByRole('button', { name: '再開', exact: true }).click();
   await sounding(page);
   await page.getByRole('button', { name: '一時停止', exact: true }).click();

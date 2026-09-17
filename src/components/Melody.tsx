@@ -292,7 +292,8 @@ export function Melody({
           {t.melodySettingsHint} {t.melodyToggleHint}
         </p>
         <p className="muted">
-          {t.motifHint} · {t.motifSeed}: {settings.motifSeed}
+          {settings.version === 1 ? t.legacyMelodyHint : t.motifHint} ·{' '}
+          {t.motifSeed}: {settings.motifSeed}
         </p>
         <button disabled={!events.length} onClick={onRegenerate}>
           {t.regenerateMelody}

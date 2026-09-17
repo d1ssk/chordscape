@@ -64,7 +64,9 @@ it('schedules and pauses both parts against the same clock and resumes partial m
   expect(scheduler.state.melody).toBeNull();
   time = 2;
   scheduler.resume();
-  expect(scheduled[1].duration).toBeCloseTo(0.6);
+  expect(scheduled[1].duration).toBeCloseTo(
+    events[0].melody![0].duration - 0.4,
+  );
   scheduler.stop();
   time = 10;
   scheduler.tick();

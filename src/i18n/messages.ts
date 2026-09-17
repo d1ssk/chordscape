@@ -69,7 +69,9 @@ const ja = {
   melodySettingsHint:
     '密度・音域・動き・Seedの変更時は演奏を停止します。音域は最低1オクターブ。伴奏より上を優先しますが、指定音域によっては重なります。旋律の音色はSoft synthです。',
   motifHint:
-    '4拍または8拍のリズムと輪郭を反復します。保持オンなら再生成してもモチーフを保ち、音の選び方を変えます。',
+    '長短のリズムと上昇・下降を組み合わせた8拍のモチーフです。保持オンなら再生成してもモチーフを保ち、音の選び方を変えます。',
+  legacyMelodyHint:
+    '保存済みの旋律はそのまま演奏します。「旋律を再生成」または密度・動き・音域・Seedの変更で、新しい生成方式を使えます。',
   liveTiming: '和音の切替',
   immediate: 'すぐに切替',
   nextBeat: '次の拍で切替',
@@ -256,7 +258,7 @@ const ja = {
     '追加した和音を保存できません。この画面では使えますが、リロード後は復元できない場合があります。',
   outsideHint: '借用や一時的な導音など、響きの可能性を探索できます。',
   timeline: '進行',
-  empty: 'まだ進行がありません。音声を開始して、和音を押してみましょう。',
+  empty: 'まだ進行がありません。和音を押すと音が鳴り、進行に追加されます。',
   play: '再生',
   pause: '一時停止',
   resume: '再開',
@@ -317,7 +319,7 @@ const ja = {
   quality: '種類',
   audition: '試聴',
   libraryButtonsHint:
-    'コードを押すと選択・試聴できます。試聴は「音声を開始」した後に使えます。',
+    'コードを押すと選択・試聴できます。初回は音源の準備後に鳴ります。',
   add: '進行へ追加',
   occurs: '現れる調の例',
   context: '分析の文脈',
@@ -429,7 +431,9 @@ const en: Record<keyof typeof ja, string> = {
   melodySettingsHint:
     'Changing density, range, activity or seed stops playback. Use at least one octave. Melody prefers a register above accompaniment, but the chosen range can overlap it. Melody uses Soft synth.',
   motifHint:
-    'Repeats a four- or eight-beat rhythm and contour. Keep motif preserves that pattern during regeneration while varying the chosen notes.',
+    'An eight-beat motif mixes long and short values with rising and falling contours. Keep motif preserves the pattern during regeneration while varying the chosen notes.',
+  legacyMelodyHint:
+    'Saved notes remain unchanged. Regenerate melody or change density, activity, range or seed to use the improved generator.',
   liveTiming: 'Chord switching',
   immediate: 'Immediate',
   nextBeat: 'Next beat',
@@ -618,7 +622,7 @@ const en: Record<keyof typeof ja, string> = {
     'Could not save your palette. You can still use it now, but it may not be restored after reloading.',
   outsideHint: 'Explore borrowed colors and temporary leading tones.',
   timeline: 'Progression',
-  empty: 'Your progression starts here. Enable audio and choose a chord.',
+  empty: 'Press a chord to hear it and add it to your progression.',
   play: 'Play',
   pause: 'Pause',
   resume: 'Resume',
@@ -680,7 +684,7 @@ const en: Record<keyof typeof ja, string> = {
   quality: 'Quality',
   audition: 'Audition',
   libraryButtonsHint:
-    'Press a chord to select and hear it. Enable audio first to listen.',
+    'Press a chord to select and hear it. On the first press, playback starts when the sound is ready.',
   add: 'Add to progression',
   occurs: 'Example key contexts',
   context: 'Analysis context',

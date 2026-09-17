@@ -187,7 +187,7 @@ it('clips live recording at actual offsets without drawing a different melody', 
   const captured = captureMelody(event.melody!, 8, 0.35, 16);
   expect(captured[0].beat).toBe(0);
   expect(captured[0].midi).toBe(event.melody![0].midi);
-  expect(captured[0].duration).toBeCloseTo(0.65);
+  expect(captured[0].duration).toBeCloseTo(event.melody![0].duration - 0.35);
   expect(captured.at(-1)!.beat + captured.at(-1)!.duration).toBeCloseTo(16);
 });
 it('persists exact notes, transposes pitches, migrates v3 and rejects invalid notes or false labels', () => {
@@ -223,5 +223,97 @@ it('persists exact notes, transposes pitches, migrates v3 and rejects invalid no
     const invalid = structuredClone(session);
     mutate(invalid);
     expect(() => importSession(exportSession(invalid))).toThrow();
+  }
+});
+
+it('adds rhythmic and pitch variety across seeds while keeping wide leaps rare', () => {
+  const measure = (version: 1 | 2, activity = settings.activity) => {
+    let repeats = 0,
+      moves = 0,
+      wide = 0,
+      unique = 0,
+      rhythms = 0,
+      distance = 0;
+    for (let seed = 1; seed <= 32; seed++) {
+      const line = generateMelody(events, {
+        ...settings,
+        version,
+        seed,
+        motifSeed: seed,
+        activity,
+      }).flatMap((e) => e.melody!);
+      unique += new Set(line.flatMap((n) => (n.midi === null ? [] : [n.midi])))
+        .size;
+      rhythms += new Set(line.map((n) => n.duration)).size;
+      for (let i = 1; i < line.length; i++) {
+        if (line[i].midi === null || line[i - 1].midi === null) continue;
+        const leap = Math.abs(line[i].midi! - line[i - 1].midi!);
+        moves++;
+        repeats += Number(leap === 0);
+        wide += Number(leap > 7);
+        distance += leap;
+      }
+    }
+    return {
+      repeats: repeats / moves,
+      wide: wide / moves,
+      unique: unique / 32,
+      rhythms: rhythms / 32,
+      distance: distance / moves,
+    };
+  };
+  const old = measure(1),
+    improved = measure(2);
+  expect(improved.repeats).toBeLessThan(old.repeats * 0.7);
+  expect(improved.unique).toBeGreaterThan(old.unique);
+  expect(improved.rhythms).toBeGreaterThanOrEqual(2);
+  expect(improved.wide).toBeLessThanOrEqual(0.1);
+  expect(measure(2, 1).distance).toBeGreaterThan(measure(2, 0).distance);
+});
+
+it('preserves version-one saved music and upgrades only when regeneration is requested', () => {
+  const oldSettings = { ...settings, version: 1 as const };
+  const old = generateMelody(events, oldSettings);
+  expect(makeMotif(oldSettings).every((step) => step.duration === 1)).toBe(
+    true,
+  );
+  let session = newSession();
+  session.settings.melody = oldSettings;
+  for (const event of old)
+    session = editSession(session, { type: 'append', event });
+  const restored = importSession(exportSession(session));
+  expect(restored.settings.melody.version).toBe(1);
+  expect(restored.events).toEqual(session.events);
+  const changed = editSession(restored, { type: 'regenerateMelody' });
+  expect(changed.settings.melody.version).toBe(2);
+  expect(changed.events.map((e) => e.notes)).toEqual(
+    restored.events.map((e) => e.notes),
+  );
+  expect(changed.events.map((e) => e.melody)).not.toEqual(
+    restored.events.map((e) => e.melody),
+  );
+  expect(importSession(exportSession(changed)).events).toEqual(changed.events);
+});
+
+it('covers fractional motif boundaries without gaps or nonpositive notes', () => {
+  for (const duration of [
+    0.117, 0.463, 1.9999999999, 7.9999999999, 8.0000000001,
+  ]) {
+    const result = generateMelody(
+      Array.from({ length: 8 }, (_, i) => ({
+        ...events[i % events.length],
+        duration,
+      })),
+      settings,
+    );
+    for (const event of result) {
+      let end = 0;
+      for (const note of event.melody!) {
+        expect(note.beat).toBeCloseTo(end, 7);
+        expect(note.duration).toBeGreaterThan(0);
+        end += note.duration;
+      }
+      expect(end).toBeCloseTo(duration, 7);
+    }
   }
 });

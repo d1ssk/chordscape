@@ -147,6 +147,12 @@ section {
   color: #743d2a;
 }
 .transport > span {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
   font-size: 0.75rem;
   margin-left: auto;
 }

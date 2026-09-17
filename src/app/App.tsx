@@ -90,6 +90,8 @@ export function App() {
   const sessionRef = useRef(session);
   const previousRef = useRef<ChordEvent | undefined>(undefined);
   const file = useRef<HTMLInputElement>(null);
+  const pendingAudio = useRef<Promise<boolean> | null>(null);
+  const audioRequest = useRef(0);
   const running = playback.status === 'playing';
   const currentKey =
     playback.status !== 'stopped' ? (playback.key ?? s.key) : s.key;
@@ -108,8 +110,26 @@ export function App() {
       ? (viewEvents[index + 1] ?? (s.loop ? viewEvents[0] : undefined))
       : undefined;
   useEffect(() => {
-    if (ready) void engine.current?.setInstrument(s.instrument);
-  }, [engine, ready, s.instrument]);
+    audioRequest.current++;
+    pendingAudio.current = null;
+    if (engine.current?.unlocked)
+      void engine.current.setInstrument(s.instrument);
+  }, [engine, s.instrument]);
+  useEffect(() => {
+    const cancelPending = () => {
+      audioRequest.current++;
+    };
+    const hidden = () => {
+      if (document.hidden) cancelPending();
+    };
+    window.addEventListener('hashchange', cancelPending);
+    document.addEventListener('visibilitychange', hidden);
+    return () => {
+      cancelPending();
+      window.removeEventListener('hashchange', cancelPending);
+      document.removeEventListener('visibilitychange', hidden);
+    };
+  }, []);
   useEffect(() => {
     document.title =
       scene === 'play'
@@ -209,6 +229,7 @@ export function App() {
     };
   }, [session, loaded]);
   function edit(action: Edit) {
+    audioRequest.current++;
     if (
       (autoRun.current ||
         auditioning.current ||
@@ -220,17 +241,49 @@ export function App() {
     setStorage('saving');
     dispatch(action);
   }
-  async function enable() {
-    try {
-      if (!(await engine.current!.unlock()))
-        throw new Error('Audio unavailable');
-      engine.current!.setVolume(s.volume);
-      setError(null);
-    } catch {
-      setError('error');
+  function enable(): Promise<boolean> {
+    if (pendingAudio.current) return pendingAudio.current;
+    const audio = engine.current!;
+    const instrument = s.instrument;
+    const preparation = (async () => {
+      try {
+        if (!(await audio.unlock())) throw new Error('Audio unavailable');
+        if (instrument !== sessionRef.current.settings.instrument) return false;
+        await audio.setInstrument(instrument);
+        audio.setVolume(sessionRef.current.settings.volume);
+        setError(null);
+        return true;
+      } catch {
+        setError('error');
+        return false;
+      }
+    })();
+    pendingAudio.current = preparation;
+    void preparation.finally(() => {
+      if (pendingAudio.current === preparation) pendingAudio.current = null;
+    });
+    return preparation;
+  }
+  function runAudio(action: () => void) {
+    const request = ++audioRequest.current;
+    const location = window.location.hash;
+    if (engine.current?.unlocked && !sound.loading && !pendingAudio.current) {
+      action();
+      return;
     }
+    void enable().then((ok) => {
+      if (
+        ok &&
+        request === audioRequest.current &&
+        location === window.location.hash &&
+        !document.hidden &&
+        engine.current?.unlocked
+      )
+        action();
+    });
   }
   function stop() {
+    audioRequest.current++;
     auditioning.current = false;
     setAuditionPlan(null);
     const activePhrase =
@@ -249,6 +302,9 @@ export function App() {
     setComparison(null);
   }
   function choose(chord: Harmony, record = s.record) {
+    runAudio(() => chooseReady(chord, record));
+  }
+  function chooseReady(chord: Harmony, record = s.record) {
     if (running && !(liveMode && scene === 'play')) return;
     const event = makeEvent(
       chord,
@@ -295,8 +351,8 @@ export function App() {
   function select(event: ChordEvent) {
     setSelectedId(event.id);
     setPreview(event);
-    if (!running && ready && !sound.loading) {
-      engine.current!.audition(event);
+    if (!running && !sound.loading) {
+      runAudio(() => engine.current!.audition(event));
       previousRef.current = event;
       setComparison(null);
     }
@@ -313,7 +369,7 @@ export function App() {
         (e) => e.id === selected.id,
       )!;
       edit(action);
-      if (ready && !sound.loading) engine.current!.audition(changed);
+      if (!sound.loading) runAudio(() => engine.current!.audition(changed));
     } else {
       const input = { ...preview, bass: value };
       const changed = {
@@ -321,10 +377,13 @@ export function App() {
         notes: chooseVoicing(input, previousRef.current?.notes),
       };
       setPreview(changed);
-      if (ready && !sound.loading) engine.current!.audition(changed);
+      if (!sound.loading) runAudio(() => engine.current!.audition(changed));
     }
   }
   function play(policy?: VoicingPolicy) {
+    runAudio(() => playReady(policy));
+  }
+  function playReady(policy?: VoicingPolicy) {
     if (playback.live && playback.status !== 'stopped') stop();
     setLiveMode(false);
     auditioning.current = false;
@@ -539,7 +598,6 @@ export function App() {
           </button>
           <button
             disabled={
-              !ready ||
               (!session.events.length &&
                 !(playback.live && playback.event && s.record)) ||
               (running && !playback.live) ||
@@ -550,10 +608,10 @@ export function App() {
             {t.play}
           </button>
           <button
-            disabled={!ready || playback.status === 'stopped'}
+            disabled={playback.status === 'stopped'}
             onClick={() =>
               playback.status === 'paused'
-                ? engine.current!.resume()
+                ? runAudio(() => engine.current!.resume())
                 : engine.current!.pause()
             }
           >
@@ -563,14 +621,20 @@ export function App() {
             ■ {t.stop}
           </button>
           <span role="status">
-            {running
-              ? t.playing
-              : playback.status === 'paused'
-                ? t.paused
-                : playback.event
-                  ? t.sounding
-                  : t.idle}{' '}
-            · {t.beat} {(playback.beat + 1).toFixed(1)}
+            {sound.loading ? (
+              t.soundLoading
+            ) : (
+              <>
+                {running
+                  ? t.playing
+                  : playback.status === 'paused'
+                    ? t.paused
+                    : playback.event
+                      ? t.sounding
+                      : t.idle}{' '}
+                · {t.beat} {(playback.beat + 1).toFixed(1)}
+              </>
+            )}
           </span>
           <meter
             aria-label={t.level}
@@ -585,11 +649,6 @@ export function App() {
       {error && (
         <p className="notice" role={error === 'imported' ? 'status' : 'alert'}>
           {t[error]}
-        </p>
-      )}
-      {sound.loading && (
-        <p className="notice" role="status">
-          {t.soundLoading}
         </p>
       )}
       {sound.failed && (
@@ -627,14 +686,16 @@ export function App() {
             events={session.events}
             currentKey={currentKey}
             stopped={playback.status === 'stopped'}
-            canPlay={ready && !sound.loading}
+            canPlay={!sound.loading}
             onSeventh={(seventh) =>
               edit({ type: 'settings', patch: { seventh } })
             }
             onSelectKey={(key) => edit({ type: 'settings', patch: { key } })}
-            onAudition={auditionBridge}
+            onAudition={(events) => runAudio(() => auditionBridge(events))}
             onAppend={appendBridge}
-            onTravel={travel}
+            onTravel={(direction, cadence) =>
+              runAudio(() => travel(direction, cadence))
+            }
             t={t}
           />
           {playback.event && (
@@ -665,10 +726,10 @@ export function App() {
           settings={s}
           record={session.generation}
           stopped={playback.status === 'stopped'}
-          canPlay={ready && !sound.loading}
+          canPlay={!sound.loading}
           onSettings={(patch) => edit({ type: 'settings', patch })}
           onGenerate={() => generate()}
-          onContinuous={() => generate(true)}
+          onContinuous={() => runAudio(() => generate(true))}
           t={t}
         />
       )}
@@ -771,7 +832,7 @@ export function App() {
                 <Palette
                   chords={diatonic(currentKey, seventh)}
                   context={currentKey}
-                  disabled={!ready || (running && !liveMode) || sound.loading}
+                  disabled={(running && !liveMode) || sound.loading}
                   onChoose={choose}
                   selected={chordSymbol(displayed.chord)}
                 />
@@ -786,7 +847,7 @@ export function App() {
               }
               t={t}
               context={currentKey}
-              disabled={!ready || (running && !liveMode) || sound.loading}
+              disabled={(running && !liveMode) || sound.loading}
               onChoose={choose}
               selected={chordSymbol(displayed.chord)}
             />
@@ -982,7 +1043,7 @@ export function App() {
                   </select>
                 </label>
                 <button
-                  disabled={!ready || !session.events.length || sound.loading}
+                  disabled={!session.events.length || sound.loading}
                   onClick={() => play('root')}
                   aria-label={t.compareRoot}
                 >
@@ -992,7 +1053,7 @@ export function App() {
                   </span>
                 </button>
                 <button
-                  disabled={!ready || !session.events.length || sound.loading}
+                  disabled={!session.events.length || sound.loading}
                   onClick={() => play('smooth')}
                   aria-label={t.compareSmooth}
                 >
@@ -1061,15 +1122,17 @@ export function App() {
             }}
             t={t}
             initial={displayed.chord}
-            disabled={!ready || running || sound.loading}
+            disabled={running || sound.loading}
             onInspect={(chord) => {
               setSelectedId(null);
               setPreview(makeEvent(chord, session, 'library-preview'));
             }}
             onAudition={(chord) => choose(chord, false)}
             onAdd={(chord) => {
-              choose(chord, true);
-              navigate('play');
+              runAudio(() => {
+                chooseReady(chord, true);
+                navigate('play');
+              });
             }}
           />
           <ChordDetails

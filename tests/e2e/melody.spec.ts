@@ -4,7 +4,7 @@ import ts from 'typescript';
 import type { Session } from '../../src/state/session';
 import { chooseVoicing } from '../../src/music/voicing';
 async function enable(page: Page) {
-  await page.getByRole('button', { name: '音声を開始', exact: true }).click();
+  await page.getByRole('button', { name: /^(音声を開始|音声オン)$/ }).click();
   await expect(
     page.getByRole('button', { name: '音声オン', exact: true }),
   ).toBeVisible();

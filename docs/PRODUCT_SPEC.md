@@ -31,7 +31,7 @@ Theory、Playground、Earを別アプリにしない。同じ和音・進行・�
 
 ### メイン画面：Playground
 
-上部にKey / mode、BPM、Play / Pause / Stop、Record、Loop、音量。音声開始前は開始操作を明示する。詳細操作を開いてもStopは常に到達可能にする。
+上部にKey / mode、BPM、Play / Pause / Stop、Record、Loop、音量。コード選択・試聴・再生の最初のユーザー操作で音声を開始し、音源の準備後にその操作を実行する。独立した「音声を開始」は任意の事前準備とし、操作の前提にしない。詳細操作を開いてもStopは常に到達可能にする。準備待ちの操作は停止・編集・画面移動・非表示で取り消す。
 
 中央にdiatonic chordパレット。各ボタンにコード名とローマ数字を表示。三和音と七の和音を2行で同時表示し、モバイルでも各行7個の横並びを保つ。詳しい機能表示は選択和音の解説で示す。現在鳴っているものと次に予約されたものは別表示。
 
@@ -41,7 +41,7 @@ Theory、Playground、Earを別アプリにしない。同じ和音・進行・�
 
 ### 初回体験
 
-C major、triads、90 BPM、root position、melody off、speech off、Record onをデフォルトとする。「音声を開始」後にCを押すと鳴り、C / I / C–E–Gが表示され、timelineへ追加される。説明を読まずに遊べること。
+C major、triads、90 BPM、root position、melody off、speech off、Record onをデフォルトとする。Cを押すだけで音声の準備と発音を行い、C / I / C–E–Gが表示され、timelineへ追加される。説明を読まずに遊べること。
 
 ### 演奏・記録・編集の区別
 
@@ -234,6 +234,10 @@ Circle travelはC → G → D → A等を経由する連続モード。各区間
 - 調外和音では元のscaleだけに縛られず、その和音の構成音・変化音を優先。
 - chord tone / scale non-chord tone / chromatic toneを色とラベルで区別。
 - passing toneは前後の音の関係、approachは解決先を確認して付ける。弱拍の非和声音すべてをpassing toneと呼ばない。
+
+新規生成は旋律generator version 2。8拍のモチーフに半拍・1拍・1.5拍・2拍と休符を組み合わせ、前半の輪郭に後半で応答する。等間隔の連続と同音連打を抑え、音域の中心を固定して和音変更ごとに高音側へ偏らないようにする。activityは輪郭の幅と移動量を調整し、大きな跳躍を抑えつつ跳躍後の反対方向を優先する。半音アプローチは短い弱拍の発音だけに適用し、休符を埋めない。
+
+既存version 1の生成器と保存済み音符を保持する。旧sessionを読み込んだだけでは音符を変更せず、「旋律を再生成」または密度・動き・音域・Seed変更でversion 2へ移行する。同じversion・Seed・設定・進行からは同じ音符列を再現する。
 
 ### 2つの動作モード
 

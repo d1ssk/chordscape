@@ -76,6 +76,11 @@ export class AudioEngine {
   private visibilityChanged = () => {
     if (document.hidden) this.pause();
   };
+  get unlocked() {
+    return (
+      !!this.master && !this.disposed && Tone.getContext().state === 'running'
+    );
+  }
   async unlock() {
     await Tone.start();
     if (this.disposed) return false;

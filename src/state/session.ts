@@ -166,7 +166,17 @@ export function editSession(session: Session, action: Edit): Session {
     case 'melody':
       settings = {
         ...settings,
-        melody: { ...settings.melody, ...action.patch },
+        melody: {
+          ...settings.melody,
+          ...action.patch,
+          version: Object.keys(action.patch).some((key) =>
+            ['density', 'min', 'max', 'activity', 'seed', 'motifSeed'].includes(
+              key,
+            ),
+          )
+            ? 2
+            : settings.melody.version,
+        },
       };
       if (action.patch.seed !== undefined && !settings.melody.holdMotif)
         settings.melody.motifSeed = settings.melody.seed;
@@ -184,6 +194,7 @@ export function editSession(session: Session, action: Edit): Session {
         ...settings,
         melody: {
           ...settings.melody,
+          version: 2,
           enabled: true,
           seed,
           motifSeed: settings.melody.holdMotif
