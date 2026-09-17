@@ -676,7 +676,7 @@ details > summary:focus-visible {
   }
   .key-panel .controls {
     display: grid;
-    grid-template-columns: 52px minmax(0, 110px) minmax(0, 94px);
+    grid-template-columns: 52px minmax(0, 110px);
     gap: 4px;
     align-items: center;
   }
@@ -863,19 +863,19 @@ details > summary:focus-visible {
   }
   .library-controls {
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 6px;
     align-items: end;
   }
   .library-controls label {
-    grid-column: span 2;
+    grid-column: auto;
     min-width: 0;
   }
   .library-controls select {
     width: 100%;
   }
   .library-controls button {
-    grid-column: span 3;
+    grid-column: auto;
   }
   .settings-scene .controls {
     gap: 14px;
@@ -1246,4 +1246,54 @@ details > summary:focus-visible {
 }
 .listen-scene.has-set .listen-player {
   order: -1;
+}
+
+.diatonic-row + .diatonic-row {
+  margin-top: 6px;
+}
+.diatonic-row h3 {
+  font-size: 0.7rem;
+  color: #5e7267;
+  font-weight: 500;
+  margin: 0 0 3px;
+}
+.diatonic-row .palette button {
+  min-height: 48px;
+  padding: 5px 1px;
+  gap: 2px;
+}
+.diatonic-row .palette small {
+  display: none;
+}
+.library-chords {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 12px;
+}
+.library-chords button {
+  min-width: 0;
+  min-height: 44px;
+  padding: 6px 3px;
+  overflow-wrap: anywhere;
+  font-weight: 650;
+}
+@media (max-width: 640px) {
+  .diatonic-row h3 {
+    font-size: 0.6rem;
+  }
+  .diatonic-row .palette button {
+    min-height: 44px;
+    padding: 4px 1px;
+  }
+  .library-controls {
+    gap: 6px;
+  }
+  .library-chords {
+    gap: 5px;
+    margin-top: 8px;
+  }
+  .library-chords button {
+    font-size: 0.85rem;
+  }
 }

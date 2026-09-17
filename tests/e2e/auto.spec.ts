@@ -170,15 +170,11 @@ test('extended library keeps ninths distinct, with all five sounding notes and m
 }) => {
   await enable(page);
   await navigate(page, 'コード辞典');
-  await page
-    .getByRole('combobox', { name: '種類', exact: true })
-    .selectOption('add9');
+  await page.getByRole('button', { name: 'Cadd9', exact: true }).click();
   await expect(page.locator('.library-panel')).toContainText('C – E – G – D');
   await page.getByRole('button', { name: '試聴', exact: true }).click();
   await expect(page.locator('[data-active="true"]')).toHaveCount(4);
-  await page
-    .getByRole('combobox', { name: '種類', exact: true })
-    .selectOption('9');
+  await page.getByRole('button', { name: 'C9', exact: true }).click();
   await page.getByRole('button', { name: '試聴', exact: true }).click();
   await expect(page.locator('.library-panel')).toContainText(
     'C – E – G – B♭ – D',
@@ -259,7 +255,7 @@ test('short phrase fallback and mobile generation scene remain usable', async ({
     page.getByRole('status').filter({ hasText: '和音が2つ' }),
   ).toBeVisible();
   await expect(page.locator('.timeline .event strong')).toHaveText(['G', 'C']);
-  await expect(page.locator('.palette-panel > .palette button')).toHaveCount(7);
+  await expect(page.locator('.diatonic-row .palette button')).toHaveCount(14);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,

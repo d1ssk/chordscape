@@ -63,6 +63,7 @@ export function Circle({
   stopped,
   canPlay,
   onSelectKey,
+  onSeventh,
   onAudition,
   onAppend,
   onTravel,
@@ -74,6 +75,7 @@ export function Circle({
   stopped: boolean;
   canPlay: boolean;
   onSelectKey: (key: Key) => void;
+  onSeventh: (seventh: boolean) => void;
   onAudition: (events: ChordEvent[]) => void;
   onAppend: (events: ChordEvent[]) => void;
   onTravel: (direction: 1 | -1, cadence: boolean) => void;
@@ -229,6 +231,17 @@ export function Circle({
                 .join(' · ') || t.none}
             </span>
           </p>
+          <label>
+            {t.chordSize}
+            <select
+              disabled={!stopped}
+              value={settings.seventh ? '7' : '3'}
+              onChange={(e) => onSeventh(e.target.value === '7')}
+            >
+              <option value="3">{t.triads}</option>
+              <option value="7">{t.sevenths}</option>
+            </select>
+          </label>
           <p>
             {t.commonChords} · {settings.seventh ? t.sevenths : t.triads}:{' '}
             <b data-testid="common-chords">

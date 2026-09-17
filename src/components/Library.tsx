@@ -12,9 +12,8 @@ import {
   roman,
   type Harmony,
 } from '../music/harmony';
-import { familyNames, type Locale, type Messages } from '../i18n/messages';
+import { type Messages } from '../i18n/messages';
 export function Library({
-  locale,
   initial,
   onInspect,
   t,
@@ -23,7 +22,6 @@ export function Library({
   onAdd,
   onListen,
 }: {
-  locale: Locale;
   initial: Harmony;
   onInspect: (chord: Harmony) => void;
   t: Messages;
@@ -34,7 +32,6 @@ export function Library({
 }) {
   const [root, setRoot] = useState(pitchName(initial.root));
   const [quality, setQuality] = useState<Harmony['quality']>(initial.quality);
-  const [family, setFamily] = useState('all');
   const chord: Harmony = { root: parsePitch(root), quality };
   const examples: string[] = [];
   for (const mode of ['major', 'minor'] as const)
@@ -65,49 +62,6 @@ export function Library({
             ))}
           </select>
         </label>
-        <label>
-          {t.family}
-          <select
-            value={family}
-            onChange={(e) => {
-              const f = e.target.value;
-              setFamily(f);
-              if (f !== 'all') {
-                const quality = (
-                  Object.keys(QUALITIES) as Harmony['quality'][]
-                ).find((q) => QUALITIES[q].family === f)!;
-                setQuality(quality);
-                onInspect({ root: parsePitch(root), quality });
-              }
-            }}
-          >
-            <option value="all">{t.all}</option>
-            {Object.entries(familyNames[locale]).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          {t.quality}
-          <select
-            value={quality}
-            onChange={(e) => {
-              const quality = e.target.value as Harmony['quality'];
-              setQuality(quality);
-              onInspect({ root: parsePitch(root), quality });
-            }}
-          >
-            {(Object.keys(QUALITIES) as Harmony['quality'][])
-              .filter((q) => family === 'all' || QUALITIES[q].family === family)
-              .map((q) => (
-                <option key={q} value={q}>
-                  {q}
-                </option>
-              ))}
-          </select>
-        </label>
         <button disabled={disabled} onClick={() => onAudition(chord)}>
           {t.audition}
         </button>
@@ -115,6 +69,27 @@ export function Library({
           {t.add}
         </button>
       </div>
+      <div className="library-chords" role="group" aria-label={t.quality}>
+        {(Object.keys(QUALITIES) as Harmony['quality'][]).map((q) => {
+          const candidate: Harmony = { root: parsePitch(root), quality: q };
+          const name = chordSymbol(candidate);
+          return (
+            <button
+              key={q}
+              aria-label={name}
+              aria-pressed={quality === q}
+              onClick={() => {
+                setQuality(q);
+                if (disabled) onInspect(candidate);
+                else onAudition(candidate);
+              }}
+            >
+              {name}
+            </button>
+          );
+        })}
+      </div>
+      <p className="muted">{t.libraryButtonsHint}</p>
       <p>
         <strong>{chordSymbol(chord)}</strong> ·{' '}
         {tones(chord).map(pitchName).join(' – ')} ·{' '}

@@ -254,10 +254,10 @@ test('direct modulation, destination cadence and seventh comparison are explicit
     'C♯7',
     'F♯',
   ]);
+  await nav(page, '五度圏');
   await page
     .getByRole('combobox', { name: '和音の種類', exact: true })
     .selectOption('7');
-  await nav(page, '五度圏');
   await expect(page.getByTestId('common-chords')).toHaveText(
     'Cmaj7 · Em7 · Am7',
   );

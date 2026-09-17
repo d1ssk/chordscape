@@ -296,6 +296,8 @@ const ja = {
   all: 'すべて',
   quality: '種類',
   audition: '試聴',
+  libraryButtonsHint:
+    'コードを押すと選択・試聴できます。試聴は「音声を開始」した後に使えます。',
   add: '進行へ追加',
   occurs: '現れる調の例',
   context: '分析の文脈',
@@ -637,6 +639,8 @@ const en: Record<keyof typeof ja, string> = {
   all: 'All',
   quality: 'Quality',
   audition: 'Audition',
+  libraryButtonsHint:
+    'Press a chord to select and hear it. Enable audio first to listen.',
   add: 'Add to progression',
   occurs: 'Example key contexts',
   context: 'Analysis context',

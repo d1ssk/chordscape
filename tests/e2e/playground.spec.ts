@@ -97,21 +97,25 @@ test('production assets, audio, stop, keyboard and scene navigation', async ({
   });
   expect(errors).toEqual([]);
 });
-test('seven chords fit one mobile row with keyboard and progression visible', async ({
+test('triads and sevenths each fit one mobile row with keyboard and progression visible', async ({
   page,
 }) => {
   for (const width of [320, 375, 390]) {
     await page.setViewportSize({ width, height: 812 });
     const boxes = await page
-      .locator('.palette-panel > .palette button')
+      .locator('.diatonic-row .palette button')
       .evaluateAll((buttons) =>
         buttons.map((button) => {
           const b = button.getBoundingClientRect();
           return { top: b.top, left: b.left, right: b.right };
         }),
       );
-    expect(boxes).toHaveLength(7);
-    expect(new Set(boxes.map((b) => Math.round(b.top))).size).toBe(1);
+    expect(boxes).toHaveLength(14);
+    expect(new Set(boxes.map((b) => Math.round(b.top))).size).toBe(2);
+    for (const row of [boxes.slice(0, 7), boxes.slice(7)]) {
+      expect(new Set(row.map((b) => Math.round(b.top))).size).toBe(1);
+      expect(row[6].right).toBeLessThanOrEqual(width);
+    }
     expect(boxes[0].left).toBeGreaterThanOrEqual(0);
     expect(boxes[6].right).toBeLessThanOrEqual(width);
     expect(
@@ -124,7 +128,7 @@ test('seven chords fit one mobile row with keyboard and progression visible', as
       .evaluateAll((es) =>
         es.map((e) => Math.round(e.getBoundingClientRect().top)),
       );
-    expect(fields).toHaveLength(3);
+    expect(fields).toHaveLength(2);
     expect(new Set(fields).size).toBe(1);
     for (const selector of ['.transport button', '.voicing-controls button']) {
       const buttons = await page.locator(selector).evaluateAll((es) =>
@@ -189,18 +193,15 @@ test('seven chords fit one mobile row with keyboard and progression visible', as
   await page
     .getByRole('combobox', { name: '調', exact: true })
     .selectOption('F♯');
-  await page
-    .getByRole('combobox', { name: '和音の種類', exact: true })
-    .selectOption('7');
   expect(
     await page
-      .locator('.palette-panel > .palette button')
+      .locator('.diatonic-row .palette button')
       .evaluateAll(
         (items) =>
           new Set(items.map((e) => Math.round(e.getBoundingClientRect().top)))
             .size,
       ),
-  ).toBe(1);
+  ).toBe(2);
 });
 test('key spellings, minor outside dominant and seventh bass', async ({
   page,
@@ -226,9 +227,6 @@ test('key spellings, minor outside dominant and seventh bass', async ({
   await page
     .getByRole('combobox', { name: '調', exact: true })
     .selectOption('F♯');
-  await page
-    .getByRole('combobox', { name: '和音の種類', exact: true })
-    .selectOption('7');
   await chord(page, 'F♯maj7 Imaj7');
   await expect(
     page.getByText('F♯ – A♯ – C♯ – E♯', { exact: true }),
@@ -239,9 +237,6 @@ test('key spellings, minor outside dominant and seventh bass', async ({
   await page
     .getByRole('combobox', { name: '調', exact: true })
     .selectOption('A');
-  await page
-    .getByRole('combobox', { name: '和音の種類', exact: true })
-    .selectOption('3');
   await expect(
     page.getByRole('button', { name: 'Em v', exact: true }),
   ).toBeVisible();
@@ -257,9 +252,6 @@ test('key spellings, minor outside dominant and seventh bass', async ({
   await page
     .getByRole('combobox', { name: '調', exact: true })
     .selectOption('C');
-  await page
-    .getByRole('combobox', { name: '和音の種類', exact: true })
-    .selectOption('7');
   await chord(page, 'G7 V7');
   await page
     .getByLabel('和音の構成: 転回・bass指定', { exact: true })
@@ -326,9 +318,7 @@ test('library auditions and adds, JSON round trip, invalid import and transpose'
   await library
     .getByRole('combobox', { name: '根音', exact: true })
     .selectOption('D');
-  await library
-    .getByRole('combobox', { name: '種類', exact: true })
-    .selectOption('7');
+  await library.getByRole('button', { name: 'D7', exact: true }).click();
   await library.getByRole('button', { name: '試聴', exact: true }).click();
   await expect(page.getByTestId('chord-symbol')).toHaveText('D7');
   await scene(page);
@@ -667,4 +657,62 @@ test('stop fades continuously during attack, decay and release', async ({
     expect(result.tail, JSON.stringify(result)).toBeLessThan(0.0001);
     if (result.stopAt < 0.03) expect(result.peak).toBe(0);
   }
+});
+
+test('library shows all 17 chords, selects before audio, auditions by button and keeps the progression unchanged', async ({
+  page,
+}) => {
+  await scene(page, 'コード辞典');
+  const buttons = page.locator('.library-chords button');
+  await expect(buttons).toHaveCount(17);
+  await page.getByRole('button', { name: 'Cmaj7', exact: true }).click();
+  await expect(page.getByTestId('chord-symbol')).toHaveText('Cmaj7');
+  await enable(page);
+  const symbols = [
+    'C',
+    'Cm',
+    'Cdim',
+    'Caug',
+    'Csus2',
+    'Csus4',
+    'C7',
+    'Cmaj7',
+    'Cm7',
+    'Cm7♭5',
+    'Cdim7',
+    'C6',
+    'Cm6',
+    'Cadd9',
+    'C9',
+    'Cmaj9',
+    'Cm9',
+  ];
+  for (const name of symbols) {
+    const button = page
+      .locator('.library-chords')
+      .getByRole('button', { name, exact: true });
+    await button.click();
+    await expect(button).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByTestId('chord-symbol')).toHaveText(name);
+  }
+  await page
+    .getByRole('combobox', { name: '根音', exact: true })
+    .selectOption('D♭');
+  await expect(buttons).toHaveCount(17);
+  await expect(
+    page.getByRole('button', { name: 'D♭m9', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'D♭7', exact: true }).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByTestId('chord-symbol')).toHaveText('D♭7');
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 812 });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  }
+  await scene(page);
+  await expect(page.locator('.timeline li')).toHaveCount(0);
 });

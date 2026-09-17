@@ -625,6 +625,9 @@ export function App() {
             currentKey={currentKey}
             stopped={playback.status === 'stopped'}
             canPlay={ready && !sound.loading}
+            onSeventh={(seventh) =>
+              edit({ type: 'settings', patch: { seventh } })
+            }
             onSelectKey={(key) => edit({ type: 'settings', patch: { key } })}
             onAudition={auditionBridge}
             onAppend={appendBridge}
@@ -734,21 +737,6 @@ export function App() {
                   <option value="minor">{t.minor}</option>
                 </select>
               </label>
-              <label>
-                <span className="key-field-label">{t.chordSize}</span>
-                <select
-                  value={s.seventh ? '7' : '3'}
-                  onChange={(e) =>
-                    edit({
-                      type: 'settings',
-                      patch: { seventh: e.target.value === '7' },
-                    })
-                  }
-                >
-                  <option value="3">{t.triads}</option>
-                  <option value="7">{t.sevenths}</option>
-                </select>
-              </label>
             </div>
           </section>
           <section className="palette-panel">
@@ -769,13 +757,23 @@ export function App() {
             {running && !liveMode && (
               <p className="muted playback-hint">{t.recordHint}</p>
             )}
-            <Palette
-              chords={diatonic(currentKey, s.seventh)}
-              context={currentKey}
-              disabled={!ready || (running && !liveMode) || sound.loading}
-              onChoose={choose}
-              selected={chordSymbol(displayed.chord)}
-            />
+            {[false, true].map((seventh) => (
+              <div
+                className="diatonic-row"
+                role="group"
+                aria-label={seventh ? t.sevenths : t.triads}
+                key={String(seventh)}
+              >
+                <h3>{seventh ? t.sevenths : t.triads}</h3>
+                <Palette
+                  chords={diatonic(currentKey, seventh)}
+                  context={currentKey}
+                  disabled={!ready || (running && !liveMode) || sound.loading}
+                  onChoose={choose}
+                  selected={chordSymbol(displayed.chord)}
+                />
+              </div>
+            ))}
             <details className="outside">
               <summary>{t.outside}</summary>
               <p className="muted">{t.outsideHint}</p>
@@ -1056,7 +1054,6 @@ export function App() {
               stop();
               navigate('listen');
             }}
-            locale={s.locale}
             t={t}
             initial={displayed.chord}
             disabled={!ready || running || sound.loading}

@@ -33,7 +33,7 @@ Theory、Playground、Earを別アプリにしない。同じ和音・進行・�
 
 上部にKey / mode、BPM、Play / Pause / Stop、Record、Loop、音量。音声開始前は開始操作を明示する。詳細操作を開いてもStopは常に到達可能にする。
 
-中央にdiatonic chordパレット。各ボタンにコード名、ローマ数字、補助的な機能表示。三和音／七の和音を切り替える。現在鳴っているものと次に予約されたものは別表示。
+中央にdiatonic chordパレット。各ボタンにコード名とローマ数字を表示。三和音と七の和音を2行で同時表示し、モバイルでも各行7個の横並びを保つ。詳しい機能表示は選択和音の解説で示す。現在鳴っているものと次に予約されたものは別表示。
 
 その下にOutside keyの折りたたみ、さらにprogression timeline。下段またはサイドパネルをKeyboard / Chord details / Library / Circle / Melody / Listenで切り替える。
 
@@ -62,7 +62,7 @@ A natural minorのtriadsはAm / Bdim / C / Dm / Em / F / G。短調でのE / E7 
 - 音名は調に沿って綴る。F majorはB♭、F♯ majorにはE♯がある。表示をすべてsharpに統一しない。
 - pitch classが同じでもC♯とD♭の綴りは保持する。
 - major/minorの一般的な調号をサポートし、異名同音の調は表示選択で切替可能。五度圏の12スロットに全綴りを詰め込まない。
-- 三和音/七の和音の切替はパレットを変更し、記録済み進行は変更しない。
+- 三和音と七の和音のどちらの行からも演奏・記録できる。五度圏の比較に使う和音種は五度圏画面内で選び、記録済み進行は変更しない。
 - 調の切替は次に選ぶコードと表示文脈を変更し、既存イベントの音高は保持する。
 - 「進行全体を移調」は別操作。全イベントとkey changesを同じ半音差で移し、綴りを再計算する。元の相対的な転調関係を保つ。
 
@@ -90,7 +90,7 @@ T/P/D分類は学習用の簡略モデル。iiiやviの機能、借用和音、�
 
 ## 5. Chord Library（基本P1、拡張P2）
 
-rootとfamilyで探索する。Major / Minor / Dominant / Diminished / Augmented / Suspendedに分類。
+rootを選ぶと17種類のqualityをコード名のボタンで一覧表示する。ボタンで選択し、音声が利用可能ならその場で試聴する。family・qualityのプルダウンは置かない。「進行へ追加」は別操作とする。
 
 基本quality：major、minor、dim、aug、sus2、sus4、7、maj7、m7、m7♭5、dim7。拡張：6、m6、add9、9、maj9、m9等。
 
