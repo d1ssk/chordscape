@@ -153,3 +153,11 @@ P3を `npm run check` で再検証し、`ac4620f` にコミットしてから着
 - `npm run check` が成功（strict型検査、lint、format、72 unit tests、production build）。ブラウザでは通常URL 8 tests、`/chordscape-smoke/` 8 testsが成功（各4シナリオ × desktop/mobile）。
 - 実際の20分WAV、再生・停止・シーク・反復、名前を後から提示する順序、転回形と半減七、準備中止・欠損音声・scene移動、Nemoの保存時クレジットを確認。Cmaj7のMP3について、ブラウザでのデコード・非ゼロ波形・クリッピングなしも確認しました。
 - 実機の画面オフ中の長時間再生、Safari/iOSの手動検証は引き続き未実施です。
+
+### force push後の修復（2026-09-17）
+
+- 旧mainの `ea6efcc`（add license）からルートのMIT `LICENSE`を復元。Git blob SHA `39edce81de44588f14068d737fb585f691917c7e` が元ファイルと一致し、READMEでソースコードと音声素材の利用条件を区別しました。
+- 旋律E2Eの保存待ちが、保存前の `events: []` に対して `events[0].melody` を読んで例外になる問題を修正。保存済みデータの取得をnullableとして扱い、4和音すべての旋律が保存されるまでpollします。固定時間の待機やアプリ側の保存間隔変更は不要です。
+- 英語フッターをP5の聞き流し実装に合わせて更新しました。
+- `public/speech` は737 MP3と出典・利用条件・manifestの3ファイル、計740ファイルすべて追跡済み。`git ls-files -z` と実ファイルを照合し、未追跡・欠落・余剰音声は0件。全音声のSHA-256がmanifestに一致するため削除していません。
+- `npm run check` が成功（型・lint・format・72 unit tests・build）。`CI=1` の設定で全ブラウザテストが `/` 64件、公開先と同じ `/chordscape/` 64件、計128件成功。GitHub Actions上の確認は修復コミットのpush後に行います。

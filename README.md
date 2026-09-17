@@ -179,3 +179,7 @@ Playwrightは実際のWeb Audioの出力波形とStop後の無音を検査しま
 設計: [PRODUCT_SPEC](docs/PRODUCT_SPEC.md)、初回実装: [FIRST_COMMIT](docs/FIRST_COMMIT.md)。
 
 互換性・API確認元: [Vite](https://vite.dev/guide/)、[Tone.js 15.1.22](https://tonejs.github.io/docs/15.1.22/classes/PolySynth.html)、[Playwright](https://playwright.dev/docs/intro)、[configure-pages](https://github.com/actions/configure-pages)、[upload-pages-artifact](https://github.com/actions/upload-pages-artifact)、[deploy-pages](https://github.com/actions/deploy-pages)。パッケージはnpm公式registry、Pages Actionsは公式release tagのcommit SHAを照合しています（2026-09-16）。
+
+### ライセンス
+
+アプリのソースコードは [MIT License](LICENSE) です。同梱する音声・音源にはそれぞれの利用条件が適用されます。Nemo音声は [VOICEVOX Nemoの利用条件](public/speech/ja/ATTRIBUTION.md)、Pianoは [Salamander Grand Piano / CC BY 3.0](public/samples/salamander/ATTRIBUTION.md)、試聴用のその他の音声は [試聴素材の出典](public/voice-audition/README.md) を参照してください。

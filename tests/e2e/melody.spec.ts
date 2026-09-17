@@ -12,10 +12,16 @@ async function enable(page: Page) {
 async function melody(page: Page) {
   await page.getByRole('button', { name: '旋律', exact: true }).click();
 }
-async function saved(page: Page): Promise<Session> {
+async function saved(page: Page): Promise<Session | null> {
   return page.evaluate(() =>
     JSON.parse(localStorage.getItem('chordscape.session.v4') ?? 'null'),
   );
+}
+async function savedSnapshot(page: Page): Promise<Session> {
+  const session = await saved(page);
+  if (!session)
+    throw new Error('Expected a persisted session after waiting for save');
+  return session;
 }
 async function stop(page: Page) {
   await page.getByRole('button', { name: '■ 停止', exact: true }).click();
@@ -55,7 +61,7 @@ test('continuous generation prepares melody with the next phrase and persists th
     })
     .toBeGreaterThanOrEqual(1);
   await stop(page);
-  const data = await saved(page);
+  const data = await savedSnapshot(page);
   expect(data.events.every((e) => e.melody?.length)).toBe(true);
   await page.reload();
   await enable(page);
@@ -78,14 +84,19 @@ test('Timeline saves deterministic melody, regenerates without changing chords, 
     page.getByRole('img', { name: 'ピアノロール', exact: true }),
   ).toBeVisible();
   await expect
-    .poll(async () => (await saved(page))?.events[0].melody?.length ?? 0)
-    .toBeGreaterThan(0);
-  const original = await saved(page);
+    .poll(
+      async () =>
+        (await saved(page))?.events.map(
+          (event) => (event.melody?.length ?? 0) > 0,
+        ) ?? [],
+    )
+    .toEqual([true, true, true, true]);
+  const original = await savedSnapshot(page);
   await page.getByRole('button', { name: '旋律を再生成', exact: true }).click();
   await expect
     .poll(async () => (await saved(page))?.settings.melody.seed)
     .toBe(43);
-  const regenerated = await saved(page);
+  const regenerated = await savedSnapshot(page);
   expect(
     regenerated.events.map((e) => [e.chord, e.notes, e.key, e.duration]),
   ).toEqual(original.events.map((e) => [e.chord, e.notes, e.key, e.duration]));
@@ -119,7 +130,7 @@ test('Timeline saves deterministic melody, regenerates without changing chords, 
   const file = await download;
   await page.getByLabel('セッションJSON').setInputFiles((await file.path())!);
   await expect(page.locator('.timeline .event')).toHaveCount(4);
-  expect((await saved(page)).events).toEqual(original.events);
+  expect((await savedSnapshot(page)).events).toEqual(original.events);
 });
 
 test('Next beat Live applies the last pending chord, records applied timing and switches to Timeline exclusively', async ({
@@ -152,7 +163,7 @@ test('Next beat Live applies the last pending chord, records applied timing and 
   await expect(page.getByTestId('chord-symbol')).toHaveText('C');
   await stop(page);
   await expect.poll(async () => (await saved(page))?.events.length).toBe(2);
-  const session = await saved(page);
+  const session = await savedSnapshot(page);
   expect(session.events.map((e) => e.chord.root.letter)).toEqual(['C', 'G']);
   expect(session.events[1].notes).toEqual(
     chooseVoicing(session.events[1], session.events[0].notes),
@@ -184,7 +195,7 @@ test('Immediate Live follows new chord tones, stops both parts, and supports mel
   expect([9, 0, 4]).toContain(midi % 12);
   await stop(page);
   await expect.poll(async () => (await saved(page))?.events.length).toBe(2);
-  const session = await saved(page);
+  const session = await savedSnapshot(page);
   expect(session.events[0].duration).toBeLessThan(1);
   expect(session.events[0].duration).toBeGreaterThan(0);
   await melody(page);
@@ -223,7 +234,7 @@ test('melody controls fit mobile and harmonic edits rebuild the saved line while
   await page.getByRole('button', { name: 'F IV', exact: true }).click();
   await stop(page);
   await expect.poll(async () => (await saved(page))?.events.length).toBe(2);
-  const data = await saved(page);
+  const data = await savedSnapshot(page);
   for (const event of data.events)
     for (const note of event.melody!)
       if (note.midi !== null) expect(note.midi).toBeGreaterThanOrEqual(72);

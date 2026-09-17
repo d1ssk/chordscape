@@ -668,7 +668,7 @@ const en: Record<keyof typeof ja, string> = {
   motion: 'Root and bass movement',
   selected: 'Selected',
   level: 'Output level',
-  footer: 'P4 Melody · Speech belongs to a later stage.',
+  footer: 'P5 Listen · Four listening modes',
   keyboardHint: '◆ Bass / ● Sounding. Keys match actual MIDI pitches.',
   comparison: 'Comparison playback',
   keyChangeHint:
