@@ -26,7 +26,7 @@ test('independent exploration keeps the saved progression, key and settings; sup
   const before = await stored(page);
   await page
     .getByRole('navigation')
-    .getByRole('button', { name: 'コード探索', exact: true })
+    .getByRole('button', { name: '和声空間', exact: true })
     .click();
   await expect(
     page.getByRole('heading', { name: 'C major の和声空間' }),
@@ -63,52 +63,73 @@ test('independent exploration keeps the saved progression, key and settings; sup
   await expect(page).toHaveURL(/#settings$/);
 });
 
-test('map has no overlapping nodes or page overflow and all nodes remain reachable', async ({
+test('compact map fits without scrolling, overlap or clipped labels', async ({
   page,
 }, testInfo) => {
-  await page.goto('./#space');
-  const problems = await page.locator('.space-node').evaluateAll((nodes) => {
-    const boxes = nodes.map((node) => ({
-      id: node.getAttribute('data-node-id'),
-      box: node.getBoundingClientRect(),
-    }));
-    return boxes.flatMap((a, i) =>
-      boxes
-        .slice(i + 1)
-        .filter(
-          (b) =>
-            a.box.left < b.box.right &&
-            a.box.right > b.box.left &&
-            a.box.top < b.box.bottom &&
-            a.box.bottom > b.box.top,
-        )
-        .map((b) => `${a.id}/${b.id}`),
-    );
-  });
-  expect(problems).toEqual([]);
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= window.innerWidth,
-    ),
-  ).toBe(true);
-  for (const id of ['abmaj7', 'dsdim7', 'fs7', 'db7', 'c']) {
-    await node(page, id).focus();
-    await expect(node(page, id)).toBeInViewport();
-  }
-  if (testInfo.project.name === 'desktop')
-    await page.setViewportSize({ width: 1280, height: 1400 });
-  else {
-    await page.setViewportSize({ width: 320, height: 812 });
+  const sizes =
+    testInfo.project.name === 'mobile'
+      ? [
+          { width: 320, height: 667 },
+          { width: 375, height: 667 },
+          { width: 390, height: 844 },
+        ]
+      : [
+          { width: 1280, height: 720 },
+          { width: 768, height: 1024 },
+        ];
+  for (const size of sizes) {
+    await page.setViewportSize(size);
+    await page.goto('./#space');
+    const problems = await page.locator('.space-node').evaluateAll((nodes) => {
+      const map = document.querySelector('.space-map')!.getBoundingClientRect();
+      const nav = document.querySelector('.scene-nav')!.getBoundingClientRect();
+      const boxes = nodes.map((node) => ({
+        id: node.getAttribute('data-node-id'),
+        box: node.getBoundingClientRect(),
+        element: node,
+      }));
+      return boxes.flatMap((a, i) => [
+        ...boxes
+          .slice(i + 1)
+          .filter(
+            (b) =>
+              a.box.left < b.box.right &&
+              a.box.right > b.box.left &&
+              a.box.top < b.box.bottom &&
+              a.box.bottom > b.box.top,
+          )
+          .map((b) => `overlap ${a.id}/${b.id}`),
+        ...(a.box.left < map.left ||
+        a.box.right > map.right ||
+        a.box.top < map.top ||
+        a.box.bottom > map.bottom
+          ? [`outside map ${a.id}`]
+          : []),
+        ...(a.box.bottom > nav.top || a.box.top < 0
+          ? [`outside viewport ${a.id}`]
+          : []),
+        ...(a.element.scrollWidth > a.element.clientWidth ||
+        a.element.scrollHeight > a.element.clientHeight
+          ? [`clipped text ${a.id}`]
+          : []),
+      ]);
+    });
+    expect(problems, `${size.width} × ${size.height}`).toEqual([]);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,
       ),
     ).toBe(true);
+    await expect(page.locator('.space-node')).toHaveCount(42);
+    await page.screenshot({
+      path: testInfo.outputPath(`harmonic-space-${size.width}.png`),
+      fullPage: true,
+    });
   }
-  await page.screenshot({
-    path: testInfo.outputPath('harmonic-space.png'),
-    fullPage: true,
-  });
+  for (const id of ['abmaj7', 'dsdim7', 'fs7', 'db7', 'c']) {
+    await node(page, id).focus();
+    await expect(node(page, id)).toBeInViewport();
+  }
 });
 
 for (const cancel of ['stop', 'navigation', 'back'] as const) {
@@ -127,7 +148,7 @@ for (const cancel of ['stop', 'navigation', 'back'] as const) {
       await page.goto('./');
       await page
         .getByRole('navigation')
-        .getByRole('button', { name: 'コード探索', exact: true })
+        .getByRole('button', { name: '和声空間', exact: true })
         .click();
       await node(page, 'c').click();
       await expect(
@@ -176,7 +197,7 @@ test('first click sounds directly and scene changes stop both timeline and explo
   await expect.poll(() => level(page)).toBeGreaterThan(0.001);
   await page
     .getByRole('navigation')
-    .getByRole('button', { name: 'コード探索', exact: true })
+    .getByRole('button', { name: '和声空間', exact: true })
     .click();
   await expect.poll(() => level(page)).toBe(0);
   await node(page, 'g').click();

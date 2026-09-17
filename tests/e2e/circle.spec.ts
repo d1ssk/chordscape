@@ -259,9 +259,7 @@ test('direct modulation, destination cadence and seventh comparison are explicit
   await page
     .getByRole('combobox', { name: '和音の種類', exact: true })
     .selectOption('7');
-  await expect(page.getByTestId('common-chords')).toHaveText(
-    'Cmaj7 · Em7 · Am7',
-  );
+  await expect(page.getByTestId('common-chords')).toHaveText('CM7 · Em7 · Am7');
   await page.getByRole('button', { name: 'この調を選ぶ', exact: true }).click();
   await nav(page, '演奏');
   await expect(page.locator('.timeline .event strong')).toHaveText([

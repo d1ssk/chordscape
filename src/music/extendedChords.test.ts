@@ -48,13 +48,13 @@ it('spells every added quality, including altered extensions, without losing its
   }
   expect(
     roman(analyze({ root: parsePitch('C'), quality: 'm(maj7)' }, defaultKey)),
-  ).toBe('i(maj7)');
+  ).toBe('i(M7)');
   expect(
     roman(analyze({ root: parsePitch('D'), quality: '7♭5' }, defaultKey)),
   ).toBe('V7♭5/V');
   expect(
     roman(analyze({ root: parsePitch('C'), quality: 'maj13' }, defaultKey), 6),
-  ).toBe('Imaj13');
+  ).toBe('IM13');
 });
 it('plays and round-trips all new chords at every dictionary root and inversion', () => {
   for (const root of ROOTS)

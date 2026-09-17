@@ -1,17 +1,18 @@
-import { useEffect, useRef, type KeyboardEvent } from 'react';
+import { useRef, type CSSProperties, type KeyboardEvent } from 'react';
 import type { Messages } from '../i18n/messages';
 import { midiName, tones, pitchName, voicedSymbol } from '../music/harmony';
 import type { ChordEvent } from '../state/session';
 import {
   SPACE_NODES,
   SPACE_SIZE,
+  SPACE_PORTRAIT_SIZE,
+  SPACE_PORTRAIT_POSITIONS,
   spaceEvent,
   type SpaceNode,
 } from '../space/layout';
 
 const events = new Map(SPACE_NODES.map((node) => [node.id, spaceEvent(node)]));
-const symbol = (event: ChordEvent) =>
-  voicedSymbol(event.chord, event.notes).replace('dim', '°');
+const symbol = (event: ChordEvent) => voicedSymbol(event.chord, event.notes);
 
 export function HarmonicSpace({
   t,
@@ -22,15 +23,7 @@ export function HarmonicSpace({
   onChoose: (event: ChordEvent) => void;
   sounding: ChordEvent | null;
 }) {
-  const viewport = useRef<HTMLDivElement>(null);
   const buttons = useRef(new Map<string, HTMLButtonElement>());
-  useEffect(() => {
-    const view = viewport.current;
-    if (view) {
-      view.scrollLeft = 610 - view.clientWidth / 2;
-      view.scrollTop = 400 - view.clientHeight / 2;
-    }
-  }, []);
   function move(event: KeyboardEvent<HTMLButtonElement>, node: SpaceNode) {
     const direction = {
       ArrowLeft: [-1, 0],
@@ -41,14 +34,17 @@ export function HarmonicSpace({
     if (!direction) return;
     event.preventDefault();
     const [dx, dy] = direction;
+    const origin = buttons.current.get(node.id)!.getBoundingClientRect();
     const nearest = SPACE_NODES.filter((other) => other.id !== node.id)
       .map((other) => {
-        const x = other.position.x - node.position.x;
-        const y = other.position.y - node.position.y;
+        // Use rendered coordinates so arrow navigation follows either layout.
+        const target = buttons.current.get(other.id)!.getBoundingClientRect();
+        const x = target.x + target.width / 2 - origin.x - origin.width / 2;
+        const y = target.y + target.height / 2 - origin.y - origin.height / 2;
         return {
           other,
           forward: x * dx + y * dy,
-          score: Math.hypot(x, y) + Math.abs(x * dy - y * dx) * 2,
+          score: Math.hypot(x, y) + Math.abs(x * dy - y * dx) * 3,
         };
       })
       .filter(({ forward }) => forward > 0)
@@ -73,21 +69,18 @@ export function HarmonicSpace({
       </p>
       <div
         className="space-viewport"
-        ref={viewport}
         role="region"
         aria-label={t.spaceMap}
         aria-describedby="space-instructions"
         tabIndex={0}
       >
-        <div
-          className="space-map"
-          style={{ width: SPACE_SIZE.width, height: SPACE_SIZE.height }}
-        >
+        <div className="space-map">
           <span className="space-region-label space-flat">{t.spaceFlat}</span>
           <span className="space-region-label space-sharp">{t.spaceSharp}</span>
           {SPACE_NODES.map((node) => {
             const event = events.get(node.id)!;
             const name = symbol(event);
+            const portrait = SPACE_PORTRAIT_POSITIONS[node.id];
             return (
               <button
                 key={node.id}
@@ -98,7 +91,14 @@ export function HarmonicSpace({
                 className={`space-node space-node-${node.layer}${node.satelliteOf ? ' space-satellite' : ''}`}
                 data-node-id={node.id}
                 data-region={node.region}
-                style={{ left: node.position.x, top: node.position.y }}
+                style={
+                  {
+                    '--space-x': `${(node.position.x / SPACE_SIZE.width) * 100}%`,
+                    '--space-y': `${(node.position.y / SPACE_SIZE.height) * 100}%`,
+                    '--space-portrait-x': `${(portrait.x / SPACE_PORTRAIT_SIZE.width) * 100}%`,
+                    '--space-portrait-y': `${(portrait.y / SPACE_PORTRAIT_SIZE.height) * 100}%`,
+                  } as CSSProperties
+                }
                 aria-label={name}
                 title={`${name} · ${tones(event.chord).map(pitchName).join(' – ')} · ${t[node.layer === 'core' ? 'spaceCore' : node.layer === 'near' ? 'spaceNear' : 'spaceOuter']}`}
                 onClick={() => onChoose(event)}

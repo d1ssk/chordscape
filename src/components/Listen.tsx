@@ -9,6 +9,7 @@ import {
   pitchName,
   roman,
   ROOTS,
+  QUALITIES,
   tones,
   voicedSymbol,
   type Harmony,
@@ -373,7 +374,7 @@ export function Listen({
                     })
                   }
                 />
-                {quality}
+                {QUALITIES[quality].suffix || t.major}
               </label>
             ))}
           </fieldset>

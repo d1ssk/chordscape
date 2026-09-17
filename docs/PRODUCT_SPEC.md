@@ -55,12 +55,13 @@ C major、triads、90 BPM、root position、melody off、speech off、Record on�
 
 ## 3. 調とdiatonic chords（P1）
 
-長調と自然短音階を選択可能にする。C majorのtriadsはC / Dm / Em / F / G / Am / Bdim、seventhsはCmaj7 / Dm7 / Em7 / Fmaj7 / G7 / Am7 / Bm7♭5。
+長調と自然短音階を選択可能にする。C majorのtriadsはC / Dm / Em / F / G / Am / B°、seventhsはCM7 / Dm7 / Em7 / FM7 / G7 / Am7 / Bm7♭5。
 
-A natural minorのtriadsはAm / Bdim / C / Dm / Em / F / G。短調でのE / E7 / G♯dimは和声的短音階に由来する追加候補として区別する。最初から自然短音階のdiatonic表にE7を混在させない。
+A natural minorのtriadsはAm / B° / C / Dm / Em / F / G。短調でのE / E7 / G♯°は和声的短音階に由来する追加候補として区別する。最初から自然短音階のdiatonic表にE7を混在させない。
 
 - 音名は調に沿って綴る。F majorはB♭、F♯ majorにはE♯がある。表示をすべてsharpに統一しない。
 - pitch classが同じでもC♯とD♭の綴りは保持する。
+- コード名とローマ数字の表示はmajをM、dimを°に統一する（CM7、Cm(M7)、B°、C°7）。保存用quality IDと音声素材のIDは既存のまま維持する。
 - major/minorの一般的な調号をサポートし、異名同音の調は表示選択で切替可能。五度圏の12スロットに全綴りを詰め込まない。
 - 三和音と七の和音のどちらの行からも演奏・記録できる。五度圏の比較に使う和音種は五度圏画面内で選び、記録済み進行は変更しない。
 - 調の切替は次に選ぶコードと表示文脈を変更し、既存イベントの音高は保持する。
@@ -76,8 +77,8 @@ A natural minorのtriadsはAm / Bdim / C / Dm / Em / F / G。短調でのE / E7 
 
 既定パレットはカテゴリ見出しを付けず、以下の順に表示する。他の調では根音の度数と綴りを保って移調する。D♭/F相当の転回プリセットは含めない。
 
-- C major：A7、B7、C7、D7、E7、F♯7、C♯dim7、D♯dim7、F♯dim7、G♯dim7、Cm、E♭、Fm、Gm、A♭、B♭、Fm7、A♭maj7、B♭7、D♭7、E♭7、A♭7、F7、D♭、Caug、Gaug、Am(maj7)。
-- C natural minor：G、G7、Bdim、Bdim7、Cm(maj7)、E♭aug、E♭maj7♯5、Dm7、F、F7、Am7♭5、Bm7♭5、C、Cmaj7、Dm、Em、Em7、A、Am、Am7、C7、D7、E♭7、F7、A7、D♭、A♭7。F7の2か所の表示は意図的に保持する。
+- C major：A7、B7、C7、D7、E7、F♯7、C♯°7、D♯°7、F♯°7、G♯°7、Cm、E♭、Fm、Gm、A♭、B♭、Fm7、A♭M7、B♭7、D♭7、E♭7、A♭7、F7、D♭、Caug、Gaug、Am(M7)。
+- C natural minor：G、G7、B°、B°7、Cm(M7)、E♭aug、E♭M7♯5、Dm7、F、F7、Am7♭5、Bm7♭5、C、CM7、Dm、Em、Em7、A、Am、Am7、C7、D7、E♭7、F7、A7、D♭、A♭7。F7の2か所の表示は意図的に保持する。
 
 既定候補に加え、「＋ 追加」から根音と33種類のqualityを選んで任意の和音を登録できる。追加分は個別に削除可能。追加分と既定候補の同じ綴り・qualityの重複表示を防ぎ、調を変えても登録したコード名を保持する。追加分はこのブラウザのlocalStorageへ即時保存し、進行のJSONとは独立させる。保存不可でも画面内では使用でき、警告を表示する。
 
@@ -102,14 +103,14 @@ rootを選ぶと33種類のqualityをコード名のボタンで一覧表示す�
 辞典はモバイルも6列とし、小さなカテゴリ見出しと以下の学習順で表示する。Extensionsだけは9種類のため2行になる。
 
 - Basic：major、minor、dim、aug、sus2、sus4。
-- Seventh：maj7、7、m7、m(maj7)、m7♭5、dim7。
+- Seventh：M7、7、m7、m(M7)、m7♭5、dim7。
 - Added tones / Sixth：6、m6、add9、m(add9)、6/9、7sus4。
-- Extensions：maj9、9、m9、11、m11、13、m13、maj13、maj7(♯11)。
-- Altered：maj7♯5、7♭5、7♯5、7♭9、7♯9、7(♭9,♯5)。
+- Extensions：M9、9、m9、11、m11、13、m13、M13、M7(♯11)。
+- Altered：M7♯5、7♭5、7♯5、7♭9、7♯9、7(♭9,♯5)。
 
-基本quality：major、minor、dim、aug、sus2、sus4、7、maj7、m7、m7♭5、dim7。拡張：6、m6、add9、9、maj9、m9等。
+基本quality：major、minor、dim、aug、sus2、sus4、7、M7、m7、m7♭5、dim7。拡張：6、m6、add9、9、M9、m9等。
 
-追加quality：7♭5、m(maj7)、7sus4、7♯5、maj7♯5、6/9、m(add9)、7♭9、7♯9、maj7(♯11)、11、m11、13、m13、maj13、7(♭9,♯5)。11系は6音、13系は7音を省略せず扱い、第5・第6転回にも対応する。名前の録音を使う聞き流しは既存17種類が対象で、新規16種類は含めない。
+追加quality：7♭5、m(M7)、7sus4、7♯5、M7♯5、6/9、m(add9)、7♭9、7♯9、M7(♯11)、11、m11、13、m13、M13、7(♭9,♯5)。11系は6音、13系は7音を省略せず扱い、第5・第6転回にも対応する。名前の録音を使う聞き流しは既存17種類が対象で、新規16種類は含めない。
 
 選択コードについて表示するもの：
 
@@ -118,7 +119,7 @@ rootを選ぶと33種類のqualityをコード名のボタンで一覧表示す�
 - 「現れる調」の例：D7はG majorのV7、C majorのV7/Vとして利用可能。網羅的・唯一の帰属ではない。
 - 「進行へ追加」と「試聴」を区別。
 
-Cadd9とC9（後者は♭7を含む）、Cmaj7とC7、Cm7♭5とCdim7を区別する。楽理上の全構成音と、voicingで実際に発音する音を別々に表示する。拡張和音の省略・重複は後の機能とし、初期は省略しない。
+Cadd9とC9（後者は♭7を含む）、CM7とC7、Cm7♭5とC°7を区別する。楽理上の全構成音と、voicingで実際に発音する音を別々に表示する。拡張和音の省略・重複は後の機能とし、初期は省略しない。
 
 ## 6. 転回形・voicing・bass（P1の中核）
 
@@ -181,7 +182,7 @@ A/B機能は同じ進行・tempo・音色・長さでRoot / Smoothを再生す�
 | Style | 例／狙い |
 | --- | --- |
 | Pop | I–V–vi–IV、vi–IV–I–V等、triads中心 |
-| Jazz | ii7–V7–Imaj7、Imaj7–V7/ii–ii7–V7 |
+| Jazz | ii7–V7–IM7、IM7–V7/ii–ii7–V7 |
 | Classical-ish（追加） | T–P–D–T、cadenceを明確に |
 | City Pop / Lo-fi（追加） | seventh・借用・配置・rhythmをpreset化 |
 | Film（追加） | pedalやchromatic mediant等を限定的に導入 |
@@ -198,7 +199,7 @@ A/B機能は同じ進行・tempo・音色・長さでRoot / Smoothを再生す�
 - 同じseed・設定・generator versionなら同じ結果。お気に入りをJSONで保存可能。
 - 制約が満たせない場合は無限再試行せず既知のtemplateへfallbackし、その旨を表示。
 
-受入例：C majorでCmaj7 → A7 → Dm7 → G7が生成可能、Imaj7 → V7/ii → ii7 → V7と表示。再生と表示が一致する。
+受入例：C majorでCM7 → A7 → Dm7 → G7が生成可能、IM7 → V7/ii → ii7 → V7と表示。再生と表示が一致する。
 
 ## 9. 五度圏と転調（P3）
 
@@ -351,7 +352,7 @@ first commitはSoft synth、次にElectric piano風／Pad、licenseが明確なs
 ### 楽理と音の一貫性
 
 - C major / F major / F♯ major / A minorの綴り・構成音。
-- C7とCmaj7、Cadd9とC9、Bm7♭5とBdim7の区別。
+- C7とCM7、Cadd9とC9、Bm7♭5とB°7の区別。
 - C/E、C/G、G7/Fの実音bassと表示。
 - 手動転回がautoに上書きされない。
 - 独立bassを追加してもsymbolが実際の最低音と一致。

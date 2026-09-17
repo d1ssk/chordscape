@@ -59,9 +59,9 @@ test('production assets, audio, stop, keyboard and scene navigation', async ({
   );
   await page.getByRole('button', { name: '音声を開始' }).focus();
   await page.keyboard.press('Enter');
-  await chord(page, 'Bdim vii°');
+  await chord(page, 'B° vii°');
   await sounding(page);
-  await expect(page.getByTestId('chord-symbol')).toHaveText('Bdim');
+  await expect(page.getByTestId('chord-symbol')).toHaveText('B°');
   await expect(page.locator('[data-midi="59"]')).toHaveAttribute(
     'data-active',
     'true',
@@ -226,7 +226,7 @@ test('key spellings, minor outside dominant and seventh bass', async ({
   await page
     .getByRole('combobox', { name: '調', exact: true })
     .selectOption('F♯');
-  await chord(page, 'F♯maj7 Imaj7');
+  await chord(page, 'F♯M7 IM7');
   await expect(
     page.getByText('F♯ – A♯ – C♯ – E♯', { exact: true }),
   ).toBeVisible();
@@ -243,7 +243,7 @@ test('key spellings, minor outside dominant and seventh bass', async ({
   await chord(page, 'E7 V7');
   await expand(page, '.theory-details');
   await expect(page.getByText(/短調の第7音を上げて/)).toBeVisible();
-  await chord(page, 'G♯dim7 vii°7');
+  await chord(page, 'G♯°7 vii°7');
   await expect(page.getByText('G♯ – B – D – F', { exact: true })).toBeVisible();
   await page
     .getByRole('combobox', { name: '音階', exact: true })
@@ -663,38 +663,38 @@ test('library shows all 33 chords, selects before audio, auditions by button and
   await scene(page, 'コード辞典');
   const buttons = page.locator('.library-chords button');
   await expect(buttons).toHaveCount(33);
-  await page.getByRole('button', { name: 'Cmaj7', exact: true }).click();
-  await expect(page.getByTestId('chord-symbol')).toHaveText('Cmaj7');
+  await page.getByRole('button', { name: 'CM7', exact: true }).click();
+  await expect(page.getByTestId('chord-symbol')).toHaveText('CM7');
   await enable(page);
   const symbols = [
     'C',
     'Cm',
-    'Cdim',
+    'C°',
     'Caug',
     'Csus2',
     'Csus4',
-    'Cmaj7',
+    'CM7',
     'C7',
     'Cm7',
-    'Cm(maj7)',
+    'Cm(M7)',
     'Cm7♭5',
-    'Cdim7',
+    'C°7',
     'C6',
     'Cm6',
     'Cadd9',
     'Cm(add9)',
     'C6/9',
     'C7sus4',
-    'Cmaj9',
+    'CM9',
     'C9',
     'Cm9',
     'C11',
     'Cm11',
     'C13',
     'Cm13',
-    'Cmaj13',
-    'Cmaj7(♯11)',
-    'Cmaj7♯5',
+    'CM13',
+    'CM7(♯11)',
+    'CM7♯5',
     'C7♭5',
     'C7♯5',
     'C7♭9',
@@ -763,12 +763,12 @@ test('extended sixth inversion preserves seven notes and bass after reload', asy
 }) => {
   await enable(page);
   await scene(page, 'コード辞典');
-  await page.getByRole('button', { name: 'Cmaj13', exact: true }).click();
+  await page.getByRole('button', { name: 'CM13', exact: true }).click();
   await page.getByRole('button', { name: '進行へ追加', exact: true }).click();
   await page
     .getByRole('combobox', { name: '和音の構成: 転回・bass指定', exact: true })
     .selectOption('6');
-  await expect(page.getByTestId('chord-symbol')).toHaveText('Cmaj13/A');
+  await expect(page.getByTestId('chord-symbol')).toHaveText('CM13/A');
   await expect(page.locator('.chord-summary .badge')).toHaveText('第6転回');
   await expect
     .poll(() =>
@@ -779,7 +779,7 @@ test('extended sixth inversion preserves seven notes and bass after reload', asy
     )
     .toBe(6);
   await page.reload();
-  await expect(page.getByTestId('chord-symbol')).toHaveText('Cmaj13/A');
+  await expect(page.getByTestId('chord-symbol')).toHaveText('CM13/A');
   await expect(page.locator('.chord-summary .badge')).toHaveText('第6転回');
 });
 
@@ -795,10 +795,10 @@ test('outside presets keep the requested order and transpose by degree', async (
     'D7',
     'E7',
     'F♯7',
-    'C♯dim7',
-    'D♯dim7',
-    'F♯dim7',
-    'G♯dim7',
+    'C♯°7',
+    'D♯°7',
+    'F♯°7',
+    'G♯°7',
     'Cm',
     'E♭',
     'Fm',
@@ -806,7 +806,7 @@ test('outside presets keep the requested order and transpose by degree', async (
     'A♭',
     'B♭',
     'Fm7',
-    'A♭maj7',
+    'A♭M7',
     'B♭7',
     'D♭7',
     'E♭7',
@@ -815,7 +815,7 @@ test('outside presets keep the requested order and transpose by degree', async (
     'D♭',
     'Caug',
     'Gaug',
-    'Am(maj7)',
+    'Am(M7)',
   ]);
   await page
     .getByRole('combobox', { name: '調', exact: true })
@@ -827,10 +827,10 @@ test('outside presets keep the requested order and transpose by degree', async (
     'E7',
     'F♯7',
     'G♯7',
-    'D♯dim7',
-    'E♯dim7',
-    'G♯dim7',
-    'A♯dim7',
+    'D♯°7',
+    'E♯°7',
+    'G♯°7',
+    'A♯°7',
     'Dm',
     'F',
     'Gm',
@@ -838,7 +838,7 @@ test('outside presets keep the requested order and transpose by degree', async (
     'B♭',
     'C',
     'Gm7',
-    'B♭maj7',
+    'B♭M7',
     'C7',
     'E♭7',
     'F7',
@@ -847,7 +847,7 @@ test('outside presets keep the requested order and transpose by degree', async (
     'E♭',
     'Daug',
     'Aaug',
-    'Bm(maj7)',
+    'Bm(M7)',
   ]);
   await page
     .getByRole('combobox', { name: '調', exact: true })
@@ -856,18 +856,18 @@ test('outside presets keep the requested order and transpose by degree', async (
   await expect(names).toHaveText([
     'G',
     'G7',
-    'Bdim',
-    'Bdim7',
-    'Cm(maj7)',
+    'B°',
+    'B°7',
+    'Cm(M7)',
     'E♭aug',
-    'E♭maj7♯5',
+    'E♭M7♯5',
     'Dm7',
     'F',
     'F7',
     'Am7♭5',
     'Bm7♭5',
     'C',
-    'Cmaj7',
+    'CM7',
     'Dm',
     'Em',
     'Em7',

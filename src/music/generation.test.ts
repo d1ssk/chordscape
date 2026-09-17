@@ -45,13 +45,13 @@ it('reproduces the requested Jazz turnaround with spelled intent and saved notes
   const input = options({ style: 'jazz', seventh: true, outside: 1, seed: 42 });
   const result = generateProgression(input);
   expect(result.events.map((e) => chordSymbol(e.chord))).toEqual([
-    'Cmaj7',
+    'CM7',
     'A7',
     'Dm7',
     'G7',
   ]);
   expect(result.events.map((e) => roman(analyze(e.chord, e.key)))).toEqual([
-    'Imaj7',
+    'IM7',
     'V7/ii',
     'ii7',
     'V7',

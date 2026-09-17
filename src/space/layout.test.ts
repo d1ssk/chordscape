@@ -17,10 +17,10 @@ describe('Harmonic Space musical data', () => {
     const satellites = SPACE_NODES.filter((n) => n.satelliteOf);
     expect(satellites).toHaveLength(7);
     expect(satellites.map((n) => chordSymbol(n.chord))).toEqual([
-      'Cmaj7',
+      'CM7',
       'Dm7',
       'Em7',
-      'Fmaj7',
+      'FM7',
       'G7',
       'Am7',
       'Bm7♭5',

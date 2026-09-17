@@ -26,7 +26,7 @@ export const QUALITIES = {
     family: 'Minor',
   },
   dim: {
-    suffix: 'dim',
+    suffix: '°',
     semitones: [0, 3, 6],
     degrees: [0, 2, 4],
     intervals: ['1', '♭3', '♭5'],
@@ -61,7 +61,7 @@ export const QUALITIES = {
     family: 'Dominant',
   },
   maj7: {
-    suffix: 'maj7',
+    suffix: 'M7',
     semitones: [0, 4, 7, 11],
     degrees: [0, 2, 4, 6],
     intervals: ['1', '3', '5', '7'],
@@ -82,7 +82,7 @@ export const QUALITIES = {
     family: 'Diminished',
   },
   dim7: {
-    suffix: 'dim7',
+    suffix: '°7',
     semitones: [0, 3, 6, 9],
     degrees: [0, 2, 4, 6],
     intervals: ['1', '♭3', '♭5', '♭♭7'],
@@ -117,7 +117,7 @@ export const QUALITIES = {
     family: 'Dominant',
   },
   maj9: {
-    suffix: 'maj9',
+    suffix: 'M9',
     semitones: [0, 4, 7, 11, 14],
     degrees: [0, 2, 4, 6, 8],
     intervals: ['1', '3', '5', '7', '9'],
@@ -139,12 +139,12 @@ export const QUALITIES = {
     romanSuffix: '7♭5',
   },
   'm(maj7)': {
-    suffix: 'm(maj7)',
+    suffix: 'm(M7)',
     semitones: [0, 3, 7, 11],
     degrees: [0, 2, 4, 6],
     intervals: ['1', '♭3', '5', '7'],
     family: 'Minor',
-    romanSuffix: '(maj7)',
+    romanSuffix: '(M7)',
   },
   '7sus4': {
     suffix: '7sus4',
@@ -163,12 +163,12 @@ export const QUALITIES = {
     romanSuffix: '7♯5',
   },
   'maj7♯5': {
-    suffix: 'maj7♯5',
+    suffix: 'M7♯5',
     semitones: [0, 4, 8, 11],
     degrees: [0, 2, 4, 6],
     intervals: ['1', '3', '♯5', '7'],
     family: 'Major',
-    romanSuffix: 'maj7♯5',
+    romanSuffix: 'M7♯5',
   },
   '6/9': {
     suffix: '6/9',
@@ -203,12 +203,12 @@ export const QUALITIES = {
     romanSuffix: '7♯9',
   },
   'maj7(♯11)': {
-    suffix: 'maj7(♯11)',
+    suffix: 'M7(♯11)',
     semitones: [0, 4, 7, 11, 18],
     degrees: [0, 2, 4, 6, 10],
     intervals: ['1', '3', '5', '7', '♯11'],
     family: 'Major',
-    romanSuffix: 'maj7(♯11)',
+    romanSuffix: 'M7(♯11)',
   },
   '11': {
     suffix: '11',
@@ -243,12 +243,12 @@ export const QUALITIES = {
     romanSuffix: '13',
   },
   maj13: {
-    suffix: 'maj13',
+    suffix: 'M13',
     semitones: [0, 4, 7, 11, 14, 17, 21],
     degrees: [0, 2, 4, 6, 8, 10, 12],
     intervals: ['1', '3', '5', '7', '9', '11', '13'],
     family: 'Major',
-    romanSuffix: 'maj13',
+    romanSuffix: 'M13',
   },
   '7(♭9,♯5)': {
     suffix: '7(♭9,♯5)',
@@ -513,14 +513,14 @@ export function roman(analysis: Analysis, inversion = 0) {
           m6: '(add6)',
           add9: 'add9',
           '9': '9',
-          maj9: 'maj9',
+          maj9: 'M9',
           m9: '9',
         } as Record<string, string>
       )[q]
     : seventh
       ? ['7', '6/5', '4/3', '4/2'][inversion]
       : ['', '6', '6/4'][inversion];
-  const maj = q === 'maj7' ? 'maj' : '';
+  const maj = q === 'maj7' ? 'M' : '';
   if (
     analysis.kind === 'secondary' &&
     analysis.appliedTo !== undefined &&

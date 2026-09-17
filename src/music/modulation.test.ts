@@ -52,7 +52,7 @@ it('spells an enharmonic pivot separately in its old and new keys', () => {
 it('compares quality and every pitch, with different triad/seventh intersections', () => {
   expect(commonChords(c, g).map(chordSymbol)).toEqual(['C', 'Em', 'G', 'Am']);
   expect(commonChords(c, g, true).map(chordSymbol)).toEqual([
-    'Cmaj7',
+    'CM7',
     'Em7',
     'Am7',
   ]);

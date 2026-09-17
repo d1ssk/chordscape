@@ -41,7 +41,7 @@ async function jazz(page: Page) {
   await page.getByLabel('Seed', { exact: true }).fill('42');
   await page.getByRole('button', { name: '生成する', exact: true }).click();
   await expect(page.locator('.timeline .event strong')).toHaveText([
-    'Cmaj7',
+    'CM7',
     'A7',
     'Dm7',
     'G7',
@@ -59,7 +59,7 @@ test('Jazz generates editable, reproducible notes and distinguishes intent from 
     page.getByRole('button', { name: '音声を開始', exact: true }),
   ).toBeVisible();
   await expect(page.locator('.timeline .event > span')).toHaveText([
-    'Imaj7',
+    'IM7',
     'V7/ii',
     'ii7',
     'V7',
@@ -86,14 +86,14 @@ test('Jazz generates editable, reproducible notes and distinguishes intent from 
     .toEqual(original.events);
   await page.getByRole('button', { name: '元に戻す', exact: true }).click();
   await expect(page.locator('.timeline .event strong')).toHaveText([
-    'Cmaj7',
+    'CM7',
     'A7',
     'G7',
     'Dm7',
   ]);
   await page.getByRole('button', { name: 'やり直す', exact: true }).click();
   await expect(page.locator('.timeline .event strong')).toHaveText([
-    'Cmaj7',
+    'CM7',
     'A7',
     'Dm7',
     'G7',
@@ -102,7 +102,7 @@ test('Jazz generates editable, reproducible notes and distinguishes intent from 
   await page.getByRole('button', { name: '再生', exact: true }).click();
   await expect(
     page.locator('.timeline .event[aria-current="step"]'),
-  ).toContainText('Cmaj7');
+  ).toContainText('CM7');
   await expect
     .poll(async () =>
       Number(await page.getByTestId('audio-level').getAttribute('value')),
@@ -144,7 +144,7 @@ test('generated JSON, inversion edits and seed survive export, import and reload
     buffer,
   });
   await expect(page.locator('.timeline .event strong')).toHaveText([
-    'Cmaj7',
+    'CM7',
     'A7',
     'Dm7',
     'G7/F',
@@ -154,7 +154,7 @@ test('generated JSON, inversion edits and seed survive export, import and reload
     .toEqual(data.events);
   await page.reload();
   await expect(page.locator('.timeline .event strong')).toHaveText([
-    'Cmaj7',
+    'CM7',
     'A7',
     'Dm7',
     'G7/F',
