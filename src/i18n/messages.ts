@@ -212,8 +212,12 @@ const ja = {
     '音の種類はすべて半音上の和音に対応し、クロマティック・アプローチの候補です。実際のoctave移動は配置によって変わります。機能は一意ではありません。',
   borrowedFrom: '借用元の候補',
   extendedRomanHint:
-    '6・add9・9系は和音の種類を保って表記し、古典的な転回数字を付けません。6の和音は(add6)で区別します。実際の最低音はコード名のslashとbass表示を確認してください。',
+    '付加音・テンション・変化和音などは種類を保って表記し、古典的な転回数字を付けません。6の和音は(add6)で区別します。実際の最低音はコード名のslashとbass表示を確認してください。',
   fourth: '第4転回',
+  fifth: '第5転回',
+  sixth: '第6転回',
+  listenQualityLimit:
+    '名前の読み上げは音声を収録済みの17種類に対応しています。',
   enable: '音声を開始',
   ready: '音声オン',
   error: '音声を開始できませんでした。もう一度お試しください。',
@@ -564,8 +568,12 @@ const en: Record<keyof typeof ja, string> = {
     'The pitch classes match a chord a semitone higher: a possible chromatic approach. Actual octave movement depends on voicing; function is not unique.',
   borrowedFrom: 'Possible source of borrowing',
   extendedRomanHint:
-    'Sixth, add9 and ninth chords retain their quality without classical inversion figures. Added sixths use (add6). The slash symbol and bass label identify the actual lowest note.',
+    'Added-tone, extended and altered qualities retain their symbols without classical inversion figures. Added sixths use (add6). The slash symbol and bass label identify the actual lowest note.',
   fourth: '4th inversion',
+  fifth: '5th inversion',
+  sixth: '6th inversion',
+  listenQualityLimit:
+    'Spoken names are available for the 17 qualities with bundled recordings.',
   enable: 'Enable audio',
   ready: 'Audio on',
   error: 'Could not start audio. Please try again.',

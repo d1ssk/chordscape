@@ -135,7 +135,7 @@ describe('spelled harmony', () => {
     );
     expect(roman(analyze(chord('E', '7'), key('A', 'minor')))).toBe('V7');
   });
-  it('offers outside triads, sevenths and ninths with unique names and playable spelled tones in every key', () => {
+  it('offers ordered outside palettes with playable spelled tones in every key', () => {
     for (const [names, mode] of [
       [MAJOR_KEYS, 'major'],
       [MINOR_KEYS, 'minor'],
@@ -143,8 +143,20 @@ describe('spelled harmony', () => {
       for (const name of names) {
         const context = key(name, mode);
         const choices = outside(context);
-        expect(choices.length).toBeGreaterThanOrEqual(24);
-        expect(new Set(choices.map(chordSymbol)).size).toBe(choices.length);
+        expect(choices).toHaveLength(27);
+        expect(new Set(choices.map(chordSymbol)).size).toBe(
+          mode === 'major' ? 27 : 26,
+        );
+        const reference = outside(key('C', mode));
+        for (const [index, choice] of choices.entries()) {
+          expect(choice.quality).toBe(reference[index].quality);
+          expect(pc(choice.root)).toBe(
+            (pc(reference[index].root) + pc(context.tonic)) % 12,
+          );
+          expect(analyze(choice, context).degree).toBe(
+            analyze(reference[index], key('C', mode)).degree,
+          );
+        }
         for (const choice of choices) {
           expect(analyze(choice, context).changed.length).toBeGreaterThan(0);
           expect(new Set(rootVoicing(choice).map((n) => n % 12))).toEqual(
@@ -153,17 +165,64 @@ describe('spelled harmony', () => {
         }
       }
     }
-    expect(outside(defaultKey).map(chordSymbol)).toEqual(
-      expect.arrayContaining([
-        'A',
-        'A7',
-        'A9',
-        'Fm7',
-        'A♭maj7',
-        'B♭7',
-        'Dm7♭5',
-      ]),
-    );
+    expect(outside(defaultKey).map(chordSymbol)).toEqual([
+      'A7',
+      'B7',
+      'C7',
+      'D7',
+      'E7',
+      'F♯7',
+      'C♯dim7',
+      'D♯dim7',
+      'F♯dim7',
+      'G♯dim7',
+      'Cm',
+      'E♭',
+      'Fm',
+      'Gm',
+      'A♭',
+      'B♭',
+      'Fm7',
+      'A♭maj7',
+      'B♭7',
+      'D♭7',
+      'E♭7',
+      'A♭7',
+      'F7',
+      'D♭',
+      'Caug',
+      'Gaug',
+      'Am(maj7)',
+    ]);
+    expect(outside(key('C', 'minor')).map(chordSymbol)).toEqual([
+      'G',
+      'G7',
+      'Bdim',
+      'Bdim7',
+      'Cm(maj7)',
+      'E♭aug',
+      'E♭maj7♯5',
+      'Dm7',
+      'F',
+      'F7',
+      'Am7♭5',
+      'Bm7♭5',
+      'C',
+      'Cmaj7',
+      'Dm',
+      'Em',
+      'Em7',
+      'A',
+      'Am',
+      'Am7',
+      'C7',
+      'D7',
+      'E♭7',
+      'F7',
+      'A7',
+      'D♭',
+      'A♭7',
+    ]);
     expect(roman(analyze(chord('A', '9'), defaultKey))).toBe('V9/ii');
     expect(tones(chord('A', '9')).map(pitchName)).toEqual([
       'A',
@@ -177,8 +236,8 @@ describe('spelled harmony', () => {
     )!;
     expect(analyze(leading, key('A', 'minor')).kind).toBe('minorLeading');
     expect(tones(leading).map(pitchName)).toEqual(['G♯', 'B', 'D', 'F']);
-    expect(outside(key('C♯')).map(chordSymbol)).toContain('D♯9');
-    expect(outside(key('C♭')).map(chordSymbol)).toContain('D♭9');
+    expect(outside(key('C♯')).map(chordSymbol)).toContain('D♯7');
+    expect(outside(key('C♭')).map(chordSymbol)).toContain('D♭7');
   });
   it('separates bass slash from applied Roman slash', () => {
     expect(voicedSymbol(chord('C'), [52, 55, 60])).toBe('C/E');

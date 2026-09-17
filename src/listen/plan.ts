@@ -2,7 +2,6 @@ import {
   defaultKey,
   diatonic,
   parsePitch,
-  QUALITIES,
   tones,
   type Harmony,
   type Key,
@@ -11,7 +10,12 @@ import {
 } from '../music/harmony';
 import { seededRandom } from '../music/generation';
 import { rootVoicing } from '../music/voicing';
-import { chordTokens, keyTokens, type SpeechToken } from './speech';
+import {
+  chordTokens,
+  keyTokens,
+  SPEECH_QUALITIES,
+  type SpeechToken,
+} from './speech';
 export const LISTEN_RATE = 22050;
 export type ListenMode = 'fixed' | 'key' | 'random' | 'ambient';
 export interface ListenSettings {
@@ -68,8 +72,10 @@ export function isListenSettings(value: unknown): value is ListenSettings {
     ['major', 'minor'].includes(s.key.mode) &&
     Array.isArray(s.qualities) &&
     s.qualities.length > 0 &&
-    s.qualities.length <= 17 &&
-    s.qualities.every((q) => Object.hasOwn(QUALITIES, q)) &&
+    s.qualities.length <= SPEECH_QUALITIES.length &&
+    s.qualities.every((q) =>
+      (SPEECH_QUALITIES as readonly string[]).includes(q),
+    ) &&
     new Set(s.qualities).size === s.qualities.length &&
     typeof s.seventh === 'boolean' &&
     typeof s.inversions === 'boolean' &&

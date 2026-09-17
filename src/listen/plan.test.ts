@@ -10,7 +10,6 @@ import {
   MINOR_KEYS,
   parsePitch,
   pc,
-  QUALITIES,
   tones,
 } from '../music/harmony';
 import {
@@ -23,7 +22,12 @@ import {
   listenSpeechTokens,
   type ListenSettings,
 } from './plan';
-import { chordTokens, speechPhrases, type SpeechToken } from './speech';
+import {
+  chordTokens,
+  speechPhrases,
+  SPEECH_QUALITIES,
+  type SpeechToken,
+} from './speech';
 import { wavHeader, writePCM } from './render';
 const durations = Object.fromEntries(
   Object.keys(speechPhrases).map((token) => [token, LISTEN_RATE]),
@@ -36,7 +40,7 @@ describe('listening sequences', () => {
   it('keeps fixed roots and all selected qualities, with stable seeds and actual inversion bass', () => {
     const settings = {
       ...defaultListen(parsePitch('D♭')),
-      qualities: Object.keys(QUALITIES) as ListenSettings['qualities'],
+      qualities: [...SPEECH_QUALITIES],
       inversions: true,
     };
     const items = take(settings, 400);
@@ -208,7 +212,7 @@ it('loads only the selected pool and covers every accepted spelling, degree and 
             ),
             seventh,
             inversions: true,
-            qualities: Object.keys(QUALITIES) as ListenSettings['qualities'],
+            qualities: [...SPEECH_QUALITIES],
           };
           for (const listenMode of ['fixed', 'key', 'random'] as const) {
             const selected = { ...settings, mode: listenMode };

@@ -20,13 +20,13 @@ export function Palette({
 }) {
   return (
     <div className="palette">
-      {chords.map((chord) => {
+      {chords.map((chord, index) => {
         const analysis = analyze(chord, context);
         const name = chordSymbol(chord);
         const numeral = roman(analysis);
         return (
           <button
-            key={name}
+            key={`${name}-${index}`}
             disabled={disabled}
             aria-label={`${name} ${numeral}`}
             aria-pressed={selected === name}

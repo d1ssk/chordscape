@@ -4,9 +4,27 @@ import {
   type Key,
   analyze,
   LETTERS,
-  QUALITIES,
   diatonic,
 } from '../music/harmony';
+export const SPEECH_QUALITIES = [
+  'major',
+  'minor',
+  'dim',
+  'aug',
+  'sus2',
+  'sus4',
+  '7',
+  'maj7',
+  'm7',
+  'm7♭5',
+  'dim7',
+  '6',
+  'm6',
+  'add9',
+  '9',
+  'maj9',
+  'm9',
+] as const;
 // Pronunciation is separate from chord symbols. These phrases also form the
 // reproducible input manifest for the bundled Japanese speech clips.
 const words = {
@@ -88,15 +106,16 @@ export function chordTokens(
 function createPhrases(): Record<SpeechToken, string> {
   const phrases: Record<SpeechToken, string> = {};
   const addChord = (chord: Harmony) => {
-    phrases[chordToken(chord)] = pitchText(chord.root) + words[chord.quality];
+    phrases[chordToken(chord)] =
+      pitchText(chord.root) +
+      words[chord.quality as (typeof SPEECH_QUALITIES)[number]];
   };
   // Cover every accepted fixed root/key, including unusual spellings restored
   // from storage. Diatonic roots may require a third accidental in extreme keys.
   for (const letter of LETTERS) {
     for (let accidental = -2; accidental <= 2; accidental++) {
       const root = { letter, accidental };
-      for (const quality of Object.keys(QUALITIES) as Harmony['quality'][])
-        addChord({ root, quality });
+      for (const quality of SPEECH_QUALITIES) addChord({ root, quality });
       for (const mode of ['major', 'minor'] as const) {
         const key = { tonic: root, mode };
         phrases[keyToken(key)] =

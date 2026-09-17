@@ -38,10 +38,10 @@ export function OutsidePalette({
   const [quality, setQuality] = useState<Harmony['quality']>('major');
   const candidate = { root: parsePitch(root), quality };
   const name = chordSymbol(candidate);
+  const defaultNames = new Set(defaults.map(chordSymbol));
   const chords = [
-    ...new Map(
-      [...defaults, ...custom].map((chord) => [chordSymbol(chord), chord]),
-    ).values(),
+    ...defaults,
+    ...custom.filter((chord) => !defaultNames.has(chordSymbol(chord))),
   ];
   const exists = chords.some((chord) => chordSymbol(chord) === name);
   return (

@@ -130,6 +130,134 @@ export const QUALITIES = {
     intervals: ['1', '♭3', '5', '♭7', '9'],
     family: 'Minor',
   },
+  '7♭5': {
+    suffix: '7♭5',
+    semitones: [0, 4, 6, 10],
+    degrees: [0, 2, 4, 6],
+    intervals: ['1', '3', '♭5', '♭7'],
+    family: 'Dominant',
+    romanSuffix: '7♭5',
+  },
+  'm(maj7)': {
+    suffix: 'm(maj7)',
+    semitones: [0, 3, 7, 11],
+    degrees: [0, 2, 4, 6],
+    intervals: ['1', '♭3', '5', '7'],
+    family: 'Minor',
+    romanSuffix: '(maj7)',
+  },
+  '7sus4': {
+    suffix: '7sus4',
+    semitones: [0, 5, 7, 10],
+    degrees: [0, 3, 4, 6],
+    intervals: ['1', '4', '5', '♭7'],
+    family: 'Dominant',
+    romanSuffix: '7sus4',
+  },
+  '7♯5': {
+    suffix: '7♯5',
+    semitones: [0, 4, 8, 10],
+    degrees: [0, 2, 4, 6],
+    intervals: ['1', '3', '♯5', '♭7'],
+    family: 'Dominant',
+    romanSuffix: '7♯5',
+  },
+  'maj7♯5': {
+    suffix: 'maj7♯5',
+    semitones: [0, 4, 8, 11],
+    degrees: [0, 2, 4, 6],
+    intervals: ['1', '3', '♯5', '7'],
+    family: 'Major',
+    romanSuffix: 'maj7♯5',
+  },
+  '6/9': {
+    suffix: '6/9',
+    semitones: [0, 4, 7, 9, 14],
+    degrees: [0, 2, 4, 5, 8],
+    intervals: ['1', '3', '5', '6', '9'],
+    family: 'Major',
+    romanSuffix: '(add6,9)',
+  },
+  'm(add9)': {
+    suffix: 'm(add9)',
+    semitones: [0, 3, 7, 14],
+    degrees: [0, 2, 4, 8],
+    intervals: ['1', '♭3', '5', '9'],
+    family: 'Minor',
+    romanSuffix: 'add9',
+  },
+  '7♭9': {
+    suffix: '7♭9',
+    semitones: [0, 4, 7, 10, 13],
+    degrees: [0, 2, 4, 6, 8],
+    intervals: ['1', '3', '5', '♭7', '♭9'],
+    family: 'Dominant',
+    romanSuffix: '7♭9',
+  },
+  '7♯9': {
+    suffix: '7♯9',
+    semitones: [0, 4, 7, 10, 15],
+    degrees: [0, 2, 4, 6, 8],
+    intervals: ['1', '3', '5', '♭7', '♯9'],
+    family: 'Dominant',
+    romanSuffix: '7♯9',
+  },
+  'maj7(♯11)': {
+    suffix: 'maj7(♯11)',
+    semitones: [0, 4, 7, 11, 18],
+    degrees: [0, 2, 4, 6, 10],
+    intervals: ['1', '3', '5', '7', '♯11'],
+    family: 'Major',
+    romanSuffix: 'maj7(♯11)',
+  },
+  '11': {
+    suffix: '11',
+    semitones: [0, 4, 7, 10, 14, 17],
+    degrees: [0, 2, 4, 6, 8, 10],
+    intervals: ['1', '3', '5', '♭7', '9', '11'],
+    family: 'Dominant',
+    romanSuffix: '11',
+  },
+  m11: {
+    suffix: 'm11',
+    semitones: [0, 3, 7, 10, 14, 17],
+    degrees: [0, 2, 4, 6, 8, 10],
+    intervals: ['1', '♭3', '5', '♭7', '9', '11'],
+    family: 'Minor',
+    romanSuffix: '11',
+  },
+  '13': {
+    suffix: '13',
+    semitones: [0, 4, 7, 10, 14, 17, 21],
+    degrees: [0, 2, 4, 6, 8, 10, 12],
+    intervals: ['1', '3', '5', '♭7', '9', '11', '13'],
+    family: 'Dominant',
+    romanSuffix: '13',
+  },
+  m13: {
+    suffix: 'm13',
+    semitones: [0, 3, 7, 10, 14, 17, 21],
+    degrees: [0, 2, 4, 6, 8, 10, 12],
+    intervals: ['1', '♭3', '5', '♭7', '9', '11', '13'],
+    family: 'Minor',
+    romanSuffix: '13',
+  },
+  maj13: {
+    suffix: 'maj13',
+    semitones: [0, 4, 7, 11, 14, 17, 21],
+    degrees: [0, 2, 4, 6, 8, 10, 12],
+    intervals: ['1', '3', '5', '7', '9', '11', '13'],
+    family: 'Major',
+    romanSuffix: 'maj13',
+  },
+  '7(♭9,♯5)': {
+    suffix: '7(♭9,♯5)',
+    semitones: [0, 4, 8, 10, 13],
+    degrees: [0, 2, 4, 6, 8],
+    intervals: ['1', '3', '♯5', '♭7', '♭9'],
+    family: 'Dominant',
+    romanSuffix: '7(♭9,♯5)',
+  },
 } as const;
 export type Quality = keyof typeof QUALITIES;
 export interface Harmony {
@@ -355,6 +483,17 @@ function degreeLabel(degree: number, alteration: number, quality: Quality) {
 }
 export function roman(analysis: Analysis, inversion = 0) {
   const q = analysis.quality;
+  const definition = QUALITIES[q];
+  if ('romanSuffix' in definition) {
+    const suffix = definition.romanSuffix;
+    if (
+      analysis.kind === 'secondary' &&
+      analysis.appliedTo !== undefined &&
+      analysis.target
+    )
+      return `V${suffix}/${degreeLabel(analysis.appliedTo, analysis.appliedAlteration ?? 0, analysis.target.quality)}`;
+    return `${degreeLabel(analysis.degree, analysis.alteration, q)}${suffix}`;
+  }
   const seventh = ['7', 'maj7', 'm7', 'm7♭5', 'dim7'].includes(q);
   const extended = ['6', 'm6', 'add9', '9', 'maj9', 'm9'].includes(q);
   const marker =
@@ -409,31 +548,79 @@ export function chromaticApproach(
   const difference = mod(pc(next.root) - pc(chord.root));
   return difference === 1 ? 1 : difference === 11 ? -1 : null;
 }
+// Ordered reference palettes in C; root spelling transposes by letter and pitch.
+// The repeated F7 in minor is intentional. Slash-bass presets are not included.
+const OUTSIDE_PRESETS: Record<
+  Key['mode'],
+  readonly (readonly [string, Quality])[]
+> = {
+  major: [
+    ['A', '7'],
+    ['B', '7'],
+    ['C', '7'],
+    ['D', '7'],
+    ['E', '7'],
+    ['F♯', '7'],
+    ['C♯', 'dim7'],
+    ['D♯', 'dim7'],
+    ['F♯', 'dim7'],
+    ['G♯', 'dim7'],
+    ['C', 'minor'],
+    ['E♭', 'major'],
+    ['F', 'minor'],
+    ['G', 'minor'],
+    ['A♭', 'major'],
+    ['B♭', 'major'],
+    ['F', 'm7'],
+    ['A♭', 'maj7'],
+    ['B♭', '7'],
+    ['D♭', '7'],
+    ['E♭', '7'],
+    ['A♭', '7'],
+    ['F', '7'],
+    ['D♭', 'major'],
+    ['C', 'aug'],
+    ['G', 'aug'],
+    ['A', 'm(maj7)'],
+  ],
+  minor: [
+    ['G', 'major'],
+    ['G', '7'],
+    ['B', 'dim'],
+    ['B', 'dim7'],
+    ['C', 'm(maj7)'],
+    ['E♭', 'aug'],
+    ['E♭', 'maj7♯5'],
+    ['D', 'm7'],
+    ['F', 'major'],
+    ['F', '7'],
+    ['A', 'm7♭5'],
+    ['B', 'm7♭5'],
+    ['C', 'major'],
+    ['C', 'maj7'],
+    ['D', 'minor'],
+    ['E', 'minor'],
+    ['E', 'm7'],
+    ['A', 'major'],
+    ['A', 'minor'],
+    ['A', 'm7'],
+    ['C', '7'],
+    ['D', '7'],
+    ['E♭', '7'],
+    ['F', '7'],
+    ['A', '7'],
+    ['D♭', 'major'],
+    ['A♭', '7'],
+  ],
+};
 export function outside(key: Key): Harmony[] {
-  const candidates: Harmony[] = diatonic(key)
-    .filter((c) => c.quality !== 'dim')
-    .flatMap((target) =>
-      (['7', 'major', '9'] as const).map((quality) => ({
-        root: spell(target.root, 4, 7),
-        quality,
-      })),
-    );
-  const parallel: Key = {
-    ...key,
-    mode: key.mode === 'major' ? 'minor' : 'major',
-  };
-  candidates.push(...diatonic(parallel), ...diatonic(parallel, true));
-  if (key.mode === 'minor')
-    candidates.push(
-      { root: spell(key.tonic, 6, 11), quality: 'dim' },
-      { root: spell(key.tonic, 6, 11), quality: 'dim7' },
-    );
-  return candidates.filter(
-    (c, i) =>
-      analyze(c, key).changed.length > 0 &&
-      candidates.findIndex((other) => chordSymbol(other) === chordSymbol(c)) ===
-        i,
-  );
+  return OUTSIDE_PRESETS[key.mode].map(([name, quality]) => {
+    const reference = parsePitch(name);
+    return {
+      root: spell(key.tonic, LETTERS.indexOf(reference.letter), pc(reference)),
+      quality,
+    };
+  });
 }
 export function inversionOf(chord: Harmony, notes: number[]) {
   return tones(chord).findIndex((p) => pc(p) === mod(Math.min(...notes)));

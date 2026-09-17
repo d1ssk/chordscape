@@ -132,7 +132,9 @@ export function buildBridge(
     ];
   const inputs = pairs.map((p) => ({
     ...p,
-    chord: chordInKey(p.chord, p.key),
+    // Applied dominants keep the destination's spelling; palette choices in
+    // the departure key must not respell C♯7 → F♯ as D♭7 → F♯.
+    chord: p.role === 'dominant' ? p.chord : chordInKey(p.chord, p.key),
     bass: null,
     policy,
   }));

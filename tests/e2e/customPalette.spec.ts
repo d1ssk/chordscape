@@ -10,7 +10,7 @@ test('custom palette adds, plays, persists, deduplicates and removes chords', as
   const open = outside.getByRole('button', { name: '＋ 追加', exact: true });
   await open.click();
   const dialog = page.getByRole('dialog');
-  await expect(dialog.locator('.library-chords button')).toHaveCount(17);
+  await expect(dialog.locator('.library-chords button')).toHaveCount(33);
   await dialog.getByRole('button', { name: 'Cmaj9', exact: true }).click();
   await dialog
     .getByRole('button', { name: 'パレットへ追加', exact: true })

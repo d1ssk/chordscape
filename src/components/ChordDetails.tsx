@@ -63,7 +63,17 @@ export function ChordDetails({
         </strong>
         <span className="roman">{roman(analysis, inversion)}</span>
         <span className="badge">
-          {[t.rootPosition, t.first, t.second, t.third, t.fourth][inversion]}
+          {
+            [
+              t.rootPosition,
+              t.first,
+              t.second,
+              t.third,
+              t.fourth,
+              t.fifth,
+              t.sixth,
+            ][inversion]
+          }
         </span>
       </div>
       <div className="note-line">
@@ -102,8 +112,18 @@ export function ChordDetails({
             <option value="auto">{t.auto}</option>
             {pitches.map((p, i) => (
               <option key={i} value={i}>
-                {[t.rootPosition, t.first, t.second, t.third, t.fourth][i]} ·{' '}
-                {pitchName(p)}
+                {
+                  [
+                    t.rootPosition,
+                    t.first,
+                    t.second,
+                    t.third,
+                    t.fourth,
+                    t.fifth,
+                    t.sixth,
+                  ][i]
+                }{' '}
+                · {pitchName(p)}
               </option>
             ))}
           </select>
@@ -133,9 +153,10 @@ export function ChordDetails({
           </div>
         </dl>
         <p className="muted">{t.keyboardHint}</p>
-        {['6', 'm6', 'add9', '9', 'maj9', 'm9'].includes(
-          event.chord.quality,
-        ) && <p className="muted">{t.extendedRomanHint}</p>}
+        {('romanSuffix' in QUALITIES[event.chord.quality] ||
+          ['6', 'm6', 'add9', '9', 'maj9', 'm9'].includes(
+            event.chord.quality,
+          )) && <p className="muted">{t.extendedRomanHint}</p>}
         {event.intent && (
           <p className="generation-intent" data-testid="generation-intent">
             {t.generationIntent}: {roman(analysis)} ·{' '}

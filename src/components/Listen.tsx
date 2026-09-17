@@ -7,17 +7,15 @@ import {
   MINOR_KEYS,
   parsePitch,
   pitchName,
-  QUALITIES,
   roman,
   ROOTS,
   tones,
   voicedSymbol,
   type Harmony,
   type Key,
-  type Quality,
 } from '../music/harmony';
 import type { Messages } from '../i18n/messages';
-import { speechPhrases } from '../listen/speech';
+import { speechPhrases, SPEECH_QUALITIES } from '../listen/speech';
 import {
   cueAt,
   defaultListen,
@@ -357,7 +355,8 @@ export function Listen({
         {!keyMode && (
           <fieldset className="listen-qualities">
             <legend>{t.listenQualities}</legend>
-            {(Object.keys(QUALITIES) as Quality[]).map((quality) => (
+            <p className="muted">{t.listenQualityLimit}</p>
+            {SPEECH_QUALITIES.map((quality) => (
               <label key={quality}>
                 <input
                   type="checkbox"

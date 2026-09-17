@@ -208,11 +208,9 @@ test('key spellings, minor outside dominant and seventh bass', async ({
 }) => {
   await enable(page);
   await expand(page, '.outside');
-  await chord(page, 'A9 V9/ii');
+  await chord(page, 'A7 V7/ii');
   await sounding(page);
-  await expect(
-    page.getByText('A – C♯ – E – G – B', { exact: true }),
-  ).toBeVisible();
+  await expect(page.getByText('A – C♯ – E – G', { exact: true })).toBeVisible();
   await chord(page, 'Fm7 iv7');
   await expect(
     page.getByText('F – A♭ – C – E♭', { exact: true }),
@@ -659,12 +657,12 @@ test('stop fades continuously during attack, decay and release', async ({
   }
 });
 
-test('library shows all 17 chords, selects before audio, auditions by button and keeps the progression unchanged', async ({
+test('library shows all 33 chords, selects before audio, auditions by button and keeps the progression unchanged', async ({
   page,
 }) => {
   await scene(page, 'コード辞典');
   const buttons = page.locator('.library-chords button');
-  await expect(buttons).toHaveCount(17);
+  await expect(buttons).toHaveCount(33);
   await page.getByRole('button', { name: 'Cmaj7', exact: true }).click();
   await expect(page.getByTestId('chord-symbol')).toHaveText('Cmaj7');
   await enable(page);
@@ -686,6 +684,22 @@ test('library shows all 17 chords, selects before audio, auditions by button and
     'C9',
     'Cmaj9',
     'Cm9',
+    'C7♭5',
+    'Cm(maj7)',
+    'C7sus4',
+    'C7♯5',
+    'Cmaj7♯5',
+    'C6/9',
+    'Cm(add9)',
+    'C7♭9',
+    'C7♯9',
+    'Cmaj7(♯11)',
+    'C11',
+    'Cm11',
+    'C13',
+    'Cm13',
+    'Cmaj13',
+    'C7(♭9,♯5)',
   ];
   for (const name of symbols) {
     const button = page
@@ -696,9 +710,13 @@ test('library shows all 17 chords, selects before audio, auditions by button and
     await expect(page.getByTestId('chord-symbol')).toHaveText(name);
   }
   await page
+    .locator('.library-chords')
+    .getByRole('button', { name: 'Cm9', exact: true })
+    .click();
+  await page
     .getByRole('combobox', { name: '根音', exact: true })
     .selectOption('D♭');
-  await expect(buttons).toHaveCount(17);
+  await expect(buttons).toHaveCount(33);
   await expect(
     page.getByRole('button', { name: 'D♭m9', exact: true }),
   ).toHaveAttribute('aria-pressed', 'true');
@@ -715,4 +733,142 @@ test('library shows all 17 chords, selects before audio, auditions by button and
   }
   await scene(page);
   await expect(page.locator('.timeline li')).toHaveCount(0);
+});
+
+test('extended sixth inversion preserves seven notes and bass after reload', async ({
+  page,
+}) => {
+  await enable(page);
+  await scene(page, 'コード辞典');
+  await page.getByRole('button', { name: 'Cmaj13', exact: true }).click();
+  await page.getByRole('button', { name: '進行へ追加', exact: true }).click();
+  await page
+    .getByRole('combobox', { name: '和音の構成: 転回・bass指定', exact: true })
+    .selectOption('6');
+  await expect(page.getByTestId('chord-symbol')).toHaveText('Cmaj13/A');
+  await expect(page.locator('.chord-summary .badge')).toHaveText('第6転回');
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const raw = localStorage.getItem('chordscape.session.v4');
+        return raw ? JSON.parse(raw).events[0]?.bass : null;
+      }),
+    )
+    .toBe(6);
+  await page.reload();
+  await expect(page.getByTestId('chord-symbol')).toHaveText('Cmaj13/A');
+  await expect(page.locator('.chord-summary .badge')).toHaveText('第6転回');
+});
+
+test('outside presets keep the requested order and transpose by degree', async ({
+  page,
+}) => {
+  await expand(page, '.outside');
+  const names = page.locator('.outside .palette button strong');
+  await expect(names).toHaveText([
+    'A7',
+    'B7',
+    'C7',
+    'D7',
+    'E7',
+    'F♯7',
+    'C♯dim7',
+    'D♯dim7',
+    'F♯dim7',
+    'G♯dim7',
+    'Cm',
+    'E♭',
+    'Fm',
+    'Gm',
+    'A♭',
+    'B♭',
+    'Fm7',
+    'A♭maj7',
+    'B♭7',
+    'D♭7',
+    'E♭7',
+    'A♭7',
+    'F7',
+    'D♭',
+    'Caug',
+    'Gaug',
+    'Am(maj7)',
+  ]);
+  await page
+    .getByRole('combobox', { name: '調', exact: true })
+    .selectOption('D');
+  await expect(names).toHaveText([
+    'B7',
+    'C♯7',
+    'D7',
+    'E7',
+    'F♯7',
+    'G♯7',
+    'D♯dim7',
+    'E♯dim7',
+    'G♯dim7',
+    'A♯dim7',
+    'Dm',
+    'F',
+    'Gm',
+    'Am',
+    'B♭',
+    'C',
+    'Gm7',
+    'B♭maj7',
+    'C7',
+    'E♭7',
+    'F7',
+    'B♭7',
+    'G7',
+    'E♭',
+    'Daug',
+    'Aaug',
+    'Bm(maj7)',
+  ]);
+  await page
+    .getByRole('combobox', { name: '調', exact: true })
+    .selectOption('C');
+  await page.locator('.key-panel select').nth(1).selectOption('minor');
+  await expect(names).toHaveText([
+    'G',
+    'G7',
+    'Bdim',
+    'Bdim7',
+    'Cm(maj7)',
+    'E♭aug',
+    'E♭maj7♯5',
+    'Dm7',
+    'F',
+    'F7',
+    'Am7♭5',
+    'Bm7♭5',
+    'C',
+    'Cmaj7',
+    'Dm',
+    'Em',
+    'Em7',
+    'A',
+    'Am',
+    'Am7',
+    'C7',
+    'D7',
+    'E♭7',
+    'F7',
+    'A7',
+    'D♭',
+    'A♭7',
+  ]);
+  await page
+    .locator('.outside')
+    .getByRole('button', { name: '＋ 追加', exact: true })
+    .click();
+  const dialog = page.getByRole('dialog');
+  await dialog
+    .getByRole('combobox', { name: '根音', exact: true })
+    .selectOption('F');
+  await dialog.getByRole('button', { name: 'F7', exact: true }).click();
+  await expect(
+    dialog.getByRole('button', { name: '追加済み', exact: true }),
+  ).toBeDisabled();
 });
