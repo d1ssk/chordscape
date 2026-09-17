@@ -1424,6 +1424,12 @@ details > summary:focus-visible {
   border-radius: 10px;
   font-size: 0.9rem;
 }
+/* Transposed minor-major sevenths need room for accidentals and font fallbacks. */
+.space-node[data-node-id='am-maj7'] {
+  width: max-content;
+  min-width: 5.5em;
+  white-space: nowrap;
+}
 .space-node-outer {
   border-style: dashed;
   color: #526352;
@@ -1531,9 +1537,6 @@ details > summary:focus-visible {
     height: 22px;
     font-size: 0.55rem;
     border-radius: 8px;
-  }
-  .space-node[data-node-id='am-maj7'] {
-    width: 50px;
   }
   .space-satellite[data-node-id='bdim-seventh'] {
     width: 40px;

@@ -82,41 +82,45 @@ test('compact map fits without scrolling, overlap or clipped labels', async ({
   for (const size of sizes) {
     await page.setViewportSize(size);
     await page.goto('./#space');
-    const problems = await page.locator('.space-node').evaluateAll((nodes) => {
-      const map = document.querySelector('.space-map')!.getBoundingClientRect();
-      const nav = document.querySelector('.scene-nav')!.getBoundingClientRect();
-      const boxes = nodes.map((node) => ({
-        id: node.getAttribute('data-node-id'),
-        box: node.getBoundingClientRect(),
-        element: node,
-      }));
-      return boxes.flatMap((a, i) => [
-        ...boxes
-          .slice(i + 1)
-          .filter(
-            (b) =>
-              a.box.left < b.box.right &&
-              a.box.right > b.box.left &&
-              a.box.top < b.box.bottom &&
-              a.box.bottom > b.box.top,
-          )
-          .map((b) => `overlap ${a.id}/${b.id}`),
-        ...(a.box.left < map.left ||
-        a.box.right > map.right ||
-        a.box.top < map.top ||
-        a.box.bottom > map.bottom
-          ? [`outside map ${a.id}`]
-          : []),
-        ...(a.box.bottom > nav.top || a.box.top < 0
-          ? [`outside viewport ${a.id}`]
-          : []),
-        ...(a.element.scrollWidth > a.element.clientWidth ||
-        a.element.scrollHeight > a.element.clientHeight
-          ? [`clipped text ${a.id}`]
-          : []),
-      ]);
-    });
-    expect(problems, `${size.width} × ${size.height}`).toEqual([]);
+    const layoutProblems = () =>
+      page.locator('.space-node').evaluateAll((nodes) => {
+        const map = document
+          .querySelector('.space-map')!
+          .getBoundingClientRect();
+        const nav = document
+          .querySelector('.scene-nav')!
+          .getBoundingClientRect();
+        const boxes = nodes.map((node) => ({
+          id: node.getAttribute('data-node-id'),
+          box: node.getBoundingClientRect(),
+          element: node,
+        }));
+        return boxes.flatMap((a, i) => [
+          ...boxes
+            .slice(i + 1)
+            .filter(
+              (b) =>
+                a.box.left < b.box.right &&
+                a.box.right > b.box.left &&
+                a.box.top < b.box.bottom &&
+                a.box.bottom > b.box.top,
+            )
+            .map((b) => `overlap ${a.id}/${b.id}`),
+          ...(a.box.left < map.left ||
+          a.box.right > map.right ||
+          a.box.top < map.top ||
+          a.box.bottom > map.bottom
+            ? [`outside map ${a.id}`]
+            : []),
+          ...(a.box.bottom > nav.top || a.box.top < 0
+            ? [`outside viewport ${a.id}`]
+            : []),
+          ...(a.element.scrollWidth > a.element.clientWidth ||
+          a.element.scrollHeight > a.element.clientHeight
+            ? [`clipped text ${a.id}`]
+            : []),
+        ]);
+      });
     const keySelect = page.getByRole('combobox', { name: '和声空間の調' });
     const tonics = await keySelect
       .locator('option')
@@ -125,18 +129,10 @@ test('compact map fits without scrolling, overlap or clipped labels', async ({
       );
     for (const tonic of tonics) {
       await keySelect.selectOption(tonic);
-      const clipped = await page
-        .locator('.space-node')
-        .evaluateAll((nodes) =>
-          nodes
-            .filter(
-              (n) =>
-                n.scrollWidth > n.clientWidth ||
-                n.scrollHeight > n.clientHeight,
-            )
-            .map((n) => n.textContent),
-        );
-      expect(clipped, `${tonic} major at ${size.width}px`).toEqual([]);
+      expect(
+        await layoutProblems(),
+        `${tonic} major at ${size.width}px`,
+      ).toEqual([]);
     }
     await keySelect.selectOption('C');
     expect(

@@ -87,7 +87,7 @@ test('production assets, audio, stop, keyboard and scene navigation', async ({
   await expect(page.locator('.timeline li')).toHaveCount(3);
   await scene(page, '設定');
   await page.getByLabel('言語').selectOption('en');
-  await scene(page, 'Play');
+  await scene(page, 'Home');
   await expect(
     page.getByRole('button', { name: '■ Stop', exact: true }),
   ).toBeVisible();
