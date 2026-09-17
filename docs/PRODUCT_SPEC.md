@@ -99,6 +99,14 @@ T/P/D分類は学習用の簡略モデル。iiiやviの機能、借用和音、�
 
 rootを選ぶと33種類のqualityをコード名のボタンで一覧表示する。ボタンで選択し、音声が利用可能ならその場で試聴する。family・qualityのプルダウンは置かない。「進行へ追加」は別操作とする。
 
+辞典はモバイルも6列とし、小さなカテゴリ見出しと以下の学習順で表示する。Extensionsだけは9種類のため2行になる。
+
+- Basic：major、minor、dim、aug、sus2、sus4。
+- Seventh：maj7、7、m7、m(maj7)、m7♭5、dim7。
+- Added tones / Sixth：6、m6、add9、m(add9)、6/9、7sus4。
+- Extensions：maj9、9、m9、11、m11、13、m13、maj13、maj7(♯11)。
+- Altered：maj7♯5、7♭5、7♯5、7♭9、7♯9、7(♭9,♯5)。
+
 基本quality：major、minor、dim、aug、sus2、sus4、7、maj7、m7、m7♭5、dim7。拡張：6、m6、add9、9、maj9、m9等。
 
 追加quality：7♭5、m(maj7)、7sus4、7♯5、maj7♯5、6/9、m(add9)、7♭9、7♯9、maj7(♯11)、11、m11、13、m13、maj13、7(♭9,♯5)。11系は6音、13系は7音を省略せず扱い、第5・第6転回にも対応する。名前の録音を使う聞き流しは既存17種類が対象で、新規16種類は含めない。

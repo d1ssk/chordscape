@@ -13,6 +13,41 @@ import {
   type Harmony,
 } from '../music/harmony';
 import { type Messages } from '../i18n/messages';
+const QUALITY_GROUPS = [
+  {
+    label: 'libraryBasic',
+    qualities: ['major', 'minor', 'dim', 'aug', 'sus2', 'sus4'],
+  },
+  {
+    label: 'librarySeventh',
+    qualities: ['maj7', '7', 'm7', 'm(maj7)', 'm7♭5', 'dim7'],
+  },
+  {
+    label: 'libraryAdded',
+    qualities: ['6', 'm6', 'add9', 'm(add9)', '6/9', '7sus4'],
+  },
+  {
+    label: 'libraryExtensions',
+    qualities: [
+      'maj9',
+      '9',
+      'm9',
+      '11',
+      'm11',
+      '13',
+      'm13',
+      'maj13',
+      'maj7(♯11)',
+    ],
+  },
+  {
+    label: 'libraryAltered',
+    qualities: ['maj7♯5', '7♭5', '7♯5', '7♭9', '7♯9', '7(♭9,♯5)'],
+  },
+] as const satisfies readonly {
+  label: keyof Messages;
+  qualities: readonly Harmony['quality'][];
+}[];
 export function Library({
   initial,
   onInspect,
@@ -69,25 +104,57 @@ export function Library({
           {t.add}
         </button>
       </div>
-      <div className="library-chords" role="group" aria-label={t.quality}>
-        {(Object.keys(QUALITIES) as Harmony['quality'][]).map((q) => {
-          const candidate: Harmony = { root: parsePitch(root), quality: q };
-          const name = chordSymbol(candidate);
-          return (
-            <button
-              key={q}
-              aria-label={name}
-              aria-pressed={quality === q}
-              onClick={() => {
-                setQuality(q);
-                if (disabled) onInspect(candidate);
-                else onAudition(candidate);
-              }}
-            >
-              {name}
-            </button>
-          );
-        })}
+      <div
+        className="library-chords library-categories"
+        role="group"
+        aria-label={t.quality}
+      >
+        {QUALITY_GROUPS.map((group) => (
+          <div
+            className="library-quality-group"
+            role="group"
+            aria-labelledby={group.label}
+            key={group.label}
+          >
+            <h3 id={group.label}>{t[group.label]}</h3>
+            <div className="library-quality-row">
+              {group.qualities.map((q) => {
+                const candidate: Harmony = {
+                  root: parsePitch(root),
+                  quality: q,
+                };
+                const name = chordSymbol(candidate);
+                const suffix = QUALITIES[q].suffix;
+                const split = suffix.search(/[（(♭♯]/);
+                const parts =
+                  split < 0
+                    ? [name]
+                    : [
+                        pitchName(candidate.root) + suffix.slice(0, split),
+                        suffix.slice(split),
+                      ];
+                return (
+                  <button
+                    key={q}
+                    aria-label={name}
+                    aria-pressed={quality === q}
+                    onClick={() => {
+                      setQuality(q);
+                      if (disabled) onInspect(candidate);
+                      else onAudition(candidate);
+                    }}
+                  >
+                    {parts.map((part, index) => (
+                      <span className="library-chord-part" key={index}>
+                        {part}
+                      </span>
+                    ))}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
       <p className="muted">{t.libraryButtonsHint}</p>
       <p>

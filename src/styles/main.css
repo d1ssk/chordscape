@@ -1318,6 +1318,27 @@ details > summary:focus-visible {
   overflow-wrap: anywhere;
   font-weight: 650;
 }
+.library-categories {
+  display: block;
+}
+.library-quality-group + .library-quality-group {
+  margin-top: 10px;
+}
+.library-quality-group h3 {
+  margin-bottom: 4px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #5e7267;
+}
+.library-quality-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 5px;
+}
+.library-chord-part {
+  display: inline-block;
+  max-width: 100%;
+}
 @media (max-width: 640px) {
   .diatonic-row h3 {
     font-size: 0.6rem;
@@ -1335,5 +1356,13 @@ details > summary:focus-visible {
   }
   .library-chords button {
     font-size: 0.85rem;
+  }
+  .library-quality-row {
+    gap: 3px;
+  }
+  .library-quality-row button {
+    padding: 5px 1px;
+    font-size: clamp(0.65rem, 2.6vw, 0.8rem);
+    line-height: 1.25;
   }
 }

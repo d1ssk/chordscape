@@ -673,34 +673,42 @@ test('library shows all 33 chords, selects before audio, auditions by button and
     'Caug',
     'Csus2',
     'Csus4',
-    'C7',
     'Cmaj7',
+    'C7',
     'Cm7',
+    'Cm(maj7)',
     'Cm7♭5',
     'Cdim7',
     'C6',
     'Cm6',
     'Cadd9',
-    'C9',
-    'Cmaj9',
-    'Cm9',
-    'C7♭5',
-    'Cm(maj7)',
-    'C7sus4',
-    'C7♯5',
-    'Cmaj7♯5',
-    'C6/9',
     'Cm(add9)',
-    'C7♭9',
-    'C7♯9',
-    'Cmaj7(♯11)',
+    'C6/9',
+    'C7sus4',
+    'Cmaj9',
+    'C9',
+    'Cm9',
     'C11',
     'Cm11',
     'C13',
     'Cm13',
     'Cmaj13',
+    'Cmaj7(♯11)',
+    'Cmaj7♯5',
+    'C7♭5',
+    'C7♯5',
+    'C7♭9',
+    'C7♯9',
     'C7(♭9,♯5)',
   ];
+  await expect(buttons).toHaveText(symbols);
+  await expect(page.locator('.library-quality-group h3')).toHaveText([
+    'Basic',
+    'Seventh',
+    'Added tones / Sixth',
+    'Extensions',
+    'Altered',
+  ]);
   for (const name of symbols) {
     const button = page
       .locator('.library-chords')
@@ -725,6 +733,21 @@ test('library shows all 33 chords, selects before audio, auditions by button and
   await expect(page.getByTestId('chord-symbol')).toHaveText('D♭7');
   for (const width of [320, 390]) {
     await page.setViewportSize({ width, height: 812 });
+    for (const group of await page.locator('.library-quality-row').all()) {
+      const boxes = await group.locator('button').evaluateAll((buttons) =>
+        buttons.map((button) => {
+          const rect = button.getBoundingClientRect();
+          return { top: Math.round(rect.top), right: rect.right };
+        }),
+      );
+      expect(new Set(boxes.slice(0, 6).map((box) => box.top)).size).toBe(1);
+      expect(new Set(boxes.map((box) => box.top)).size).toBe(
+        boxes.length === 9 ? 2 : 1,
+      );
+      expect(Math.max(...boxes.map((box) => box.right))).toBeLessThanOrEqual(
+        width,
+      );
+    }
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
