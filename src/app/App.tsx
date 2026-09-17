@@ -38,6 +38,8 @@ import {
 } from '../state/session';
 import { messages, type Locale } from '../i18n/messages';
 import { Palette } from '../components/Palette';
+import { OutsidePalette } from '../components/OutsidePalette';
+import { loadCustomPalette, saveCustomPalette } from '../state/customPalette';
 import { Timeline } from '../components/Timeline';
 import { Library } from '../components/Library';
 import { ChordDetails } from '../components/ChordDetails';
@@ -53,6 +55,7 @@ const initialEvent = makeEvent(
   'preview',
 );
 export function App() {
+  const [customPalette, setCustomPalette] = useState(loadCustomPalette);
   const [loaded] = useState(loadSession);
   const [history, dispatch] = useReducer(reducer, {
     past: [],
@@ -774,17 +777,19 @@ export function App() {
                 />
               </div>
             ))}
-            <details className="outside">
-              <summary>{t.outside}</summary>
-              <p className="muted">{t.outsideHint}</p>
-              <Palette
-                chords={outside(currentKey)}
-                context={currentKey}
-                disabled={!ready || (running && !liveMode) || sound.loading}
-                onChoose={choose}
-                selected={chordSymbol(displayed.chord)}
-              />
-            </details>
+            <OutsidePalette
+              defaults={outside(currentKey)}
+              custom={customPalette.chords}
+              storageFailed={customPalette.failed}
+              onChange={(chords) =>
+                setCustomPalette({ chords, failed: !saveCustomPalette(chords) })
+              }
+              t={t}
+              context={currentKey}
+              disabled={!ready || (running && !liveMode) || sound.loading}
+              onChoose={choose}
+              selected={chordSymbol(displayed.chord)}
+            />
           </section>
           <ChordDetails
             event={displayed}

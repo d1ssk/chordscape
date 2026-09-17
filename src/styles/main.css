@@ -255,6 +255,46 @@ section {
 .outside p {
   padding: 6px 0;
 }
+.outside-actions {
+  gap: 8px;
+}
+.outside-actions > button {
+  flex-shrink: 0;
+  min-height: 28px;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.chord-picker {
+  width: min(440px, calc(100% - 24px));
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  color: inherit;
+  background: #fffefa;
+}
+.chord-picker::backdrop {
+  background: #142c2466;
+}
+.chord-picker h2 {
+  font-size: 1rem;
+}
+.chord-picker h3 {
+  font-size: 0.85rem;
+  margin-top: 18px;
+}
+.custom-chord-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.custom-chord-list button {
+  padding: 6px 10px;
+}
 summary {
   cursor: pointer;
   min-height: 36px;

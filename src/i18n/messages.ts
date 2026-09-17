@@ -240,6 +240,16 @@ const ja = {
   sevenths: '七の和音',
   chordSize: '和音の種類',
   outside: '調外の和音',
+  customPaletteOpen: '＋ 追加',
+  customPaletteTitle: 'パレットの和音を追加',
+  customPaletteClose: '閉じる',
+  customPaletteAdd: 'パレットへ追加',
+  customPaletteExists: '追加済み',
+  customPaletteSaved: '自分で追加した和音（押すと削除）',
+  customPaletteHint:
+    '追加した和音はこのブラウザに保存します。調を変えてもコード名は変わりません。',
+  customPaletteStorageError:
+    '追加した和音を保存できません。この画面では使えますが、リロード後は復元できない場合があります。',
   outsideHint: '借用や一時的な導音など、響きの可能性を探索できます。',
   timeline: '進行',
   empty: 'まだ進行がありません。音声を開始して、和音を押してみましょう。',
@@ -582,6 +592,16 @@ const en: Record<keyof typeof ja, string> = {
   sevenths: 'Sevenths',
   chordSize: 'Chord size',
   outside: 'Outside key',
+  customPaletteOpen: '+ Add',
+  customPaletteTitle: 'Add palette chords',
+  customPaletteClose: 'Close',
+  customPaletteAdd: 'Add to palette',
+  customPaletteExists: 'Already added',
+  customPaletteSaved: 'Your added chords (press to remove)',
+  customPaletteHint:
+    'Added chords are saved in this browser. Their names stay the same when you change key.',
+  customPaletteStorageError:
+    'Could not save your palette. You can still use it now, but it may not be restored after reloading.',
   outsideHint: 'Explore borrowed colors and temporary leading tones.',
   timeline: 'Progression',
   empty: 'Your progression starts here. Enable audio and choose a chord.',
