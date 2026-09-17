@@ -733,8 +733,9 @@ export function App() {
             sounding={
               playback.event?.id.startsWith('space-') ? playback.event : null
             }
-            onChoose={(event) =>
-              runAudio(() => engine.current!.audition(event))
+            onResetAudio={stop}
+            onChoose={(prepare) =>
+              runAudio(() => engine.current!.audition(prepare()))
             }
           />
         </>

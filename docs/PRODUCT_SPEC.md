@@ -39,6 +39,12 @@ Theory、Playground、Earを別アプリにしない。同じ和音・進行・�
 
 色はTonic、Predominant、Dominant、Outsideの補助表現とし、ラベルや形でも識別する。機能が曖昧なコードを強制的に一色へ断定分類しない。
 
+### 和声空間：Harmonic Space
+
+演奏・記録から独立した探索画面。既存の42ノードの位置関係を維持し、12 major keysへ和音を移調する。初期はC major / Free。直近6回の履歴を灰色の背景、最大6個の次候補を種類別の色付き枠で重ねて表示する。Free / Pop / Jazz / Classicalは候補の重みを変更し、履歴や現在の配置を保持する。
+
+発音は直前の配置と上位の次候補を考慮するautomatic voice leadingを使う。調変更では発音・待機を止め、探索文脈を消し、styleのみ保持。探索履歴は保存せず、演奏画面のsessionは変更しない。edge・trail・minor key・tritone substitution専用UI等は対象外。構造・推薦規則・検証範囲は [HARMONIC_SPACE.md](HARMONIC_SPACE.md) を参照。
+
 ### 初回体験
 
 C major、triads、90 BPM、root position、melody off、speech off、Record onをデフォルトとする。Cを押すだけで音声の準備と発音を行い、C / I / C–E–Gが表示され、timelineへ追加される。説明を読まずに遊べること。

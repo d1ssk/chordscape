@@ -1,31 +1,40 @@
 # Harmonic Space
 
-下部ナビゲーション右端の「和声空間」（`#space`）から開く、演奏・記録とは独立した探索画面。設定はヘッダー右上へ移動。
+下部ナビゲーション右端の「和声空間」（`#space`）から開く、演奏・記録とは独立した探索画面。設定はヘッダー右上。
 
-## 実装範囲
+## 操作と表示
 
-- C major固定。中央の7三和音はEm/G、Am/C/B°、F/Dmの蜂の巣状配置。それぞれの七の和音だけを小さなsatelliteとして配置。
-- near 15個、outer 13個、core 14個の計42ノード。借用・同主短調は左〜左下、sharp系は上〜右側へ展開。色彩和音は同rootの近傍に置く。
-- 座標は編集上の配置であり、距離が厳密な楽理上の尺度を表すものではない。Cmなどの同root変化は中心に近く、layerが同心円の境界を意味するわけではない。
-- 各ノードで既存音源を直接試聴。音色・音量は共有するが、演奏画面の調・Record・Smooth・旋律設定は探索イベントへ適用しない。D♭/Fだけは明示した第1転回、それ以外は基本位置。発音中の音名・実際の最低音は同一イベントから表示する。
-- 演奏進行の追加・編集・保存は行わない。探索画面への移動・離脱で旧再生を停止し、読み込み中のクリックは停止・画面移動・非表示で取り消す。
-- Tab、方向キー、Enter/Space、フォーカス表示に対応。PCは横長、モバイルは縦長の座標で、ボタンと間隔を圧縮して地図全体を表示する。320×667pxから42ノードを初期画面内に収める。
-- coreは太枠、大きい三和音と小さい七の和音、nearは実線、outerは破線で識別。edge・connection line・選択後の発光は表示しない。
+- 初期状態はC major / Free。12のmajor tonicとFree / Pop / Jazz / Classicalを選べる。styleは推薦の重みだけを変え、コード集合・位置・履歴・現在の配置は維持する。
+- core 14個、near 15個、outer 13個の計42ノード。7三和音の蜂の巣状配置と小さな七の和音satellite、左〜左下のborrowed / minor側、上〜右のsharp / chromatic側を維持。座標は編集上の配置であり、距離は厳密な楽理尺度ではない。
+- 調変更は既存の綴り付き移調関数で和音と音高を移す。位置・IDは維持。例えばC majorのA7 / DmはD majorでB7 / Em、F♯ majorの導音の和音はE♯°となる。
+- クリックすると既存音源で試聴し、直近6回を無彩色の背景で表示。最新が最も濃く、同じノードを再訪した場合は最新の濃さを使う。現在コードは太字、発音中は内側の枠でも識別する。
+- 次候補は最大6個。解決＝amber、継続＝blue、彩り＝violet、探索＝tealの枠・haloを付け、スコアで強さを変える。履歴の背景と候補の枠は独立して重なる。小さな凡例、tooltip・アクセシブルな説明でも種類を確認できる。
+- 最初の和音は基本位置（明示的なslash bassは優先）。以降は直前の実音と上位の次候補を使って転回・octave配置を選ぶ。ノードには和音名、試聴欄には実際の転回を反映したコード名・音名・最低音を同一イベントから表示する。
+- 音色・音量は既存画面と共有。演奏画面の調・Record・Smooth・旋律設定は探索へ適用せず、探索の履歴はsessionや保存済み進行へ書き込まない。
+- 調変更では発音と読み込み待ちを止め、履歴・現在コード・推薦・voice-leadingの状態を消す。styleは保持。Stopでは音を止めて探索文脈を保持し、画面を離れるとローカル文脈を破棄する。
+- 音源準備待ちのクリックは停止・調変更・画面移動・非表示などで取り消す。受理された試聴だけを履歴へ追加する。
+- Tab、方向キー、Enter/Space、フォーカス表示に対応。PCは横長、モバイルは縦長の座標。既存のコンパクトな地図を維持し、320×667pxから全42ノードを初期画面に収める。
+- 表示変化は200msのCSS transition。reduced motionを尊重し、音声はアニメーション完了を待たない。edgeやtrailは描画しない。
 
-## 構造
+## 構造と推薦の方針
 
-`src/space/layout.ts` が安定ID、Harmony、bass制約、layer、region、anchor、satelliteOf、座標を保持。モバイル用の座標を別データとして持ち、同一の和音・イベントを描画する。方向キーは表示中の実際の位置に従う。anchorは配置関係を示し、進行推薦を意味しない。`spaceEvent` は固定の試聴イベントを生成し、前後のコードに依存しない。
+- `src/space/layout.ts`: 安定ID、Harmony、bass制約、layer、region、anchor、satelliteOf、PC・モバイル座標。`spaceNodes` が調に応じて和音を移調する。`spaceEvent` はラベル用の基本配置イベントであり、実際の発音配置は別に決定する。
+- `src/space/recommendations.ts`: UI・音声から独立した純粋関数。既存の分析を再利用し、key相対のdegree、secondary dominantのtarget、根音間隔、共通音で規則を評価。コード名やlayout IDで楽理を判定しない。基礎遷移・style重み・直近文脈・再訪抑制の寄与を保持し、0〜1のスコアと理由を返す。同根の似た候補が枠を埋めないよう選抜する。
+- `src/space/context.ts`: ローカル状態と遷移。内部履歴は最大12、推薦は直近8のうち最大4コードのパターンを評価する。ii–V–I、IV–V–I、IV–iv–I、iii–vi–ii–V–I、I–vi–IV–V、secondary resolution、dominant chainを扱い、三和音と七の和音を同じdegree familyとして認識する。
+- `src/space/voicings.ts`: 既存candidate generatorを再利用。転回とoctave配置を変え、MIDI 48〜84（C3〜C6）・最大2 octave幅に制限。明示的なbassと和音の構成音を保持する。
+- `src/space/voiceLeading.ts`: 音数が違う場合も順序を保つ対応で、移動量・bass・跳躍・広すぎる間隔を評価し、同じMIDI音の保持を優遇。交差・音域外は除外。推薦上位3和音への最小コストをスコアで重み付けし、係数0.25で加える。候補がなければ直前の配置のみを使う。
+- `src/components/HarmonicSpace.tsx`: 描画と操作を担当し、既存のaudio開始・取消・試聴経路に接続。developmentではconsole debugで推薦のscore / type / reasons / contributionsを確認できる。productionでは出力しない。
 
-`src/components/HarmonicSpace.tsx` はデータを描画し、クリックを既存のaudio開始・試聴経路へ渡す。探索のローカル表示を演奏画面のpreviewや保存済みsessionに書き込まない。
+推薦は探索のためのrule-basedな傾向であり、和音の唯一の機能や次のクリックを断定しない。Classicalも厳密な時代様式モデルではない。先読みは次候補への移動費用だけを評価し、候補を自動再生しない。
 
-表示は他の画面と共通のコード表記を使用する（CM7、Am(M7)、B°、D♯°7）。
+## 対象外
 
-## 今回の対象外
-
-調切替・移調、進行推薦、解決候補・発光、style切替、substitution表示、automatic voice leading。未実装の操作ボタンは設置しない。
+minor / modal key、edge・progression trail、tritone substitution専用UI、swap、記録・保存・progression editor・loop・timeline、ML、旋律生成、楽器別配置、drop-2等の配置selector。
 
 ## 検証
 
-`src/space/layout.test.ts` は42和音、7satellite、音名の綴り、七の和音の区別、D♭/Fの実際のbassを検証。`tests/e2e/space.spec.ts` はdesktop/mobileで直接発音、停止、移動時の取消、演奏進行・調・設定の保持、キーボード操作、ノードの重なり、文字切れ、地図全体の可視性とページoverflowを検証する。
+`src/space/*.test.ts` で42和音・7satellite・綴り・移調の等価性、secondary resolutionと代表的な文脈pattern、style差、候補の件数・スコア、履歴とリセット、声部移動・共通音・音域・bass・先読みを検証。
 
-実機Safari/iOSと人による聴感確認は別途必要。
+`tests/e2e/space.spec.ts` はdesktop/mobileで初回発音、停止・画面移動・調変更による待機取消、既存sessionの保持、履歴と候補の重なり、style・key操作、方向キー、配置と全体の可視性を検証する。実施結果は `docs/VALIDATION.md` に記録。
+
+実機Safari/iOSと人による聴感確認は未実施。

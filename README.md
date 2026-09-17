@@ -3,6 +3,8 @@
 和音を押して、響きと構成音を探索する静的アプリ。
 An interactive playground for learning chords, progressions, voicings, and modulation through sound and visualization.
 
+「和声空間」では42個の和音を空間上で試聴できます。12 major keys、Free / Pop / Jazz / Classicalの候補提示、灰色の履歴表示、自動voice leadingに対応。演奏進行への記録・保存は行いません。詳細は [Harmonic Space](docs/HARMONIC_SPACE.md) を参照してください。
+
 ## 開発
 
 Node **22 LTS (22.13以上、23未満)** と npm を使用。`.nvmrc`、engines、CIを22系に統一しています。

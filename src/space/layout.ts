@@ -2,6 +2,10 @@ import {
   defaultKey,
   diatonic,
   parsePitch,
+  transposeHarmony,
+  pc,
+  mod,
+  type Key,
   type Harmony,
   type Quality,
 } from '../music/harmony';
@@ -118,14 +122,14 @@ export const SPACE_NODES: readonly SpaceNode[] = [
   node('am-maj7', 'A', 'm(maj7)', 'outer', 'color', 'am', 400, 305),
 ];
 
-// Auditions are independent of timeline settings and previous/future notes.
+// Root-position display events; context.ts chooses the actual audition voicing.
 // bass is a chord-member index: Db/F explicitly uses its third as the bass.
-export function spaceEvent(node: SpaceNode): ChordEvent {
+export function spaceEvent(node: SpaceNode, key = SPACE_KEY): ChordEvent {
   const input = { chord: node.chord, bass: node.bass, policy: 'root' as const };
   return {
     ...input,
     id: `space-${node.id}`,
-    key: SPACE_KEY,
+    key,
     duration: 1,
     notes: chooseVoicing(input),
   };
@@ -181,3 +185,28 @@ export const SPACE_PORTRAIT_POSITIONS: Record<
   gaug: { x: 245, y: 61 },
   'am-maj7': { x: 72, y: 170 },
 };
+
+export const SPACE_TONICS = [
+  'C',
+  'D♭',
+  'D',
+  'E♭',
+  'E',
+  'F',
+  'F♯',
+  'G',
+  'A♭',
+  'A',
+  'B♭',
+  'B',
+] as const;
+
+export function spaceNodes(key: Key): SpaceNode[] {
+  if (key.mode !== 'major')
+    throw new Error('Harmonic Space supports major keys only');
+  const semitones = mod(pc(key.tonic) - pc(SPACE_KEY.tonic));
+  return SPACE_NODES.map((node) => ({
+    ...node,
+    chord: transposeHarmony(node.chord, SPACE_KEY, key, semitones),
+  }));
+}

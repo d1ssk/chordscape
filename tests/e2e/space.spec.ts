@@ -42,7 +42,9 @@ test('independent exploration keeps the saved progression, key and settings; sup
   await page.keyboard.press('ArrowLeft');
   await expect(node(page, 'am')).toBeFocused();
   await page.keyboard.press('Space');
-  await expect(page.locator('.space-readout strong')).toHaveText('Am');
+  await expect(page.locator('.space-readout strong')).toHaveText(
+    /^Am(?:\/[A-G].*)?$/,
+  );
   await node(page, 'db-f').click();
   await expect(page.locator('.space-readout')).toContainText('最低音: F3');
   await stop(page);
@@ -115,6 +117,28 @@ test('compact map fits without scrolling, overlap or clipped labels', async ({
       ]);
     });
     expect(problems, `${size.width} × ${size.height}`).toEqual([]);
+    const keySelect = page.getByRole('combobox', { name: '和声空間の調' });
+    const tonics = await keySelect
+      .locator('option')
+      .evaluateAll((options) =>
+        options.map((option) => (option as HTMLOptionElement).value),
+      );
+    for (const tonic of tonics) {
+      await keySelect.selectOption(tonic);
+      const clipped = await page
+        .locator('.space-node')
+        .evaluateAll((nodes) =>
+          nodes
+            .filter(
+              (n) =>
+                n.scrollWidth > n.clientWidth ||
+                n.scrollHeight > n.clientHeight,
+            )
+            .map((n) => n.textContent),
+        );
+      expect(clipped, `${tonic} major at ${size.width}px`).toEqual([]);
+    }
+    await keySelect.selectOption('C');
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -201,5 +225,114 @@ test('first click sounds directly and scene changes stop both timeline and explo
     .click();
   await expect.poll(() => level(page)).toBe(0);
   await node(page, 'g').click();
-  await expect(page.locator('.space-readout strong')).toHaveText('G');
+  await expect(page.locator('.space-readout strong')).toHaveText(
+    /^G(?:\/[A-G].*)?$/,
+  );
+});
+
+test('history fill and suggestion halos coexist; style preserves context and key clears it', async ({
+  page,
+}, testInfo) => {
+  await page.goto('./#space');
+  const guide = page.locator('.space-node[data-suggestion]');
+  await expect(guide).toHaveCount(0);
+  await expect(
+    page.getByRole('button', { name: 'Free', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  const positions = () =>
+    page.locator('.space-node').evaluateAll((nodes) =>
+      nodes.map((n) => ({
+        x: (n as HTMLElement).style.getPropertyValue('--space-x'),
+        y: (n as HTMLElement).style.getPropertyValue('--space-y'),
+      })),
+    );
+  const geography = await positions();
+  await page.getByRole('button', { name: 'Pop', exact: true }).click();
+  for (const id of ['c', 'f', 'fm']) {
+    await node(page, id).click();
+    await expect(node(page, id)).toHaveAttribute('data-history', '0');
+  }
+  await expect(guide).toHaveCount(6);
+  await expect(node(page, 'c')).toHaveAttribute('data-history', '2');
+  await expect(node(page, 'c')).toHaveAttribute('data-suggestion', 'resolve');
+  await expect(node(page, 'c')).toHaveCSS(
+    'background-color',
+    'rgb(165, 168, 171)',
+  );
+  expect(
+    await node(page, 'c').evaluate((n) => getComputedStyle(n).boxShadow),
+  ).not.toBe('none');
+  await expect(node(page, 'fm')).toHaveAttribute('aria-current', 'true');
+  await page.screenshot({
+    path: testInfo.outputPath('harmonic-space-history.png'),
+    fullPage: true,
+  });
+  const before = await guide.evaluateAll((nodes) =>
+    nodes.map((n) => [
+      n.getAttribute('data-node-id'),
+      n.getAttribute('data-score'),
+    ]),
+  );
+  await page.getByRole('button', { name: 'Jazz', exact: true }).click();
+  const after = await guide.evaluateAll((nodes) =>
+    nodes.map((n) => [
+      n.getAttribute('data-node-id'),
+      n.getAttribute('data-score'),
+    ]),
+  );
+  expect(after).not.toEqual(before);
+  await expect(node(page, 'fm')).toHaveAttribute('data-history', '0');
+  await expect(node(page, 'c')).toHaveAttribute('data-history', '2');
+  expect(await positions()).toEqual(geography);
+  await stop(page);
+  await expect(page.locator('.space-node[data-sounding]')).toHaveCount(0);
+  await page.getByRole('combobox', { name: '和声空間の調' }).selectOption('D');
+  await expect(page.locator('.space-node[data-history]')).toHaveCount(0);
+  await expect(guide).toHaveCount(0);
+  await expect(
+    page.getByRole('button', { name: 'Jazz', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  await expect(node(page, 'a7')).toHaveText('B7');
+  await expect(node(page, 'dm')).toHaveText('Em');
+  expect(await positions()).toEqual(geography);
+  await node(page, 'c').click();
+  await expect(page.locator('.space-readout')).toContainText('D3 · F♯3 · A3');
+  await page.getByRole('combobox', { name: '和声空間の調' }).selectOption('F♯');
+  await expect(node(page, 'bdim')).toHaveText('E♯°');
+  await expect.poll(() => level(page)).toBe(0);
+});
+
+test('key change cancels a pending first audition and never restores old context', async ({
+  page,
+}) => {
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route('**/samples/salamander/*.mp3', async (route) => {
+    await gate;
+    await route.continue();
+  });
+  try {
+    await page.goto('./#space');
+    await node(page, 'c').click();
+    await expect(
+      page.getByText('Pianoを読み込み中…', { exact: true }),
+    ).toBeVisible();
+    await page
+      .getByRole('combobox', { name: '和声空間の調' })
+      .selectOption('D');
+    release();
+    await expect(
+      page.getByText('Pianoを読み込み中…', { exact: true }),
+    ).toHaveCount(0);
+    await expect.poll(() => level(page)).toBe(0);
+    await expect(page.locator('.space-node[data-history]')).toHaveCount(0);
+    await expect(page.locator('.space-node[data-suggestion]')).toHaveCount(0);
+    await node(page, 'a7').click();
+    await expect(node(page, 'a7')).toHaveAttribute('data-history', '0');
+    await expect(page.locator('.space-readout strong')).toHaveText('B7');
+  } finally {
+    release();
+  }
 });
