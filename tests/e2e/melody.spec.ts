@@ -17,7 +17,7 @@ async function melody(page: Page) {
 }
 async function saved(page: Page): Promise<Session | null> {
   return page.evaluate(() =>
-    JSON.parse(localStorage.getItem('chordscape.session.v4') ?? 'null'),
+    JSON.parse(localStorage.getItem('chordscape.session.v5') ?? 'null'),
   );
 }
 async function savedSnapshot(page: Page): Promise<Session> {

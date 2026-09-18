@@ -9,7 +9,8 @@ export function Keyboard({
   t: Messages;
 }) {
   const last = Math.max(84, ...notes, ...melody);
-  const keys = Array.from({ length: last - 36 + 1 }, (_, i) => i + 36);
+  const first = Math.min(36, Math.floor(Math.min(...notes) / 12) * 12);
+  const keys = Array.from({ length: last - first + 1 }, (_, i) => i + first);
   const whites = keys.filter((n) => ![1, 3, 6, 8, 10].includes(n % 12)).length;
   let white = 0;
   return (

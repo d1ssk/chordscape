@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 import type { Session } from '../../src/state/session';
 const saved = (page: Page): Promise<Session> =>
   page.evaluate(() =>
-    JSON.parse(localStorage.getItem('chordscape.session.v4')!),
+    JSON.parse(localStorage.getItem('chordscape.session.v5')!),
   );
 const nav = (page: Page, name: string) =>
   page
@@ -69,7 +69,9 @@ test('manual inversion and octave edits stay visible and survive playback, compa
   const editor = page.locator('.event-editor');
   await expect(editor.getByRole('spinbutton')).toBeVisible();
   await expect(editor.locator('details')).toHaveCount(0);
-  await editor.getByRole('combobox').selectOption('1');
+  await editor
+    .getByRole('combobox', { name: '転回・bass指定', exact: true })
+    .selectOption('1');
   await editor.getByRole('button', { name: '+1 oct', exact: true }).click();
   await expect(page.getByTestId('actual-bass')).toHaveText('E4');
   await expect

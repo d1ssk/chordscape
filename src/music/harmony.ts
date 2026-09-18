@@ -482,6 +482,8 @@ function degreeLabel(degree: number, alteration: number, quality: Quality) {
   );
 }
 export function roman(analysis: Analysis, inversion = 0) {
+  // A non-chord bass has no classical inversion figure.
+  inversion = Math.max(0, inversion);
   const q = analysis.quality;
   const definition = QUALITIES[q];
   if ('romanSuffix' in definition) {
@@ -625,7 +627,24 @@ export function outside(key: Key): Harmony[] {
 export function inversionOf(chord: Harmony, notes: number[]) {
   return tones(chord).findIndex((p) => pc(p) === mod(Math.min(...notes)));
 }
-export function voicedSymbol(chord: Harmony, notes: number[]) {
+export function bassPitch(
+  chord: Harmony,
+  notes: number[],
+  addedBass?: Pitch | null,
+) {
+  const lowest = mod(Math.min(...notes));
+  const pitch = addedBass ?? tones(chord).find((p) => pc(p) === lowest);
+  if (!pitch || pc(pitch) !== lowest)
+    throw new Error('Bass contradicts sounding notes');
+  return pitch;
+}
+export function voicedSymbol(
+  chord: Harmony,
+  notes: number[],
+  addedBass?: Pitch | null,
+) {
+  if (addedBass)
+    return `${chordSymbol(chord)}/${pitchName(bassPitch(chord, notes, addedBass))}`;
   const inversion = inversionOf(chord, notes);
   if (inversion < 0) throw new Error('Non-chord bass is unsupported');
   return (
@@ -633,8 +652,15 @@ export function voicedSymbol(chord: Harmony, notes: number[]) {
     (inversion ? `/${pitchName(tones(chord)[inversion])}` : '')
   );
 }
-export function midiName(chord: Harmony, midi: number) {
-  const pitch = tones(chord).find((p) => pc(p) === mod(midi));
+export function midiName(
+  chord: Harmony,
+  midi: number,
+  addedBass?: Pitch | null,
+) {
+  const pitch =
+    addedBass && pc(addedBass) === mod(midi)
+      ? addedBass
+      : tones(chord).find((p) => pc(p) === mod(midi));
   if (!pitch) throw new Error('Non-chord tone');
   const octave =
     Math.floor(

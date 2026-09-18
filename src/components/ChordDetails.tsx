@@ -14,11 +14,13 @@ import {
   resolvesTo,
   chromaticApproach,
   type Key,
+  type Pitch,
 } from '../music/harmony';
 import type { ChordEvent } from '../state/session';
 import type { Messages } from '../i18n/messages';
 import { Keyboard } from './Keyboard';
 import { canShiftOctave } from '../music/voicing';
+import { BassSelect } from './BassSelect';
 export function ChordDetails({
   event,
   previous,
@@ -28,6 +30,7 @@ export function ChordDetails({
   melodyNote,
   t,
   onBass,
+  onAddedBass,
   onOctave,
   disabled,
 }: {
@@ -39,6 +42,7 @@ export function ChordDetails({
   melodyNote?: MelodyNote | null;
   t: Messages;
   onBass: (bass: number | null) => void;
+  onAddedBass: (pitch: Pitch | null) => void;
   onOctave: (octaves: -1 | 1) => void;
   disabled: boolean;
 }) {
@@ -62,21 +66,24 @@ export function ChordDetails({
       <h2 className="sr-only">{t.details}</h2>
       <div className="chord-summary" aria-live="polite">
         <strong data-testid="chord-symbol">
-          {voicedSymbol(event.chord, event.notes)}
+          {voicedSymbol(event.chord, event.notes, event.addedBass)}
         </strong>
-        <span className="roman">{roman(analysis, inversion)}</span>
+        <span className="roman">
+          {event.addedBass && `${t.upperChord}: `}
+          {roman(analysis, event.addedBass ? 0 : inversion)}
+        </span>
         <span className="badge">
-          {
-            [
-              t.rootPosition,
-              t.first,
-              t.second,
-              t.third,
-              t.fourth,
-              t.fifth,
-              t.sixth,
-            ][inversion]
-          }
+          {event.addedBass
+            ? t.slashChord
+            : [
+                t.rootPosition,
+                t.first,
+                t.second,
+                t.third,
+                t.fourth,
+                t.fifth,
+                t.sixth,
+              ][inversion]}
         </span>
       </div>
       <div className="note-line">
@@ -84,7 +91,7 @@ export function ChordDetails({
         <span>
           {t.bass}:{' '}
           <b data-testid="actual-bass">
-            {midiName(event.chord, event.notes[0])}
+            {midiName(event.chord, event.notes[0], event.addedBass)}
           </b>
         </span>
       </div>
@@ -103,9 +110,9 @@ export function ChordDetails({
       />
       <div className="inversion-line">
         <label>
-          {t.inversion}
+          {event.addedBass ? t.upperVoicing : t.inversion}
           <select
-            aria-label={`${t.details}: ${t.inversion}`}
+            aria-label={`${t.details}: ${event.addedBass ? t.upperVoicing : t.inversion}`}
             disabled={disabled}
             value={event.bass ?? 'auto'}
             onChange={(e) =>
@@ -131,15 +138,25 @@ export function ChordDetails({
             ))}
           </select>
         </label>
+        <BassSelect
+          value={event.addedBass}
+          onChange={onAddedBass}
+          disabled={disabled}
+          t={t}
+        />
         <div className="octave-controls" role="group" aria-label={t.octave}>
           <button
-            disabled={disabled || !canShiftOctave(event.notes, -1)}
+            disabled={
+              disabled || !canShiftOctave(event.notes, -1, event.addedBass)
+            }
             onClick={() => onOctave(-1)}
           >
             {t.octaveDown}
           </button>
           <button
-            disabled={disabled || !canShiftOctave(event.notes, 1)}
+            disabled={
+              disabled || !canShiftOctave(event.notes, 1, event.addedBass)
+            }
             onClick={() => onOctave(1)}
           >
             {t.octaveUp}
@@ -164,7 +181,10 @@ export function ChordDetails({
             <dt>{t.soundingNotes}</dt>
             <dd>
               {event.notes
-                .map((n) => `${midiName(event.chord, n)} (${n})`)
+                .map(
+                  (n) =>
+                    `${midiName(event.chord, n, n === event.notes[0] ? event.addedBass : undefined)} (${n})`,
+                )
                 .join(' · ')}
             </dd>
           </div>
@@ -214,14 +234,25 @@ export function ChordDetails({
           </p>
           {contextChanged && (
             <p>
-              {t.currentContext}:{' '}
-              {roman(analyze(event.chord, currentKey), inversion)}
+              {t.currentContext}: {event.addedBass && `${t.upperChord}: `}
+              {roman(
+                analyze(event.chord, currentKey),
+                event.addedBass ? 0 : inversion,
+              )}
             </p>
           )}
           {previous && (
             <p>
               {t.common}:{' '}
-              {kept.map((n) => midiName(event.chord, n)).join(' · ') || t.none}
+              {kept
+                .map((n) =>
+                  midiName(
+                    event.chord,
+                    n,
+                    n === event.notes[0] ? event.addedBass : undefined,
+                  ),
+                )
+                .join(' · ') || t.none}
             </p>
           )}
         </div>

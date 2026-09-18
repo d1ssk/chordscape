@@ -41,6 +41,10 @@ import {
   optimizeVoicings,
   canShiftOctave,
   manualInversion,
+  changeAddedBass,
+  upperNotes,
+  withAddedBass,
+  ADDED_BASS_LOW,
   EDITED_RANGE,
   type VoicingInput,
   type VoicingPolicy,
@@ -82,7 +86,7 @@ export interface Settings {
   policy: VoicingPolicy;
 }
 export interface Session {
-  schemaVersion: 4;
+  schemaVersion: 5;
   revision: number;
   settings: Settings;
   events: ChordEvent[];
@@ -91,7 +95,7 @@ export interface Session {
 }
 export function newSession(): Session {
   return {
-    schemaVersion: 4,
+    schemaVersion: 5,
     revision: 0,
     settings: {
       generator: defaultGenerator(),
@@ -149,7 +153,7 @@ export type Edit =
   | {
       type: 'event';
       id: string;
-      patch: Partial<Pick<ChordEvent, 'duration' | 'bass'>>;
+      patch: Partial<Pick<ChordEvent, 'duration' | 'bass' | 'addedBass'>>;
     }
   | { type: 'clear' }
   | { type: 'octave'; id: string; octaves: -1 | 1 }
@@ -273,7 +277,10 @@ export function editSession(session: Session, action: Edit): Session {
     }
     case 'octave': {
       const event = events.find((e) => e.id === action.id);
-      if (!event || !canShiftOctave(event.notes, action.octaves))
+      if (
+        !event ||
+        !canShiftOctave(event.notes, action.octaves, event.addedBass)
+      )
         return session;
       settings = { ...settings, policy: 'manual' };
       events = events.map((e) => ({
@@ -287,18 +294,26 @@ export function editSession(session: Session, action: Edit): Session {
       break;
     }
     case 'event':
-      events = events.map((e) =>
-        e.id === action.id
-          ? {
-              ...e,
-              ...action.patch,
-              ...(Object.hasOwn(action.patch, 'bass')
-                ? { notes: manualInversion(e, action.patch.bass ?? null) }
-                : {}),
-            }
-          : e,
-      );
-      if (Object.hasOwn(action.patch, 'bass')) {
+      events = events.map((e) => {
+        if (e.id !== action.id) return e;
+        let updated = {
+          ...e,
+          ...action.patch,
+          ...(Object.hasOwn(action.patch, 'bass')
+            ? { notes: manualInversion(e, action.patch.bass ?? null) }
+            : {}),
+        };
+        if (Object.hasOwn(action.patch, 'addedBass'))
+          updated = changeAddedBass(
+            { ...updated, addedBass: e.addedBass },
+            action.patch.addedBass ?? null,
+          );
+        return updated;
+      });
+      if (
+        Object.hasOwn(action.patch, 'bass') ||
+        Object.hasOwn(action.patch, 'addedBass')
+      ) {
         settings = { ...settings, policy: 'manual' };
         events = events.map((e) => ({ ...e, policy: 'manual' }));
       }
@@ -331,10 +346,23 @@ export function editSession(session: Session, action: Edit): Session {
       events = events.map((e) => {
         const key = transposeKey(e.key, action.semitones);
         const chord = transposeHarmony(e.chord, e.key, key, action.semitones);
-        let notes = e.notes.map((n) => n + action.semitones);
+        let notes = upperNotes(e).map((n) => n + action.semitones);
         while (notes[0] < EDITED_RANGE.low) notes = notes.map((n) => n + 12);
         while (notes.at(-1)! > EDITED_RANGE.high)
           notes = notes.map((n) => n - 12);
+        const addedBass = e.addedBass
+          ? transposeHarmony(
+              { root: e.addedBass, quality: 'major' },
+              e.key,
+              key,
+              action.semitones,
+            ).root
+          : e.addedBass;
+        notes = withAddedBass(
+          notes,
+          addedBass,
+          e.addedBass ? e.notes[0] + notes[0] - upperNotes(e)[0] : undefined,
+        );
         const modulation = e.modulation
           ? {
               ...e.modulation,
@@ -355,6 +383,7 @@ export function editSession(session: Session, action: Edit): Session {
           key,
           chord,
           notes,
+          ...(addedBass ? { addedBass } : {}),
           ...(melody ? { melody } : {}),
           ...(modulation ? { modulation } : {}),
         };
@@ -483,14 +512,16 @@ export function importSession(text: string): Session {
     (value.schemaVersion !== 1 &&
       value.schemaVersion !== 2 &&
       value.schemaVersion !== 3 &&
-      value.schemaVersion !== 4)
+      value.schemaVersion !== 4 &&
+      value.schemaVersion !== 5)
   )
     throw new Error('Unsupported schema');
   const s = value.settings;
   if (
     !object(s) ||
     !isKey(s.key) ||
-    (value.schemaVersion === 4 && !isMelodySettings(s.melody)) ||
+    ((value.schemaVersion === 4 || value.schemaVersion === 5) &&
+      !isMelodySettings(s.melody)) ||
     (value.schemaVersion !== 1 && !isGeneratorSettings(s.generator)) ||
     (s.instrument !== undefined && !isInstrument(s.instrument)) ||
     !numberIn(s.tempo, 40, 200) ||
@@ -518,6 +549,13 @@ export function importSession(text: string): Session {
       throw new Error('Invalid event');
     ids.add(e.id);
     const pitches = tones(e.chord).map(pc);
+    if (
+      e.addedBass !== undefined &&
+      e.addedBass !== null &&
+      (value.schemaVersion !== 5 || !isPitch(e.addedBass))
+    )
+      throw new Error('Invalid added bass');
+    const addedBass = e.addedBass as Pitch | null | undefined;
     if (!(
       e.bass === null ||
       (numberIn(e.bass, 0, pitches.length - 1) && Number.isInteger(e.bass))
@@ -525,20 +563,25 @@ export function importSession(text: string): Session {
       throw new Error('Invalid bass');
     if (
       !Array.isArray(e.notes) ||
-      e.notes.length !== pitches.length ||
+      e.notes.length !== pitches.length + (addedBass ? 1 : 0) ||
       !e.notes.every(
-        (n) =>
-          numberIn(n, EDITED_RANGE.low, EDITED_RANGE.high) &&
-          Number.isInteger(n),
+        (n, i) =>
+          numberIn(
+            n,
+            addedBass && i === 0 ? ADDED_BASS_LOW : EDITED_RANGE.low,
+            EDITED_RANGE.high,
+          ) && Number.isInteger(n),
       ) ||
       e.notes.some((n, i) => i > 0 && n <= (e.notes as number[])[i - 1])
     )
       throw new Error('Invalid notes');
     const notes = e.notes as number[];
+    const upper = addedBass ? notes.slice(1) : notes;
     if (
-      new Set(notes.map((n) => n % 12)).size !== pitches.length ||
-      notes.some((n) => !pitches.includes(n % 12)) ||
-      (e.bass !== null && notes[0] % 12 !== pitches[e.bass as number])
+      new Set(upper.map((n) => n % 12)).size !== pitches.length ||
+      upper.some((n) => !pitches.includes(n % 12)) ||
+      (addedBass && notes[0] % 12 !== pc(addedBass)) ||
+      (e.bass !== null && upper[0] % 12 !== pitches[e.bass as number])
     )
       throw new Error('Notes contradict chord or bass');
     if (e.intent !== undefined && !isGenerationIntent(e.intent, e.chord, e.key))
@@ -618,6 +661,7 @@ export function importSession(text: string): Session {
       bass: e.bass as number | null,
       policy: e.policy as VoicingPolicy,
       notes,
+      ...(addedBass === undefined ? {} : { addedBass }),
       ...(melody === undefined ? {} : { melody }),
       ...(e.live === undefined
         ? {}
@@ -630,7 +674,11 @@ export function importSession(text: string): Session {
         : { intent: e.intent as GenerationIntent }),
     };
   });
-  if (value.schemaVersion === 3 || value.schemaVersion === 4) {
+  if (
+    value.schemaVersion === 3 ||
+    value.schemaVersion === 4 ||
+    value.schemaVersion === 5
+  ) {
     const expected = keyEventsFor(events);
     if (
       !Array.isArray(value.keyEvents) ||
@@ -694,6 +742,7 @@ export function importSession(text: string): Session {
             event.id !== original.id ||
             event.duration !== original.duration ||
             event.bass !== original.bass ||
+            Boolean(event.addedBass) ||
             event.policy !== original.policy ||
             pitchName(event.key.tonic) !== pitchName(original.key.tonic) ||
             event.key.mode !== original.key.mode ||
@@ -710,11 +759,11 @@ export function importSession(text: string): Session {
     }
   }
   return {
-    schemaVersion: 4,
+    schemaVersion: 5,
     revision: 0,
     settings: {
       melody:
-        value.schemaVersion === 4
+        value.schemaVersion === 4 || value.schemaVersion === 5
           ? (structuredClone(s.melody) as MelodySettings)
           : defaultMelody(),
       generator:
@@ -745,11 +794,12 @@ export function keyFromName(name: string, mode: Key['mode']): Key {
 export function exportSession(session: Session) {
   return JSON.stringify(session, null, 2);
 }
-export const STORAGE_KEY = 'chordscape.session.v4';
+export const STORAGE_KEY = 'chordscape.session.v5';
 export function loadSession(): { session: Session; failed: boolean } {
   try {
     const text =
       localStorage.getItem(STORAGE_KEY) ??
+      localStorage.getItem('chordscape.session.v4') ??
       localStorage.getItem('chordscape.session.v3') ??
       localStorage.getItem('chordscape.session.v2') ??
       localStorage.getItem('chordscape.session.v1');

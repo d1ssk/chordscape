@@ -16,7 +16,7 @@ async function enable(page: Page) {
 }
 async function saved(page: Page): Promise<Session> {
   return page.evaluate(() =>
-    JSON.parse(localStorage.getItem('chordscape.session.v4') ?? 'null'),
+    JSON.parse(localStorage.getItem('chordscape.session.v5') ?? 'null'),
   );
 }
 async function propose(page: Page, key = 'G メジャー') {

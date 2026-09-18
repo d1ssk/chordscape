@@ -20,9 +20,11 @@ import {
   voicedSymbol,
   type Harmony,
   type Key,
+  type Pitch,
 } from '../music/harmony';
 import {
   manualInversion,
+  changeAddedBass,
   canShiftOctave,
   type VoicingPolicy,
 } from '../music/voicing';
@@ -411,13 +413,23 @@ export function App() {
   function octave(octaves: -1 | 1) {
     if (running) return;
     const current = selected ?? preview;
-    if (!canShiftOctave(current.notes, octaves)) return;
+    if (!canShiftOctave(current.notes, octaves, current.addedBass)) return;
     const changed = {
       ...current,
       policy: 'manual' as const,
       notes: current.notes.map((n) => n + octaves * 12),
     };
     if (selected) edit({ type: 'octave', id: selected.id, octaves });
+    else setPreview(changed);
+    previousRef.current = changed;
+    if (!sound.loading) runAudio(() => engine.current!.audition(changed));
+  }
+  function addedBass(value: Pitch | null) {
+    if (running) return;
+    const current = selected ?? preview;
+    const changed = changeAddedBass(current, value);
+    if (selected)
+      edit({ type: 'event', id: selected.id, patch: { addedBass: value } });
     else setPreview(changed);
     previousRef.current = changed;
     if (!sound.loading) runAudio(() => engine.current!.audition(changed));
@@ -779,7 +791,11 @@ export function App() {
           {playback.event && (
             <section>
               <strong>
-                {voicedSymbol(playback.event.chord, playback.event.notes)}
+                {voicedSymbol(
+                  playback.event.chord,
+                  playback.event.notes,
+                  playback.event.addedBass,
+                )}
               </strong>
               <DualAnalysis event={playback.event} t={t} />
             </section>
@@ -929,6 +945,7 @@ export function App() {
             melodyNote={s.melody.enabled ? playback.melody : null}
             t={t}
             onBass={bass}
+            onAddedBass={addedBass}
             onOctave={octave}
             disabled={running}
           />
@@ -1003,13 +1020,21 @@ export function App() {
             {playback.event && running && (
               <p>
                 {t.sounding}:{' '}
-                {voicedSymbol(playback.event.chord, playback.event.notes)}
+                {voicedSymbol(
+                  playback.event.chord,
+                  playback.event.notes,
+                  playback.event.addedBass,
+                )}
               </p>
             )}
             {playback.next && running && (
               <p className="muted">
                 {t.next}:{' '}
-                {voicedSymbol(playback.next.chord, playback.next.notes)}
+                {voicedSymbol(
+                  playback.next.chord,
+                  playback.next.notes,
+                  playback.next.addedBass,
+                )}
               </p>
             )}
             {comparison && running && (
@@ -1174,7 +1199,8 @@ export function App() {
                   !sound.loading &&
                   (action.type === 'octave' ||
                     (action.type === 'event' &&
-                      Object.hasOwn(action.patch, 'bass')))
+                      (Object.hasOwn(action.patch, 'bass') ||
+                        Object.hasOwn(action.patch, 'addedBass'))))
                 ) {
                   const changed = editSession(session, action).events.find(
                     (e) => e.id === action.id,
@@ -1231,6 +1257,7 @@ export function App() {
             melodyNote={s.melody.enabled ? playback.melody : null}
             t={t}
             onBass={bass}
+            onAddedBass={addedBass}
             onOctave={octave}
             disabled={running}
           />

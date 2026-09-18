@@ -25,11 +25,11 @@ async function stop(page: Page) {
 async function saved(page: Page): Promise<Session> {
   await expect
     .poll(() =>
-      page.evaluate(() => localStorage.getItem('chordscape.session.v4')),
+      page.evaluate(() => localStorage.getItem('chordscape.session.v5')),
     )
     .not.toBeNull();
   return page.evaluate(() =>
-    JSON.parse(localStorage.getItem('chordscape.session.v4')!),
+    JSON.parse(localStorage.getItem('chordscape.session.v5')!),
   );
 }
 async function jazz(page: Page) {
@@ -133,7 +133,7 @@ test('generated JSON, inversion edits and seed survive export, import and reload
   for await (const chunk of stream!) chunks.push(Buffer.from(chunk));
   const buffer = Buffer.concat(chunks);
   const data = JSON.parse(buffer.toString()) as Session;
-  expect(data.schemaVersion).toBe(4);
+  expect(data.schemaVersion).toBe(5);
   expect(data.generation?.options.seed).toBe(42);
   expect(data.generation?.modified).toBe(true);
   expect(data.events[1].intent?.appliedTo).toBe(1);

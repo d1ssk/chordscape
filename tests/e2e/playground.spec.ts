@@ -775,7 +775,7 @@ test('extended sixth inversion preserves seven notes and bass after reload', asy
   await expect
     .poll(() =>
       page.evaluate(() => {
-        const raw = localStorage.getItem('chordscape.session.v4');
+        const raw = localStorage.getItem('chordscape.session.v5');
         return raw ? JSON.parse(raw).events[0]?.bass : null;
       }),
     )

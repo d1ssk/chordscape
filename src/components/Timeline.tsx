@@ -8,9 +8,11 @@ import {
   inversionOf,
   pitchName,
   tones,
+  bassPitch,
 } from '../music/harmony';
 import type { ChordEvent, Edit } from '../state/session';
 import { canShiftOctave } from '../music/voicing';
+import { BassSelect } from './BassSelect';
 export function Timeline({
   events,
   selectedId,
@@ -72,11 +74,16 @@ export function Timeline({
                     {String(index + 1).padStart(2, '0')} · {t.beat}{' '}
                     {Number((start + 1).toFixed(3))}
                   </small>
-                  <strong>{voicedSymbol(event.chord, event.notes)}</strong>
+                  <strong>
+                    {voicedSymbol(event.chord, event.notes, event.addedBass)}
+                  </strong>
                   <span>
+                    {event.addedBass && `${t.upperChord}: `}
                     {roman(
                       analyze(event.chord, event.key),
-                      inversionOf(event.chord, event.notes),
+                      event.addedBass
+                        ? 0
+                        : inversionOf(event.chord, event.notes),
                     )}
                   </span>
                   {keyEvents.length > 1 &&
@@ -87,7 +94,9 @@ export function Timeline({
                     )}
                   <small>
                     {Number(event.duration.toFixed(3))} {t.beat}
-                    {event.bass !== null ? ` · ${t.fixed}` : ''}
+                    {event.bass !== null || event.addedBass
+                      ? ` · ${t.fixed}`
+                      : ''}
                   </small>
                 </button>
               </li>
@@ -131,7 +140,8 @@ export function Timeline({
         <div className="event-editor">
           <fieldset className="editor">
             <legend>
-              {t.editing}: {voicedSymbol(selected.chord, selected.notes)}
+              {t.editing}:{' '}
+              {voicedSymbol(selected.chord, selected.notes, selected.addedBass)}
             </legend>
             <button
               disabled={events[0].id === selected.id}
@@ -184,7 +194,7 @@ export function Timeline({
               />
             </label>
             <label>
-              {t.inversion}
+              {selected.addedBass ? t.upperVoicing : t.inversion}
               <select
                 value={selected.bass ?? 'auto'}
                 onChange={(e) =>
@@ -219,9 +229,18 @@ export function Timeline({
                 ))}
               </select>
             </label>
+            <BassSelect
+              value={selected.addedBass}
+              onChange={(addedBass) =>
+                onEdit({ type: 'event', id: selected.id, patch: { addedBass } })
+              }
+              t={t}
+            />
             <div className="octave-controls" role="group" aria-label={t.octave}>
               <button
-                disabled={!canShiftOctave(selected.notes, -1)}
+                disabled={
+                  !canShiftOctave(selected.notes, -1, selected.addedBass)
+                }
                 onClick={() =>
                   onEdit({ type: 'octave', id: selected.id, octaves: -1 })
                 }
@@ -229,7 +248,9 @@ export function Timeline({
                 {t.octaveDown}
               </button>
               <button
-                disabled={!canShiftOctave(selected.notes, 1)}
+                disabled={
+                  !canShiftOctave(selected.notes, 1, selected.addedBass)
+                }
                 onClick={() =>
                   onEdit({ type: 'octave', id: selected.id, octaves: 1 })
                 }
@@ -253,7 +274,7 @@ export function Timeline({
             <span>{t.bass}</span>
             {events.map((e) => (
               <span key={e.id}>
-                {pitchName(tones(e.chord)[inversionOf(e.chord, e.notes)])}
+                {pitchName(bassPitch(e.chord, e.notes, e.addedBass))}
               </span>
             ))}
           </div>

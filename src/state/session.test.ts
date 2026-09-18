@@ -59,7 +59,7 @@ it('round trips validated sessions and rejects malformed/untrusted JSON', () => 
   expect(importSession(exportSession(session)).events).toEqual(session.events);
   for (const mutate of [
     (s: typeof session) => {
-      s.schemaVersion = 99 as 4;
+      s.schemaVersion = 99 as 5;
     },
     (s: typeof session) => {
       s.settings.tempo = 201;

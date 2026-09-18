@@ -1,16 +1,57 @@
-import { type Harmony, tones, pc, inversionOf } from './harmony';
+import { type Harmony, type Pitch, tones, pc, inversionOf } from './harmony';
 export type VoicingPolicy = 'manual' | 'root' | 'smooth';
 export interface VoicingInput {
   chord: Harmony;
   bass: number | null;
+  // An independent bass below the upper chord. `bass` remains its inversion.
+  addedBass?: Pitch | null;
   policy: VoicingPolicy;
   notes?: number[];
 }
 export const EDITED_RANGE = { low: 36, high: 96 };
-export function canShiftOctave(notes: number[], octaves: number) {
+export const ADDED_BASS_LOW = 24;
+export function upperNotes(input: VoicingInput & { notes: number[] }) {
+  return input.addedBass ? input.notes.slice(1) : [...input.notes];
+}
+export function withAddedBass(
+  upper: number[],
+  pitch?: Pitch | null,
+  previous?: number,
+) {
+  if (!pitch) return [...upper];
+  let bass =
+    previous !== undefined && previous % 12 === pc(pitch)
+      ? previous
+      : upper[0] - 1 - ((upper[0] - 1 - pc(pitch) + 120) % 12);
+  while (bass >= upper[0]) bass -= 12;
+  while (bass < ADDED_BASS_LOW) bass += 12;
+  if (bass >= upper[0]) throw new Error('No room below the upper chord');
+  return [bass, ...upper];
+}
+export function changeAddedBass<T extends VoicingInput & { notes: number[] }>(
+  input: T,
+  addedBass: Pitch | null,
+) {
+  return {
+    ...input,
+    addedBass,
+    policy: 'manual' as const,
+    notes: withAddedBass(
+      upperNotes(input),
+      addedBass,
+      input.addedBass ? input.notes[0] : undefined,
+    ),
+  };
+}
+export function canShiftOctave(
+  notes: number[],
+  octaves: number,
+  addedBass?: Pitch | null,
+) {
   return notes.every(
-    (n) =>
-      n + octaves * 12 >= EDITED_RANGE.low &&
+    (n, i) =>
+      n + octaves * 12 >=
+        (addedBass && i === 0 ? ADDED_BASS_LOW : EDITED_RANGE.low) &&
       n + octaves * 12 <= EDITED_RANGE.high,
   );
 }
@@ -18,15 +59,20 @@ export function manualInversion(
   input: VoicingInput & { notes: number[] },
   bass: number | null,
 ) {
+  const upper = upperNotes(input);
   const previousRoot = rootVoicing(
     input.chord,
-    inversionOf(input.chord, input.notes),
+    inversionOf(input.chord, upper),
   );
-  const shift = input.notes[0] - previousRoot[0];
+  const shift = upper[0] - previousRoot[0];
   let notes = rootVoicing(input.chord, bass ?? 0).map((n) => n + shift);
   while (notes[0] < EDITED_RANGE.low) notes = notes.map((n) => n + 12);
   while (notes.at(-1)! > EDITED_RANGE.high) notes = notes.map((n) => n - 12);
-  return notes;
+  return withAddedBass(
+    notes,
+    input.addedBass,
+    input.addedBass ? input.notes[0] : undefined,
+  );
 }
 export function rootVoicing(chord: Harmony, inversion = 0) {
   const pitches = tones(chord).map(pc);
@@ -41,8 +87,7 @@ export function rootVoicing(chord: Harmony, inversion = 0) {
 }
 export function candidates(input: VoicingInput): number[][] {
   if (input.policy === 'manual' && input.notes) return [[...input.notes]];
-  if (input.policy !== 'smooth')
-    return [rootVoicing(input.chord, input.bass ?? 0)];
+  if (input.policy !== 'smooth') return [rootWithBass(input)];
   const result: number[][] = [];
   for (let inversion = 0; inversion < tones(input.chord).length; inversion++) {
     if (input.bass !== null && inversion !== input.bass) continue;
@@ -50,12 +95,32 @@ export function candidates(input: VoicingInput): number[][] {
     for (const shift of [-12, 0, 12]) {
       const notes = base.map((n) => n + shift);
       if (notes[0] < 36 || notes[0] > 60 || notes.at(-1)! > 76) continue;
-      result.push(notes);
+      result.push(
+        withAddedBass(
+          notes,
+          input.addedBass,
+          input.addedBass ? input.notes?.[0] : undefined,
+        ),
+      );
       const open = [...notes.slice(0, -1), notes.at(-1)! + 12];
-      if (open.at(-1)! <= 76) result.push(open);
+      if (open.at(-1)! <= 76)
+        result.push(
+          withAddedBass(
+            open,
+            input.addedBass,
+            input.addedBass ? input.notes?.[0] : undefined,
+          ),
+        );
     }
   }
   return result.sort((a, b) => a.join(',').localeCompare(b.join(',')));
+}
+function rootWithBass(input: VoicingInput) {
+  return withAddedBass(
+    rootVoicing(input.chord, input.bass ?? 0),
+    input.addedBass,
+    input.addedBass ? input.notes?.[0] : undefined,
+  );
 }
 // Ordered edit-distance: unmatched voices have an insertion/deletion cost.
 export function voiceDistance(from: number[], to: number[]) {
@@ -94,8 +159,7 @@ export function movementCost(from: number[], to: number[]) {
 }
 export function chooseVoicing(input: VoicingInput, previous?: number[]) {
   if (input.policy === 'manual' && input.notes) return [...input.notes];
-  if (!previous || input.policy !== 'smooth')
-    return rootVoicing(input.chord, input.bass ?? 0);
+  if (!previous || input.policy !== 'smooth') return rootWithBass(input);
   return candidates(input).reduce((best, next) =>
     movementCost(previous, next) < movementCost(previous, best) ? next : best,
   );
@@ -108,7 +172,7 @@ export function optimizeVoicings(
   if (!inputs.length) return [];
   const options = inputs.map((input, index) =>
     index === 0 && input.policy !== 'manual'
-      ? [rootVoicing(input.chord, input.bass ?? 0)]
+      ? [rootWithBass(input)]
       : candidates(input),
   );
   const costs: number[][] = [[0]];

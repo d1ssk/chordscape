@@ -36,11 +36,12 @@ export function roleLabel(role: ModulationIntent['role'], t: Messages) {
 export function DualAnalysis({ event, t }: { event: ChordEvent; t: Messages }) {
   const m = event.modulation;
   if (!m) return null;
-  const inversion = inversionOf(event.chord, event.notes);
+  const inversion = event.addedBass ? 0 : inversionOf(event.chord, event.notes);
   const oldChord = chordInKey(event.chord, m.from);
   const newChord = chordInKey(event.chord, m.to);
   return (
     <div className="dual-analysis" data-testid="dual-analysis">
+      {event.addedBass && <span>{t.upperChord}</span>}
       <span>
         {t.oldKey} {keyLabel(m.from, t)}:{' '}
         <b>{roman(analyze(oldChord, m.from), inversion)}</b>

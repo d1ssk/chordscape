@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 const level = (page: Page) =>
   page.getByTestId('audio-level').getAttribute('value').then(Number);
 const stored = (page: Page) =>
-  page.evaluate(() => localStorage.getItem('chordscape.session.v4'));
+  page.evaluate(() => localStorage.getItem('chordscape.session.v5'));
 const node = (page: Page, id: string) => page.locator(`[data-node-id="${id}"]`);
 const stop = (page: Page) =>
   page.getByRole('button', { name: '■ 停止', exact: true }).click();

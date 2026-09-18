@@ -17,7 +17,7 @@ test('first chord tap starts piano and records once; saved playback also starts 
     .poll(() =>
       page.evaluate(
         () =>
-          JSON.parse(localStorage.getItem('chordscape.session.v4') ?? '{}')
+          JSON.parse(localStorage.getItem('chordscape.session.v5') ?? '{}')
             .events?.length,
       ),
     )
@@ -80,7 +80,7 @@ for (const cancel of ['stop', 'navigation', 'edit'] as const) {
         .poll(() =>
           page.evaluate(
             () =>
-              JSON.parse(localStorage.getItem('chordscape.session.v4') ?? '{}')
+              JSON.parse(localStorage.getItem('chordscape.session.v5') ?? '{}')
                 .events?.length,
           ),
         )
