@@ -8,3 +8,6 @@ docs/FIRST_COMMIT.md
 docs/PRODUCT_SPEC.md
 public/samples/salamander/README
 public/samples/salamander/LICENSE.txt
+harmony_model/data/raw/
+harmony_model/data/processed/
+harmony_model/runs/

@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "researched_at": "2026-09-19",
+  "notice": "This catalog records source statements, not legal advice. Re-check the exact release and every upstream/subset license before publishing raw data, normalized event sequences, or model artifacts.",
+  "datasets": [
+    {
+      "id": "choco",
+      "source": "ChoCo: the Chord Corpus",
+      "version": "v1.0.0 (f7dd3ee5670d367b57b412d640cc396e57c1b4ea)",
+      "url": "https://github.com/smashub/choco/releases/tag/v1.0.0",
+      "styles": ["pop", "jazz", "classical"],
+      "license": {
+        "name": "CC BY 4.0, except Chordify, Mozart Piano Sonata, and JAAH under CC BY-NC-SA 4.0",
+        "url": "https://github.com/smashub/choco/blob/v1.0.0/LICENSE.md",
+        "scope": "ChoCo's release statement covers its code and data, with the three named subset exceptions. Upstream work and annotation provenance remains relevant and is carried in JAMS metadata.",
+        "evidence_url": "https://github.com/smashub/choco/tree/v1.0.0#license"
+      },
+      "rights": {
+        "download": "allowed",
+        "raw_redistribution": "conditional",
+        "normalized_redistribution": "conditional",
+        "derived_artifacts": "review_required",
+        "notes": "Apply attribution and the exact subset license. Do not mix NC-SA exceptions into a release intended for unrestricted or commercial use. A model-artifact policy must be decided before export."
+      },
+      "acquisition": {
+        "status": "collected",
+        "download_date": "2026-09-19",
+        "method": "official GitHub release archive; extract LICENSE, metadata, and JAMS only",
+        "reason": "The user requested the full release archive. JAMS are extracted for training research while the 2.13 GB knowledge graph remains archive-only to conserve workspace storage.",
+        "artifacts": [
+          {
+            "download_url": "https://github.com/smashub/choco/releases/download/v1.0.0/v1.0.0.zip",
+            "path": "choco/v1.0.0/v1.0.0.zip",
+            "sha256": "f50bc9e763cafd891d5934d06f2b4b8adcaee7a258c8a0514ace02561c41726d",
+            "bytes": 186752842,
+            "extract_to": "choco/v1.0.0",
+            "extract_prefixes": [
+              "v1.0.0/LICENSE.md",
+              "v1.0.0/meta.csv",
+              "v1.0.0/jams/"
+            ]
+          }
+        ]
+      },
+      "conversion_notes": "JAMS provides Harte chords and key/modulation annotations where available. Preserve every chord/chord_harte annotation view, original namespace, source partition, annotation provenance, audio-vs-score type, and local/global key origin. Alternative views share one work identity. Never treat ChoCo copies and their upstream corpora as independent train/test works.",
+      "overlap": [
+        "mcgill_billboard",
+        "real_book_choco",
+        "weimar_jazz_database",
+        "when_in_rome",
+        "dcml_corpora"
+      ]
+    },
+    {
+      "id": "mcgill_billboard",
+      "source": "The McGill Billboard Project chord annotations",
+      "version": "2.0 complete annotations",
+      "url": "https://ddmal.ca/research/The_McGill_Billboard_Project_(Chord_Analysis_Dataset)/",
+      "styles": ["pop"],
+      "license": {
+        "name": "CC0 1.0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "scope": "The official page expressly dedicates the McGill Billboard annotations to CC0. It does not distribute or license the original audio recordings.",
+        "evidence_url": "https://ddmal.ca/research/The_McGill_Billboard_Project_(Chord_Analysis_Dataset)/"
+      },
+      "rights": {
+        "download": "allowed",
+        "raw_redistribution": "allowed",
+        "normalized_redistribution": "allowed",
+        "derived_artifacts": "allowed",
+        "notes": "Cite the project and paper as requested by the maintainers even though CC0 does not require attribution. Never add the underlying commercial audio."
+      },
+      "acquisition": {
+        "status": "collected",
+        "download_date": "2026-09-18",
+        "method": "official annotation and index downloads",
+        "reason": "Clear CC0 status and direct relevance to POP harmony make this the first canonical pop source.",
+        "artifacts": [
+          {
+            "download_url": "https://www.dropbox.com/s/o0olz0uwl9z9stb/billboard-2.0-index.csv?dl=1",
+            "path": "mcgill_billboard/2.0/billboard-2.0-index.csv",
+            "sha256": "fc39435098814f1a4f1dd5c95c72aff399b648b78f33a59682924dfb9b5280fb",
+            "bytes": 61542
+          },
+          {
+            "download_url": "https://www.dropbox.com/s/2lvny9ves8kns4o/billboard-2.0-salami_chords.tar.gz?dl=1",
+            "path": "mcgill_billboard/2.0/billboard-2.0-salami_chords.tar.gz",
+            "sha256": "a22e32bf24c8a18859ce18427c6501a7a72520185cddd6d882ceb3c61d02ec75",
+            "bytes": 340263,
+            "extract_to": "mcgill_billboard/2.0"
+          }
+        ]
+      },
+      "conversion_notes": "The complete annotations contain 890 chart slots representing 740 distinct songs; split by a stable work identity, not slot ID, to prevent duplicate leakage. Parse Harte labels, repeated bars/dots, phrase repetition, metre and tonic changes, pauses, silence, and unanalysed passages. Only the first chord of a phrase was human time-aligned; other LAB timings were interpolated, so prefer beat/phrase structure for symbolic next-chord training."
+    },
+    {
+      "id": "pop909",
+      "source": "POP909 Dataset for Music Arrangement Generation",
+      "version": "master at d83e6edba6872a704f5d3b8b32f5cb540088dae6 (2020-08-28)",
+      "url": "https://github.com/music-x-lab/POP909-Dataset",
+      "styles": ["pop"],
+      "license": {
+        "name": "MIT repository license; data/music scope not separately clarified",
+        "url": "https://github.com/music-x-lab/POP909-Dataset/blob/d83e6edba6872a704f5d3b8b32f5cb540088dae6/LICENSE",
+        "scope": "The repository-level MIT text refers to software and associated documentation. The README does not separately state that the copyrighted compositions, professional MIDI arrangements, and extracted annotations are licensed for redistribution.",
+        "evidence_url": "https://github.com/music-x-lab/POP909-Dataset/tree/d83e6edba6872a704f5d3b8b32f5cb540088dae6"
+      },
+      "rights": {
+        "download": "unclear",
+        "raw_redistribution": "unclear",
+        "normalized_redistribution": "unclear",
+        "derived_artifacts": "review_required",
+        "notes": "Do not assume the MIT software grant resolves rights in the underlying songs or arrangements. Obtain maintainer clarification before adding it to a distributable training pipeline."
+      },
+      "acquisition": {
+        "status": "collected_local_only",
+        "download_date": "2026-09-19",
+        "method": "GitHub source archive pinned to the inspected commit",
+        "reason": "Collected at the user's request for local research. The archive and extracted data remain ignored and are not approved for redistribution or published model export.",
+        "artifacts": [
+          {
+            "download_url": "https://github.com/music-x-lab/POP909-Dataset/archive/d83e6edba6872a704f5d3b8b32f5cb540088dae6.tar.gz",
+            "path": "pop909/d83e6edba687/pop909-d83e6edba687.tar.gz",
+            "sha256": "f1c279213996f5249a0646d52543185a675a3cc477519cbca65078573b6c7fd8",
+            "bytes": 44551359,
+            "extract_to": "pop909/d83e6edba687"
+          }
+        ]
+      },
+      "conversion_notes": "909 Chinese pop piano arrangements include MIDI plus tempo, beat, key, and chord files. The paper describes beat/key/chord annotations as algorithmically extracted, so they are weak labels rather than human ground truth. Preserve changing tempo and source alignment; do not infer annotation certainty from file presence."
+    },
+    {
+      "id": "pop909_cl",
+      "source": "POP909-CL Dataset",
+      "version": "main at be9094392903c471a930519e1c0bacf8b6be5d62 (2026-07-13)",
+      "url": "https://github.com/AndyWeasley2004/POP909-CL-Dataset",
+      "styles": ["pop"],
+      "license": {
+        "name": "MIT repository license; inherited POP909 music/data scope not separately clarified",
+        "url": "https://github.com/AndyWeasley2004/POP909-CL-Dataset/blob/be9094392903c471a930519e1c0bacf8b6be5d62/LICENSE",
+        "scope": "The release adds human-corrected annotations but also republishes corrected and original-derived MIDI. The MIT text does not distinguish new annotations from inherited composition and arrangement rights.",
+        "evidence_url": "https://github.com/AndyWeasley2004/POP909-CL-Dataset/tree/be9094392903c471a930519e1c0bacf8b6be5d62"
+      },
+      "rights": {
+        "download": "unclear",
+        "raw_redistribution": "unclear",
+        "normalized_redistribution": "unclear",
+        "derived_artifacts": "review_required",
+        "notes": "Prefer these corrected labels over original POP909 for local evaluation. Obtain written clarification before redistributing the data, normalized labels, or published model artifacts."
+      },
+      "acquisition": {
+        "status": "collected_local_only",
+        "download_date": "2026-09-19",
+        "method": "GitHub source archive pinned to the inspected commit",
+        "reason": "Collected at the user's request for local research. The corrected labels are valuable, but the license boundary around inherited MIDI and songs remains unclear, so redistribution and published model export are not approved.",
+        "artifacts": [
+          {
+            "download_url": "https://github.com/AndyWeasley2004/POP909-CL-Dataset/archive/be9094392903c471a930519e1c0bacf8b6be5d62.tar.gz",
+            "path": "pop909_cl/be9094392903/pop909-cl-be9094392903.tar.gz",
+            "sha256": "e7dcaf850fe7ea6eaf4ea84ad71cafccbc5390ba35bd64bd0045caf68548aa0d",
+            "bytes": 24729951,
+            "extract_to": "pop909_cl/be9094392903"
+          }
+        ]
+      },
+      "conversion_notes": "The release states 909 professionally reviewed tracks, but the pinned POP909_processed.zip contains 908 MIDI files: 043.mid is absent and 367.mid has no corrected chord track. Track 2 carries pitch-set chord labels and key/time changes are MIDI meta-events. Do not fill missing corrected labels from legacy POP909 implicitly. Keep the documented problematic pieces 518 and 620 flagged and group all available pieces with POP909 by work identity."
+    },
+    {
+      "id": "real_book_choco",
+      "source": "Real Book-derived corpus as standardized in ChoCo",
+      "version": "ChoCo v1.0.0 Real Book partition; upstream corpus described by Mauch et al. (2007)",
+      "url": "https://github.com/smashub/choco/tree/v1.0.0",
+      "styles": ["jazz"],
+      "license": {
+        "name": "CC BY 4.0 asserted for the ChoCo Real Book partition; standalone upstream license not located",
+        "url": "https://github.com/smashub/choco/blob/v1.0.0/LICENSE.md",
+        "scope": "ChoCo lists Real Book outside its three CC BY-NC-SA exceptions. This covers the released ChoCo data according to its maintainers, but does not license the underlying compositions or commercial Real Book editions.",
+        "evidence_url": "https://github.com/smashub/choco/tree/v1.0.0#overview"
+      },
+      "rights": {
+        "download": "conditional",
+        "raw_redistribution": "conditional",
+        "normalized_redistribution": "conditional",
+        "derived_artifacts": "review_required",
+        "notes": "Use only the explicitly licensed ChoCo partition, retain provenance/attribution, and obtain a release-policy review before publishing readable tune-level progressions or model artifacts."
+      },
+      "acquisition": {
+        "status": "not_collected",
+        "download_date": null,
+        "method": "ChoCo subset",
+        "reason": "Standalone upstream licensing is unclear and jazz coverage is already available from the explicitly licensed WJazzD collection.",
+        "artifacts": []
+      },
+      "conversion_notes": "ChoCo reports score-level Harte annotations. Preserve tune/work identity and original source reference. Audit duplicate standards across WJazzD, JAAH, iReal-derived collections, and multiple Real Book charts before splitting."
+    },
+    {
+      "id": "weimar_jazz_database",
+      "source": "Weimar Jazz Database (WJazzD)",
+      "version": "release 2.1, database version 2.2 (FINAL; created 2018-01-07)",
+      "url": "https://jazzomat.hfm-weimar.de/download/download.html",
+      "styles": ["jazz"],
+      "license": {
+        "name": "ODbL 1.0 for the database; DbCL 1.0 for individual contents",
+        "url": "https://opendatacommons.org/licenses/odbl/1-0/",
+        "scope": "The official download page states ODbL. The downloaded database's db_info table additionally states Database Contents License 1.0 for individual contents. Original recordings are not distributed.",
+        "evidence_url": "https://jazzomat.hfm-weimar.de/download/download.html#weimar-jazz-database"
+      },
+      "rights": {
+        "download": "allowed",
+        "raw_redistribution": "conditional",
+        "normalized_redistribution": "conditional",
+        "derived_artifacts": "review_required",
+        "notes": "Redistribution and derivative databases must satisfy ODbL attribution, notice, access, and share-alike obligations as applicable. Decide whether an exported model is a derivative database or Produced Work before release."
+      },
+      "acquisition": {
+        "status": "collected",
+        "download_date": "2026-09-18",
+        "method": "official SQLite download",
+        "reason": "Explicit ODbL/DbCL terms and aligned chord context make this the canonical initial jazz source.",
+        "artifacts": [
+          {
+            "download_url": "https://jazzomat.hfm-weimar.de/download/downloads/wjazzd.db",
+            "path": "weimar_jazz_database/2.1/wjazzd.db",
+            "sha256": "af6a0d9debf042c3581565bd75baad591d32e166cd2ec7298519883de614bf12",
+            "bytes": 42512384
+          }
+        ]
+      },
+      "conversion_notes": "SQLite contains 456 solo transcriptions, 302 composition IDs, 344 track IDs, and 30,548 non-empty beat-level chord rows in the acquired file. Parse beats.chord and solo_info.key/chord_changes without using melody as the chord label. Preserve performer/recording identity separately from composition identity so alternate solos on one work stay in the same split family. The site has a stale content-page label (r2.2/v2.3); the download page and db_info both identify release 2.1 / DB 2.2."
+    },
+    {
+      "id": "when_in_rome",
+      "source": "When in Rome meta-corpus",
+      "version": "master at 1c61fe41b8c2910296d7d2bcbf6476c7c1f2fe35 (2026-05-27)",
+      "url": "https://github.com/MarkGotham/When-in-Rome",
+      "styles": ["classical"],
+      "license": {
+        "name": "CC BY-SA 4.0 for new analyses/code/conversions; imported analyses and scores retain source-specific licenses",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "scope": "The project README licenses new material and conversions, but explicitly directs users to original licenses for converted analyses and warns that score licenses vary. License must therefore be resolved per analysis/source file.",
+        "evidence_url": "https://github.com/MarkGotham/When-in-Rome/tree/1c61fe41b8c2910296d7d2bcbf6476c7c1f2fe35#licence-citation-contribution"
+      },
+      "rights": {
+        "download": "conditional",
+        "raw_redistribution": "conditional",
+        "normalized_redistribution": "conditional",
+        "derived_artifacts": "review_required",
+        "notes": "Build an allowlist of analysis-only subcorpora with resolved original licenses. Do not copy scores or remote files merely because they sit beside a CC BY-SA conversion."
+      },
+      "acquisition": {
+        "status": "collected",
+        "download_date": "2026-09-19",
+        "method": "GitHub source archive pinned to the inspected commit; selectively extract the initial subcorpus allowlist",
+        "reason": "The full archive is retained only as ignored local source evidence. Extraction is restricted to project documentation and the 179 manual OpenScore Lieder analyses identified by the upstream README as new When in Rome analyses under CC BY-SA 4.0. Other converted analyses, scores, remote score links, and automatic analyses remain unextracted and ineligible by default.",
+        "allowlist": "datasets/when_in_rome_allowlist.json",
+        "artifacts": [
+          {
+            "download_url": "https://github.com/MarkGotham/When-in-Rome/archive/1c61fe41b8c2910296d7d2bcbf6476c7c1f2fe35.tar.gz",
+            "path": "when_in_rome/1c61fe41b8c2/when-in-rome-1c61fe41b8c2.tar.gz",
+            "sha256": "563421bca5547849675df76a09c1244496c5116f90451f2feb9410d13c65dd8a",
+            "bytes": 32819282,
+            "extract_to": "when_in_rome/1c61fe41b8c2",
+            "extract_globs": [
+              "When-in-Rome-1c61fe41b8c2910296d7d2bcbf6476c7c1f2fe35/README.md",
+              "When-in-Rome-1c61fe41b8c2910296d7d2bcbf6476c7c1f2fe35/syntax.md",
+              "When-in-Rome-1c61fe41b8c2910296d7d2bcbf6476c7c1f2fe35/Corpus/OpenScore-LiederCorpus/*/analysis.txt"
+            ]
+          }
+        ]
+      },
+      "conversion_notes": "RomanText provides explicit local keys, tonicizations, Roman numerals, measure/beat positions, and work/set/movement hierarchy. Convert Roman syntax with a dedicated adapter; do not route it through plain-v1. Preserve analyst and original-corpus metadata, alternative analyses, local-key spelling, applied chords, inversions, pedal, phrase, and measure-repeat semantics."
+    },
+    {
+      "id": "dcml_corpora",
+      "source": "DCML harmony corpora meta-repository",
+      "version": "v2.3 (ee6f278a42dccb4ce4f374c6bf738e3cd4fc5fe7; submodules pinned by the release)",
+      "url": "https://github.com/DCMLab/dcml_corpora/releases/tag/v2.3",
+      "styles": ["classical"],
+      "license": {
+        "name": "Per-subcorpus licenses; major harmony corpora inspected use CC BY-NC-SA 4.0",
+        "url": "https://github.com/DCMLab/dcml_corpora/tree/v2.3",
+        "scope": "The meta-repository has no single root license. Each pinned submodule controls its own data. ABC, romantic_piano_corpus, Corelli, and Mozart Piano Sonatas explicitly state CC BY-NC-SA 4.0; every selected subcorpus must be checked independently.",
+        "evidence_url": "https://github.com/DCMLab/dcml_corpora/tree/v2.3"
+      },
+      "rights": {
+        "download": "conditional",
+        "raw_redistribution": "conditional",
+        "normalized_redistribution": "conditional",
+        "derived_artifacts": "review_required",
+        "notes": "Non-commercial and share-alike conditions are material for a public model release. Record each submodule revision and license instead of assigning one license to the aggregate."
+      },
+      "acquisition": {
+        "status": "not_collected",
+        "download_date": null,
+        "method": "versioned Frictionless datapackage or pinned submodules",
+        "reason": "A per-subcorpus license allowlist and an NC/SA-compatible artifact policy have not yet been approved.",
+        "artifacts": []
+      },
+      "conversion_notes": "Use harmonies TSV or the versioned Frictionless datapackage. Preserve corpus/piece/work/movement hierarchy before splitting. DCML labels encode global/local key, Roman numeral, applied chords, inversion, changes/additions/relativeroot, pedal, phrase and cadence information; parse with the matching annotation-standard version and retain the untouched label plus all unsupported fields."
+    }
+  ]
+}

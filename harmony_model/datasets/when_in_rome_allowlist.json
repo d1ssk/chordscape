@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "source": "When in Rome meta-corpus",
+  "revision": "1c61fe41b8c2910296d7d2bcbf6476c7c1f2fe35",
+  "default_policy": "excluded_until_source_license_is_resolved",
+  "subcorpora": [
+    {
+      "id": "openscore_lieder_new_analyses",
+      "upstream_description": "New corpora by Mark Gotham and colleagues: nineteenth-century songs from the OpenScore Lieder Corpus",
+      "include_glob": "Corpus/OpenScore-LiederCorpus/*/analysis.txt",
+      "expected_files": 179,
+      "content": "manual RomanText harmonic analyses only",
+      "license": "CC BY-SA 4.0",
+      "license_evidence": "https://github.com/MarkGotham/When-in-Rome/tree/1c61fe41b8c2910296d7d2bcbf6476c7c1f2fe35#licence-citation-contribution",
+      "local_training": "allowed_with_attribution_and_share_alike_review",
+      "raw_redistribution": "conditional",
+      "normalized_redistribution": "conditional",
+      "model_artifact_publication": "review_required",
+      "notes": "The upstream README lists these as new analyses. Preserve the Analyst header and work hierarchy. This permission does not extend to scores."
+    }
+  ],
+  "excluded": [
+    {
+      "glob": "Corpus/*",
+      "reason": "All subcorpora not explicitly listed above inherit source-specific licenses and remain excluded."
+    },
+    {
+      "glob": "Corpus/*/score.*",
+      "reason": "Score licenses vary independently from analysis licenses."
+    },
+    {
+      "glob": "Corpus/*/remote.json",
+      "reason": "Remote score references are not training annotations and must not trigger external downloads."
+    },
+    {
+      "glob": "Corpus/*/analysis_automatic.rntxt",
+      "reason": "Automatically generated analyses are excluded from human ground truth."
+    },
+    {
+      "glob": "Corpus/*/analysis*.txt",
+      "reason": "External conversions and alternative analyses remain excluded unless a later source-specific entry overrides this default."
+    }
+  ]
+}
