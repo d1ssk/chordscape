@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { chordscapeCandidateManifest } from '../../src/space/candidateManifest';
 const level = (page: Page) =>
   page.getByTestId('audio-level').getAttribute('value').then(Number);
 const stored = (page: Page) =>
@@ -6,6 +7,72 @@ const stored = (page: Page) =>
 const node = (page: Page, id: string) => page.locator(`[data-node-id="${id}"]`);
 const stop = (page: Page) =>
   page.getByRole('button', { name: '■ 停止', exact: true }).click();
+
+test('48-context Transformer is the default and proposal sources switch without showing scores', async ({
+  page,
+}) => {
+  const manifest = chordscapeCandidateManifest();
+  const histories: string[][] = [];
+  await page.route('**/model-api/models', (route) =>
+    route.fulfill({
+      json: {
+        candidate_version: manifest.version,
+        candidate_ids: manifest.nodes.map((entry) => entry[0]).sort(),
+        runs: [
+          {
+            run_id: 'short',
+            validation_nll: 1,
+            best_epoch: 1,
+            config: { context: 32 },
+          },
+          {
+            run_id: 'chosen-48',
+            validation_nll: 2.9,
+            best_epoch: 23,
+            config: { context: 48 },
+          },
+        ],
+      },
+    }),
+  );
+  await page.route('**/model-api/predict', async (route) => {
+    const body = JSON.parse(route.request().postData() ?? '{}');
+    histories.push(body.history);
+    await route.fulfill({
+      json: {
+        run_id: body.run_id,
+        candidate_version: manifest.version,
+        context: 48,
+        history_used: body.history.length,
+        candidates: [
+          { ids: ['c'], rank: 1, probability: 0.4 },
+          { ids: ['g'], rank: 2, probability: 0.2 },
+        ],
+      },
+    });
+  });
+  await page.goto('./#space');
+  const source = page.getByRole('combobox', { name: '提案モデル' });
+  await expect(source).toHaveValue('transformer');
+  await expect(node(page, 'c')).toHaveAttribute('data-model-type', /.+/);
+  await expect(node(page, 'c')).not.toHaveAttribute('data-model-rank');
+  await expect(node(page, 'c')).not.toHaveAttribute('title', /%|順位/);
+  await node(page, 'c').click();
+  await expect
+    .poll(() => histories.some((history) => history.join() === 'c'))
+    .toBe(true);
+  await source.selectOption('none');
+  await expect(
+    page.locator('.space-node[data-model-type], .space-node[data-suggestion]'),
+  ).toHaveCount(0);
+  await source.selectOption('rules');
+  await expect(node(page, 'g')).toHaveAttribute('data-suggestion', /.+/);
+  await source.selectOption('transformer');
+  await expect(node(page, 'c')).toHaveAttribute('data-model-type', /.+/);
+  await page.getByText('提案モデルと教師データ').click();
+  await expect(page.getByText(/McGill Billboard 2.0/)).toBeVisible();
+  await expect(page.getByText(/直近48和音/)).toBeVisible();
+});
 
 test('independent exploration keeps the saved progression, key and settings; supports keyboard and slash bass', async ({
   page,
@@ -230,6 +297,9 @@ test('history fill and suggestion halos coexist; style preserves context and key
   page,
 }, testInfo) => {
   await page.goto('./#space');
+  await page
+    .getByRole('combobox', { name: '提案モデル' })
+    .selectOption('rules');
   const guide = page.locator('.space-node[data-suggestion]');
   await expect(guide).toHaveCount(0);
   await expect(
@@ -337,22 +407,25 @@ test('node legend and independent visibility switches preserve the exploration c
   page,
 }, testInfo) => {
   await page.goto('./#space');
+  await page
+    .getByRole('combobox', { name: '提案モデル' })
+    .selectOption('rules');
   const legend = page.locator('.space-layer-legend');
   await expect(legend).toContainText('ダイアトニック');
   await expect(legend).toContainText('近い調外和音');
   await expect(legend).toContainText('さらに外側の色彩');
-  const suggestions = page.getByRole('checkbox', { name: '提案', exact: true });
+  const suggestions = page.getByRole('combobox', { name: '提案モデル' });
   const history = page.getByRole('checkbox', { name: '履歴', exact: true });
-  await expect(suggestions).toBeChecked();
+  await expect(suggestions).toHaveValue('rules');
   await expect(history).toBeChecked();
   for (const id of ['c', 'f', 'fm']) {
     await node(page, id).click();
     await expect(node(page, id)).toHaveAttribute('data-history', '0');
   }
-  await suggestions.uncheck();
+  await suggestions.selectOption('none');
   await expect(page.locator('.space-node[data-suggestion]')).toHaveCount(0);
   await expect(page.locator('.space-node[data-history]')).toHaveCount(3);
-  await suggestions.check();
+  await suggestions.selectOption('rules');
   await expect(node(page, 'c')).toHaveAttribute('data-suggestion', 'resolve');
   await history.uncheck();
   await expect(page.locator('.space-node[data-history]')).toHaveCount(0);
@@ -362,13 +435,13 @@ test('node legend and independent visibility switches preserve the exploration c
     'background-color',
     'rgb(197, 200, 202)',
   );
-  await suggestions.uncheck();
+  await suggestions.selectOption('none');
   await node(page, 'g').click();
   await expect(node(page, 'g')).toHaveAttribute('aria-current', 'true');
   await expect(page.locator('.space-node[data-history]')).toHaveCount(0);
   await expect(page.locator('.space-node[data-suggestion]')).toHaveCount(0);
   await history.check();
-  await suggestions.check();
+  await suggestions.selectOption('rules');
   await expect(node(page, 'g')).toHaveAttribute('data-history', '0');
   await expect(node(page, 'fm')).toHaveAttribute('data-history', '1');
   await expect(node(page, 'c')).toHaveAttribute('data-suggestion', 'resolve');

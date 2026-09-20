@@ -10,9 +10,9 @@ When in Romeはsource別条件を尊重し、CC BY-SAの新規OpenScore Lieder�
 候補別の license と採否は [datasets/README.md](datasets/README.md)、機械可読な来歴は
 [datasets/catalog.json](datasets/catalog.json) を参照する。McGill Billboard 2.0はrawから正規化Song、診断、
 作品単位splitまで再現できる。McGillは同じsplitでunigram・1次・2次Markovを学習・評価済み。
-結果は [BASELINES.md](BASELINES.md) を参照する。Transformerのブラウザ連携はまだない。
+結果は [BASELINES.md](BASELINES.md) を参照する。
 全corpusの変換件数と既知制約は [CONVERSIONS.md](CONVERSIONS.md)、統合規則と再学習結果は
-[INTEGRATED_BASELINES.md](INTEGRATED_BASELINES.md) を参照する。
+[INTEGRATED_BASELINES.md](INTEGRATED_BASELINES.md) を参照する。和声空間本体は`npm run model:test`で起動するローカルAPIから、完了済み48文脈runの提案を取得する。権利条件の確認が済むまでcheckpointは公開版へ同梱しない。
 今後の作業では [DESIGN.md](DESIGN.md) を設計の基準、[PLAN.md](PLAN.md) を段階別の受入条件として読み、設計変更と理由を同時に更新する。
 
 ## 実行

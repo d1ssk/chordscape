@@ -2,6 +2,7 @@ import {
   useRef,
   useState,
   useMemo,
+  useEffect,
   type CSSProperties,
   type KeyboardEvent,
 } from 'react';
@@ -16,6 +17,16 @@ import {
 import type { ChordEvent } from '../state/session';
 import type { PreviewCandidate } from '../space/modelPreview';
 import {
+  fetchPreviewPrediction,
+  fetchPreviewRuns,
+  modelInputHistory,
+  selectSpaceModelRun,
+  SPACE_MODEL_CONTEXT,
+  type PreviewPrediction,
+  type PreviewRun,
+} from '../space/modelPreview';
+import {
+  classifyModelCandidates,
   MODEL_CANDIDATE_LABELS,
   MODEL_CANDIDATE_TYPES,
   type ModelCandidateType,
@@ -57,6 +68,7 @@ const styleLabels = {
   classical: 'spaceClassical',
 } as const;
 const symbol = (event: ChordEvent) => voicedSymbol(event.chord, event.notes);
+type SuggestionSource = 'none' | 'rules' | 'transformer';
 
 export interface ModelSpaceOverlay {
   candidates: PreviewCandidate[];
@@ -81,8 +93,91 @@ export function HarmonicSpace({
   const [context, setContext] = useState(newSpaceContext);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [showHistory, setShowHistory] = useState(true);
+  const [suggestionSource, setSuggestionSource] =
+    useState<SuggestionSource>('transformer');
+  const [modelRun, setModelRun] = useState<PreviewRun | null>(null);
+  const [modelError, setModelError] = useState(false);
+  const [modelRetry, setModelRetry] = useState(0);
+  const [prediction, setPrediction] = useState<{
+    key: string;
+    value: PreviewPrediction;
+  } | null>(null);
   const contextRef = useRef(context);
   const nodes = useMemo(() => spaceNodes(context.key), [context.key]);
+  const useLocalModel = !modelOverlay && suggestionSource === 'transformer';
+  const requestKey = JSON.stringify([
+    modelRun?.run_id,
+    context.style,
+    modelInputHistory(context.history, SPACE_MODEL_CONTEXT),
+    modelRetry,
+  ]);
+  useEffect(() => {
+    if (!useLocalModel) return;
+    const controller = new AbortController();
+    void fetchPreviewRuns(controller.signal)
+      .then((runs) => {
+        const selected = selectSpaceModelRun(runs);
+        setModelRun(selected);
+        setModelError(!selected);
+      })
+      .catch((error: unknown) => {
+        if ((error as Error).name !== 'AbortError') {
+          setModelRun(null);
+          setPrediction(null);
+          setModelError(true);
+        }
+      });
+    return () => controller.abort();
+  }, [useLocalModel, modelRetry]);
+  useEffect(() => {
+    if (!useLocalModel || !modelRun) return;
+    const controller = new AbortController();
+    void fetchPreviewPrediction(
+      modelRun,
+      context.style,
+      context.history,
+      controller.signal,
+    )
+      .then((value) => {
+        setPrediction({ key: requestKey, value });
+        setModelError(false);
+      })
+      .catch((error: unknown) => {
+        if ((error as Error).name !== 'AbortError') {
+          setPrediction(null);
+          setModelError(true);
+        }
+      });
+    return () => controller.abort();
+  }, [useLocalModel, modelRun, context.style, context.history, requestKey]);
+  const currentPrediction =
+    prediction?.key === requestKey ? prediction.value : null;
+  const localCandidates = useMemo(
+    () => currentPrediction?.candidates.slice(0, 6) ?? [],
+    [currentPrediction],
+  );
+  const localCandidateTypes = useMemo(
+    () =>
+      classifyModelCandidates({
+        key: context.key,
+        style: context.style,
+        history: context.history,
+        availableChords: nodes,
+        candidates: localCandidates,
+      }),
+    [context.key, context.style, context.history, nodes, localCandidates],
+  );
+  const activeModelOverlay:
+    | Pick<ModelSpaceOverlay, 'candidates' | 'candidateTypes' | 'historyLimit'>
+    | undefined =
+    modelOverlay ??
+    (useLocalModel
+      ? {
+          candidates: localCandidates,
+          candidateTypes: localCandidateTypes,
+          historyLimit: SPACE_MODEL_CONTEXT,
+        }
+      : undefined);
   const events = useMemo(
     () =>
       new Map(nodes.map((node) => [node.id, spaceEvent(node, context.key)])),
@@ -92,7 +187,7 @@ export function HarmonicSpace({
     context.recommendations.map((r) => [r.chordId, r]),
   );
   const modelCandidates = new Map(
-    modelOverlay?.candidates
+    activeModelOverlay?.candidates
       .filter((candidate) => candidate.rank <= 6)
       .flatMap((candidate) =>
         candidate.ids.map((id) => [id, candidate] as const),
@@ -113,11 +208,11 @@ export function HarmonicSpace({
   function choose(id: string) {
     // The host page decides when to commit the selection and start audio.
     onChoose(() => {
-      const next = modelOverlay
+      const next = activeModelOverlay
         ? chooseSpaceChordWithLimit(
             contextRef.current,
             id,
-            modelOverlay.historyLimit,
+            activeModelOverlay.historyLimit,
           )
         : chooseSpaceChord(contextRef.current, id);
       update(next);
@@ -204,14 +299,33 @@ export function HarmonicSpace({
         </div>
         <div className="space-display-controls">
           <div className="space-visibility">
-            <label>
-              <input
-                type="checkbox"
-                checked={showSuggestions}
-                onChange={(e) => setShowSuggestions(e.target.checked)}
-              />
-              {t.spaceShowSuggestions}
-            </label>
+            {!modelOverlay && (
+              <label className="space-source-select">
+                {t.spaceSuggestionSource}
+                <select
+                  value={suggestionSource}
+                  onChange={(event) =>
+                    setSuggestionSource(event.target.value as SuggestionSource)
+                  }
+                >
+                  <option value="none">{t.spaceSourceNone}</option>
+                  <option value="rules">{t.spaceSourceRules}</option>
+                  <option value="transformer">
+                    {t.spaceSourceTransformer}
+                  </option>
+                </select>
+              </label>
+            )}
+            {modelOverlay && (
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showSuggestions}
+                  onChange={(e) => setShowSuggestions(e.target.checked)}
+                />
+                {t.spaceShowSuggestions}
+              </label>
+            )}
             <label>
               <input
                 type="checkbox"
@@ -234,12 +348,19 @@ export function HarmonicSpace({
               {t.spaceAutomaticVoicing}
             </label>
           </div>
-          {modelOverlay ? (
+          {suggestionSource === 'none' &&
+          !modelOverlay ? null : activeModelOverlay ? (
             <div
               className="space-suggestion-legend"
               aria-label={t.spaceSuggestions}
             >
-              <span className="model-suggestion-legend">{t.modelTopSix}</span>
+              <span className="model-suggestion-legend">
+                {modelOverlay
+                  ? t.modelTopSix
+                  : modelError
+                    ? t.spaceModelOfflineShort
+                    : t.modelTopSix}
+              </span>
               {MODEL_CANDIDATE_TYPES.map((type) => (
                 <span key={type} data-model-type={type}>
                   <i aria-hidden="true" />
@@ -295,14 +416,16 @@ export function HarmonicSpace({
             const name = symbol(event);
             const age = historyAge(context.history, node.id);
             const recommendation =
-              showSuggestions && !modelOverlay
+              showSuggestions && suggestionSource === 'rules' && !modelOverlay
                 ? recommendations.get(node.id)
                 : undefined;
-            const modelCandidate = showSuggestions
-              ? modelCandidates.get(node.id)
-              : undefined;
+            const modelCandidate =
+              showSuggestions &&
+              (modelOverlay || suggestionSource === 'transformer')
+                ? modelCandidates.get(node.id)
+                : undefined;
             const modelType = modelCandidate
-              ? (modelOverlay?.candidateTypes.get(node.id) ?? 'explore')
+              ? (activeModelOverlay?.candidateTypes.get(node.id) ?? 'explore')
               : undefined;
             const description = [
               age === 0
@@ -314,7 +437,7 @@ export function HarmonicSpace({
                 ? `${t.spaceSuggestions}: ${t[typeLabels[recommendation.type]]}`
                 : '',
               modelCandidate && modelType
-                ? `${t.modelRank} ${modelCandidate.rank} · ${t[MODEL_CANDIDATE_LABELS[modelType]]} · ${(modelCandidate.probability * 100).toFixed(1)}%`
+                ? `${t.spaceSuggestions}: ${t[MODEL_CANDIDATE_LABELS[modelType]]}`
                 : '',
             ]
               .filter(Boolean)
@@ -333,7 +456,9 @@ export function HarmonicSpace({
                 data-history={showHistory ? age : undefined}
                 data-suggestion={recommendation?.type}
                 data-score={recommendation?.score}
-                data-model-rank={modelCandidate?.rank}
+                data-model-rank={
+                  modelOverlay ? modelCandidate?.rank : undefined
+                }
                 data-model-type={modelType}
                 data-sounding={sounding?.id === event.id || undefined}
                 aria-current={age === 0 ? 'true' : undefined}
@@ -382,6 +507,28 @@ export function HarmonicSpace({
         ) : (
           <span>{t.spaceReady}</span>
         )}
+      </div>
+      <div className="space-model-footer">
+        {!modelOverlay && suggestionSource === 'transformer' && (
+          <div className="space-model-status" role="status">
+            {modelError ? (
+              <>
+                {t.spaceModelUnavailable}{' '}
+                <button onClick={() => setModelRetry((value) => value + 1)}>
+                  {t.modelRetry}
+                </button>
+              </>
+            ) : !currentPrediction ? (
+              t.modelLoading
+            ) : null}
+          </div>
+        )}
+        <details className="space-model-details">
+          <summary>{t.spaceModelDetails}</summary>
+          <p>{t.spaceModelOverview}</p>
+          <p>{t.spaceModelData}</p>
+          <p>{t.spaceModelRights}</p>
+        </details>
       </div>
     </section>
   );

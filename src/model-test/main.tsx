@@ -15,6 +15,7 @@ import {
   fetchPreviewPrediction,
   fetchPreviewRuns,
   modelInputHistory,
+  selectSpaceModelRun,
   type PreviewPrediction,
   type PreviewRun,
 } from '../space/modelPreview';
@@ -57,7 +58,7 @@ function ModelTest() {
         setRunId((current) =>
           items.some((item) => item.run_id === current)
             ? current
-            : (items[0]?.run_id ?? ''),
+            : (selectSpaceModelRun(items)?.run_id ?? items[0]?.run_id ?? ''),
         );
         setLoadError(false);
       })

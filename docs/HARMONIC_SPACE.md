@@ -8,8 +8,10 @@
 - core 14個、near 15個、outer 13個の計42ノード。7三和音の蜂の巣状配置と小さな七の和音satellite、左〜左下のborrowed / minor側、上〜右のsharp / chromatic側を維持。座標は編集上の配置であり、距離は厳密な楽理尺度ではない。
 - 調変更は既存の綴り付き移調関数で和音と音高を移す。位置・IDは維持。例えばC majorのA7 / DmはD majorでB7 / Em、F♯ majorの導音の和音はE♯°となる。
 - クリックすると既存音源で試聴し、直近6回を無彩色の背景で表示。最新が最も濃く、同じノードを再訪した場合は最新の濃さを使う。現在コードは太字、発音中は内側の枠でも識別する。
-- ボタンの凡例はダイアトニック（太枠）、近い調外和音（実線）、さらに外側の色彩（破線）。「提案」「履歴」のチェックは初期オンで、それぞれ候補の枠・haloと灰色の背景を非表示にできる。内部文脈と音のつながりは保持し、オンに戻すと最新の状態を再表示する。
-- 次候補は最大6個。解決＝amber、継続＝blue、彩り＝violet、探索＝tealの枠・haloを付け、スコアで強さを変える。履歴の背景と候補の枠は独立して重なる。小さな凡例、tooltip・アクセシブルな説明でも種類を確認できる。
+- ボタンの凡例はダイアトニック（太枠）、近い調外和音（実線）、さらに外側の色彩（破線）。提案モデルは「提案なし」「ルールベース」「Transformer」から選び、初期値はTransformer。「履歴」のチェックで灰色の背景を表示切替できる。内部文脈と音のつながりは保持する。
+- Transformerは`npm run model:test`が起動するローカルAPIの完了済み48文脈runを使用し、検証損失が最小のrunを選ぶ。履歴は最大48和音。モデルの候補は最大6和声を色付き枠で示し、確率・順位は通常画面に表示しない。色はルールによる補助分類であり、モデルの順位には影響しない。API接続に失敗した場合はその旨と再接続操作を表示する。
+- 「提案モデルと教師データ」を開くとモデル構成、教師データの出自、公開条件を確認できる。現行checkpointは権利確認中のデータを含むためローカル試験用で、GitHub Pagesには同梱しない。公開ページではTransformerの接続不可を明示し、ルールベースか提案なしを選択できる。根拠と学習内訳は [MODEL_RELEASE_REVIEW.md](MODEL_RELEASE_REVIEW.md) を参照。
+- ルールベースの次候補は最大6個。解決＝amber、継続＝blue、彩り＝violet、探索＝tealの枠・haloを付け、スコアで強さを変える。Transformer候補も最大6和声を別の種類別色で示す。履歴の背景と候補の枠は独立して重なる。小さな凡例、tooltip・アクセシブルな説明でも種類を確認できる。
 - 「自動voice leading」は初期オン。切替は次のクリックから反映し、現在の音と履歴・候補は保持する。オフでは前後関係に依存せず基本位置（明示的なslash bassは優先）で鳴らす。調変更・リセットでもチェックの選択を保持する。
 - 自動voice leadingがオンの場合、最初の和音は基本位置（明示的なslash bassは優先）。以降は直前の実音と上位の次候補を使って転回・octave配置を選ぶ。ノードには和音名、試聴欄には実際の転回を反映したコード名・音名・最低音を同一イベントから表示する。
 - 音色・音量は既存画面と共有。演奏画面の調・Record・Smooth・旋律設定は探索へ適用せず、探索の履歴はsessionや保存済み進行へ書き込まない。
@@ -28,13 +30,13 @@
 - `src/space/context.ts`: ローカル状態と遷移。内部履歴は最大12、推薦は直近8のうち最大4コードのパターンを評価する。ii–V–I、IV–V–I、IV–iv–I、iii–vi–ii–V–I、I–vi–IV–V、secondary resolution、dominant chainを扱い、三和音と七の和音を同じdegree familyとして認識する。
 - `src/space/voicings.ts`: 既存candidate generatorを再利用。転回とoctave配置を変え、MIDI 48〜84（C3〜C6）・最大2 octave幅に制限。明示的なbassと和音の構成音を保持する。
 - `src/space/voiceLeading.ts`: 音数が違う場合も順序を保つ対応で、移動量・bass・跳躍・広すぎる間隔を評価し、同じMIDI音の保持を優遇。交差・音域外は除外。推薦上位3和音への最小コストをスコアで重み付けし、係数0.25で加える。候補がなければ直前の配置のみを使う。
-- `src/components/HarmonicSpace.tsx`: 描画と操作を担当し、既存のaudio開始・取消・試聴経路に接続。developmentではconsole debugで推薦のscore / type / reasons / contributionsを確認できる。productionでは出力しない。
+- `src/components/HarmonicSpace.tsx`: 描画と操作、提案元の選択を担当し、既存のaudio開始・取消・試聴経路に接続。`src/space/modelPreview.ts`のAPI clientを通常画面とテスト画面で共有する。developmentではルール推薦のscore / type / reasons / contributionsをconsoleで確認できる。productionでは出力しない。
 
-推薦は探索のためのrule-basedな傾向であり、和音の唯一の機能や次のクリックを断定しない。Classicalも厳密な時代様式モデルではない。先読みは次候補への移動費用だけを評価し、候補を自動再生しない。
+ルールベース推薦は探索のための傾向であり、和音の唯一の機能や次のクリックを断定しない。Transformerの色ラベルもモデル自身の機能分析ではない。Classicalも厳密な時代様式モデルではない。自動voice leadingの先読みはルールベースの次候補への移動費用を評価し、候補を自動再生しない。
 
 ## 対象外
 
-minor / modal key、edge・progression trail、tritone substitution専用UI、swap、記録・保存・progression editor・loop・timeline、ML、旋律生成、楽器別配置、drop-2等の配置selector。
+minor / modal key、edge・progression trail、tritone substitution専用UI、swap、記録・保存・progression editor・loop・timeline、公開用モデル配布、旋律生成、楽器別配置、drop-2等の配置selector。
 
 ## 検証
 

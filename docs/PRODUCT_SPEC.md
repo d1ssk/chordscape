@@ -47,6 +47,8 @@ Theory、Playground、Earを別アプリにしない。同じ和音・進行・�
 
 発音は直前の配置と上位の次候補を考慮するautomatic voice leadingを使う。調変更では発音・待機を止め、探索文脈を消し、styleのみ保持。探索履歴は保存せず、演奏画面のsessionは変更しない。edge・trail・minor key・tritone substitution専用UI等は対象外。構造・推薦規則・検証範囲は [HARMONIC_SPACE.md](HARMONIC_SPACE.md) を参照。
 
+提案元は「提案なし」「ルールベース」「Transformer」を選択でき、初期値はTransformer。TransformerはローカルAPIで48和音の文脈を使う。通常画面には確率・順位を表示せず、開閉できる説明にモデル構成と教師データの出自を示す。現行checkpointは公開条件の確認が済むまでGitHub Pagesに同梱しない。
+
 ### 生成ページ
 
 「生成」にコード生成と旋律生成をまとめる。入力済みまたは生成済みの進行がある場合だけ旋律生成を有効にし、進行がない場合は入力・コード生成への案内を表示する。既存のLive演奏とTimeline演奏は維持。旧 `#melody` は生成ページとして開く。

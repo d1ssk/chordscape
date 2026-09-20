@@ -11,6 +11,20 @@ const ja = {
   spaceReset: 'リセット',
   spaceLayers: 'ボタンの種類',
   spaceShowSuggestions: '提案',
+  spaceSuggestionSource: '提案モデル',
+  spaceSourceNone: '提案なし',
+  spaceSourceRules: 'ルールベース',
+  spaceSourceTransformer: 'Transformer',
+  spaceModelOfflineShort: 'Transformer接続不可',
+  spaceModelUnavailable:
+    'Transformerを利用できません。ローカルでは npm run model:test で起動してください。公開版には学習済みモデルを含めていません。',
+  spaceModelDetails: '提案モデルと教師データ',
+  spaceModelOverview:
+    'Transformer v1：直近48和音とFree / Pop / Jazz / Classicalを入力する因果モデル。128次元・4層・4 headsで和音の構成要素を予測し、和声空間の41種類の和音から最大6件を示します。色は別の楽理ルールによる分類です。',
+  spaceModelData:
+    '教師データ：McGill Billboard 2.0（CC0）、POP909・POP909-CL（権利確認中）、Weimar Jazz Database 2.1（ODbL / DbCL）、ChoCo 1.0.0（収録元ごとに条件が異なる）、When in Rome の OpenScore Lieder 179分析（CC BY-SA）。作品単位で分割し、重複や学習不能な系列を除外した統合コーパスを使用しています。',
+  spaceModelRights:
+    'このcheckpointはローカル試験用です。教師データの派生成果物の公開条件を確認するまで、GitHub Pagesには重みを同梱しません。',
   spaceShowHistory: '履歴',
   spaceAutomaticVoicing: '自動voice leading',
   spaceSelectKey: '和声空間の調',
@@ -441,6 +455,20 @@ const en: Record<keyof typeof ja, string> = {
   spaceReset: 'Reset',
   spaceLayers: 'Node types',
   spaceShowSuggestions: 'Suggestions',
+  spaceSuggestionSource: 'Suggestion model',
+  spaceSourceNone: 'No suggestions',
+  spaceSourceRules: 'Rule based',
+  spaceSourceTransformer: 'Transformer',
+  spaceModelOfflineShort: 'Transformer unavailable',
+  spaceModelUnavailable:
+    'Transformer is unavailable. Start it locally with npm run model:test. The published site does not include the trained model.',
+  spaceModelDetails: 'Model and training data',
+  spaceModelOverview:
+    'Transformer v1: a causal model using the last 48 chords and Free / Pop / Jazz / Classical style. Four layers, four heads and 128 dimensions predict chord components; up to six of the 41 distinct Harmonic Space harmonies are shown. Colors are assigned by separate music theory rules.',
+  spaceModelData:
+    'Training data: McGill Billboard 2.0 (CC0), POP909 and POP909-CL (rights under review), Weimar Jazz Database 2.1 (ODbL / DbCL), ChoCo 1.0.0 (source-specific terms), and 179 OpenScore Lieder analyses from When in Rome (CC BY-SA). The integrated corpus uses work-level splits and excludes duplicates and untrainable sequences.',
+  spaceModelRights:
+    'This checkpoint is for local testing. Its weights are not bundled with GitHub Pages until the terms for derived artifacts are resolved.',
   spaceShowHistory: 'History',
   spaceAutomaticVoicing: 'Automatic voice leading',
   spaceSelectKey: 'Harmonic Space key',

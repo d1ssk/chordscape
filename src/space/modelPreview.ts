@@ -12,6 +12,23 @@ export interface PreviewRun {
   };
 }
 
+export const SPACE_MODEL_CONTEXT = 48;
+
+/** Choose the best completed run with the requested context length. */
+export function selectSpaceModelRun(
+  runs: readonly PreviewRun[],
+): PreviewRun | null {
+  return (
+    runs
+      .filter((run) => run.config.context === SPACE_MODEL_CONTEXT)
+      .sort(
+        (a, b) =>
+          a.validation_nll - b.validation_nll ||
+          a.run_id.localeCompare(b.run_id),
+      )[0] ?? null
+  );
+}
+
 export function modelInputHistory(
   history: readonly string[],
   context: number,

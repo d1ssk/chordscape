@@ -3,8 +3,27 @@ import { chordscapeCandidateManifest } from './candidateManifest';
 import {
   fetchPreviewPrediction,
   modelInputHistory,
+  selectSpaceModelRun,
   type PreviewRun,
 } from './modelPreview';
+
+it('selects the lowest validation loss among 48-context runs', () => {
+  const run = (
+    run_id: string,
+    context: number,
+    validation_nll: number,
+  ): PreviewRun => ({
+    run_id,
+    validation_nll,
+    best_epoch: 1,
+    config: { context, dropout: 0.2, learning_rate: 0.0003, epochs: 24 },
+  });
+  expect(
+    selectSpaceModelRun([run('short', 32, 1), run('a', 48, 3), run('b', 48, 2)])
+      ?.run_id,
+  ).toBe('b');
+  expect(selectSpaceModelRun([run('short', 32, 1)])).toBeNull();
+});
 
 it('uses the selected checkpoint context while retaining a longer trial history', () => {
   const history = Array.from({ length: 60 }, (_, index) => `chord-${index}`);
