@@ -18,14 +18,12 @@ const ja = {
   spaceModelOfflineShort: 'Transformer読込不可',
   spaceModelUnavailable:
     '公開モデルを読み込めませんでした。通信を確認して再試行してください。',
-  spaceModelDetails: '提案モデルと教師データ',
+  spaceModelDetails: '提案のしくみと学習データ',
   spaceModelOverview:
-    '公開版はpop・jazzで学習した48文脈のTransformer v1です。Freeは両スタイルを混合します。128次元・4層・4 headsで和音の構成要素を予測し、和声空間の41種類の和音から最大6件を示します。色は別の楽理ルールによる分類です。',
+    'これまでに選んだ和音の並びを手がかりに、次の和音の根音や響きの種類を予測します。和声空間の中から予測に合う上位6件を枠で示します。Popはポップス、Jazzはジャズの進行をもとに提案し、Freeは両方を組み合わせます。枠の色は「解決に向かう」「流れを続ける」などの目安で、提案の順番は変えません。',
   spaceModelData:
-    '教師データ：ChoCo 1.0.0 の許可対象5,168系列（CC BY 4.0）、McGill Billboard 2.0 の738系列（CC0）、Weimar Jazz Database 2.1 の411系列（ODbL / DbCL）。作品単位で分割し、重複や学習不能な系列を除外しました。',
-  spaceModelRights:
-    'モデルはブラウザ内で動作します。教師曲、注釈、PyTorch checkpointは配布せず、変換した重みのみを公開しています。Classicalはこのモデルの学習対象外です。',
-  spaceModelNotice: '教師データの出典・利用条件',
+    'ポップスとジャズのコード進行データで学習しています。使用したデータはChoCo、McGill Billboard、Weimar Jazz Databaseです。Classicalの提案には対応していません。',
+  spaceModelNotice: 'データの出典と利用条件',
   spaceTrialModelOverview:
     '試験ページでは選択したrunのPyTorch checkpointをローカルAPIで評価します。候補数・文脈長・学習スタイルは選択runに従います。',
   spaceTrialModelData:
@@ -470,13 +468,11 @@ const en: Record<keyof typeof ja, string> = {
   spaceModelOfflineShort: 'Transformer load failed',
   spaceModelUnavailable:
     'The published model could not be loaded. Check the connection and retry.',
-  spaceModelDetails: 'Model and training data',
+  spaceModelDetails: 'How suggestions work and training data',
   spaceModelOverview:
-    'The public Transformer v1 uses a 48 chord context and was trained on pop and jazz. Free mixes both styles. Four layers, four heads and 128 dimensions predict chord components; up to six of the 41 distinct Harmonic Space harmonies are shown. Colors come from separate music theory rules.',
+    'The model uses the sequence of chords you have chosen to predict the root and character of the next chord. It outlines the six best matching chords in Harmonic Space. Pop draws on pop progressions, Jazz on jazz progressions, and Free combines both. Outline colors offer cues such as resolution or continuation; they do not change the suggestion order.',
   spaceModelData:
-    'Training data: 5,168 permitted ChoCo 1.0.0 sequences (CC BY 4.0), 738 McGill Billboard 2.0 sequences (CC0), and 411 Weimar Jazz Database 2.1 sequences (ODbL / DbCL). Work-level splits exclude duplicates and untrainable sequences.',
-  spaceModelRights:
-    'Inference runs in the browser. Only converted weights are published; source songs, annotations and the PyTorch checkpoint are not distributed. Classical was not used to train this model.',
+    'The model learned from pop and jazz chord progressions in ChoCo, McGill Billboard, and the Weimar Jazz Database. Classical suggestions are unavailable with this model.',
   spaceModelNotice: 'Training sources and terms',
   spaceTrialModelOverview:
     'The trial page evaluates the selected PyTorch checkpoint through a local API. Candidate count, context length and trained styles follow the selected run.',

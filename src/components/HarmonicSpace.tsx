@@ -543,7 +543,6 @@ export function HarmonicSpace({
             <>
               <p>{t.spaceModelOverview}</p>
               <p>{t.spaceModelData}</p>
-              <p>{t.spaceModelRights}</p>
               <p>
                 <a
                   href={`${import.meta.env.BASE_URL}model/TRAINING_DATA.md`}

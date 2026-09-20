@@ -48,9 +48,9 @@ test('48-context Transformer is the default and proposal sources switch without 
   await expect(
     page.locator('.space-node[data-model-type]').first(),
   ).toBeVisible();
-  await page.getByText('提案モデルと教師データ').click();
-  await expect(page.getByText(/McGill Billboard 2.0/)).toBeVisible();
-  await expect(page.getByText(/48文脈/)).toBeVisible();
+  await page.getByText('提案のしくみと学習データ').click();
+  await expect(page.getByText(/McGill Billboard/)).toBeVisible();
+  await expect(page.getByText(/これまでに選んだ和音の並び/)).toBeVisible();
 });
 
 test('independent exploration keeps the saved progression, key and settings; supports keyboard and slash bass', async ({
