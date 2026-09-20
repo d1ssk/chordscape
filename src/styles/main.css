@@ -1491,22 +1491,6 @@ details > summary:focus-visible {
   }
 }
 @media (max-width: 700px) {
-  .scene-space .app-header h1 {
-    font-size: 1.25rem;
-  }
-  .scene-space .header-actions {
-    gap: 4px;
-  }
-  .scene-space .header-actions button {
-    padding-inline: 8px;
-  }
-  .scene-space .app-header {
-    margin-bottom: 6px;
-  }
-  .scene-space .header-actions button {
-    min-height: 30px;
-    padding-block: 4px;
-  }
   .scene-space .transport {
     display: flex;
     min-height: 34px;

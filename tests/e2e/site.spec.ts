@@ -55,6 +55,51 @@ test('every page shares its brand, logo and width, with a separate page title', 
   });
 });
 
+test('mobile Harmonic Space header matches the shared header geometry', async ({
+  page,
+}, info) => {
+  test.skip(info.project.name !== 'mobile');
+  for (const width of [320, 375, 390]) {
+    await page.setViewportSize({ width, height: 812 });
+    const measure = async (scene: string) => {
+      await page.goto(`./#${scene}`);
+      return page.evaluate(() => {
+        const rect = (selector: string) => {
+          const element = document.querySelector(selector)!;
+          const box = element.getBoundingClientRect();
+          return {
+            x: box.x,
+            y: box.y,
+            width: box.width,
+            height: box.height,
+          };
+        };
+        const title = document.querySelector('.app-header h1')!;
+        return {
+          header: rect('.app-header'),
+          brand: rect('.brand'),
+          title: {
+            x: rect('.app-header h1').x,
+            y: rect('.app-header h1').y,
+            height: rect('.app-header h1').height,
+            fontSize: getComputedStyle(title).fontSize,
+          },
+          piano: rect('.header-actions .sound-shortcut'),
+          settings: rect('.header-actions button:last-child'),
+          pageFits: document.documentElement.scrollWidth <= window.innerWidth,
+        };
+      });
+    };
+    const shared = await measure('generate');
+    const space = await measure('space');
+    expect(space, `${width}px`).toEqual(shared);
+    if (width === 320)
+      await page.locator('.app-header').screenshot({
+        path: info.outputPath('space-header-mobile.png'),
+      });
+  }
+});
+
 test('manual inversion and octave edits stay visible and survive playback, comparison and reload', async ({
   page,
 }, info) => {
