@@ -542,6 +542,7 @@ export function HarmonicSpace({
           ) : (
             <>
               <p>{t.spaceModelOverview}</p>
+              <p>{t.spaceModelStyleAndColor}</p>
               <p>{t.spaceModelData}</p>
               <p>
                 <a

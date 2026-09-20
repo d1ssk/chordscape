@@ -18,12 +18,14 @@ const ja = {
   spaceModelOfflineShort: 'Transformer読込不可',
   spaceModelUnavailable:
     '公開モデルを読み込めませんでした。通信を確認して再試行してください。',
-  spaceModelDetails: '提案のしくみと学習データ',
+  spaceModelDetails: '提案モデルと教師データ',
   spaceModelOverview:
-    'これまでに選んだ和音の並びを手がかりに、次の和音の根音や響きの種類を予測します。和声空間の中から予測に合う上位6件を枠で示します。Popはポップス、Jazzはジャズの進行をもとに提案し、Freeは両方を組み合わせます。枠の色は「解決に向かう」「流れを続ける」などの目安で、提案の順番は変えません。',
+    'コンテキスト長48の自己回帰型Transformerが、選択したコード進行の履歴とPop / Jazzのスタイルをもとに、次のコードを予測します。モデル次元128、4層・4ヘッドで、パラメータ数は計810,791です。和声空間上の41種類の候補をスコアリングし、上位6件を表示します。',
+  spaceModelStyleAndColor:
+    'Freeでは、PopとJazzの予測を混合します。候補の色分けはモデルの予測結果ではなく、楽典に基づく独立したルールによる補助的な分類です。',
   spaceModelData:
-    'ポップスとジャズのコード進行データで学習しています。使用したデータはChoCo、McGill Billboard、Weimar Jazz Databaseです。Classicalの提案には対応していません。',
-  spaceModelNotice: 'データの出典と利用条件',
+    '学習データ：ChoCo 1.0.0の利用許諾対象5,168系列（CC BY 4.0）、McGill Billboard 2.0の738系列（CC0）、Weimar Jazz Database 2.1の411系列（ODbL / DbCL）。Classicalは学習対象に含まれていません。',
+  spaceModelNotice: '教師データの出典・利用条件',
   spaceTrialModelOverview:
     '試験ページでは選択したrunのPyTorch checkpointをローカルAPIで評価します。候補数・文脈長・学習スタイルは選択runに従います。',
   spaceTrialModelData:
@@ -468,11 +470,13 @@ const en: Record<keyof typeof ja, string> = {
   spaceModelOfflineShort: 'Transformer load failed',
   spaceModelUnavailable:
     'The published model could not be loaded. Check the connection and retry.',
-  spaceModelDetails: 'How suggestions work and training data',
+  spaceModelDetails: 'Model and training data',
   spaceModelOverview:
-    'The model uses the sequence of chords you have chosen to predict the root and character of the next chord. It outlines the six best matching chords in Harmonic Space. Pop draws on pop progressions, Jazz on jazz progressions, and Free combines both. Outline colors offer cues such as resolution or continuation; they do not change the suggestion order.',
+    'An autoregressive Transformer with a context length of 48 predicts the next chord from the selected progression history and the Pop / Jazz style. It has a model dimension of 128, four layers, four attention heads, and 810,791 parameters. It scores 41 candidates in Harmonic Space and displays the top six.',
+  spaceModelStyleAndColor:
+    'Free mixes the Pop and Jazz predictions. Candidate colors are a separate, supplementary classification based on music theory rules, not a prediction made by the model.',
   spaceModelData:
-    'The model learned from pop and jazz chord progressions in ChoCo, McGill Billboard, and the Weimar Jazz Database. Classical suggestions are unavailable with this model.',
+    'Training data: 5,168 licensed ChoCo 1.0.0 sequences (CC BY 4.0), 738 McGill Billboard 2.0 sequences (CC0), and 411 Weimar Jazz Database 2.1 sequences (ODbL / DbCL). Classical was not included in training.',
   spaceModelNotice: 'Training sources and terms',
   spaceTrialModelOverview:
     'The trial page evaluates the selected PyTorch checkpoint through a local API. Candidate count, context length and trained styles follow the selected run.',
