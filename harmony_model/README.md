@@ -7,12 +7,15 @@ Chordscape の次和音提案に向けた、独立した学習・データ処理
 McGill Billboard、Weimar Jazz Database、ChoCo v1.0.0をignored raw領域へchecksum固定で取得済み。
 POP909とPOP909-CLは権利範囲の不明点を残したままlocal-onlyで取得し、公開対象から除外する。
 When in Romeはsource別条件を尊重し、CC BY-SAの新規OpenScore Lieder分析179件だけをallowlist展開した。
+公開学習用profileではChoCo内のWhen in Rome 449件を個別審査し、81件を追加採用、
+165件を上流との重複として統合し、203件を除外する。審査表は
+[datasets/publication_corpus_v1.json](datasets/publication_corpus_v1.json) に固定した。
 候補別の license と採否は [datasets/README.md](datasets/README.md)、機械可読な来歴は
 [datasets/catalog.json](datasets/catalog.json) を参照する。McGill Billboard 2.0はrawから正規化Song、診断、
 作品単位splitまで再現できる。McGillは同じsplitでunigram・1次・2次Markovを学習・評価済み。
 結果は [BASELINES.md](BASELINES.md) を参照する。
 全corpusの変換件数と既知制約は [CONVERSIONS.md](CONVERSIONS.md)、統合規則と再学習結果は
-[INTEGRATED_BASELINES.md](INTEGRATED_BASELINES.md) を参照する。和声空間本体は`npm run model:test`で起動するローカルAPIから、完了済み48文脈runの提案を取得する。権利条件の確認が済むまでcheckpointは公開版へ同梱しない。
+[INTEGRATED_BASELINES.md](INTEGRATED_BASELINES.md) を参照する。和声空間本体は公開pop・jazz専用48文脈runの変換済み重みをWeb Workerで読み、ブラウザ内で推論する。`npm run model:test`のローカル試験ページは、複数run比較のためPython APIを使う。
 今後の作業では [DESIGN.md](DESIGN.md) を設計の基準、[PLAN.md](PLAN.md) を段階別の受入条件として読み、設計変更と理由を同時に更新する。
 
 ## 実行
@@ -59,6 +62,35 @@ python3.12 -m venv .venv
 ```
 
 `uv` がある場合は `uv sync --extra train --locked --python 3.12` でlockfileと一致する環境を作れる。
+
+公開用に組み直した教師データで、過去の完了runと同じ48 context設定を使う場合：
+
+```sh
+cd harmony_model
+bash scripts/run_publication_training.sh --dry-run
+bash scripts/run_publication_training.sh
+```
+
+このscriptは固定した曲単位の審査表から`integrated-public-v1/corpus_manifest.json`を再生成し、
+context 48、dropout 0.2、24 epoch上限、plateau schedulerで新しいrunを開始する。
+現時点の公開用manifestは6,648曲・501,984件の利用可能イベント（train 402,640件）で、
+ChoCo内When in Romeの165重複は元分析と同じ作品・splitに固定される。
+公開用48文脈runの再学習と試験ページ登録は完了した。pop・jazz専用runをPagesへ配布するには、リポジトリルートで`harmony_model/.venv/bin/python harmony_model/scripts/export_browser_model.py`を実行する。スクリプトは完了run・入力・checkpointのSHA-256を検証し、`public/model/`へ変換済み重みとmanifestを書き出す。
+
+classical（クラシック）を教師系列とstyle embeddingの両方から外した別モデルは、次のコマンドで
+開始できる。公開用の出典審査はそのまま適用し、pop・jazzだけを採用する。既存runとは別の
+`runs/transformer-pop-jazz/`へ保存する。
+
+```sh
+cd harmony_model
+bash scripts/run_pop_jazz_training.sh --dry-run
+bash scripts/run_pop_jazz_training.sh
+```
+
+`public-pop-jazz-v1` manifestには`allowed_styles`が記録され、学習時にも全系列と語彙を検証する。
+classicalだけの曲と、将来混在する曲は丸ごと除外する。`free`はpop・jazzの推論結果の混合で、
+追加の学習styleではない。現行の教師集合では6,317曲・453,952イベント（train 359,449件）となり、
+学習モデルのstyle embeddingは2行だけになる。
 
 既定はcontext 32、128次元、4層・4 heads、8 epochs、seed 42。`--device auto`はCUDA、MPS、CPUの順で選ぶ。
 全統合corpusの採用済み系列を使用し、styleごとにwindowを均等サンプリングする。未採用の重複・不完全系列は統合manifestの規則どおり除外する。CPUでは全件学習に時間がかかる。短い動作確認には `--epochs 1 --context 8 --d-model 16 --layers 1` を使えるが、品質比較には既定設定か十分に検証した設定を用いる。
@@ -126,7 +158,8 @@ context 32でdropout 0.2。共通設定は最大12 epoch、早期終了patience 
 
 repository rootで `npm run model:test` を実行し、表示されるVite URLの
 `/model-test.html`を開く。`harmony_model/.venv` と、`runs/transformer/index.json`に登録された
-完了runが必要。コマンドはローカル専用のPyTorch推論API（127.0.0.1:8765）とViteを同時に起動し、
+完了runが必要。pop・jazz専用runは`runs/transformer-pop-jazz/index.json`から追加表示する。
+コマンドはローカル専用のPyTorch推論API（127.0.0.1:8765）とViteを同時に起動し、
 Ctrl+Cで終了する。APIだけを起動する場合は、このディレクトリで
 `.venv/bin/python -m harmony_model.preview_server`を実行する。
 
@@ -134,6 +167,9 @@ Ctrl+Cで終了する。APIだけを起動する場合は、このディレク�
 テスト画面は最大の選択可能runに合わせて履歴を保持し、予測・表示には選択したrunのcontext件数だけを使う。
 context 32なら直前32和音、context 48なら直前48和音を入力できる。モデルの入力は1時点ずらしているため、
 学習時のcontext長は予測に使える直前和音の最大件数と一致する。モデル一覧は「run一覧を更新」で再読込できる。
+run一覧には公開用データと従来データの区別を示し、48文脈の公開用runを初期選択する。
+データ版が異なるrunのvalidation NLLは直接比較しない。
+pop・jazz専用runを選ぶとClassicalボタンは無効になり、選択中だった場合はFreeに戻す。
 モデルrunを選ぶと、クリック履歴を入力にPyTorch checkpointで41種類の異なる和声を採点し、
 上位6種類の順位をノードに示す。DbとDb/Fのようなbass違いは同じ和声確率を共有する。
 上位6件の枠・凡例・一覧には、既存の和声ルールによる解決・継続・緊張・色彩・探索の色と文字を付ける。

@@ -73,6 +73,9 @@ class TransformerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             manifest, candidates = self.fixture(root)
+            value = json.loads(manifest.read_text(encoding="utf-8"))
+            value["policy"] = {"allowed_styles": ["jazz", "pop"]}
+            manifest.write_text(json.dumps(value), encoding="utf-8")
             config = t.Config(context=4, d_model=16, layers=1, heads=4, dropout=0,
                               batch_size=2, epochs=1, patience=1, device="cpu")
             with patch.object(t, "load_integrated_sequences", return_value=self.sequences):
@@ -81,9 +84,14 @@ class TransformerTests(unittest.TestCase):
             index = json.loads((root / "runs/index.json").read_text())
             self.assertEqual(index["models"][t.MODEL_VERSION][0]["run_id"], result["run"]["run_id"])
             self.assertEqual(result["run"]["status"], "complete")
+            self.assertEqual(result["run"]["vocabulary"]["styles"], ["jazz", "pop"])
             self.assertEqual(rerun["results"]["test"]["overall"]["events"], 2)
             self.assertEqual(rerun["results"]["test"]["overall"]["nll"], result["evaluation"]["test"]["overall"]["nll"])
+
             scorer = t.TransformerScorer.from_checkpoint(Path(result["run_dir"]) / "best.pt", device_name="cpu")
+            self.assertEqual(scorer.model.style_embedding.num_embeddings, 2)
+            with self.assertRaisesRegex(ValueError, "untrained style: classical"):
+                scorer.score_candidate([], "classical", self.c)
             probabilities = scorer.normalize_candidates([self.c], "free", [self.c, self.g, self.f])
             self.assertAlmostEqual(sum(probabilities), 1.0)
             self.assertEqual(len(probabilities), 3)
@@ -109,6 +117,18 @@ class TransformerTests(unittest.TestCase):
             self.assertEqual(recovered_manifest["status"], "complete")
             self.assertEqual(recovered_manifest["best_epoch"], 1)
             self.assertEqual(len(json.loads((root / "runs/index.json").read_text())["models"][t.MODEL_VERSION]), 2)
+
+    def test_style_allowlist_rejects_classical_sequences(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            manifest, candidates = self.fixture(root)
+            value = json.loads(manifest.read_text(encoding="utf-8"))
+            value["policy"] = {"allowed_styles": ["jazz", "pop"]}
+            manifest.write_text(json.dumps(value), encoding="utf-8")
+            classical = CorpusSequence("classic", "work-classic", "train", "classical", (self.c, self.g))
+            with patch.object(t, "load_integrated_sequences", return_value=self.sequences + [classical]):
+                with self.assertRaisesRegex(ValueError, "styles do not match"):
+                    t.train(manifest, candidates, root / "runs", t.Config(epochs=1))
 
     def test_plateau_scheduler_steps_on_validation_nll(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -143,6 +163,10 @@ class TransformerTests(unittest.TestCase):
             service = PreviewService(root / "runs", candidates)
             run_id = result["run"]["run_id"]
             self.assertEqual(service.models()["runs"][0]["run_id"], run_id)
+            self.assertEqual(service.models()["runs"][0]["dataset_version"], "v1")
+            self.assertEqual(service.models()["runs"][0]["trained_styles"], ["jazz", "pop"])
+            with self.assertRaisesRegex(ValueError, "untrained style: classical"):
+                service.predict({"run_id": run_id, "style": "classical", "history": []})
             prediction = service.predict({"run_id": run_id, "style": "pop", "history": ["C"]})
             self.assertEqual(len(prediction["candidates"]), 3)
             self.assertEqual(prediction["history_used"], 1)
@@ -161,6 +185,13 @@ class TransformerTests(unittest.TestCase):
             self.assertEqual(long_prediction["context"], 5)
             self.assertEqual(long_prediction["history_used"], 5)
             self.assertEqual(long_prediction["candidates"], short_prediction["candidates"])
+            with patch.object(t, "load_integrated_sequences", return_value=self.sequences):
+                extra = t.train(manifest, candidates, root / "extra-runs", replace(config, context=6))
+            merged = PreviewService(
+                root / "runs", candidates, additional_roots=[root / "extra-runs"]
+            )
+            self.assertEqual(len(merged.models()["runs"]), 3)
+            self.assertIn(extra["run"]["run_id"], {run["run_id"] for run in merged.models()["runs"]})
 
     def test_invalid_scheduler_settings_are_rejected(self):
         for config in (

@@ -126,6 +126,18 @@ repositoryが公開されていることを、収録物すべての一括許諾�
 - 展開したのはその179件とREADME・syntaxだけ。score、`remote.json`、外部由来変換、automatic analysisは展開していない。
   選択規則と公開gateは [`when_in_rome_allowlist.json`](when_in_rome_allowlist.json) に固定した。
 
+ChoCo経由のWhen in Rome 449件については
+[`publication_corpus_v1.json`](publication_corpus_v1.json)で各曲の採否を固定した。
+元の分析pathとSHA-256を確認できた165件は既存OpenScore Lieder 179件のmirrorなので、
+直接変換した行を残して同一作品・splitに結合する。54件は元の
+[TAVERN license](https://github.com/jcdevaney/TAVERN/blob/master/LICENSE)がCC BY-SA 4.0、
+27件はWhen in Rome READMEが新規分析と説明するBach WTC I前奏曲・ground bassであり、採用する。
+203件は出典や元ライセンスの個別確認が完了せず除外する。具体的な除外理由、曲名、作曲者、
+一致した分析pathがある場合はそのSHA-256を審査表に残す。
+固定revisionと変換済みJSONLのSHA-256が変わった場合は統合を停止する。
+手元の固定When in Rome archiveと審査表の分析path・SHA-256は
+`python3 scripts/verify_publication_review.py`で再照合できる。
+
 ### DCML harmony corpora
 
 - meta release: [dcml_corpora v2.3](https://github.com/DCMLab/dcml_corpora/releases/tag/v2.3)、commit

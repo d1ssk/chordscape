@@ -1,0 +1,3675 @@
+{
+  "excluded_choco_partitions": ["jaah", "mozart-piano-sonatas"],
+  "excluded_sources": ["pop909", "pop909_cl"],
+  "expected_songs_sha256": {
+    "choco": "6fb88603fbd75645680e5cf4dd84553a53a107c6ec1a0f3126e40f4ec716fc27",
+    "when_in_rome": "276e7c9c78bda8ee8dc5f105efc841f20fdb78e24628395d9681abbb7c2425e2"
+  },
+  "licenses": {
+    "tavern": {
+      "evidence_url": "https://github.com/jcdevaney/TAVERN/blob/master/LICENSE",
+      "name": "CC BY-SA 4.0"
+    },
+    "when_in_rome_original": {
+      "evidence_url": "https://github.com/MarkGotham/When-in-Rome/tree/1c61fe41b8c2910296d7d2bcbf6476c7c1f2fe35#licence-citation-contribution",
+      "name": "CC BY-SA 4.0"
+    }
+  },
+  "profile": "chordscape-public-training-v1",
+  "reviewed_choco_when_in_rome": {
+    "choco:choco-when-in-rome_0": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/White,_Maude_Valérie/3_Little_Songs/1_When_the_Swallows_Homeward_Fly/analysis.txt",
+      "analysis_sha256": "b8c2f9163c777df68b04fa233c775b055cee85146b55283f6114ed56dcc3f950",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-83387ba32ade3f1f5961",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Maude Valérie White",
+      "reviewed_title": "When the Swallows Homeward Fly"
+    },
+    "choco:choco-when-in-rome_1": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/White,_Maude_Valérie/3_Little_Songs/2_A_Memory/analysis.txt",
+      "analysis_sha256": "2413a4dbb50fde319742a4f7879c06d25bbc0486849d1394136b26cdc81b85ac",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-08119fc3dd4d79dacca9",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Maude Valérie White",
+      "reviewed_title": "A Memory"
+    },
+    "choco:choco-when-in-rome_10": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Clara/_/Die_gute_Nacht/analysis.txt",
+      "analysis_sha256": "3375f8b174af8ba7bc8488c58011c11c5d1321c95b7a40fcdccb08945d1a6168",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-c5ea2beb5b3082c2a6a5",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Clara Schumann",
+      "reviewed_title": "Die gute Nacht"
+    },
+    "choco:choco-when-in-rome_100": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Coleridge-Taylor,_Samuel/6_Sorrow_Songs,_Op.57/3_Oh,_Roses_for_the_flush_of_youth/analysis.txt",
+      "analysis_sha256": "ebf09ac8b399f18c23043bae57444c4e7acee8dc19b3d061f8d3d7fbe7c47367",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-e76864643a162a769c2b",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Samuel Coleridge-Taylor",
+      "reviewed_title": "Oh, Roses for the flush of youth"
+    },
+    "choco:choco-when-in-rome_101": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Coleridge-Taylor,_Samuel/6_Sorrow_Songs,_Op.57/5_Unmindful_of_the_Roses/analysis.txt",
+      "analysis_sha256": "f44ee1e4465aaba96e6c451d40f1f6034da695f01faee87a460b2090c4bf89f2",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-a3a45a24039a21a103e9",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Samuel Coleridge-Taylor",
+      "reviewed_title": "Unmindful of the Roses"
+    },
+    "choco:choco-when-in-rome_102": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Coleridge-Taylor,_Samuel/6_Sorrow_Songs,_Op.57/1_Oh_what_comes_over_the_Sea/analysis.txt",
+      "analysis_sha256": "b369c1323beeee25c566598565382b7627296ff8f5faf28db6416a549232003d",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-59e3ce59921e56a2924e",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Samuel Coleridge-Taylor",
+      "reviewed_title": "Oh what comes over the Sea"
+    },
+    "choco:choco-when-in-rome_103": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Coleridge-Taylor,_Samuel/6_Sorrow_Songs,_Op.57/6_Too_late_for_love/analysis.txt",
+      "analysis_sha256": "eea2784501cb94967f82550f760dae5fb78281e527627ff9492524b014bf6943",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-b879b63437c45a59e94f",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Samuel Coleridge-Taylor",
+      "reviewed_title": "Too late for love"
+    },
+    "choco:choco-when-in-rome_104": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Coleridge-Taylor,_Samuel/6_Sorrow_Songs,_Op.57/2_When_I_am_dead,_my_dearest/analysis.txt",
+      "analysis_sha256": "6652602b143530deb4b1e9200cd2c6677d09365769eb62845ffe3494d3a8203c",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-6fe1d5849953e22e3eb5",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Samuel Coleridge-Taylor",
+      "reviewed_title": "When I am dead, my dearest"
+    },
+    "choco:choco-when-in-rome_105": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Coleridge-Taylor,_Samuel/6_Sorrow_Songs,_Op.57/4_She_sat_and_sang_alway/analysis.txt",
+      "analysis_sha256": "e6cba07b202e8803bb1cd148ec4700904e772717d923e9a6aa767eacd062cb86",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-bfc5929f8a9823b9163a",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Samuel Coleridge-Taylor",
+      "reviewed_title": "She sat and sang alway"
+    },
+    "choco:choco-when-in-rome_106": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Op.52/6_Ellens_Gesang_III,_D.839_(Ave_Maria)/analysis.txt",
+      "analysis_sha256": "fdcd6a4625e1fa3def132015fb4d0433d37f59f850f6f8ff984fb6cff7908ea8",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-b0877f102ae029e74d75",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "",
+      "reviewed_title": "Ellens Gesang III, D.839 (Ave Maria)"
+    },
+    "choco:choco-when-in-rome_107": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Die_schöne_Müllerin,_D.795/18_Trockne_Blumen/analysis.txt",
+      "analysis_sha256": "c920db1776693d5337aac35c5e2d81ae6be678cf888f609e3f33a39e5505af39",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-f81152d07b38d81f5f26",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Trockne Blumen"
+    },
+    "choco:choco-when-in-rome_108": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Die_schöne_Müllerin,_D.795/02_Wohin/analysis.txt",
+      "analysis_sha256": "c07e402ce6198aaac6bf08cb8f1c41e2ee84aee813c4b834ef677d7d7cf2dae1",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-511a988d692f2d3eba83",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Wohin"
+    },
+    "choco:choco-when-in-rome_109": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Die_schöne_Müllerin,_D.795/01_Das_Wandern/analysis.txt",
+      "analysis_sha256": "a443357d694270f84467807ba775c8ae71c1f47953f70419e8721dba75887bab",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-f4ea560899acfb665ba4",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Das Wandern"
+    },
+    "choco:choco-when-in-rome_11": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Clara/Lieder,_Op.12/04_Liebst_du_um_Schönheit/analysis.txt",
+      "analysis_sha256": "8805cf640f91b385f20f2fe2033dcfe5df0a34ca4d121793613227a006a25637",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-208efe58bd77f4f49490",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Clara Schumann",
+      "reviewed_title": "Liebst du um Schönheit"
+    },
+    "choco:choco-when-in-rome_110": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Die_schöne_Müllerin,_D.795/12_Pause/analysis.txt",
+      "analysis_sha256": "87d0baa381c4f7187d73fc7c2fbc977410ab798923c0f956029b2e2e6e98de08",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-9bc4d14f9f93f9372110",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Pause"
+    },
+    "choco:choco-when-in-rome_111": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/03_Frühlingssehnsucht/analysis.txt",
+      "analysis_sha256": "aa4a7d2a5ade0c26048f0d96731ac881e6b4c6e4ab1f540470059e80b931bfee",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-6d5836253522031c23ef",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Frühlingssehnsucht"
+    },
+    "choco:choco-when-in-rome_112": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/12_Am_Meer/analysis.txt",
+      "analysis_sha256": "402b72db359ea84cea3c68df0dd5548da1cab50144464cbf609ce5d424386ff7",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-3d0c2a90bd5529896ffd",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Am Meer"
+    },
+    "choco:choco-when-in-rome_113": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/10_Das_Fischermädchen/analysis.txt",
+      "analysis_sha256": "ea8a37b5ef8eafdbbe4f54942d593980d43896058977d435a7eeb5282068ef6a",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-278ce7f185b7b0612aca",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Das Fischermädchen"
+    },
+    "choco:choco-when-in-rome_114": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/14_Die_Taubenpost/analysis.txt",
+      "analysis_sha256": "03ff254020db70b175d7e1da98bcbe6a4c37dbeda2cff9cf0b5fec8d0ae34fdd",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-9f518751b36e5ee466df",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Die Taubenpost"
+    },
+    "choco:choco-when-in-rome_115": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/06_In_der_Ferne/analysis.txt",
+      "analysis_sha256": "e36bf233332e9a4f79a8019ab78a404736a9594bbbc5755d58921808fc6e1b74",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-83bf41e83728983a4706",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "In der Ferne"
+    },
+    "choco:choco-when-in-rome_116": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/05_Aufenthalt/analysis.txt",
+      "analysis_sha256": "f30506a9b524f714f72be0d56f9c1542120db701902cfec2a0ff8eef9ca99677",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-7fd38d4639e334aadc0c",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Aufenthalt"
+    },
+    "choco:choco-when-in-rome_117": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/09_Ihr_Bild/analysis.txt",
+      "analysis_sha256": "be51de1322249e4035db3dc5e9d33809da41fa9e6d483e7d9b27b1fba8a1c4be",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-ba0c7faabf0bde3acee7",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Ihr Bild"
+    },
+    "choco:choco-when-in-rome_118": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/08_Der_Atlas/analysis.txt",
+      "analysis_sha256": "a4d845d01703e58f547c5eedf628975e5a65de5af8fdb15ab380e28b97a36d01",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-e1b89186c9f801808b4d",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Der Atlas"
+    },
+    "choco:choco-when-in-rome_119": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/11_Die_Stadt/analysis.txt",
+      "analysis_sha256": "84af14fe89a15668b0592afa18c25a3f704e854dddff912a405dcadfe5208456",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-f23b8ea900aa197c9b7c",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Die Stadt"
+    },
+    "choco:choco-when-in-rome_12": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Burleigh,_Harry_Thacker/5_Songs_of_Laurence_Hope/5_Till_I_Wake/analysis.txt",
+      "analysis_sha256": "41ba3055382c3c4149d59eace4e6ca1e2bc0b7168e703c04c58c04f44e70ef7b",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-775c020a8208bc131cd9",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Harry Thacker Burleigh",
+      "reviewed_title": "Till I Wake"
+    },
+    "choco:choco-when-in-rome_120": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/13_Der_Doppelgänger/analysis.txt",
+      "analysis_sha256": "79dd54704f6ebed585f2118d71ae7f8dbb63a22b8b737e06792e0d0a00aa3592",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-770a5ceb6ddbd26ec924",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Der Doppelgänger"
+    },
+    "choco:choco-when-in-rome_121": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/01_Liebesbotschaft/analysis.txt",
+      "analysis_sha256": "96990ccb46857f3a0c127ae73d21c2f6fda132d430aaabbf141d6802d79d9674",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-4b50211f6a6d544355b7",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Liebesbotschaft"
+    },
+    "choco:choco-when-in-rome_122": {
+      "candidate_analysis_paths": [
+        "Corpus/OpenScore-LiederCorpus/Lang,_Josephine/6_Lieder,_Op.10/6_Abschied/analysis.txt",
+        "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/07_Abschied/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Abschied"
+    },
+    "choco:choco-when-in-rome_123": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/02_Kriegers_Ahnung/analysis.txt",
+      "analysis_sha256": "b31e94f317e8e4f083d9720d1ccc07d9d55dbf16b68490f4cc48bf64ff8f3fa0",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-3154dc69527dcc62c930",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Kriegers Ahnung"
+    },
+    "choco:choco-when-in-rome_124": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/04_Ständchen/analysis.txt",
+      "analysis_sha256": "c95db77a203b622e96b0e3ab2dd33cb280ea01c99470d0b3439d033d2b83884b",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-e354bb6f97d13237c714",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Ständchen"
+    },
+    "choco:choco-when-in-rome_125": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/_/Das_Rosenband,_D.280/analysis.txt",
+      "analysis_sha256": "f8377c53be5a69f7623aabe24e8ef0f1165d95bb601d22d9eb9397ee5671f87f",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-f29fde9c152cbc9a14e8",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Das Rosenband, D.280"
+    },
+    "choco:choco-when-in-rome_126": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Op.59/3_Du_bist_die_Ruh/analysis.txt",
+      "analysis_sha256": "5d0b74acb0e0a6e80f3b10e61ab264abdeb3a664eb9219c130e11732c4a5c020",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-f7b1916b0b0e98d504b8",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Du bist die Ruh"
+    },
+    "choco:choco-when-in-rome_127": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/01_Gute_Nacht/analysis.txt",
+      "analysis_sha256": "ea6f46831e4f6ee67d90a18da81e48aefe7793b5548735f7a320e0faa6cb91f6",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-a9d0e11ee0abed10c06d",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Gute Nacht"
+    },
+    "choco:choco-when-in-rome_128": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/03_Gefror’ne_Thränen/analysis.txt",
+      "analysis_sha256": "19f5d172663065915ebb582059760cb6d7ffc6020f6a3b106e550c9ff1b02f21",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-db263f8ad72f99528f0a",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Gefror’ne Thränen"
+    },
+    "choco:choco-when-in-rome_129": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/07_Auf_dem_Flusse/analysis.txt",
+      "analysis_sha256": "17cb0906aa40fae1cc20629537a5ba6d0db99e92794603cf5dc257ee95bb0605",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-0e44e8c02c2e463cc117",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Auf dem Flusse"
+    },
+    "choco:choco-when-in-rome_13": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Burleigh,_Harry_Thacker/5_Songs_of_Laurence_Hope/2_The_Jungle_Flower/analysis.txt",
+      "analysis_sha256": "579f53034aac209c31bd9a48a2a97e5b699c3244364c69b3e1080353eccc4cf0",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-25980f22191d49e41310",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Harry Thacker Burleigh",
+      "reviewed_title": "The Jungle Flower"
+    },
+    "choco:choco-when-in-rome_130": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/15_Die_Kraehe/analysis.txt",
+      "analysis_sha256": "9c912bb8e47409b9d13d1e53b53893119235061266256bb2aef7c0f1d537b738",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-5adbe268d970c007ee97",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Die Kraehe"
+    },
+    "choco:choco-when-in-rome_131": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/17_Im_Dorfe/analysis.txt",
+      "analysis_sha256": "67a8157c2913d436df4364518c9ad04d395530962f61f5f8dcece2b0d9b2b9ac",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-6a7d3c8c936b3d359b02",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Im Dorfe"
+    },
+    "choco:choco-when-in-rome_132": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/02_Die_Wetterfahne/analysis.txt",
+      "analysis_sha256": "23876161273b0f628fe666f88420a779290507349a2df59e39a4b6f48da75134",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-ff79ef96e01c9281352a",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Die Wetterfahne"
+    },
+    "choco:choco-when-in-rome_133": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/13_Die_Post/analysis.txt",
+      "analysis_sha256": "249061379dc9a06e334e9ad7bfd508155f5b778cfc88081a1b6504202ce36e8e",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-87eb741631d4e7b8be58",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Die Post"
+    },
+    "choco:choco-when-in-rome_134": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/20_Der_Wegweiser/analysis.txt",
+      "analysis_sha256": "51adcb867bbf400eb7d50c7fda6b8e4b2c46d905cdb5180a0784fb3ca7bf4aa8",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-3c7d13300deaae9cf48d",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Der Wegweiser"
+    },
+    "choco:choco-when-in-rome_135": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/16_Letzte_Hoffnung/analysis.txt",
+      "analysis_sha256": "cbeb5b44122ed7b0bb73dc6b544a9926adc5a4ca91d076eff6fe2ddb89c550be",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-35ce6da652d6544d8c81",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Letzte Hoffnung"
+    },
+    "choco:choco-when-in-rome_136": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/18_Der_stuermische_Morgen/analysis.txt",
+      "analysis_sha256": "62a58f50c1b3c76ed3e67477e1f418082f54fbbd71ee99f8c2017ad9e99ae3ac",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-a439b27d12bb52d9fb83",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Der stuermische Morgen"
+    },
+    "choco:choco-when-in-rome_137": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/24_Der_Leiermann_(Spätere_Fassung)/analysis.txt",
+      "analysis_sha256": "b1db672435619b367e4a541fb06c1953e971a74684cff7c20d25201ed61dabe5",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-919304cd6fd4601a0953",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Der Leiermann (Spätere Fassung)"
+    },
+    "choco:choco-when-in-rome_138": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/05_Der_Lindenbaum/analysis.txt",
+      "analysis_sha256": "b46af645e8952b9e4304bcbe512714ba1fc205194fd6d905e5d149978f529918",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-4ca47a696b25298fc9f8",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Der Lindenbaum"
+    },
+    "choco:choco-when-in-rome_139": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/12_Einsamkeit_(Urspruengliche_Fassung)/analysis.txt",
+      "analysis_sha256": "4844d3d2da3c99545dcc14f0d91f04aec855698b953b1b8088c828aa94aa3026",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-f676023f59c9135a937b",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Einsamkeit (Urspruengliche Fassung)"
+    },
+    "choco:choco-when-in-rome_14": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Brahms,_Johannes/6_Songs,_Op.3/3_Liebe_und_Frühling_II/analysis.txt",
+      "analysis_sha256": "6bcb6339d98a0bb5c4349f33e45fe8f4f053f2da13357a16f3ffe1f1ca3d8ca6",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-e3dcd6b5b9ae37484f9b",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Johannes Brahms",
+      "reviewed_title": "Liebe und Frühling II"
+    },
+    "choco:choco-when-in-rome_140": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/10_Rast_(Spätere_Fassung)/analysis.txt",
+      "analysis_sha256": "69844fac4584b15a95dcba9298f95cc36457a292d878b39e184683d2413f8505",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-91099ede298cba3eec2b",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Rast (Spätere Fassung)"
+    },
+    "choco:choco-when-in-rome_141": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/14_Der_greise_Kopf/analysis.txt",
+      "analysis_sha256": "bd627f246fe36abf3a8f4e01b719bb1e8e8607257d77c240669a9dda50961b86",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-c568c8dcebff9d4129b9",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Der greise Kopf"
+    },
+    "choco:choco-when-in-rome_142": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/04_Erstarrung/analysis.txt",
+      "analysis_sha256": "1d2e0b1a2e65a229e2c93f34d8e8c72a57a499b68525d6cb7e2757a400914a98",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-a20ceabb541d50d3d0e9",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Erstarrung"
+    },
+    "choco:choco-when-in-rome_143": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/19_Täuschung/analysis.txt",
+      "analysis_sha256": "ff01dfb74de3ed1546558d7587180b510dbe963a54d5f047bf44e2876cf4b9db",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-4f1170d410ea83fd530b",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Täuschung"
+    },
+    "choco:choco-when-in-rome_144": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/08_Rückblick/analysis.txt",
+      "analysis_sha256": "d3c167b06b88a00178033e49952d65b7e998e6fd8137b61002193486d5a56735",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-2ebac2bc6692f0473cfe",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Rückblick"
+    },
+    "choco:choco-when-in-rome_145": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/06_Wasserfluth/analysis.txt",
+      "analysis_sha256": "6f75ee0181c1bdb93ad585b035f467eb7b7fa4debc515a72a11713a9d104ebb1",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-06ff7679e4d9d7482e08",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Wasserfluth"
+    },
+    "choco:choco-when-in-rome_146": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/11_Frühlingstraum/analysis.txt",
+      "analysis_sha256": "2f1212a9e54ee9204847ee4d1a80dc1943639d3a2f8dd9e4444be8d749f216a4",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-71bd9879414500c7eb41",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Frühlingstraum"
+    },
+    "choco:choco-when-in-rome_147": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/23_Die_Nebensonnen/analysis.txt",
+      "analysis_sha256": "ee2338eb5d94ca3d8f220fe0d543ea5dc45f81dc98120e356604d40fdf65b5a9",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-ff4b52edcc241284197b",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Die Nebensonnen"
+    },
+    "choco:choco-when-in-rome_148": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/09_Irrlicht/analysis.txt",
+      "analysis_sha256": "1eb685e7ddb829e911ebfd5faa656270a0afd85987abf2aa47eae96b23fe7772",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-8cfa59e75ea43ab69467",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Irrlicht"
+    },
+    "choco:choco-when-in-rome_149": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/22_Muth/analysis.txt",
+      "analysis_sha256": "876d6605fd9fbe4ee7c8e684a60a64aa82abe0f81812cc972dc27d16b97cf9c8",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-cbc238c9d70cba0097b7",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Muth"
+    },
+    "choco:choco-when-in-rome_15": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Brahms,_Johannes/7_Lieder,_Op.48/3_Liebesklage_des_Mädchens/analysis.txt",
+      "analysis_sha256": "b1c861b8fd9685017b650dad2521f3ffa68cc078fddf06a8fd519b4455f739ee",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-9c7751870336540b5c13",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Johannes Brahms",
+      "reviewed_title": "Liebesklage des Mädchens"
+    },
+    "choco:choco-when-in-rome_150": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Winterreise,_D.911/21_Das_Wirthshaus/analysis.txt",
+      "analysis_sha256": "95475054c383d7f35c9fb18a65e743fb52ced411caf9e89972eac3300d6b1f82",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-abc7c4a37581e853209a",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Franz Schubert",
+      "reviewed_title": "Das Wirthshaus"
+    },
+    "choco:choco-when-in-rome_151": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/4_Lieder,_Op.96/1_Die_Sterne,_D.939/analysis.txt",
+      "analysis_sha256": "fd4b256605033d60029c43bf0d7cdcb245d9cd2d7b7c926b61f1b1e91636ff10",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-31b9fab3c690367b4259",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Schubert",
+      "reviewed_title": "Die Sterne, D.939"
+    },
+    "choco:choco-when-in-rome_152": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Lang,_Josephine/6_Lieder,_Op.12/3_Abermals_am_See/analysis.txt",
+      "analysis_sha256": "beb5ec42891d01ba02c9a863bfbfbbc70668b40852e60fc8166b106eb643e920",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-8874b8911f296651cad4",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Josephine Lang",
+      "reviewed_title": "Abermals am See"
+    },
+    "choco:choco-when-in-rome_153": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Lang,_Josephine/6_Lieder,_Op.25/4_Lied_(Immer_sich_rein_kindlich_erfreu’n)/analysis.txt",
+      "analysis_sha256": "ad74214f89ea960999fdfeeb7997097e0f63f3818bdca7cd2b0925e755b7e765",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-ec5f9238b6d72efca0a1",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Josephine Lang",
+      "reviewed_title": "Lied (Immer sich rein kindlich erfreu’n)"
+    },
+    "choco:choco-when-in-rome_154": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Lang,_Josephine/6_Lieder,_Op.13/3_Aus_der_Ferne/analysis.txt",
+      "analysis_sha256": "5beb49aa02ceaa7903471dfd569c891e7a96f6aca412c611ee895f11cdcb6e97",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-5ea9993acbb99295a6ea",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Josephine Lang",
+      "reviewed_title": "Aus der Ferne"
+    },
+    "choco:choco-when-in-rome_155": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Lang,_Josephine/6_Lieder,_Op.26/1_Wiegenlied/analysis.txt",
+      "analysis_sha256": "aac5e726364d598bcda082b94c5d95cc540ab31683e87f048bad7b87251f7279",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-f831da909d30fa4abd44",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Josephine Lang",
+      "reviewed_title": "Wiegenlied"
+    },
+    "choco:choco-when-in-rome_156": {
+      "candidate_analysis_paths": [
+        "Corpus/OpenScore-LiederCorpus/Lang,_Josephine/6_Lieder,_Op.10/6_Abschied/analysis.txt",
+        "Corpus/OpenScore-LiederCorpus/Schubert,_Franz/Schwanengesang,_D.957/07_Abschied/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "Josephine Lang",
+      "reviewed_title": "Abschied"
+    },
+    "choco:choco-when-in-rome_157": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Lang,_Josephine/3_Lieder,_Op.8/1_Schmetterling/analysis.txt",
+      "analysis_sha256": "5e28ce83f5a10bc3d495bcf4812566baf13dcb7b53a90e8f89a0dce627b88ed6",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-8f6fb4ce0d7a6b11b4cb",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Josephine Lang",
+      "reviewed_title": "Schmetterling"
+    },
+    "choco:choco-when-in-rome_158": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Wolf,_Hugo/Eichendorff-Lieder/19_Die_Nacht/analysis.txt",
+      "analysis_sha256": "16706127ef8d3822905b950819d1732bad5ea71f94dbfc32c3eb0090de9184a9",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-0d60f9a7fda4ce15e576",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Hugo Wolf",
+      "reviewed_title": "Die Nacht"
+    },
+    "choco:choco-when-in-rome_159": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Wolf,_Hugo/Eichendorff-Lieder/20_Waldmädchen/analysis.txt",
+      "analysis_sha256": "c2bb86aae3d4e8868cce6b00602c3a366044a639476dd85c9bb1406719a9db75",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-5245f6d666ceb2ebe98d",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Hugo Wolf",
+      "reviewed_title": "Waldmädchen"
+    },
+    "choco:choco-when-in-rome_16": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Chaminade,_Cécile/_/Berceuse/analysis.txt",
+      "analysis_sha256": "23b248aec79a2df2e5f02c3fbaae574b477e2132c025d0aa3e8e79bd37f9185d",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-a2b1bee2fdfdb9172145",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Cécile Chaminade",
+      "reviewed_title": "Berceuse"
+    },
+    "choco:choco-when-in-rome_160": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Wolf,_Hugo/Eichendorff-Lieder/04_Das_Ständchen/analysis.txt",
+      "analysis_sha256": "d145addb75698da5427848be88eec0c108229efd0b6ee52cba907ac6e126e858",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-ada3cbaf31ad1e0ea123",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Hugo Wolf",
+      "reviewed_title": "Das Ständchen"
+    },
+    "choco:choco-when-in-rome_161": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Wolf,_Hugo/Eichendorff-Lieder/13_Der_Scholar/analysis.txt",
+      "analysis_sha256": "a6cb621e834de9b8d3dfa538deb691e6c620beae917a2f7c77485128dfae7a3d",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-fa6bee5d0e7dfe069012",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Hugo Wolf",
+      "reviewed_title": "Der Scholar"
+    },
+    "choco:choco-when-in-rome_162": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Wolf,_Hugo/Eichendorff-Lieder/14_Der_verzweifelte_Liebhaber/analysis.txt",
+      "analysis_sha256": "19f7384cb44c6cd9caadad3ec2216c97d5b00dd088501718771c2fe24c71c475",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-f9e950a1ab1f704ea684",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Hugo Wolf",
+      "reviewed_title": "Der verzweifelte Liebhaber"
+    },
+    "choco:choco-when-in-rome_163": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Wolf,_Hugo/Eichendorff-Lieder/15_Unfall/analysis.txt",
+      "analysis_sha256": "8b22123c393bf9d6edd5460c22e1547144b51161e30665314962d0050276f754",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-1d188ae76603e7fcb304",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Hugo Wolf",
+      "reviewed_title": "Unfall"
+    },
+    "choco:choco-when-in-rome_164": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Wolf,_Hugo/Eichendorff-Lieder/08_Nachtzauber/analysis.txt",
+      "analysis_sha256": "aeeb00bbdd1991f2b6a04e371a772ed4826586e7306869bd36ca7a2b774f316a",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-ad7da8890f0a39173a98",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Hugo Wolf",
+      "reviewed_title": "Nachtzauber"
+    },
+    "choco:choco-when-in-rome_165": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Viardot,_Pauline/6_Mélodies,_VWV_1133-11371176/4_Sérénade_à_Rosine,_VWV_1137/analysis.txt",
+      "analysis_sha256": "77b2defb8b22ef66d2481191a693384fe12d59946ff033c349787f72a72db193",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-b014b94dd23bb82f4bb6",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Pauline Viardot",
+      "reviewed_title": "Sérénade à Rosine, VWV 1137"
+    },
+    "choco:choco-when-in-rome_166": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Chausson,_Ernest/7_Mélodies,_Op.2/7_Le_Colibri/analysis.txt",
+      "analysis_sha256": "96daf9ce872d98529623be27833c0c2cf9b51b92ce4a848a8fa675326f09aa61",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-e162dc7e5fbb00000815",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Ernest Chausson",
+      "reviewed_title": "Le Colibri"
+    },
+    "choco:choco-when-in-rome_167": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_5/03/analysis.txt",
+      "analysis_sha256": "b69e1533a093095bd154145b07c0ffa4e54696de419e90908caa68ea4d784b42",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Era L'anima mea"
+    },
+    "choco:choco-when-in-rome_168": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_5/04/analysis.txt",
+      "analysis_sha256": "b5c40e14b74234863142c48f3bd032f9da42c7091d9fa806382756b9c4497269",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Ecco, Silvio, colei che in odio hai tanto"
+    },
+    "choco:choco-when-in-rome_169": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_5/05/analysis.txt",
+      "analysis_sha256": "f78d1400c7d88120170c8f9d722c8739005675521de610e4cc020500d67df83a",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Ma, se con la pieta non e in te spenta"
+    },
+    "choco:choco-when-in-rome_17": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Chaminade,_Cécile/_/Amoroso/analysis.txt",
+      "analysis_sha256": "79410593374ea96611bded5e5928f43d4a92574594f98ea8106d157438e87408",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-d99b2d2e1967632545b8",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Cécile Chaminade",
+      "reviewed_title": "Amoroso"
+    },
+    "choco:choco-when-in-rome_170": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_5/02/analysis.txt",
+      "analysis_sha256": "0acee0eacc82863f6d9abaa6da69895091955754ddb1ef3b81ff868c73a02225",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "O Mirtillo, Mirtill' Anima Mia"
+    },
+    "choco:choco-when-in-rome_171": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_5/07/analysis.txt",
+      "analysis_sha256": "8859a38ab0c6f14f4227b17ad59b5721b83c54e610bfaa28b1518265d93807b5",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Ecoo, piegando le genocchie a terra"
+    },
+    "choco:choco-when-in-rome_172": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_5/08/analysis.txt",
+      "analysis_sha256": "aaa303d97249220de653f2c018c7e697abc1df0ba698ff8304e01fb564a3993c",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Ferir quel petto, Silvio?"
+    },
+    "choco:choco-when-in-rome_173": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_5/01/analysis.txt",
+      "analysis_sha256": "ff103ba324a52782dc8cb3a1cc1cfd4c9646f6e4f9aec4d6f3a23c4e0a065e30",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Cruda amarilli, che col nome ancora"
+    },
+    "choco:choco-when-in-rome_174": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_5/06/analysis.txt",
+      "analysis_sha256": "d065e707a343aeb7da71fd1eaa1b3fe18de5c56752faa3648c1943bd4d33f5d6",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Dorinda, ah, dirò mia, se mia non sei"
+    },
+    "choco:choco-when-in-rome_175": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/03/analysis.txt",
+      "analysis_sha256": "2208b6a8622bb9ad4fec98d33d71d4cd5b532440e627c8a570db4f3dabef23ca",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Cor mio, non mori? E mori!"
+    },
+    "choco:choco-when-in-rome_176": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/04/analysis.txt",
+      "analysis_sha256": "4343077b4c602283ecb8210a87e28c6f296e814c9c8561a90aaea967ee3a1bc5",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Sfogava con le stelle"
+    },
+    "choco:choco-when-in-rome_177": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/05/analysis.txt",
+      "analysis_sha256": "568461f43c3275e9070a7100b7c8a5e3b7113bd867da923affa4929781165de1",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Volgea l'anima mia soavemente"
+    },
+    "choco:choco-when-in-rome_178": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/02/analysis.txt",
+      "analysis_sha256": "4a1fb91f03be4853c8839653e2b3ef7cc94f0dc93f988db8f9478bc7f58b499d",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Cor mio, mentre vi miro"
+    },
+    "choco:choco-when-in-rome_179": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/20/analysis.txt",
+      "analysis_sha256": "85a0de3d911bfa138b29de088618b1c56d320686e87c00cdd21643df17419aa8",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Piagn'e sospira: E quand'i caldi raggi"
+    },
+    "choco:choco-when-in-rome_18": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Chaminade,_Cécile/_/Sur_la_plage/analysis.txt",
+      "analysis_sha256": "27af732bcad0b4c7f8586f0755649c8587924ec3fcee8fba372fc4976953285d",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-df8a1acf4eca52e485b4",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Cécile Chaminade",
+      "reviewed_title": "Sur la plage"
+    },
+    "choco:choco-when-in-rome_180": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/18/analysis.txt",
+      "analysis_sha256": "5acad96fc8230e7543e8a0d0d1a0c74eed515a5cd4bb928735dd9b3643d3f06f",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Anima del cor mio"
+    },
+    "choco:choco-when-in-rome_181": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/11/analysis.txt",
+      "analysis_sha256": "7b8726ba6451814071a55ad6e4208c5a004a2ba580facf69fe22c40c24cc4344",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "A un Giro sol de' Belli Occhi Lucenti"
+    },
+    "choco:choco-when-in-rome_182": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/16/analysis.txt",
+      "analysis_sha256": "48f15ab5182a33f505638d976b297196c91bdb0dd0b1b8e590896ae449abcc86",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Si, Ch'io Vorrei Morire"
+    },
+    "choco:choco-when-in-rome_183": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/17/analysis.txt",
+      "analysis_sha256": "65f83a97037b76d479c800a1883030ccf30379b2028d0ea1aaf1a7fe5c7d5f31",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Anima Dolorosa, Che Vivendo"
+    },
+    "choco:choco-when-in-rome_184": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/10/analysis.txt",
+      "analysis_sha256": "3cc084dad8e513a9fd28cf050e3e9e0f19124d9b517caa7fbf409e175ff4f43e",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Voi Pur da me Partite, Anima Dura"
+    },
+    "choco:choco-when-in-rome_185": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/19/analysis.txt",
+      "analysis_sha256": "38b9475d1e6427fda448e48df84963553fb2ed3af49833f89e7070c87c6ad6e2",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Longe da te, cor mio"
+    },
+    "choco:choco-when-in-rome_186": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/07/analysis.txt",
+      "analysis_sha256": "cddece7ed2f27a3950e950d982d10748c8533e5e99652eb0673c543b1c301653",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Che se tu se'il cor mio: Seconda parte"
+    },
+    "choco:choco-when-in-rome_187": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/08/analysis.txt",
+        "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/09/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "La piaga c'ho nel core"
+    },
+    "choco:choco-when-in-rome_188": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/08/analysis.txt",
+      "analysis_sha256": "dd2f1ea1d75a3f43e46c970ce6d3009bb046ea555bb68f377c0c7881f4a5aae2",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Luci serene e chiare"
+    },
+    "choco:choco-when-in-rome_189": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/01/analysis.txt",
+      "analysis_sha256": "8d01107559e6432f8f32590a4f9a9a298161fa489fe74989cf465565f035d876",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Ah, Dolente Partita"
+    },
+    "choco:choco-when-in-rome_19": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Mayer,_Emilie/3_Lieder,_Op.7/3_Wenn_der_Abendstern_die_Rosen/analysis.txt",
+      "analysis_sha256": "fd0d9153bcce9de768f38e9b9e7135e1cb0816a85a4a02bdba5cb8267bd29cce",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-37cfb3b53576e15ae6d6",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Emilie Mayer",
+      "reviewed_title": "Wenn der Abendstern die Rosen"
+    },
+    "choco:choco-when-in-rome_190": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/06/analysis.txt",
+      "analysis_sha256": "af3fd01b2653367f111941fc42e23541ddf8a26040fa507cbb6162105ac53fe8",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Anima mia, perdona"
+    },
+    "choco:choco-when-in-rome_191": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/15/analysis.txt",
+      "analysis_sha256": "39941f2ce3d98cdd645aad86ea5c45454405ff135ac365f0ab713f7593a99cf9",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Non piu guerra, pietate"
+    },
+    "choco:choco-when-in-rome_192": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/12/analysis.txt",
+      "analysis_sha256": "af13e2522f61a0e6af26c55f09b30e62a6e51911114017398684d6c1f6d047d4",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Ohime`, se tanto amate"
+    },
+    "choco:choco-when-in-rome_193": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/13/analysis.txt",
+      "analysis_sha256": "1366ad5306fbdac74708f4434a5dc3f966754b7b42b866415016553acf09b0be",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Io mi son giovinetta"
+    },
+    "choco:choco-when-in-rome_194": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/14/analysis.txt",
+      "analysis_sha256": "abe9031f56e2b328c329bbf9b2a8e2279e71a327bf1754e0369a0bfc0d7dbd3c",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Quell'augellin che canta"
+    },
+    "choco:choco-when-in-rome_195": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/03/analysis.txt",
+      "analysis_sha256": "6735c0d34772fa1797123a45d5947dce6b9aebfead113800f75ca35e49c26fc6",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Sovra tenere erbette e bianchi fiori"
+    },
+    "choco:choco-when-in-rome_196": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/04/analysis.txt",
+      "analysis_sha256": "7671a64980816684501810bed3b1d440cb32d024dfbf38d2334406ee171747ec",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "O dolc' anima mia, dunque e pur vero"
+    },
+    "choco:choco-when-in-rome_197": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/05/analysis.txt",
+      "analysis_sha256": "d7280081b2d4f315bdfea87c113b361f12d69e33a95741554c416f7e3d42dcf0",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Stracciami pur il core"
+    },
+    "choco:choco-when-in-rome_198": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/02/analysis.txt",
+      "analysis_sha256": "cc97e3614dc6b65e839abb8770f361a64311fdadb25ada3ba44f5dc4548d6b7a",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "O come gran martire"
+    },
+    "choco:choco-when-in-rome_199": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/20/analysis.txt",
+      "analysis_sha256": "cbdc18eb3129808e5cacd46ae9e38d4dfd50ba45e83f1334c56c50acd6930046",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Ond'ei, di morte la sua faccia impressa"
+    },
+    "choco:choco-when-in-rome_2": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Mahler,_Gustav/Kindertotenlieder/2_Nun_seh’_ich_wohl,_warum_so_dunkle_Flammen/analysis.txt",
+      "analysis_sha256": "b0aef257d7bd64c5731b7b2f570ee51d7c4476ad7692763fc7335beaf350b8f0",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-eca3bff97791d7bc7fb2",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Gustav Mahler",
+      "reviewed_title": "Nun seh’ ich wohl, warum so dunkle Flammen"
+    },
+    "choco:choco-when-in-rome_20": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Mayer,_Emilie/3_Lieder,_Op.7/1_Du_bist_wie_eine_Blume/analysis.txt",
+      "analysis_sha256": "af53147b33b55cf780edebf935d65cdc5b042469c6dee10b52ce597b45b7c89a",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-68387a61fc51a9194055",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Emilie Mayer",
+      "reviewed_title": "Du bist wie eine Blume"
+    },
+    "choco:choco-when-in-rome_200": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/18/analysis.txt",
+      "analysis_sha256": "0c728cc986fa32bfcf0895b495fe498272b0b7e33be2927657ff2bf49b9af353",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Lumi, Miei Cari Lumi"
+    },
+    "choco:choco-when-in-rome_201": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/11/analysis.txt",
+      "analysis_sha256": "a5254a868e27e420ae823a266455ffdf13df719bda57ea4657aefe8813261f46",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "O Primavera, Gioventù de l'Anno"
+    },
+    "choco:choco-when-in-rome_202": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/16/analysis.txt",
+      "analysis_sha256": "5c1c4c24fda1a99be477c4179327d316ceead378e3ce44eb7236d7c850326654",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Ma Dove, Oh Lasso Me!"
+    },
+    "choco:choco-when-in-rome_203": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/17/analysis.txt",
+      "analysis_sha256": "ed0c771ca1a4a7eb048a411c28bbe22fe105d2f3463c079ad91badd546c90bc6",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Io Pur Verra la Dove Sete"
+    },
+    "choco:choco-when-in-rome_204": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/10/analysis.txt",
+      "analysis_sha256": "d21f6a792c3744fc6da5ab3cccba6a6c215f0a566a2228a504d0bdee6e722e22",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Poi Ch'ella in Sé Tornó, Deserto e Muto Terza e Ultima Parte"
+    },
+    "choco:choco-when-in-rome_205": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/19/analysis.txt",
+      "analysis_sha256": "5d7fa9984b7acd2c19e47d6827621b36a924dc6780b2746340351346be0fd4ae",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Rimanti in pace"
+    },
+    "choco:choco-when-in-rome_206": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/07/analysis.txt",
+      "analysis_sha256": "bb615b8943f9e5ab4812803d5dffbaf8bce82b9b0730642e123ec02375c4b280",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Se per estremo ardore"
+    },
+    "choco:choco-when-in-rome_207": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/09/analysis.txt",
+      "analysis_sha256": "9c0cdc2ae19e2a1472780ca75762a1b932232cc09f2233971c1a8047200dbeb8",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "La tra 'l sangue e le morti egro giacente"
+    },
+    "choco:choco-when-in-rome_208": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/08/analysis.txt",
+        "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_4/09/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "La piaga c'ho nel core"
+    },
+    "choco:choco-when-in-rome_209": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/01/analysis.txt",
+      "analysis_sha256": "daab8d992e2340613a78c40dcf28138c549944fa1d979c588b73b39bef733f66",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "La Giovinetta Pianta"
+    },
+    "choco:choco-when-in-rome_21": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Mayer,_Emilie/3_Lieder,_Op.7/2_O_lass_mich_dein_gedenken/analysis.txt",
+      "analysis_sha256": "2c4fffebcfb53c148a95fa756a832481301c39a9120d998689e8af8844ed5ac9",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-75dbb23429550d51ba3a",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Emilie Mayer",
+      "reviewed_title": "O lass mich dein gedenken"
+    },
+    "choco:choco-when-in-rome_210": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/06/analysis.txt",
+      "analysis_sha256": "77d00f9bc101e4608aa5c292f59ad601d883f7e04a7cbd89cb084010ad308ce3",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "O rossignuol ch'in queste verdi fronde"
+    },
+    "choco:choco-when-in-rome_211": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/15/analysis.txt",
+      "analysis_sha256": "3892305188677c92cd5c826506b6b2530e95a8ae7aeb60f2368df0f5cdee2e66",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Monteverdi",
+      "reviewed_title": "Vivro fra i miei tormenti e le mie cure"
+    },
+    "choco:choco-when-in-rome_212": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/12/analysis.txt",
+      "analysis_sha256": "3b94da88b6a5fe024251f3c85e44eac802e47245542415428b8cb46f10d163e5",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Perfidissimo Volto"
+    },
+    "choco:choco-when-in-rome_213": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/13/analysis.txt",
+      "analysis_sha256": "3ef2c3534e755b267d7649da4e6645a5632a96a1af478b5347468e632fcac3a9",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Ch'io non t'ami, cor mio"
+    },
+    "choco:choco-when-in-rome_214": {
+      "analysis_path": "Corpus/Early_Choral/Monteverdi,_Claudio/Madrigals_Book_3/14/analysis.txt",
+      "analysis_sha256": "02c3f5b006145954d102ade8bdbbcc04a088744e1e0f8954d45bb42bffe6cc20",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Claudio Monteverdi",
+      "reviewed_title": "Occhi, un tempo mia vita"
+    },
+    "choco:choco-when-in-rome_215": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/003/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/253/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/262/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Ach Gott, vom Himmel sieh' darein"
+    },
+    "choco:choco-when-in-rome_216": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/004/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/290/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/335/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Es ist das Heil uns kommen her"
+    },
+    "choco:choco-when-in-rome_217": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "An Wasserfluessen Babylon"
+    },
+    "choco:choco-when-in-rome_218": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/002/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/272/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/341/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Ich dank dir, lieber Herre"
+    },
+    "choco:choco-when-in-rome_219": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/020/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/250/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/273/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Ein feste Burg ist unser Gott"
+    },
+    "choco:choco-when-in-rome_22": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Holmès,_Augusta_Mary_Anne/Contes_divins/3_Le_chemin_du_ciel/analysis.txt",
+      "analysis_sha256": "dac13bf1616c9917107330dea51fa2d04654e374f7f5b32d6292e2d2ce26f878",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-9135085dbb04aec09b47",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Holmès, Augusta",
+      "reviewed_title": "Le chemin du ciel"
+    },
+    "choco:choco-when-in-rome_220": {
+      "analysis_path": "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/018/analysis.txt",
+      "analysis_sha256": "241f1caa36e4e83e288c32e90dec4633169787457f45f74a3340abb9689f9b5d",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Menschenkind, merk eben"
+    },
+    "choco:choco-when-in-rome_221": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/011/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/252/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/327/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Jesu, nun sei gepreiset"
+    },
+    "choco:choco-when-in-rome_222": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Es woll uns Gott genaedig sein 2"
+    },
+    "choco:choco-when-in-rome_223": {
+      "analysis_path": "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/017/analysis.txt",
+      "analysis_sha256": "7189f83ec060d73a4d1a73cb13ae9f57ef24779d5454d6f62cbb3004a600d94b",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Erschienen ist der herrliche Tag"
+    },
+    "choco:choco-when-in-rome_224": {
+      "analysis_path": "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/010/analysis.txt",
+      "analysis_sha256": "b58aba2ac314319316bf8cf3e2dea77b8f41e3ac1ba7579474e4975167ff9f03",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Aus tiefer Not schrei ich zu dir 1"
+    },
+    "choco:choco-when-in-rome_225": {
+      "analysis_path": "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/019/analysis.txt",
+      "analysis_sha256": "f407d03e158f968c8fbc65653dac15683b2326dac0e2427a094c3f068e14c715",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Ich hab mein Sach Gott heimgestellt"
+    },
+    "choco:choco-when-in-rome_226": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/007/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/116/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/296/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Nun lob, mein Seel, den Herren"
+    },
+    "choco:choco-when-in-rome_227": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/009/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/102/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/361/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Ermuntre dich, mein schwacher Geist"
+    },
+    "choco:choco-when-in-rome_228": {
+      "analysis_path": "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/008/analysis.txt",
+      "analysis_sha256": "3748212c8f051fbef86b01f1d1a0ef928aba52531a9705b79c6d72d02c479344",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Freuet euch, ihr Christen alle"
+    },
+    "choco:choco-when-in-rome_229": {
+      "analysis_path": "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/001/analysis.txt",
+      "analysis_sha256": "9d0392fe0392b539c29b65c3adea96895c4d05ade9349bab20f9bccac821b585",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Aus meines Herzens Grunde"
+    },
+    "choco:choco-when-in-rome_23": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Holmès,_Augusta_Mary_Anne/Les_Heures/4_L’Heure_d’Azur/analysis.txt",
+      "analysis_sha256": "806e3d0a68990676e94ec5e242ae2bdc4b0d885b21870df8360a0c36d5cc9e44",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-d595372783fb7d2a6fa9",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Augusta Holmès",
+      "reviewed_title": "L’Heure d’Azur"
+    },
+    "choco:choco-when-in-rome_230": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/006/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/316/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Christus, der ist mein Leben"
+    },
+    "choco:choco-when-in-rome_231": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/015/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/184/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/261/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/371/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Christ lag in Todesbanden"
+    },
+    "choco:choco-when-in-rome_232": {
+      "analysis_path": "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/012/analysis.txt",
+      "analysis_sha256": "dab5a526318ed6b51a0b09935cc3e64ef42950b1a18d11c0837d612cb170e05a",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Puer natus in Bethlehem"
+    },
+    "choco:choco-when-in-rome_233": {
+      "candidate_analysis_paths": [
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/013/analysis.txt",
+        "Corpus/Early_Choral/Bach,_Johann_Sebastian/Chorales/359/analysis.txt"
+      ],
+      "decision": "exclude",
+      "reason": "ambiguous_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "Allein zu dir, Herr Jesu Christ"
+    },
+    "choco:choco-when-in-rome_234": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "J. S. Bach",
+      "reviewed_title": "O Herre Gott, dein goettlich Wort"
+    },
+    "choco:choco-when-in-rome_235": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/03/analysis.txt",
+      "analysis_sha256": "09b16576ee60f17ee854debd285577ccd7924b4454db951e089491863a89dfd8",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.3"
+    },
+    "choco:choco-when-in-rome_236": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/04/analysis.txt",
+      "analysis_sha256": "7f88e37da84a8742c2f98ddaf88f899a9c66e348a801e1c7a66b89cf3df4b5e2",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.4"
+    },
+    "choco:choco-when-in-rome_237": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/05/analysis.txt",
+      "analysis_sha256": "daefb1862be3b76bc321a6a781c6c64582ca1754bbf816dcbb983b6b4509acf7",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.5"
+    },
+    "choco:choco-when-in-rome_238": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/02/analysis.txt",
+      "analysis_sha256": "3d6047c714bc6e98b6c2cf5c5e846d57992f6ca6e0065b2d1d33297117cc90df",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.2"
+    },
+    "choco:choco-when-in-rome_239": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/20/analysis.txt",
+      "analysis_sha256": "b1c4d9fbbfb30cb3b357396b6c3570f8007b74c841e5595082007498d54829f0",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.20"
+    },
+    "choco:choco-when-in-rome_24": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Kinkel,_Johanna/6_Lieder,_Op.15/2_Du_nah’st!/analysis.txt",
+      "analysis_sha256": "51dacb46103d10874ec2181d02b1a2e2b868a3bf09e96e6e7fe97a3b36089b56",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-7bd48133ecb56c63596d",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Johanna Kinkel  (1846 edition originally published under the name J. Mathieux)",
+      "reviewed_title": "Du nah’st!"
+    },
+    "choco:choco-when-in-rome_240": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/18/analysis.txt",
+      "analysis_sha256": "5fdd4c6ee8cd376f60d01d3457a831ff2eb4ae19bb12cc44297445efb462a25c",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.18"
+    },
+    "choco:choco-when-in-rome_241": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/11/analysis.txt",
+      "analysis_sha256": "10e8c572ea356fb37dcfb167e2fa1430f00a7bb253869bd2405f5ec43b7648e5",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.11"
+    },
+    "choco:choco-when-in-rome_242": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/16/analysis.txt",
+      "analysis_sha256": "89224aeb6c7603f01491b6e092a7ef4595eaca372fc9f47afa998339f9c9ebb0",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.16"
+    },
+    "choco:choco-when-in-rome_243": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/17/analysis.txt",
+      "analysis_sha256": "5f85d505bcc08bab97f9286380b3d0cc78e885dd2887010a9a1a52d4418c6f3c",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.17"
+    },
+    "choco:choco-when-in-rome_244": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/10/analysis.txt",
+      "analysis_sha256": "ea97397e7bab4e54ee6b197e25e639b56d6841165c17212540a319dec40ee480",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.10"
+    },
+    "choco:choco-when-in-rome_245": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/19/analysis.txt",
+      "analysis_sha256": "09e674a673507f9a4668732c0ed31f2c42561b2ecde109e7ac5ac0f1312a93bf",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.19"
+    },
+    "choco:choco-when-in-rome_246": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/21/analysis.txt",
+      "analysis_sha256": "8a7aaafcd711ac82afa9892cdb4777c7dfc9934091a67fef4136bb670945eca3",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.21"
+    },
+    "choco:choco-when-in-rome_247": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/07/analysis.txt",
+      "analysis_sha256": "4b8023ff6f796d5c77c22f038072aa28a12ee0da0f18db45ced8eb107c96d0db",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.7"
+    },
+    "choco:choco-when-in-rome_248": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/09/analysis.txt",
+      "analysis_sha256": "859f0445d5a337912b9670661267a4ed95bde2cb0bec74f1ca89a7c1d08cf320",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.9"
+    },
+    "choco:choco-when-in-rome_249": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/08/analysis.txt",
+      "analysis_sha256": "3d5f7919756ce3266f348b6bd8d5f159462a33223a727808ca4d8d1c802b182c",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.8"
+    },
+    "choco:choco-when-in-rome_25": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Kinkel,_Johanna/6_Lieder,_Op.10/1_Nachgefühl/analysis.txt",
+      "analysis_sha256": "83c616c8ed3d14f118f27b9539d27b0752c55f04e76a509200e3dea32ae35e8f",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-3ca6656daabc815493f4",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Johanna Kinkel (originally published under the name J. Mathieux)",
+      "reviewed_title": "Nachgefühl"
+    },
+    "choco:choco-when-in-rome_250": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/01/analysis.txt",
+      "analysis_sha256": "4cec7458b5aec3e74218168f529589f3233e008d3b6dde3c3953eaca3dd23565",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.1"
+    },
+    "choco:choco-when-in-rome_251": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/06/analysis.txt",
+      "analysis_sha256": "65fe8f6970448e4f34b7278200872019295bb2f323d690ab879ab6c89d17b43b",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.6"
+    },
+    "choco:choco-when-in-rome_252": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/24/analysis.txt",
+      "analysis_sha256": "0015316a4e7301e0caea52680937e1b615700d588554fda0526c04c092ef04e7",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.24"
+    },
+    "choco:choco-when-in-rome_253": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/23/analysis.txt",
+      "analysis_sha256": "b04042a864e1f312fabf75a3efa51f64c53e118ea5b0788148a9e220a88fdcf2",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.23"
+    },
+    "choco:choco-when-in-rome_254": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/15/analysis.txt",
+      "analysis_sha256": "7573780602ae5cdb088a2683e3318af42ac5afdea587717cab5060e7ec8ae8b8",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.15"
+    },
+    "choco:choco-when-in-rome_255": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/12/analysis.txt",
+      "analysis_sha256": "a77a439f6df7b61cb2d5fb76838cec1d744ff711aadd57e8b79a853abc4ca2d4",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.12"
+    },
+    "choco:choco-when-in-rome_256": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/13/analysis.txt",
+      "analysis_sha256": "59831feaa2ae14174c35140f8a88c2ecaab5df2a35609b958457776eb0651b93",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.13"
+    },
+    "choco:choco-when-in-rome_257": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/14/analysis.txt",
+      "analysis_sha256": "fd6afde377962fc12dcce570d80405b957d8c2ca049d39ebc6602e9b4279858f",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.14"
+    },
+    "choco:choco-when-in-rome_258": {
+      "analysis_path": "Corpus/Keyboard_Other/Bach,_Johann_Sebastian/The_Well-Tempered_Clavier_I/22/analysis.txt",
+      "analysis_sha256": "1e65290e5502017ca0042bf62a2429341bb9ee23a76dbb65a3ed6ab76638f29a",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "J.S. Bach",
+      "reviewed_title": "Prelude No.22"
+    },
+    "choco:choco-when-in-rome_259": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op027_No1/1/analysis.txt",
+      "analysis_sha256": "2b50f04b10c404b88a949e012b481d428880c8f2993206fdc220b2811cc5597d",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 13, Op.27 No.1, Movement 1"
+    },
+    "choco:choco-when-in-rome_26": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Zumsteeg,_Emilie/6_Lieder,_Op.4/1_Die_Kapelle/analysis.txt",
+      "analysis_sha256": "bf9232dfe4ab2b47165d5b6a4079f335533a522b9257b08b0941381076fdd8a4",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-1f6023c1ccd17d700bc5",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Emilie Zumsteeg",
+      "reviewed_title": "Die Kapelle"
+    },
+    "choco:choco-when-in-rome_260": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op027_No1/1/analysis.txt",
+      "analysis_sha256": "2b50f04b10c404b88a949e012b481d428880c8f2993206fdc220b2811cc5597d",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 13, Op.27 No.1, Movement 1"
+    },
+    "choco:choco-when-in-rome_261": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op031_No1/1/analysis.txt",
+      "analysis_sha256": "b11b0a7e639c5f35c96db8e4fbcb183d45b2c6425e3f50f086aa1384ce5adb37",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 16, Op.31 No.1, Movement 1"
+    },
+    "choco:choco-when-in-rome_262": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op028(Pastorale)/1/analysis.txt",
+      "analysis_sha256": "fec800664df79cd0fbbccec461b872812c58a577eca794f19c832f1b3ed6a787",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 15, Op.28(Pastorale), Movement 1"
+    },
+    "choco:choco-when-in-rome_263": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op057(Appassionata)/1/analysis.txt",
+      "analysis_sha256": "e47259ddc8961f9b37e7d282167c85cd1e07a490ec1eb9b1ff4ebda28aa8779d",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 23, Op.57(Appassionata), Movement 1"
+    },
+    "choco:choco-when-in-rome_264": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op049_No2/1/analysis.txt",
+      "analysis_sha256": "724e63dbf82525e3527f3a1391154718b6ad28ecbb40bc63816b4fa0a7d2ed36",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 20, Op.49 No.2, Movement 1"
+    },
+    "choco:choco-when-in-rome_265": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op010_No3/1/analysis.txt",
+      "analysis_sha256": "0ac9d70858b728ca11645db9d79ef01184875de2ef4c6595a1313791d2b5e3a6",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 7, Op.10 No.3, Movement 1"
+    },
+    "choco:choco-when-in-rome_266": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op026/1/analysis.txt",
+      "analysis_sha256": "6a2643ce8bdca93fb4c8d8104c99c006ca36d74fe46d87ae7146847f79d61446",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 12, Op.26, Movement 1"
+    },
+    "choco:choco-when-in-rome_267": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op026/1/analysis.txt",
+      "analysis_sha256": "6a2643ce8bdca93fb4c8d8104c99c006ca36d74fe46d87ae7146847f79d61446",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 12, Op.26, Movement 1"
+    },
+    "choco:choco-when-in-rome_268": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op010_No2/1/analysis.txt",
+      "analysis_sha256": "f3acc5d4bcd54d9b74c6893a001987202416c98d016a4f0d4e7e3bbcba67778b",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 6, Op.10 No.2, Movement 1"
+    },
+    "choco:choco-when-in-rome_269": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op014_No2/1/analysis.txt",
+      "analysis_sha256": "a7fcf6451acbbeea280495b4e1182a4b77be9655560ba37e8676089baf37412d",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 10, Op.14 No.2, Movement 1"
+    },
+    "choco:choco-when-in-rome_27": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Kralik,_Mathilde/Blumenlieder/1_Maiglöckchen/analysis.txt",
+      "analysis_sha256": "bb23bffc5a9ca78d045d9d7a47a6d453b1e6d90e2accf71f244a28310e8caab3",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-5b4b36aec41bfae8ebc1",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Mathilde Kralik (Mathilde Aloisia Kralik von Meyrswalden)",
+      "reviewed_title": "Maiglöckchen"
+    },
+    "choco:choco-when-in-rome_270": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op109/1/analysis.txt",
+      "analysis_sha256": "766e61abff6db7527e2cefb6cc2c60ca72556d05212e7955b71df9adbaf10a09",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 30, Op.109, Movement 1"
+    },
+    "choco:choco-when-in-rome_271": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op002_No3/1/analysis.txt",
+      "analysis_sha256": "dca349d573a7c4fe7035b79a2e6ce965d9bda7df753e2b71efcfded2ecae9fb0",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 3, Op.2 No.3, Movement 1"
+    },
+    "choco:choco-when-in-rome_272": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op101/1/analysis.txt",
+      "analysis_sha256": "c3402d8a701cbcd877fec45faadfaef396d01292af08da7f9916c30bfbb6cafc",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 28, Op.101, Movement 1"
+    },
+    "choco:choco-when-in-rome_273": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op002_No2/1/analysis.txt",
+      "analysis_sha256": "4ca109f9a0c9ac3847b4024fe616be6da52bdced911aafe01e7aeb0e5a8c73f5",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 2, Op.2 No.2, Movement 1"
+    },
+    "choco:choco-when-in-rome_274": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op079(Sonatina)/1/analysis.txt",
+      "analysis_sha256": "a2fd44d118881f20099e13bfa8970706e9e3d11278f93bcbfd7b681f6953c6f1",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 25, Op.79(Sonatina), Movement 1"
+    },
+    "choco:choco-when-in-rome_275": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op111/1/analysis.txt",
+      "analysis_sha256": "48ba05395decd6a2a84fdae4cd8c71e33941b5634e40a9b8e715fd739202cead",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 32, Op.111, Movement 1"
+    },
+    "choco:choco-when-in-rome_276": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op031_No3/1/analysis.txt",
+      "analysis_sha256": "99b314c2086286b90102908c3881d26b6d402205750448bcf58c01e5da190334",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 18, Op.31 No.3, Movement 1"
+    },
+    "choco:choco-when-in-rome_277": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op110/1/analysis.txt",
+      "analysis_sha256": "717f5c12f25c76df2910421aeb98215411f730c18c8abf3063b73b19ce5de94e",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 31, Op.110, Movement 1"
+    },
+    "choco:choco-when-in-rome_278": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op031_No2/1/analysis.txt",
+      "analysis_sha256": "20d52417ff9d7c69dbba06b66cfe468c7fe875290eea439fa925f20d81575e11",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 17, Op.31 No.2, Movement 1"
+    },
+    "choco:choco-when-in-rome_279": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op031_No2/1/analysis.txt",
+      "analysis_sha256": "20d52417ff9d7c69dbba06b66cfe468c7fe875290eea439fa925f20d81575e11",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 17, Op.31 No.2, Movement 1"
+    },
+    "choco:choco-when-in-rome_28": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Paradis,_Maria_Theresia_von/12_Lieder,_1786/05_Die_Tanne_(Sieh_Doris,_wie_vom_Mond_bestrahlt_)/analysis.txt",
+      "analysis_sha256": "c9c67435aeae11386df195efd119279f22a69d221d6d4b794e7e19ab6a85b74c",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-7d0dbcd3a218a526839e",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Maria Theresia von Paradis",
+      "reviewed_title": "Die Tanne (Sieh Doris, wie vom Mond bestrahlt )"
+    },
+    "choco:choco-when-in-rome_280": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op007/1/analysis.txt",
+      "analysis_sha256": "78c43470dfaf54e5ac710d2291ae63d712a34d621952f6aac6e8ed6306cf1d86",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 4, Op.7, Movement 1"
+    },
+    "choco:choco-when-in-rome_281": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op054/1/analysis.txt",
+      "analysis_sha256": "27033e655e4099e98764d33b5a03e05489939d92945a102d14dfb47466650dc5",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 22, Op.54, Movement 1"
+    },
+    "choco:choco-when-in-rome_282": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op027_No2(Moonlight)/1/analysis.txt",
+      "analysis_sha256": "ce1d67020e5b704ed4fd357195a0e76a78f7df093d6c58b1ca36bc1ab1ac6c2c",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 14, Op.27 No.2(Moonlight), Movement 1"
+    },
+    "choco:choco-when-in-rome_283": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op053/1/analysis.txt",
+      "analysis_sha256": "cc982d596d10846b7601c2a7622472fb31a0fbdfc37edee974ee824eb63f46d5",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 21, Op.53, Movement 1"
+    },
+    "choco:choco-when-in-rome_284": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op049_No1/1/analysis.txt",
+      "analysis_sha256": "d674310a660e46d63518709ae871d7578031b42bb084d9195fd8617b334ce8ec",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 19, Op.49 No.1, Movement 1"
+    },
+    "choco:choco-when-in-rome_285": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op013(Pathetique)/1/analysis.txt",
+      "analysis_sha256": "3a61ced7b65d4eda91238ede1a2bb4b6770a0ea357cc35bfc60860a42b67db65",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 8, Op.13(Pathetique), Movement 1"
+    },
+    "choco:choco-when-in-rome_286": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op013(Pathetique)/1/analysis.txt",
+      "analysis_sha256": "3a61ced7b65d4eda91238ede1a2bb4b6770a0ea357cc35bfc60860a42b67db65",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 8, Op.13(Pathetique), Movement 1"
+    },
+    "choco:choco-when-in-rome_287": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op090/1/analysis.txt",
+      "analysis_sha256": "b516cd3dce80bf83073bfd6a3ad07328c5a9be85189fa5adc4a90ec758164bf2",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 27, Op.90, Movement 1"
+    },
+    "choco:choco-when-in-rome_288": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op010_No1/1/analysis.txt",
+      "analysis_sha256": "68dd44f840e8582f2d1874e27150568dd71f89070512d11b8fd965c530d9004a",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 5, Op.10 No.1, Movement 1"
+    },
+    "choco:choco-when-in-rome_289": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op010_No1/1/analysis.txt",
+      "analysis_sha256": "68dd44f840e8582f2d1874e27150568dd71f89070512d11b8fd965c530d9004a",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 5, Op.10 No.1, Movement 1"
+    },
+    "choco:choco-when-in-rome_29": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.9/1_Die_Ersehnte/analysis.txt",
+      "analysis_sha256": "d72ee1b541e18d08ece5348f18f3a93c0798fd1d9dfa29768cdfc1390967b26d",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-d91dd1bce46016320120",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Die Ersehnte"
+    },
+    "choco:choco-when-in-rome_290": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op078/1/analysis.txt",
+      "analysis_sha256": "773239b1688d036efa968e9c06ec634e7ada6eb6dad06d56505578948ab0a7dc",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 24, Op.78, Movement 1"
+    },
+    "choco:choco-when-in-rome_291": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op078/1/analysis.txt",
+      "analysis_sha256": "773239b1688d036efa968e9c06ec634e7ada6eb6dad06d56505578948ab0a7dc",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 24, Op.78, Movement 1"
+    },
+    "choco:choco-when-in-rome_292": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op106(Hammerklavier)/1/analysis.txt",
+      "analysis_sha256": "2178088ac3d95de0a4458684580875054635b45df1a1296d7fbe82d143075ee9",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 29, Op.106(Hammerklavier), Movement 1"
+    },
+    "choco:choco-when-in-rome_293": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op022/1/analysis.txt",
+      "analysis_sha256": "72541f5caf4c8006d9c329cc6ffe1615a22513f7147940be8923f20e12df98ce",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 11, Op.22, Movement 1"
+    },
+    "choco:choco-when-in-rome_294": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op081a(Les_Adieux)/1/analysis.txt",
+      "analysis_sha256": "7c27ea95743436eb29b72bd8d087cbcf3f6cb19e50255228f82af3ee8fda7429",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 26, Op.81a(Les Adieux), Movement 1"
+    },
+    "choco:choco-when-in-rome_295": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op014_No1/1/analysis.txt",
+      "analysis_sha256": "c3aa6bc0180706159f310d74e674bcaf33255bac8085412ff02458a3b5136de2",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 9, Op.14 No.1, Movement 1"
+    },
+    "choco:choco-when-in-rome_296": {
+      "analysis_path": "Corpus/Piano_Sonatas/Beethoven,_Ludwig_van/Op002_No1/1/analysis.txt",
+      "analysis_sha256": "1fcd912abbf85b4fd9feceee3d792a2d1a1742f439c361ee186e5c4eeaaae825",
+      "decision": "exclude",
+      "reason": "external_source_license_not_selected",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Piano Sonata 1, Op.2 No.1, Movement 1"
+    },
+    "choco:choco-when-in-rome_297": {
+      "analysis_path": "Corpus/Orchestral/Haydn,_Franz_Joseph/Symphony_104/1/analysis.txt",
+      "analysis_sha256": "6f0bd4e7f49215ea4f34766998a065a760252231db45c58549934e77c7b395bd",
+      "decision": "exclude",
+      "reason": "external_source_license_unresolved",
+      "reviewed_creator": "Haydn",
+      "reviewed_title": "Symphony 104 Movement 1"
+    },
+    "choco:choco-when-in-rome_298": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No4/1/analysis.txt",
+      "analysis_sha256": "72e71752afc86ae270893832112773787de5350f30bffd8bb59d5ec36c7ee562",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in D Major - No.1: Allegro di molto"
+    },
+    "choco:choco-when-in-rome_299": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No4/4/analysis.txt",
+      "analysis_sha256": "068ee538fecdfe0bf3dd15cf3fcf109cd27b0121849bf2c6b4a052cd452a47b8",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in D Major - No.4: Presto e scherzando"
+    },
+    "choco:choco-when-in-rome_3": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Mahler,_Gustav/Kindertotenlieder/4_Oft_denk’_ich,_sie_sind_nur_ausgegangen/analysis.txt",
+      "analysis_sha256": "58a8bbcdf0c7787ce98c7506fee21a04763703c2e9561a3abedab5a5b293640e",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-e13308de70eb08446e86",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Gustav Mahler",
+      "reviewed_title": "Oft denk’ ich, sie sind nur ausgegangen"
+    },
+    "choco:choco-when-in-rome_30": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.9/4_Die_frühen_Gräber/analysis.txt",
+      "analysis_sha256": "93c719c492a8619fd084dd51b42b443a2a885d728caef98cf8c45a87669014b5",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-7c0c5cbf950eca1f2556",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Die frühen Gräber"
+    },
+    "choco:choco-when-in-rome_300": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No4/3/analysis.txt",
+      "analysis_sha256": "1101ea40af9129ec755a06b869820312891062cffa7de23cc5c930eb21f4d426",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in D Major - No.3: Menuetto alla zingarese"
+    },
+    "choco:choco-when-in-rome_301": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No4/2/analysis.txt",
+      "analysis_sha256": "1adad35d965aac5a0e080ea1429d0e3da7d5535e1941288bc7b948af28870986",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in D Major - No.2: Un poco Adagio affettuoso"
+    },
+    "choco:choco-when-in-rome_302": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No3/1/analysis.txt",
+      "analysis_sha256": "196540d24ac9cb092f80e642d9a6570bc1af5a79b36aa92607afd2b78f08fdbf",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in G Minor - No.1: Allegro con spirito"
+    },
+    "choco:choco-when-in-rome_303": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No3/4/analysis.txt",
+      "analysis_sha256": "3e3926435d30b2c68e7a444a522a5b9f96065a6de5b57d80d10eb5305e5d29f8",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in G Minor - No.4: Allegro di molto"
+    },
+    "choco:choco-when-in-rome_304": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No3/3/analysis.txt",
+      "analysis_sha256": "8345b0c954aa59c85e51b9d7fb31b9077de28f86d2a6b5de5617056bb3ee68bf",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in G Minor - No.3: Poco adagio"
+    },
+    "choco:choco-when-in-rome_305": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No3/2/analysis.txt",
+      "analysis_sha256": "f07fc339070e27cfd2a44f19954504a2b0ec33ccdda0ab611748ca91a0d8baf6",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in G Minor - No.2: Menuetto: Allegretto"
+    },
+    "choco:choco-when-in-rome_306": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No2/1/analysis.txt",
+      "analysis_sha256": "1f53d2d7678e21270d6596f32c93e81192a71e14da564397f920d7f18dd2a6e9",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in C Major - No.1: Moderato"
+    },
+    "choco:choco-when-in-rome_307": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No2/4/analysis.txt",
+      "analysis_sha256": "b90d0634d89e47b04f3594d960044cfafb0aa8cdba8ab3963db3081aaace6d69",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in C Major - No.4: Fuga a quattro soggeti: Allegro"
+    },
+    "choco:choco-when-in-rome_308": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No2/3/analysis.txt",
+      "analysis_sha256": "6f65ac1a5092b749a9bc5248141bca611588db7e127026c1f0f2bda2640907b2",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in C Major - No.3: Menuetto: Allegretto"
+    },
+    "choco:choco-when-in-rome_309": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No2/2/analysis.txt",
+      "analysis_sha256": "fdbaae2d5b4b2d3931ccd3aff2cb886b65f66490babac84f7c2b4d2322f06900",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in C Major - No.2: Adagio"
+    },
+    "choco:choco-when-in-rome_31": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.9/5_Der_Maiabend/analysis.txt",
+      "analysis_sha256": "431b2b52b78475dbad571722df6f13853d0ecb5c332667dcf4f6460b0f058010",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-b4aa35268931ff4023e3",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Der Maiabend"
+    },
+    "choco:choco-when-in-rome_310": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No5/1/analysis.txt",
+      "analysis_sha256": "c27a030df59377542eb8b3759cd087f07bf1a344b78fdefb3f654c99da1270bd",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in F Minor - No.1: Moderato"
+    },
+    "choco:choco-when-in-rome_311": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No5/4/analysis.txt",
+      "analysis_sha256": "b5e06c14de13751147f14565745d09e42bd28e87ab48d789d80498cbfdac19ea",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in F Minor - No.4: Fuga a due soggetti"
+    },
+    "choco:choco-when-in-rome_312": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No5/3/analysis.txt",
+      "analysis_sha256": "44f9d1eb471b6e843519a8c5865a4898af8f9e43c578e7317eb8125dfc322126",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in F Minor - No.3: Adagio"
+    },
+    "choco:choco-when-in-rome_313": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No5/2/analysis.txt",
+      "analysis_sha256": "cfb1737669f1243c68f24b59f8681ee86df33ca653851cc45825ae1b9ed99592",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in F Minor - No.2: Menuetto"
+    },
+    "choco:choco-when-in-rome_314": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No6/1/analysis.txt",
+      "analysis_sha256": "ce8cce001b8bcfc93add5702d11d13bd62678ae833934c46fd066a6f51c1a130",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in A Major - No.1: Allegro di molto e scherzando"
+    },
+    "choco:choco-when-in-rome_315": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No6/4/analysis.txt",
+      "analysis_sha256": "a06e13c1b6f738080c54d25b159a12528f726225be0ce69d2a034b80702ee547",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in A Major - No.4: Fuga a tre soggetti: Allegro"
+    },
+    "choco:choco-when-in-rome_316": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No6/3/analysis.txt",
+      "analysis_sha256": "69d9e51a69ff39af69561a4dd6e509107485de9bb44cdf6297d3153610fae4aa",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in A Major - No.3: Menuetto"
+    },
+    "choco:choco-when-in-rome_317": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No6/2/analysis.txt",
+      "analysis_sha256": "fa241793f615d5ad5467b3db825c2eaf53bb02e3cf248af6a94aa865d54f0900",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in A Major - No.2: Adagio"
+    },
+    "choco:choco-when-in-rome_318": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No1/1/analysis.txt",
+      "analysis_sha256": "7aa1d448f9cbbecae0c93264de8372e50c6ca598d08a306fef97e496d62b7388",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in E-flat Major - No.1: Allegro moderato"
+    },
+    "choco:choco-when-in-rome_319": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No1/4/analysis.txt",
+      "analysis_sha256": "99bd109f1d02177abfad93a205ebf8d8a4ce5fc6be4d5b6eb0e802c303b1d7c3",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in E-flat Major - No.4: Finale: Presto"
+    },
+    "choco:choco-when-in-rome_32": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.9/3_Der_Rosenkranz/analysis.txt",
+      "analysis_sha256": "d798c7940d855aeaf01a046afff12afb3364847b5230ca541c80c4ef72613ea2",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-78943e8d8ffe23bf5a10",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Der Rosenkranz"
+    },
+    "choco:choco-when-in-rome_320": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No1/3/analysis.txt",
+      "analysis_sha256": "4038a6525a6b7bceda0faa7fa3b59adc0c1366160e3d18470b635d64ceefbc43",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in E-flat Major - No.3: Affettuoso e sostenuto"
+    },
+    "choco:choco-when-in-rome_321": {
+      "analysis_path": "Corpus/Quartets/Haydn,_Franz_Joseph/Op20_No1/2/analysis.txt",
+      "analysis_sha256": "b65e51cae1b3e7e121f32868fb015275fe67257d96586384e2dfa1e9f4c5ed31",
+      "decision": "exclude",
+      "reason": "source_license_not_stated",
+      "reviewed_creator": "Haydn, Franz Joseph",
+      "reviewed_title": "String Quartet in E-flat Major - No.2: Menuetto: un poco allegretto"
+    },
+    "choco:choco-when-in-rome_322": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 2, Quartet No. 8"
+    },
+    "choco:choco-when-in-rome_323": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 2, Quartet No. 8"
+    },
+    "choco:choco-when-in-rome_324": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 2, Quartet No. 8"
+    },
+    "choco:choco-when-in-rome_325": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 2, Quartet No. 8"
+    },
+    "choco:choco-when-in-rome_326": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 3, Quartet No. 9"
+    },
+    "choco:choco-when-in-rome_327": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 3, Quartet No. 9"
+    },
+    "choco:choco-when-in-rome_328": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 3, Quartet No. 9"
+    },
+    "choco:choco-when-in-rome_329": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 3, Quartet No. 9"
+    },
+    "choco:choco-when-in-rome_33": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.9/2_Ferne/analysis.txt",
+      "analysis_sha256": "be5dd760ce143143760227cc7287cb21fc90c175397e956427441a4214b5fdb1",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-d3d61fc35a2ab087d3ce",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Ferne"
+    },
+    "choco:choco-when-in-rome_330": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 6, Quartet No. 6"
+    },
+    "choco:choco-when-in-rome_331": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 6, Quartet No. 6"
+    },
+    "choco:choco-when-in-rome_332": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 6, Quartet No. 6"
+    },
+    "choco:choco-when-in-rome_333": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 6, Quartet No. 6"
+    },
+    "choco:choco-when-in-rome_334": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 1, Quartet No. 1"
+    },
+    "choco:choco-when-in-rome_335": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 1, Quartet No. 1"
+    },
+    "choco:choco-when-in-rome_336": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 1, Quartet No. 1"
+    },
+    "choco:choco-when-in-rome_337": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 1, Quartet No. 1"
+    },
+    "choco:choco-when-in-rome_338": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 95, Quartet No. 11"
+    },
+    "choco:choco-when-in-rome_339": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 95, Quartet No. 11"
+    },
+    "choco:choco-when-in-rome_34": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.9/6_Die_Mainacht/analysis.txt",
+      "analysis_sha256": "689343251e7edae2f5b644d683fbd6addff1cd570d7b837746b7043a89b492b9",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-3628790b491f5ea84533",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Die Mainacht"
+    },
+    "choco:choco-when-in-rome_340": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 95, Quartet No. 11"
+    },
+    "choco:choco-when-in-rome_341": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 95, Quartet No. 11"
+    },
+    "choco:choco-when-in-rome_342": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 74, Quartet No. 10"
+    },
+    "choco:choco-when-in-rome_343": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 74, Quartet No. 10"
+    },
+    "choco:choco-when-in-rome_344": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 74, Quartet No. 10"
+    },
+    "choco:choco-when-in-rome_345": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 74, Quartet No. 10"
+    },
+    "choco:choco-when-in-rome_346": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 131, Quartet No. 14"
+    },
+    "choco:choco-when-in-rome_347": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 131, Quartet No. 14"
+    },
+    "choco:choco-when-in-rome_348": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 131, Quartet No. 14"
+    },
+    "choco:choco-when-in-rome_349": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 131, Quartet No. 14"
+    },
+    "choco:choco-when-in-rome_35": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.1/3_Warum_sind_denn_die_Rosen_so_blass/analysis.txt",
+      "analysis_sha256": "72334d24fea81fe483094ac9795f951ae6284fa9250c1d68d23bb092bec14e3d",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-136794bb1a492cc1acca",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Warum sind denn die Rosen so blass"
+    },
+    "choco:choco-when-in-rome_350": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 131, Quartet No. 14"
+    },
+    "choco:choco-when-in-rome_351": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 131, Quartet No. 14"
+    },
+    "choco:choco-when-in-rome_352": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 131, Quartet No. 14"
+    },
+    "choco:choco-when-in-rome_353": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 130, Quartet No. 13"
+    },
+    "choco:choco-when-in-rome_354": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 130, Quartet No. 13"
+    },
+    "choco:choco-when-in-rome_355": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 130, Quartet No. 13"
+    },
+    "choco:choco-when-in-rome_356": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 130, Quartet No. 13"
+    },
+    "choco:choco-when-in-rome_357": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 130, Quartet No. 13"
+    },
+    "choco:choco-when-in-rome_358": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 130, Quartet No. 13"
+    },
+    "choco:choco-when-in-rome_359": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 4, Quartet No. 4"
+    },
+    "choco:choco-when-in-rome_36": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.1/1_Schwanenlied/analysis.txt",
+      "analysis_sha256": "c76821fe5bce51404550a8ca7f49005a076effc32944c454ddeda64544d20f11",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-3c12d42aba2a50cb2abe",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Schwanenlied"
+    },
+    "choco:choco-when-in-rome_360": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 4, Quartet No. 4"
+    },
+    "choco:choco-when-in-rome_361": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 4, Quartet No. 4"
+    },
+    "choco:choco-when-in-rome_362": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 4, Quartet No. 4"
+    },
+    "choco:choco-when-in-rome_363": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 127, Quartet No. 12"
+    },
+    "choco:choco-when-in-rome_364": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 127, Quartet No. 12"
+    },
+    "choco:choco-when-in-rome_365": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 127, Quartet No. 12"
+    },
+    "choco:choco-when-in-rome_366": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 127, Quartet No. 12"
+    },
+    "choco:choco-when-in-rome_367": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 3, Quartet No. 3"
+    },
+    "choco:choco-when-in-rome_368": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 3, Quartet No. 3"
+    },
+    "choco:choco-when-in-rome_369": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 3, Quartet No. 3"
+    },
+    "choco:choco-when-in-rome_37": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.1/2_Wanderlied/analysis.txt",
+      "analysis_sha256": "e1266c3135fd11378194e15399c12fe3c54caf4d51702fc68e24e272f34aca5e",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-cf6a2da4bbbd0a7598fa",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Wanderlied"
+    },
+    "choco:choco-when-in-rome_370": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 3, Quartet No. 3"
+    },
+    "choco:choco-when-in-rome_371": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 1, Quartet No. 7"
+    },
+    "choco:choco-when-in-rome_372": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 1, Quartet No. 7"
+    },
+    "choco:choco-when-in-rome_373": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 1, Quartet No. 7"
+    },
+    "choco:choco-when-in-rome_374": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 59 No. 1, Quartet No. 7"
+    },
+    "choco:choco-when-in-rome_375": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 2, Quartet No. 2"
+    },
+    "choco:choco-when-in-rome_376": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 2, Quartet No. 2"
+    },
+    "choco:choco-when-in-rome_377": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 2, Quartet No. 2"
+    },
+    "choco:choco-when-in-rome_378": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 2, Quartet No. 2"
+    },
+    "choco:choco-when-in-rome_379": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 5, Quartet No. 5"
+    },
+    "choco:choco-when-in-rome_38": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.1/6_Gondellied/analysis.txt",
+      "analysis_sha256": "6c78a053414e20098e59d2d68804f1f400bd295798eb7000420f8fcdd1ba7b78",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-14a04f939c8debd33310",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Gondellied"
+    },
+    "choco:choco-when-in-rome_380": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 5, Quartet No. 5"
+    },
+    "choco:choco-when-in-rome_381": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 5, Quartet No. 5"
+    },
+    "choco:choco-when-in-rome_382": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 18 No. 5, Quartet No. 5"
+    },
+    "choco:choco-when-in-rome_383": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 135, Quartet No. 16"
+    },
+    "choco:choco-when-in-rome_384": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 135, Quartet No. 16"
+    },
+    "choco:choco-when-in-rome_385": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 135, Quartet No. 16"
+    },
+    "choco:choco-when-in-rome_386": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 135, Quartet No. 16"
+    },
+    "choco:choco-when-in-rome_387": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 132, Quartet No. 15"
+    },
+    "choco:choco-when-in-rome_388": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 132, Quartet No. 15"
+    },
+    "choco:choco-when-in-rome_389": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 132, Quartet No. 15"
+    },
+    "choco:choco-when-in-rome_39": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.1/5_Morgenständchen/analysis.txt",
+      "analysis_sha256": "3f5a1aaa56625e296c9526467506f8d144761a973b5b3c0db2135232506cefcd",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-d3f84675b02143dde69d",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Morgenständchen"
+    },
+    "choco:choco-when-in-rome_390": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 132, Quartet No. 15"
+    },
+    "choco:choco-when-in-rome_391": {
+      "decision": "exclude",
+      "reason": "no_unique_source_match",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Op. 132, Quartet No. 15"
+    },
+    "choco:choco-when-in-rome_392": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K573/analysis.txt",
+      "analysis_sha256": "a2862e1d8eb20f39185d74dff9c88992ab2a19038069bbd9e80726609a5da50b",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "9 Variationen uber ein Minuett von Duport, K573"
+    },
+    "choco:choco-when-in-rome_393": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K573/analysis.txt",
+      "analysis_sha256": "a2862e1d8eb20f39185d74dff9c88992ab2a19038069bbd9e80726609a5da50b",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "9 Variationen uber ein Minuett von Duport, K573"
+    },
+    "choco:choco-when-in-rome_394": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K455/analysis.txt",
+      "analysis_sha256": "60351667652225e262ba5c1671b577ab42aa7c54f1ac70a97863887ffa910417",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Zehn Variationen in G, uber die Ariette 'Unser dummer Pobel meint' aus dem Singspiel 'Die Pilgrime von Mekka', K455"
+    },
+    "choco:choco-when-in-rome_395": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K455/analysis.txt",
+      "analysis_sha256": "60351667652225e262ba5c1671b577ab42aa7c54f1ac70a97863887ffa910417",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Zehn Variationen in G, uber die Ariette 'Unser dummer Pobel meint' aus dem Singspiel 'Die Pilgrime von Mekka', K455"
+    },
+    "choco:choco-when-in-rome_396": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K025/analysis.txt",
+      "analysis_sha256": "e2baf195ace6666d0edd0a860b8873b767d9af48496d0b1587f9fef7d8ed1dfd",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Sieben Variationen in D uber das hollandische Lied Willem van Nassau, K025"
+    },
+    "choco:choco-when-in-rome_397": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K025/analysis.txt",
+      "analysis_sha256": "e2baf195ace6666d0edd0a860b8873b767d9af48496d0b1587f9fef7d8ed1dfd",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Sieben Variationen in D uber das hollandische Lied Willem van Nassau, K025"
+    },
+    "choco:choco-when-in-rome_398": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K398/analysis.txt",
+      "analysis_sha256": "e85ca3ebf4232a5463ec4ac61365210f1e69157aa4713f023b165b0f0286a976",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Sechs Variationen in F uber die Arie 'Salve tu, Domine' aus der Oper 'I filosofi immaginarii', K398"
+    },
+    "choco:choco-when-in-rome_399": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K398/analysis.txt",
+      "analysis_sha256": "e85ca3ebf4232a5463ec4ac61365210f1e69157aa4713f023b165b0f0286a976",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Sechs Variationen in F uber die Arie 'Salve tu, Domine' aus der Oper 'I filosofi immaginarii', K398"
+    },
+    "choco:choco-when-in-rome_4": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Clara/6_Lieder,_Op.23/4_Auf_einem_grünen_Hügel/analysis.txt",
+      "analysis_sha256": "93917f9f6dc429553bc606b9b65e936275ba636deaf0a2491a5176cc37cd5e75",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-a676bebb42c4fa8900b5",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Clara Schumann",
+      "reviewed_title": "Auf einem grünen Hügel"
+    },
+    "choco:choco-when-in-rome_40": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/6_Lieder,_Op.1/4_Mayenlied/analysis.txt",
+      "analysis_sha256": "7d65c5aa82e33bb466778c6643f92fed5ddcead53d49414f86943743aedf3f4b",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-c8cf02e70023278ea8ff",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Mayenlied"
+    },
+    "choco:choco-when-in-rome_400": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K353/analysis.txt",
+      "analysis_sha256": "222633ca6bed0c2c7da4c7b2a3e752385c1942d1dbd70ca6efb8b7be48f33e55",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Zwolf Variationen in Eb uber das franzosische Lied 'La belle Francoise', K353"
+    },
+    "choco:choco-when-in-rome_401": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K353/analysis.txt",
+      "analysis_sha256": "222633ca6bed0c2c7da4c7b2a3e752385c1942d1dbd70ca6efb8b7be48f33e55",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Zwolf Variationen in Eb uber das franzosische Lied 'La belle Francoise', K353"
+    },
+    "choco:choco-when-in-rome_402": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K354/analysis.txt",
+      "analysis_sha256": "513670cae9a9ddef12228b101cb3e173f3e5be41f182d8a6c9ed7845b479b572",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Zwolf Variationen in Es, uber die Romanze 'Je suis Lindor' aus der Komodie 'Le Barbier de Seville', K354"
+    },
+    "choco:choco-when-in-rome_403": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K354/analysis.txt",
+      "analysis_sha256": "513670cae9a9ddef12228b101cb3e173f3e5be41f182d8a6c9ed7845b479b572",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Zwolf Variationen in Es, uber die Romanze 'Je suis Lindor' aus der Komodie 'Le Barbier de Seville', K354"
+    },
+    "choco:choco-when-in-rome_404": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K179/analysis.txt",
+      "analysis_sha256": "fab75e9cd0740f8255b4d29161ff6c7d0ef223cb67c63d10afda96dac2cb92ba",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Zwolf Variationen in C uber ein Menuett von Johann Christian Fischer, K179"
+    },
+    "choco:choco-when-in-rome_405": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K179/analysis.txt",
+      "analysis_sha256": "fab75e9cd0740f8255b4d29161ff6c7d0ef223cb67c63d10afda96dac2cb92ba",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Zwolf Variationen in C uber ein Menuett von Johann Christian Fischer, K179"
+    },
+    "choco:choco-when-in-rome_406": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K265/analysis.txt",
+      "analysis_sha256": "ed544effc9d6dc74123380be776586139143150df61381aef5bdcad3ccc17430",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "12 Variations on \"Ah Vous dirais-je, Maman\" for the Piano, K265"
+    },
+    "choco:choco-when-in-rome_407": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K265/analysis.txt",
+      "analysis_sha256": "ed544effc9d6dc74123380be776586139143150df61381aef5bdcad3ccc17430",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "12 Variations on \"Ah Vous dirais-je, Maman\" for the Piano, K265"
+    },
+    "choco:choco-when-in-rome_408": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K613/analysis.txt",
+      "analysis_sha256": "fcb4c8455c1b2596543270e37ddae647fceba651d259d578b771035dfb0dc872",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "8 Variationen uber das Lied \"Ein Weib ist das herrlichste Ding, K613"
+    },
+    "choco:choco-when-in-rome_409": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K613/analysis.txt",
+      "analysis_sha256": "fcb4c8455c1b2596543270e37ddae647fceba651d259d578b771035dfb0dc872",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "8 Variationen uber das Lied \"Ein Weib ist das herrlichste Ding, K613"
+    },
+    "choco:choco-when-in-rome_41": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/3_Lieder/2_Verlust/analysis.txt",
+      "analysis_sha256": "800bb1d2ae332cf172fbceb585c91d5171668897b6b032e6bd72cea8bf2577ac",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-059ff063274620eff076",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Verlust"
+    },
+    "choco:choco-when-in-rome_410": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K501/analysis.txt",
+      "analysis_sha256": "0ab5f7fec1719907c084035aaee1785231e86159cde3a6414bc7d2655e0df50d",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Andante and variations in G for piano duet, K501, K501"
+    },
+    "choco:choco-when-in-rome_411": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Mozart,_Wolfgang_Amadeus/_/K501/analysis.txt",
+      "analysis_sha256": "0ab5f7fec1719907c084035aaee1785231e86159cde3a6414bc7d2655e0df50d",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Mozart",
+      "reviewed_title": "Andante and variations in G for piano duet, K501, K501"
+    },
+    "choco:choco-when-in-rome_412": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_78/analysis.txt",
+      "analysis_sha256": "5c992cc77ba94594d395b4ffc55acbce2dc277b8fbfc41686f88f78ddf3dcb88",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "7 Variations on \"God Save the King\" in C Major, B078"
+    },
+    "choco:choco-when-in-rome_413": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_78/analysis.txt",
+      "analysis_sha256": "5c992cc77ba94594d395b4ffc55acbce2dc277b8fbfc41686f88f78ddf3dcb88",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "7 Variations on \"God Save the King\" in C Major, B078"
+    },
+    "choco:choco-when-in-rome_414": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_71/analysis.txt",
+      "analysis_sha256": "500af6258f12ed776ba6d23d3a0de75b140012988bf06768cd908589abb2c7ea",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "12 Variationen uber einen russichen Tanz von P. Wranitzky, B071"
+    },
+    "choco:choco-when-in-rome_415": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_71/analysis.txt",
+      "analysis_sha256": "500af6258f12ed776ba6d23d3a0de75b140012988bf06768cd908589abb2c7ea",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "12 Variationen uber einen russichen Tanz von P. Wranitzky, B071"
+    },
+    "choco:choco-when-in-rome_416": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_76/analysis.txt",
+      "analysis_sha256": "4290184ea354e698d9a32fa520f305f4333a55e1ad3965654a3046c4be0250ea",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Acht Variationen uber das Trio \"Tandeln und Scherzen\" aus der Oper: Soliman oder die drei Sultaninnen von Sussmayer, B076"
+    },
+    "choco:choco-when-in-rome_417": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_76/analysis.txt",
+      "analysis_sha256": "4290184ea354e698d9a32fa520f305f4333a55e1ad3965654a3046c4be0250ea",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Acht Variationen uber das Trio \"Tandeln und Scherzen\" aus der Oper: Soliman oder die drei Sultaninnen von Sussmayer, B076"
+    },
+    "choco:choco-when-in-rome_418": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_77/analysis.txt",
+      "analysis_sha256": "973d1d8e72175e71bf23ad3a352b5f8136d829a3171324eac34ad77e15f02b09",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Sechs leichte variationen, B077"
+    },
+    "choco:choco-when-in-rome_419": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_77/analysis.txt",
+      "analysis_sha256": "973d1d8e72175e71bf23ad3a352b5f8136d829a3171324eac34ad77e15f02b09",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Sechs leichte variationen, B077"
+    },
+    "choco:choco-when-in-rome_42": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/3_Lieder/1_Sehnsucht/analysis.txt",
+      "analysis_sha256": "0179e77a38bf5fa1c8045e9b63906dc464e1af40dc179c75784e7cd5f0ff5e3e",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-0b12950f188590c08ba1",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Sehnsucht"
+    },
+    "choco:choco-when-in-rome_420": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_70/analysis.txt",
+      "analysis_sha256": "645bd6068c6f54f79facfdd8713fed25dc8e1dcfd1e1305b970396785179f4d0",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "6 Variationen uber \"Nel cor piu non mi sento\" von G. Paisiello, B070"
+    },
+    "choco:choco-when-in-rome_421": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_70/analysis.txt",
+      "analysis_sha256": "645bd6068c6f54f79facfdd8713fed25dc8e1dcfd1e1305b970396785179f4d0",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "6 Variationen uber \"Nel cor piu non mi sento\" von G. Paisiello, B070"
+    },
+    "choco:choco-when-in-rome_422": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/Op34/analysis.txt",
+      "analysis_sha256": "83be3d2d6fd1151f033f862d5138e8626a88b07fed8e1c982c656bef22803bae",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Six Variations on an Original Theme, Opus34"
+    },
+    "choco:choco-when-in-rome_423": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/Op34/analysis.txt",
+      "analysis_sha256": "83be3d2d6fd1151f033f862d5138e8626a88b07fed8e1c982c656bef22803bae",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Six Variations on an Original Theme, Opus34"
+    },
+    "choco:choco-when-in-rome_424": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_63/analysis.txt",
+      "analysis_sha256": "45307dd39336e6d32c7d99211553518d4503f82a75c6581f79b21ea06cb873c9",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Neun Variationen uber einen Marsch von E. Chr. Dressler, B063"
+    },
+    "choco:choco-when-in-rome_425": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_63/analysis.txt",
+      "analysis_sha256": "45307dd39336e6d32c7d99211553518d4503f82a75c6581f79b21ea06cb873c9",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Neun Variationen uber einen Marsch von E. Chr. Dressler, B063"
+    },
+    "choco:choco-when-in-rome_426": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_64/analysis.txt",
+      "analysis_sha256": "680405a0e8f5cadeefe09872f3898bed2cf02353614610e04806124e3492f287",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Sechs Variationen uber ein Schweizer Lied, B064"
+    },
+    "choco:choco-when-in-rome_427": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_64/analysis.txt",
+      "analysis_sha256": "680405a0e8f5cadeefe09872f3898bed2cf02353614610e04806124e3492f287",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Sechs Variationen uber ein Schweizer Lied, B064"
+    },
+    "choco:choco-when-in-rome_428": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_65/analysis.txt",
+      "analysis_sha256": "9af9439b9e8e19b2ecf4d35f8e4b4d0559a0762bfcfd08d519a6095b3fc27878",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "24 Variationen uber Venni Amore von V. Righini, B065"
+    },
+    "choco:choco-when-in-rome_429": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_65/analysis.txt",
+      "analysis_sha256": "9af9439b9e8e19b2ecf4d35f8e4b4d0559a0762bfcfd08d519a6095b3fc27878",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "24 Variationen uber Venni Amore von V. Righini, B065"
+    },
+    "choco:choco-when-in-rome_43": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/5_Lieder,_Op.10/2_Vorwurf/analysis.txt",
+      "analysis_sha256": "cfafbb03a0ac9800f702d4da047a83b190ce6f8a8f94a28b0a0acb9c68fa1824",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-26c0f2a5ab33d52eec04",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Vorwurf"
+    },
+    "choco:choco-when-in-rome_430": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_75/analysis.txt",
+      "analysis_sha256": "f05ec6696d58cc5c5a9a1d05760fd4ed7677920580e0dc1647445bb41047a85d",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "7 Variations on a Quartet by Winter, B075"
+    },
+    "choco:choco-when-in-rome_431": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_75/analysis.txt",
+      "analysis_sha256": "f05ec6696d58cc5c5a9a1d05760fd4ed7677920580e0dc1647445bb41047a85d",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "7 Variations on a Quartet by Winter, B075"
+    },
+    "choco:choco-when-in-rome_432": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_72/analysis.txt",
+      "analysis_sha256": "d9accfef333dacbe9a1642120cbf579430c7ced4603e79c88aee4eb319eb99f0",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Acht Variationen uber \"Une fievre brulante\" aus \"Richard Coeur de Lion\" von A.E.M. Gretry, B072"
+    },
+    "choco:choco-when-in-rome_433": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_72/analysis.txt",
+      "analysis_sha256": "d9accfef333dacbe9a1642120cbf579430c7ced4603e79c88aee4eb319eb99f0",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Acht Variationen uber \"Une fievre brulante\" aus \"Richard Coeur de Lion\" von A.E.M. Gretry, B072"
+    },
+    "choco:choco-when-in-rome_434": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_73/analysis.txt",
+      "analysis_sha256": "468a2f10a303d1b3f8f7fa002ee5436ce0c41435d43280127988360280d5838b",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Zehn Variationen uber \"la stessa, la stessissima\" aus \"Falstaff\" von A. Salieri, B073"
+    },
+    "choco:choco-when-in-rome_435": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_73/analysis.txt",
+      "analysis_sha256": "468a2f10a303d1b3f8f7fa002ee5436ce0c41435d43280127988360280d5838b",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Zehn Variationen uber \"la stessa, la stessissima\" aus \"Falstaff\" von A. Salieri, B073"
+    },
+    "choco:choco-when-in-rome_436": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_80/analysis.txt",
+      "analysis_sha256": "e047e313589220e0eb1c3617f0bf1df56d758bde33872df1897910095b6b74f5",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "32 Variationen fur das pianoforte, B080"
+    },
+    "choco:choco-when-in-rome_437": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_80/analysis.txt",
+      "analysis_sha256": "e047e313589220e0eb1c3617f0bf1df56d758bde33872df1897910095b6b74f5",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "32 Variationen fur das pianoforte, B080"
+    },
+    "choco:choco-when-in-rome_438": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_69/analysis.txt",
+      "analysis_sha256": "d194fe71228a0de08cea04c1061a6dd08e2577e6f2e20d641d40a89586a23877",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "9 Variationen uber \"Quant' e piu bello\" von G. Paisiello, B069"
+    },
+    "choco:choco-when-in-rome_439": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_69/analysis.txt",
+      "analysis_sha256": "d194fe71228a0de08cea04c1061a6dd08e2577e6f2e20d641d40a89586a23877",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "9 Variationen uber \"Quant' e piu bello\" von G. Paisiello, B069"
+    },
+    "choco:choco-when-in-rome_44": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/5_Lieder,_Op.10/4_Im_Herbste/analysis.txt",
+      "analysis_sha256": "b9a797e6756b82d4e9ebb7c2ef265f5a482fa75b206c5491ad4142beab192e62",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-74b4a7d1083a80b0337a",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Im Herbste"
+    },
+    "choco:choco-when-in-rome_440": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/Op76/analysis.txt",
+      "analysis_sha256": "0cca62603731f0a93d02a0bac690d2037e3d7b017c50d790766c0fa4ec2b31a6",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Six Variations on an Original Theme, Opus76"
+    },
+    "choco:choco-when-in-rome_441": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/Op76/analysis.txt",
+      "analysis_sha256": "0cca62603731f0a93d02a0bac690d2037e3d7b017c50d790766c0fa4ec2b31a6",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Six Variations on an Original Theme, Opus76"
+    },
+    "choco:choco-when-in-rome_442": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_68/analysis.txt",
+      "analysis_sha256": "53d980c2923c31b8859682a2a5f9b2b8bd2cb6be128cdd3192c541f33d844082",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Zwolf Variationen uber das Menuett a la Vigano von J. Haibel, B068"
+    },
+    "choco:choco-when-in-rome_443": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_68/analysis.txt",
+      "analysis_sha256": "53d980c2923c31b8859682a2a5f9b2b8bd2cb6be128cdd3192c541f33d844082",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "Zwolf Variationen uber das Menuett a la Vigano von J. Haibel, B068"
+    },
+    "choco:choco-when-in-rome_444": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_66/analysis.txt",
+      "analysis_sha256": "700a48228bd9103d326da773f34804c90b94aa373b830cae08042c1d9d1239ec",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "13 Variationen uber \"Es war einmal ein alter Mann\" aus \"Das rote Kappchen\" von K. Ditters von Dittersdorf, B066"
+    },
+    "choco:choco-when-in-rome_445": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Beethoven,_Ludwig_van/_/WoO_66/analysis.txt",
+      "analysis_sha256": "700a48228bd9103d326da773f34804c90b94aa373b830cae08042c1d9d1239ec",
+      "decision": "include",
+      "license_id": "tavern",
+      "reviewed_creator": "Beethoven",
+      "reviewed_title": "13 Variationen uber \"Es war einmal ein alter Mann\" aus \"Das rote Kappchen\" von K. Ditters von Dittersdorf, B066"
+    },
+    "choco:choco-when-in-rome_446": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Bach,_Johann_Sebastian/B_Minor_mass,_BWV232/Crucifixus/analysis.txt",
+      "analysis_sha256": "244623a43a075ad163900111be8da99989cb8711da981b7e912a94ff1badf647",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Bach",
+      "reviewed_title": "Crucifixus (from the B Minor mass, BWV232)"
+    },
+    "choco:choco-when-in-rome_447": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Purcell,_Henry/_/Chacony_Z730/analysis.txt",
+      "analysis_sha256": "6695a88b4e668ffb013ef421237bd4dde74fdeee05064d030786f5da278faf12",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Purcell",
+      "reviewed_title": "Chacony (Chaconne) in G Minor Z730"
+    },
+    "choco:choco-when-in-rome_448": {
+      "analysis_path": "Corpus/Variations_and_Grounds/Purcell,_Henry/_/Sonata_Z807/analysis.txt",
+      "analysis_sha256": "f1f859da6f8e10775fadd03a9c487b3a53b79107c2ef99a30c5ab1f0ae5ff806",
+      "decision": "include",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Purcell",
+      "reviewed_title": "Purcell Sonata in G Minor Z807"
+    },
+    "choco:choco-when-in-rome_45": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/5_Lieder,_Op.10/3_Abendbild/analysis.txt",
+      "analysis_sha256": "7fc59e4ea3509db7a6359485f1aaff3658cd4b1b2a4c9dfcfbfd23acb64c12b5",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-5b312b92b0e89b19e776",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Abendbild"
+    },
+    "choco:choco-when-in-rome_46": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/5_Lieder,_Op.10/5_Bergeslust/analysis.txt",
+      "analysis_sha256": "ffb269f1d96260a188955f07fb02f4749b939baeec09104b5e265a590bb5f7f2",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-2b9ec0e18e43e100ef30",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Bergeslust"
+    },
+    "choco:choco-when-in-rome_47": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Hensel,_Fanny_(Mendelssohn)/5_Lieder,_Op.10/1_Nach_Süden/analysis.txt",
+      "analysis_sha256": "343d3e2369261aa7d8ffecb1446999e45a84f2c1dacae16ceb06923ffa5de72c",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-d3d1c7a09c5cb3500aad",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Fanny (Mendelssohn) Hensel",
+      "reviewed_title": "Nach Süden"
+    },
+    "choco:choco-when-in-rome_48": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/08_Und_wüssten’s_die_Blumen/analysis.txt",
+      "analysis_sha256": "27f94951a543c7bb796cc59d6206b872ba1fc7219b3c27051f597c5f394cc869",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-b13c93d29f15d1ba9c2f",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Und wüssten’s die Blumen"
+    },
+    "choco:choco-when-in-rome_49": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/01_Im_wunderschönen_Monat_Mai/analysis.txt",
+      "analysis_sha256": "3f3b36f042963fb5f24083834e98d0ffc1fd41f06e47167a32fe0bb0105fb57b",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-2c8b25970016966bc8b5",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Im wunderschönen Monat Mai"
+    },
+    "choco:choco-when-in-rome_5": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Clara/6_Lieder,_Op.13/2_Sie_liebten_sich_beide/analysis.txt",
+      "analysis_sha256": "e3ecc2c589b368373b4c85b40309ac86190e8ac86f0e7695bd9b71163910a3d2",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-7989b1d155d19938dff3",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Clara Schumann",
+      "reviewed_title": "Sie liebten sich beide"
+    },
+    "choco:choco-when-in-rome_50": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/10_Hör’_ich_das_Liedchen_klingen/analysis.txt",
+      "analysis_sha256": "97f96552a74de92216a1e1072074d8935ce02538e2bab172cff1ee6a39565b32",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-f39cbe2d2aa53555fa22",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Hör’ ich das Liedchen klingen"
+    },
+    "choco:choco-when-in-rome_51": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/16_Die_alten,_bösen_Lieder/analysis.txt",
+      "analysis_sha256": "ed9043658f8a9bc59a558268ae231284a18b06e0a67c475eb2987bb27f011074",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-fba211c505db02861503",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Die alten, bösen Lieder"
+    },
+    "choco:choco-when-in-rome_52": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/13_Ich_hab’_im_Traum_geweinet/analysis.txt",
+      "analysis_sha256": "196fb6eb8a5d0a05667bd5153357ad5ac9d14d4d2835e99b71b3170165121ab5",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-789a346c55143ed22056",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Ich hab’ im Traum geweinet"
+    },
+    "choco:choco-when-in-rome_53": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/14_Allnächtlich_im_Traume/analysis.txt",
+      "analysis_sha256": "23ea1a308c283a40d479379db6b3e38f7ca9f6ab123118080d1b8ce3db93e575",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-8bc2285e6a32c7efbf84",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Allnächtlich im Traume"
+    },
+    "choco:choco-when-in-rome_54": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/04_Wenn_ich_in_deine_Augen_seh’/analysis.txt",
+      "analysis_sha256": "0c1837296a045d26fcf6326b42ae9c8cf445d2b9a1b4fd7c55f4bb5da7349e1e",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-45c8be6ca00902ea1cce",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Wenn ich in deine Augen seh’"
+    },
+    "choco:choco-when-in-rome_55": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/06_Im_Rhein,_im_heiligen_Strome/analysis.txt",
+      "analysis_sha256": "7166ac9475fea206df9da86572a7c51ae21705634b612b19c295e5742785b618",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-a70110a7f713295e14be",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Im Rhein, im heiligen Strome"
+    },
+    "choco:choco-when-in-rome_56": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/05_Ich_will_meine_Seele_tauchen/analysis.txt",
+      "analysis_sha256": "98aad3330706ddb04a06f50050d1b9d86a9e4df6112a38e721245cbe848b6407",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-3293774bb01192454202",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Ich will meine Seele tauchen"
+    },
+    "choco:choco-when-in-rome_57": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/15_Aus_alten_Märchen_winkt_es/analysis.txt",
+      "analysis_sha256": "3cf1441d5a83fb9209a033091e12097dfde14d7b1e1b912d1a8a24c759e707ab",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-04d50d4be7183b4bc547",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Aus alten Märchen winkt es"
+    },
+    "choco:choco-when-in-rome_58": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/09_Das_ist_ein_Flöten_und_Geigen/analysis.txt",
+      "analysis_sha256": "4bc2bf86fd92091edbcd30798b7dc30cc157a1c962527990e1e4f9c3106fa1a4",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-c7e6df1bd4a6c3423889",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Das ist ein Flöten und Geigen"
+    },
+    "choco:choco-when-in-rome_59": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/11_Ein_Jüngling_liebt_ein_Mädchen/analysis.txt",
+      "analysis_sha256": "6b3b710b9649a9b97104052b004ff46ab90f2811bf44128e5dc70e7f3ef1199c",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-0993873601572fcb8f08",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Ein Jüngling liebt ein Mädchen"
+    },
+    "choco:choco-when-in-rome_6": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Clara/6_Lieder,_Op.13/4_Der_Mond_kommt_still_gegangen/analysis.txt",
+      "analysis_sha256": "33f3bcb7594e12ff55738aa3d23a6bb629085a4068987eb3188d46916e2cfa65",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-3006244c22e146da1767",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Clara Schumann",
+      "reviewed_title": "Der Mond kommt still gegangen"
+    },
+    "choco:choco-when-in-rome_60": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/02_Aus_meinen_Tränen_sprießen/analysis.txt",
+      "analysis_sha256": "b29319728e487a67e24f7936a7b184af8e306654f61c032b9a45838adf0a8551",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-2b9b1761e16a9db89691",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Aus meinen Tränen sprießen"
+    },
+    "choco:choco-when-in-rome_61": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/07_Ich_grolle_nicht/analysis.txt",
+      "analysis_sha256": "258518c0dc01b6ee3f09a449364b97568a92f15c968774817066ba02ec04a6ab",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-eba43eaa4b13b1e5fe38",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Ich grolle nicht"
+    },
+    "choco:choco-when-in-rome_62": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/12_Am_leuchtenden_Sommermorgen/analysis.txt",
+      "analysis_sha256": "6f16dc1ca5fe0640249d696f6d5787b3622f884516610d230eea16264ff341bb",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-0f475ddc64dfa3075b93",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Am leuchtenden Sommermorgen"
+    },
+    "choco:choco-when-in-rome_63": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Dichterliebe,_Op.48/03_Die_Rose,_die_Lilie/analysis.txt",
+      "analysis_sha256": "cb3f847f07deecc77bb9e8e40b9df1b24acca50222af43143bb2d66b8eece551",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-7481d555e39dbc196070",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Die Rose, die Lilie"
+    },
+    "choco:choco-when-in-rome_64": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Frauenliebe_und_Leben,_Op.42/3_Ich_kann’s_nicht_fassen/analysis.txt",
+      "analysis_sha256": "619c8b01335c927090210056a92299e90997ea500cbeb00e0b4906d39e84bea7",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-4b541e0ec4f64c9d274a",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Ich kann’s nicht fassen"
+    },
+    "choco:choco-when-in-rome_65": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Robert/Frauenliebe_und_Leben,_Op.42/1_Seit_ich_ihn_gesehen/analysis.txt",
+      "analysis_sha256": "e0834e669f5f8e843f425542f3a0f46909e12390b1c33f427fe4e1e939025fb7",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-5aa37335f0413e555e29",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Schumann",
+      "reviewed_title": "Seit ich ihn gesehen"
+    },
+    "choco:choco-when-in-rome_66": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Franz,_Robert/6_Gesänge,_Op.14/5_Liebesfrühling/analysis.txt",
+      "analysis_sha256": "484ba31d36f80fd6f511d85bd2e2b14aa026d2bfc5cbc0470bc2b015347c6f3a",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-de4f0ed4529d3fe233ec",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Robert Franz",
+      "reviewed_title": "Liebesfrühling"
+    },
+    "choco:choco-when-in-rome_67": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/07_Die_Wiese/analysis.txt",
+      "analysis_sha256": "b8668d4fe38d447093192ce34a33eb40a3c70da6c49f1fe741e58d7c691ed0d4",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-9ab6d30e12c0dccd21bf",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Die Wiese"
+    },
+    "choco:choco-when-in-rome_68": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/11_An_Maria_(aus_Novalis_geistlichen_Liedern)/analysis.txt",
+      "analysis_sha256": "56d8544a195b48af72614f4b3e4005b65076ca5bab7d5f7ef925239682591dd2",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-8ed332e6b1b4cbb11f04",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "An Maria (aus Novalis geistlichen Liedern)"
+    },
+    "choco:choco-when-in-rome_69": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/01_Frühlingsblumen/analysis.txt",
+      "analysis_sha256": "2d4a71b84c34388444af47c549f74a1e20462a38e70e8464a128c93c8388c9c7",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-0db4064e289b0e4b3b87",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Frühlingsblumen"
+    },
+    "choco:choco-when-in-rome_7": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Clara/6_Lieder,_Op.13/1_Ich_stand_in_dunklen_Träumen/analysis.txt",
+      "analysis_sha256": "bbabbe1073a98c3aae60f601e6d472fb002db160dea3a92b5f3a6f56b4c65547",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-d451bd10237a43822b34",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Clara Schumann",
+      "reviewed_title": "Ich stand in dunklen Träumen"
+    },
+    "choco:choco-when-in-rome_70": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/03_Die_Blume_der_Blumen/analysis.txt",
+      "analysis_sha256": "df30bb0aacb13a2a14d01a79bd6ef9dc686a277e39348178731540827251ca8a",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-231781f02f6715c7e00f",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Die Blume der Blumen"
+    },
+    "choco:choco-when-in-rome_71": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/08_Kaeuzlein/analysis.txt",
+      "analysis_sha256": "6e66137eed03c935942b9ac7bd65ec9d0143ff947ed3bc43febc6f7656384a56",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-03e27a29ee925d5983fa",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Kaeuzlein"
+    },
+    "choco:choco-when-in-rome_72": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/05_Betteley_der_Vögel/analysis.txt",
+      "analysis_sha256": "1c16eb4bfcee5a737610a0b1acbf4581ac0ffbef2abf1093c94f9386c4081d90",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-f2518e82d669a806b19f",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Betteley der Vögel"
+    },
+    "choco:choco-when-in-rome_73": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/10_Der_Mond/analysis.txt",
+      "analysis_sha256": "35195b6c036f10e4eb472fa20447d7cafb2a603f13936e94d0db8d69338ea7da",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-08184e5accd63f699e2a",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Der Mond"
+    },
+    "choco:choco-when-in-rome_74": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/04_Wachtelwacht/analysis.txt",
+      "analysis_sha256": "071340ee55ee4acab462a1064cba997639009da73d5eae1d14649831b6f7cd04",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-4ca51bc021179e55df04",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Wachtelwacht"
+    },
+    "choco:choco-when-in-rome_75": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/02_Der_traurige_Wanderer/analysis.txt",
+      "analysis_sha256": "f12f780bea502908ec718d93b9228975826de3f052ec2cfc8e40f294ec59a044",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-642c776d0d5aa0fb5b47",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Der traurige Wanderer"
+    },
+    "choco:choco-when-in-rome_76": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/06_Kriegslied_des_Mays/analysis.txt",
+      "analysis_sha256": "0d81f7ae6a3f808cd634707ee8d5fdf5652c5a87a9497e455cd1a4131bc2fb4c",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-7d1f9570ae957a48d5c6",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Kriegslied des Mays"
+    },
+    "choco:choco-when-in-rome_77": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/12_Duettino/analysis.txt",
+      "analysis_sha256": "d3b1146b252fffd13838edd6f298177ae22d71476d77742f8f192f4446243160",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-3c4720810f984bc8f9c9",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Duettino"
+    },
+    "choco:choco-when-in-rome_78": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge,_Op.3/09_Hier_liegt_ein_Spielmann_begraben/analysis.txt",
+      "analysis_sha256": "58bf038672bba5321c3ef7c6dca1bdbb6af87ce571dff95471a660dae7f61aa0",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-4e6e01ecfb179147fd66",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Hier liegt ein Spielmann begraben"
+    },
+    "choco:choco-when-in-rome_79": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Deutsche_und_Italiänische_Romantische_Gesänge/01_Frühlingslied/analysis.txt",
+      "analysis_sha256": "6302a7939bdee6240ec52289d986caeac6696f18c3e75aee12231d13ebd2b8d2",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-080e6c7ef5ad9c9ea613",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Frühlingslied"
+    },
+    "choco:choco-when-in-rome_8": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Clara/6_Lieder,_Op.13/3_Liebeszauber/analysis.txt",
+      "analysis_sha256": "683bc9145f3be046f3d37b06517ce96dfd8186e8ccb04147d11c259fb0a96090",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-d33591a77e124a8250b2",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Clara Schumann",
+      "reviewed_title": "Liebeszauber"
+    },
+    "choco:choco-when-in-rome_80": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Deutsche_und_Italiänische_Romantische_Gesänge/02_Wenn_ich_ihn_nur_habe/analysis.txt",
+      "analysis_sha256": "6253e43f4dae3bb877cdc4e03fd7174805457cd071e1f1ce1d3c83a8771469d2",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-e6968ebbb5f7e5e481a5",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Wenn ich ihn nur habe"
+    },
+    "choco:choco-when-in-rome_81": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Deutsche_und_Italiänische_Romantische_Gesänge/03_Durch_die_bunten_Rosenhecken/analysis.txt",
+      "analysis_sha256": "190324c3af02780fcb63f9ac5b52d2c7a9d719eaacdf414aea6b9412208ae934",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-e06eed8ab4c130b800ec",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Durch die bunten Rosenhecken"
+    },
+    "choco:choco-when-in-rome_82": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Deutsche_und_Italiänische_Romantische_Gesänge/10_Ida_(aus_Ariels_Offenbarungen)/analysis.txt",
+      "analysis_sha256": "46295d23174c844d1408278086e5fc9885c012c1922958993649f26e9c24cef3",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-dc21ff71403f6b86e0f7",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Ida (aus Ariels Offenbarungen)"
+    },
+    "choco:choco-when-in-rome_83": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Deutsche_und_Italiänische_Romantische_Gesänge/12_Heymdal_(aus_Ariels_Offenbarungen)/analysis.txt",
+      "analysis_sha256": "096a4ca92710e7d63e1bcd90aec74c01a36f9a2c5bac209261b0d1cbf11406fa",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-a02b6cf58617b057f3d6",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Heymdal (aus Ariels Offenbarungen)"
+    },
+    "choco:choco-when-in-rome_84": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/03_Nach_Sevilla/analysis.txt",
+      "analysis_sha256": "4d0794893c598b3e551c84c02bd261e4d7eb3c2042c3a9990cb83e67adba9483",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-027eff526da2aa454862",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Nach Sevilla"
+    },
+    "choco:choco-when-in-rome_85": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/01_Erinnrung_zum_Bach/analysis.txt",
+      "analysis_sha256": "0a95931f70f08537398bf5eda5447534c99d9f0be8b90badd72cc8154a074c58",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-a2a59bba3a16bb817346",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Erinnrung zum Bach"
+    },
+    "choco:choco-when-in-rome_86": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/11_Daphne_am_Bach/analysis.txt",
+      "analysis_sha256": "4f2707b2e5768c954240593456510bdfc6e2f33142ca7e704c279fc3ddb3a6a1",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-1abfad90b1037d4b7f58",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Daphne am Bach"
+    },
+    "choco:choco-when-in-rome_87": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/07_Volkslied/analysis.txt",
+      "analysis_sha256": "c32eb176eb077ae6eb12fbf5831f030e1b33a9200b1ec76031975b65edc85689",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-881a0c165a68773a1542",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Volkslied"
+    },
+    "choco:choco-when-in-rome_88": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/05_Für_die_Laute_componirt/analysis.txt",
+      "analysis_sha256": "7b4d5c564465d584f0f0c6b0abd1f8495b25c437aed70d20dfc596a323a4f539",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-a0a3b72711a3d9ef8d7b",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Für die Laute componirt"
+    },
+    "choco:choco-when-in-rome_89": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/09_Der_Spinnerin_Nachtlied/analysis.txt",
+      "analysis_sha256": "874bf48dd44a4ecb7e5407b993cc30c0b70916fa4d03f7f3f34fd47e578f5d25",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-df50c42a3b1a71a512c4",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Der Spinnerin Nachtlied"
+    },
+    "choco:choco-when-in-rome_9": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Schumann,_Clara/6_Lieder,_Op.13/6_Die_stille_Lotosblume/analysis.txt",
+      "analysis_sha256": "3ebbf8caa1ae0f2175b431bb180b0404f33c08fa9898ddadd825a99a5fdb9dcd",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-7626ecc189b46f3cfd4a",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Clara Schumann",
+      "reviewed_title": "Die stille Lotosblume"
+    },
+    "choco:choco-when-in-rome_90": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/02_Der_Sänger_geht/analysis.txt",
+      "analysis_sha256": "4b3ba47391f8d1f8bcf040922cde9bfa7955ae47e6dc69d664477d597d2498e4",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-7e9526129e320c8ac9a9",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Der Sänger geht"
+    },
+    "choco:choco-when-in-rome_91": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/04_Vaters_Klage/analysis.txt",
+      "analysis_sha256": "f84509c67948e39af2d9449faf478cbb62eb48b6afafb8d9e3975aeb5b9fe11a",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-d4a3d61b33ec1e5731fe",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Vaters Klage"
+    },
+    "choco:choco-when-in-rome_92": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/06_Unruhiger_Schlaf/analysis.txt",
+      "analysis_sha256": "0bce43a211f144748ceae4cbcd955add7591c1b43a9a519614b96aa6595c1507",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-eb90ad174c98df8f9f13",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Unruhiger Schlaf"
+    },
+    "choco:choco-when-in-rome_93": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/08_Ein_recht_Gemüth/analysis.txt",
+      "analysis_sha256": "3462a6d563f1c480209570002e6556c876f3b174743dc439db56fe2e114dfc82",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-5c60fa4b89eaf40ee099",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Ein recht Gemüth"
+    },
+    "choco:choco-when-in-rome_94": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Zwölf_Gesänge/10_Die_Veilchen/analysis.txt",
+      "analysis_sha256": "a2cd7216704497c2f5941cd2edbfcaf5634a522643ba9daf73297f1bb0cb6b9a",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-880537b5f937a0870f9c",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Die Veilchen"
+    },
+    "choco:choco-when-in-rome_95": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Sechs_Lieder_von_Novalis,_Op.4/6_Er_besucht_den_Klostergarten_und_den_Kirchoff,_über_den_letztern_findet_sich_folgendes_Gedicht/analysis.txt",
+      "analysis_sha256": "1e6fb9b937b4e350dda17d2b60fe66e26e70cdf5a0cce54ad18894dd6b72023b",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-dc28af895109ca24319b",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Er besucht den Klostergarten und den Kirchoff, über den letztern findet sich folgendes Gedicht"
+    },
+    "choco:choco-when-in-rome_96": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Reichardt,_Louise/Sechs_Lieder_von_Novalis,_Op.4/5_Noch_ein_Bergmannslied/analysis.txt",
+      "analysis_sha256": "1f340b4562e1d9c99402664d81c544c665b20fde5e9a96ebd685aa0a7999b45b",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-8fece4d019f290688831",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Louise Reichardt",
+      "reviewed_title": "Noch ein Bergmannslied"
+    },
+    "choco:choco-when-in-rome_97": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Jaëll,_Marie/4_Mélodies/1_À_toi/analysis.txt",
+      "analysis_sha256": "82cf2f4f8e111fc3e96a033ba8e3b566fe0978d5aa5918ead2951dd0a0b2c9c4",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-9c5b86c0f5e670c19485",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Marie Jaëll",
+      "reviewed_title": "À toi"
+    },
+    "choco:choco-when-in-rome_98": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Jaëll,_Marie/4_Mélodies/2_Éternel_amour/analysis.txt",
+      "analysis_sha256": "a9f25d89e0c833aede20d1107cae25658c055f65af026b6421c4e778bac1d7bb",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-8fd2172c15d86f40941a",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "Marie Jaëll",
+      "reviewed_title": "Éternel amour"
+    },
+    "choco:choco-when-in-rome_99": {
+      "analysis_path": "Corpus/OpenScore-LiederCorpus/Coleridge-Taylor,_Samuel/_/Oh,_the_Summer/analysis.txt",
+      "analysis_sha256": "9860f9e7105c93b123b1299dd9f7aa5eef1762f483b6f763b81f38d765461f26",
+      "decision": "duplicate",
+      "duplicate_of": "when_in_rome:when-in-rome-analysis-1a6299f0207d1bb811f3",
+      "license_id": "when_in_rome_original",
+      "reviewed_creator": "S. Coleridge-Taylor",
+      "reviewed_title": "Oh, the Summer"
+    }
+  },
+  "schema_version": 1,
+  "source_revisions": {
+    "choco": "v1.0.0",
+    "when_in_rome": "1c61fe41b8c2910296d7d2bcbf6476c7c1f2fe35"
+  },
+  "when_in_rome_default": "exclude_unverified_origin"
+}

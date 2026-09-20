@@ -124,6 +124,7 @@ class SourceRecord:
     canonical_work_id: Optional[str] = None
     split: Optional[str] = None
     matching_evidence: Set[str] = field(default_factory=set)
+    rights_review: Optional[Mapping[str, str]] = None
 
     @property
     def normalized_title(self) -> str:
@@ -328,6 +329,120 @@ def _identity_groups(records: Sequence[SourceRecord]) -> Tuple[_UnionFind, dict]
     return union_find, dict(evidence_counts)
 
 
+def _publication_review(path: Path, records: Sequence[SourceRecord], sources: Mapping) -> dict:
+    policy = json.loads(path.read_text(encoding="utf-8"))
+    if policy.get("schema_version") != 1 or policy.get("profile") != "chordscape-public-training-v1":
+        raise ValueError("Unsupported publication corpus policy")
+    if set(policy.get("expected_songs_sha256", {})) != {"choco", "when_in_rome"}:
+        raise ValueError("Publication review must pin both ChoCo and When in Rome sources")
+    if not {"pop909", "pop909_cl"}.issubset(policy.get("excluded_sources", [])):
+        raise ValueError("Publication review must exclude POP909 and POP909-CL")
+    if not {"jaah", "mozart-piano-sonatas"}.issubset(policy.get("excluded_choco_partitions", [])):
+        raise ValueError("Publication review must exclude ChoCo noncommercial partitions")
+    for source, expected in policy["expected_songs_sha256"].items():
+        if source not in sources or _sha256(sources[source]["songs_path"]) != expected:
+            raise ValueError(f"Publication review source changed: {source}")
+    record_index = records_by_key(records)
+    licenses = policy["licenses"]
+    reviewed = policy["reviewed_choco_when_in_rome"]
+    expected_keys = {
+        record.key for record in records
+        if (record.source, record.source_partition) == ("choco", "when-in-rome")
+    }
+    if set(reviewed) != expected_keys:
+        raise ValueError("Publication review must cover every ChoCo When in Rome item")
+    for key, review in reviewed.items():
+        record = record_index.get(key)
+        if record is None or (record.source, record.source_partition) != ("choco", "when-in-rome"):
+            raise ValueError(f"Publication review references unknown ChoCo item: {key}")
+        if (record.title, record.creator) != (
+            review["reviewed_title"], review["reviewed_creator"]
+        ):
+            raise ValueError(f"Publication review identity changed: {key}")
+        decision = review.get("decision")
+        if decision not in {"include", "duplicate", "exclude"}:
+            raise ValueError(f"Invalid publication review decision: {key}")
+        if decision == "exclude":
+            if not review.get("reason") or "license_id" in review or "duplicate_of" in review:
+                raise ValueError(f"Invalid excluded publication item: {key}")
+        elif review.get("license_id") not in licenses:
+            raise ValueError(f"Invalid publication review license: {key}")
+        if ("analysis_path" in review) != ("analysis_sha256" in review):
+            raise ValueError(f"Incomplete source analysis reference: {key}")
+        if decision != "exclude" and "analysis_path" not in review:
+            raise ValueError(f"Missing source analysis reference: {key}")
+        if "analysis_path" in review and (
+            not review["analysis_path"].startswith("Corpus/")
+            or len(review["analysis_sha256"]) != 64
+            or any(char not in "0123456789abcdef" for char in review["analysis_sha256"])
+        ):
+            raise ValueError(f"Invalid source analysis reference: {key}")
+        if decision == "duplicate":
+            target = record_index.get(review.get("duplicate_of"))
+            if target is None or target.source != "when_in_rome":
+                raise ValueError(f"Publication review duplicate has no direct source: {key}")
+            expected_path = "Corpus/OpenScore-LiederCorpus/" + str(target.metadata.get("path", ""))
+            if review["analysis_path"] != expected_path:
+                raise ValueError(f"Publication review duplicate path mismatch: {key}")
+        elif "duplicate_of" in review:
+            raise ValueError(f"Included publication item has duplicate target: {key}")
+    return policy
+
+
+def _apply_publication_review(
+    records: Sequence[SourceRecord], union_find: _UnionFind, policy: Mapping
+) -> dict:
+    index = records_by_key(records)
+    review = policy["reviewed_choco_when_in_rome"]
+    by_path = defaultdict(list)
+    for key, value in review.items():
+        if value["decision"] == "exclude":
+            continue
+        by_path[value["analysis_path"]].append(index[key])
+        if value["decision"] == "duplicate":
+            target = index[value["duplicate_of"]]
+            union_find.union(key, target.key)
+            index[key].matching_evidence.add("reviewed_when_in_rome_source_path")
+            target.matching_evidence.add("reviewed_when_in_rome_source_path")
+    for group in by_path.values():
+        for record in group[1:]:
+            union_find.union(group[0].key, record.key)
+            record.matching_evidence.add("reviewed_when_in_rome_source_path")
+            group[0].matching_evidence.add("reviewed_when_in_rome_source_path")
+    counts = Counter()
+    for record in records:
+        if record.source in policy["excluded_sources"]:
+            record.exclude("publication_excluded_source")
+        elif record.source == "choco" and record.source_partition in policy["excluded_choco_partitions"]:
+            record.exclude("publication_nc_partition")
+        elif record.source == "choco" and record.source_partition == "when-in-rome":
+            decision = review.get(record.key)
+            if decision is None:
+                record.exclude("publication_unverified_origin")
+            else:
+                record.rights_review = {
+                    field: decision[field] for field in (
+                        "analysis_path", "analysis_sha256", "license_id", "decision", "reason"
+                    ) if field in decision
+                }
+                if decision["decision"] == "duplicate":
+                    record.exclude("publication_upstream_duplicate")
+                elif decision["decision"] == "exclude":
+                    record.exclude("publication_review_excluded")
+        if record.exclusion_reason and record.exclusion_reason.startswith("publication_"):
+            counts[record.exclusion_reason] += 1
+    return dict(sorted(counts.items()))
+
+
+def _exclude_non_pop_jazz(records: Sequence[SourceRecord]) -> None:
+    allowed = {"pop", "jazz"}
+    for record in records:
+        # Reject an entire mixed-style record rather than silently retaining
+        # classical events from a future adapter.
+        if record.selected and record.styles and not record.styles.issubset(allowed):
+            record.exclude("publication_non_pop_jazz_style")
+
+
 def _canonicalize(records: Sequence[SourceRecord], union_find: _UnionFind, seed: str) -> None:
     components = defaultdict(list)
     for record in records:
@@ -347,7 +462,7 @@ def _deduplicate(records: Sequence[SourceRecord], available_sources: Set[str]) -
     # A JAMS file can contain alternative annotation views of the same item.
     views = defaultdict(list)
     for record in records:
-        if record.source == "choco" and record.choco_id:
+        if record.selected and record.source == "choco" and record.choco_id:
             views[record.choco_id].append(record)
     for candidates in views.values():
         if len(candidates) > 1:
@@ -437,9 +552,23 @@ def build_integrated_manifest(
     output_dir: Path,
     *,
     seed: str = DEFAULT_SEED,
+    publication_policy: Optional[Path] = None,
+    pop_jazz_only: bool = False,
 ) -> dict:
+    if pop_jazz_only and publication_policy is None:
+        raise ValueError("Pop/jazz training requires a publication corpus policy")
     records, sources = _scan_sources(processed_root)
     union_find, matching_summary = _identity_groups(records)
+    review = None
+    if publication_policy is not None:
+        review = _publication_review(publication_policy, records, sources)
+        matching_summary["reviewed_when_in_rome_links"] = sum(
+            item["decision"] == "duplicate"
+            for item in review["reviewed_choco_when_in_rome"].values()
+        )
+        publication_exclusions = _apply_publication_review(records, union_find, review)
+    if pop_jazz_only:
+        _exclude_non_pop_jazz(records)
     _canonicalize(records, union_find, seed)
     _deduplicate(records, set(sources))
 
@@ -488,6 +617,8 @@ def build_integrated_manifest(
             "matching_evidence": sorted(record.matching_evidence),
             "sequence_fingerprint": record.sequence_fingerprint,
         }
+        if record.rights_review is not None:
+            serialized_records[record.key]["rights_review"] = record.rights_review
     record_index = records_by_key(records)
     serialized_works = {}
     for work_id, value in sorted(works.items()):
@@ -529,8 +660,13 @@ def build_integrated_manifest(
     manifest = {
         "schema_version": INTEGRATION_SCHEMA_VERSION,
         "dataset": "integrated_corpora",
-        "dataset_version": "v1",
-        "adapter_version": ADAPTER_VERSION,
+        "dataset_version": (
+            "public-pop-jazz-v1" if pop_jazz_only else "public-v1" if review else "v1"
+        ),
+        "adapter_version": (
+            "cross-corpus-integration-public-pop-jazz-v1" if pop_jazz_only
+            else "cross-corpus-integration-public-v1" if review else ADAPTER_VERSION
+        ),
         "seed": seed,
         "policy": {
             "work_grouping": [
@@ -573,6 +709,16 @@ def build_integrated_manifest(
         "works": serialized_works,
         "songs": serialized_records,
     }
+    if review is not None:
+        manifest["policy"]["publication"] = {
+            "profile": review["profile"],
+            "review_path": os.path.relpath(publication_policy, output_dir),
+            "review_sha256": _sha256(publication_policy),
+            "exclusions_before_deduplication": publication_exclusions,
+            "licenses": review["licenses"],
+        }
+    if pop_jazz_only:
+        manifest["policy"]["allowed_styles"] = ["jazz", "pop"]
     path = output_dir / "corpus_manifest.json"
     path.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",

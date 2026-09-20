@@ -1,5 +1,24 @@
 # 48文脈Transformerの公開確認（2026-09-20）
 
+## 公開版pop・jazzモデルの決定
+
+この文書の以下の旧checkpointに対する「同梱しない」判断は維持する。公開対象は別run
+`20260920T093553350268Z-045b33e287`（教師データ版`public-pop-jazz-v1`、48文脈、
+checkpoint SHA-256 `73b5991e7878c2af5a8d832d1d730e670df4550a144834b3e9d0457f3300e05c`）とする。
+完成runの学習語彙は`jazz`・`pop`のみで、Classical embeddingを持たない。公開重みは
+`public/model/pop-jazz-v1.bin`で、元checkpointや教師系列は配布しない。
+
+固定済みcorpus manifestの採用は6,317系列・453,952利用可能イベント。ChoCo 5,168、
+McGill Billboard 738、Weimar Jazz Database 411系列であり、ChoCoの採用partitionは
+Real Book、iReal Pro、Rock Corpus、Robbie Williams、Isophonicsのみ。POP909系、
+ChoCoのNC例外、When in RomeとClassical系列は採用されていない。
+ChoCoのCC BY出典表示、McGillのCC0出典表示、WeimarのODbL/DbCL条件と
+元データベースへのアクセス先を[公開出典表示](../public/model/TRAINING_DATA.md)に記載した。
+元データを再配布せず、学習済み重みを公開するという方針でPagesへ同梱する。
+重みがデータベースの派生物に当たる場合の条件は引き続き元ライセンスに従う。
+
+## 旧checkpoint（公開対象外）
+
 対象は `20260919T181011273923Z-6f2c1be731` の `best.pt`（SHA-256 `cbbe788b9606ff65967b450a465e5f166c1c12a94b74060373b62ffa3f44c5b5`）。`run_manifest.json` は統合コーパスv1、48文脈、学習用566,561イベントを記録する。以下の件数は固定済み `harmony_model/data/processed/integrated-v1/corpus_manifest.json` の学習splitで選択された系列から集計した。
 
 | 学習元                          | 学習系列 | 学習イベント | 公開に関係する条件                                                                                           |

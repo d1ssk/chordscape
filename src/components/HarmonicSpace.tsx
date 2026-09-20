@@ -17,14 +17,11 @@ import {
 import type { ChordEvent } from '../state/session';
 import type { PreviewCandidate } from '../space/modelPreview';
 import {
-  fetchPreviewPrediction,
-  fetchPreviewRuns,
   modelInputHistory,
-  selectSpaceModelRun,
   SPACE_MODEL_CONTEXT,
   type PreviewPrediction,
-  type PreviewRun,
 } from '../space/modelPreview';
+import { predictBrowserModel } from '../space/browserModelClient';
 import {
   classifyModelCandidates,
   MODEL_CANDIDATE_LABELS,
@@ -74,6 +71,7 @@ export interface ModelSpaceOverlay {
   candidates: PreviewCandidate[];
   candidateTypes: ReadonlyMap<string, ModelCandidateType>;
   historyLimit: number;
+  trainedStyles: readonly string[];
   onContextChange: (context: SpaceContext) => void;
 }
 
@@ -95,7 +93,6 @@ export function HarmonicSpace({
   const [showHistory, setShowHistory] = useState(true);
   const [suggestionSource, setSuggestionSource] =
     useState<SuggestionSource>('transformer');
-  const [modelRun, setModelRun] = useState<PreviewRun | null>(null);
   const [modelError, setModelError] = useState(false);
   const [modelRetry, setModelRetry] = useState(0);
   const [prediction, setPrediction] = useState<{
@@ -106,50 +103,31 @@ export function HarmonicSpace({
   const nodes = useMemo(() => spaceNodes(context.key), [context.key]);
   const useLocalModel = !modelOverlay && suggestionSource === 'transformer';
   const requestKey = JSON.stringify([
-    modelRun?.run_id,
     context.style,
     modelInputHistory(context.history, SPACE_MODEL_CONTEXT),
     modelRetry,
   ]);
   useEffect(() => {
-    if (!useLocalModel) return;
-    const controller = new AbortController();
-    void fetchPreviewRuns(controller.signal)
-      .then((runs) => {
-        const selected = selectSpaceModelRun(runs);
-        setModelRun(selected);
-        setModelError(!selected);
-      })
-      .catch((error: unknown) => {
-        if ((error as Error).name !== 'AbortError') {
-          setModelRun(null);
-          setPrediction(null);
-          setModelError(true);
-        }
-      });
-    return () => controller.abort();
-  }, [useLocalModel, modelRetry]);
-  useEffect(() => {
-    if (!useLocalModel || !modelRun) return;
-    const controller = new AbortController();
-    void fetchPreviewPrediction(
-      modelRun,
+    if (!useLocalModel || context.style === 'classical') return;
+    let active = true;
+    void predictBrowserModel(
+      modelInputHistory(context.history, SPACE_MODEL_CONTEXT),
       context.style,
-      context.history,
-      controller.signal,
     )
       .then((value) => {
+        if (!active) return;
         setPrediction({ key: requestKey, value });
         setModelError(false);
       })
-      .catch((error: unknown) => {
-        if ((error as Error).name !== 'AbortError') {
-          setPrediction(null);
-          setModelError(true);
-        }
+      .catch(() => {
+        if (!active) return;
+        setPrediction(null);
+        setModelError(true);
       });
-    return () => controller.abort();
-  }, [useLocalModel, modelRun, context.style, context.history, requestKey]);
+    return () => {
+      active = false;
+    };
+  }, [useLocalModel, context.style, context.history, requestKey]);
   const currentPrediction =
     prediction?.key === requestKey ? prediction.value : null;
   const localCandidates = useMemo(
@@ -220,8 +198,33 @@ export function HarmonicSpace({
     });
   }
   function styleChanged(style: SpaceStyle) {
+    if (useLocalModel && style === 'classical') return;
+    if (
+      modelOverlay &&
+      style !== 'free' &&
+      !modelOverlay.trainedStyles.includes(style)
+    )
+      return;
     update(changeSpaceStyle(contextRef.current, style));
   }
+  useEffect(() => {
+    if (
+      !modelOverlay ||
+      context.style === 'free' ||
+      modelOverlay.trainedStyles.includes(context.style)
+    )
+      return;
+    const next = changeSpaceStyle(contextRef.current, 'free');
+    contextRef.current = next;
+    setContext(next);
+    modelOverlay.onContextChange(next);
+  }, [context.style, modelOverlay]);
+  useEffect(() => {
+    if (!useLocalModel || context.style !== 'classical') return;
+    const next = changeSpaceStyle(contextRef.current, 'free');
+    contextRef.current = next;
+    setContext(next);
+  }, [useLocalModel, context.style]);
   const buttons = useRef(new Map<string, HTMLButtonElement>());
   function move(event: KeyboardEvent<HTMLButtonElement>, node: SpaceNode) {
     const direction = {
@@ -285,6 +288,12 @@ export function HarmonicSpace({
               <button
                 key={style}
                 aria-pressed={context.style === style}
+                disabled={Boolean(
+                  (modelOverlay &&
+                    style !== 'free' &&
+                    !modelOverlay.trainedStyles.includes(style)) ||
+                  (useLocalModel && style === 'classical'),
+                )}
                 onClick={() => styleChanged(style)}
               >
                 {t[styleLabels[style]]}
@@ -525,9 +534,27 @@ export function HarmonicSpace({
         )}
         <details className="space-model-details">
           <summary>{t.spaceModelDetails}</summary>
-          <p>{t.spaceModelOverview}</p>
-          <p>{t.spaceModelData}</p>
-          <p>{t.spaceModelRights}</p>
+          {modelOverlay ? (
+            <>
+              <p>{t.spaceTrialModelOverview}</p>
+              <p>{t.spaceTrialModelData}</p>
+            </>
+          ) : (
+            <>
+              <p>{t.spaceModelOverview}</p>
+              <p>{t.spaceModelData}</p>
+              <p>{t.spaceModelRights}</p>
+              <p>
+                <a
+                  href={`${import.meta.env.BASE_URL}model/TRAINING_DATA.md`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t.spaceModelNotice}
+                </a>
+              </p>
+            </>
+          )}
         </details>
       </div>
     </section>

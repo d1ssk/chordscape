@@ -92,6 +92,8 @@ def main() -> int:
     integrate.add_argument("--processed-root", type=Path, required=True)
     integrate.add_argument("--output-dir", type=Path, required=True)
     integrate.add_argument("--seed", default=integration.DEFAULT_SEED)
+    integrate.add_argument("--publication-policy", type=Path)
+    integrate.add_argument("--pop-jazz-only", action="store_true")
     integrated_baseline = commands.add_parser(
         "train-integrated-baselines",
         help="統合corpus manifestでunigram／1次／2次Markovを学習・評価",
@@ -223,6 +225,8 @@ def main() -> int:
                 args.processed_root,
                 args.output_dir,
                 seed=args.seed,
+                publication_policy=args.publication_policy,
+                pop_jazz_only=args.pop_jazz_only,
             )
         except (OSError, ValueError, KeyError, json.JSONDecodeError) as error:
             parser.error(str(error))

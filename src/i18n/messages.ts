@@ -15,16 +15,21 @@ const ja = {
   spaceSourceNone: '提案なし',
   spaceSourceRules: 'ルールベース',
   spaceSourceTransformer: 'Transformer',
-  spaceModelOfflineShort: 'Transformer接続不可',
+  spaceModelOfflineShort: 'Transformer読込不可',
   spaceModelUnavailable:
-    'Transformerを利用できません。ローカルでは npm run model:test で起動してください。公開版には学習済みモデルを含めていません。',
+    '公開モデルを読み込めませんでした。通信を確認して再試行してください。',
   spaceModelDetails: '提案モデルと教師データ',
   spaceModelOverview:
-    'Transformer v1：直近48和音とFree / Pop / Jazz / Classicalを入力する因果モデル。128次元・4層・4 headsで和音の構成要素を予測し、和声空間の41種類の和音から最大6件を示します。色は別の楽理ルールによる分類です。',
+    '公開版はpop・jazzで学習した48文脈のTransformer v1です。Freeは両スタイルを混合します。128次元・4層・4 headsで和音の構成要素を予測し、和声空間の41種類の和音から最大6件を示します。色は別の楽理ルールによる分類です。',
   spaceModelData:
-    '教師データ：McGill Billboard 2.0（CC0）、POP909・POP909-CL（権利確認中）、Weimar Jazz Database 2.1（ODbL / DbCL）、ChoCo 1.0.0（収録元ごとに条件が異なる）、When in Rome の OpenScore Lieder 179分析（CC BY-SA）。作品単位で分割し、重複や学習不能な系列を除外した統合コーパスを使用しています。',
+    '教師データ：ChoCo 1.0.0 の許可対象5,168系列（CC BY 4.0）、McGill Billboard 2.0 の738系列（CC0）、Weimar Jazz Database 2.1 の411系列（ODbL / DbCL）。作品単位で分割し、重複や学習不能な系列を除外しました。',
   spaceModelRights:
-    'このcheckpointはローカル試験用です。教師データの派生成果物の公開条件を確認するまで、GitHub Pagesには重みを同梱しません。',
+    'モデルはブラウザ内で動作します。教師曲、注釈、PyTorch checkpointは配布せず、変換した重みのみを公開しています。Classicalはこのモデルの学習対象外です。',
+  spaceModelNotice: '教師データの出典・利用条件',
+  spaceTrialModelOverview:
+    '試験ページでは選択したrunのPyTorch checkpointをローカルAPIで評価します。候補数・文脈長・学習スタイルは選択runに従います。',
+  spaceTrialModelData:
+    '教師データ版は上部のrun選択欄に表示しています。旧runには公開対象から外した出典を含むため、公開版の教師データとは異なります。',
   spaceShowHistory: '履歴',
   spaceAutomaticVoicing: '自動voice leading',
   spaceSelectKey: '和声空間の調',
@@ -59,6 +64,9 @@ const ja = {
   modelTestHint:
     '学習済みcheckpointの順位を、和声空間の42ノードで確認します。クリックした和音は試聴でき、履歴に追加されます。',
   modelRun: '学習run',
+  modelPublicCorpus: '公開用データ',
+  modelPopJazzCorpus: '公開用データ · pop/jazz専用',
+  modelLegacyCorpus: '従来データ',
   modelRefreshRuns: 'run一覧を更新',
   modelTopSix: 'モデル上位6和声',
   modelRank: '順位',
@@ -459,16 +467,21 @@ const en: Record<keyof typeof ja, string> = {
   spaceSourceNone: 'No suggestions',
   spaceSourceRules: 'Rule based',
   spaceSourceTransformer: 'Transformer',
-  spaceModelOfflineShort: 'Transformer unavailable',
+  spaceModelOfflineShort: 'Transformer load failed',
   spaceModelUnavailable:
-    'Transformer is unavailable. Start it locally with npm run model:test. The published site does not include the trained model.',
+    'The published model could not be loaded. Check the connection and retry.',
   spaceModelDetails: 'Model and training data',
   spaceModelOverview:
-    'Transformer v1: a causal model using the last 48 chords and Free / Pop / Jazz / Classical style. Four layers, four heads and 128 dimensions predict chord components; up to six of the 41 distinct Harmonic Space harmonies are shown. Colors are assigned by separate music theory rules.',
+    'The public Transformer v1 uses a 48 chord context and was trained on pop and jazz. Free mixes both styles. Four layers, four heads and 128 dimensions predict chord components; up to six of the 41 distinct Harmonic Space harmonies are shown. Colors come from separate music theory rules.',
   spaceModelData:
-    'Training data: McGill Billboard 2.0 (CC0), POP909 and POP909-CL (rights under review), Weimar Jazz Database 2.1 (ODbL / DbCL), ChoCo 1.0.0 (source-specific terms), and 179 OpenScore Lieder analyses from When in Rome (CC BY-SA). The integrated corpus uses work-level splits and excludes duplicates and untrainable sequences.',
+    'Training data: 5,168 permitted ChoCo 1.0.0 sequences (CC BY 4.0), 738 McGill Billboard 2.0 sequences (CC0), and 411 Weimar Jazz Database 2.1 sequences (ODbL / DbCL). Work-level splits exclude duplicates and untrainable sequences.',
   spaceModelRights:
-    'This checkpoint is for local testing. Its weights are not bundled with GitHub Pages until the terms for derived artifacts are resolved.',
+    'Inference runs in the browser. Only converted weights are published; source songs, annotations and the PyTorch checkpoint are not distributed. Classical was not used to train this model.',
+  spaceModelNotice: 'Training sources and terms',
+  spaceTrialModelOverview:
+    'The trial page evaluates the selected PyTorch checkpoint through a local API. Candidate count, context length and trained styles follow the selected run.',
+  spaceTrialModelData:
+    'The training data version appears in the run selector above. Legacy runs include sources excluded from the public model.',
   spaceShowHistory: 'History',
   spaceAutomaticVoicing: 'Automatic voice leading',
   spaceSelectKey: 'Harmonic Space key',
@@ -503,6 +516,9 @@ const en: Record<keyof typeof ja, string> = {
   modelTestHint:
     'Inspect checkpoint rankings on the same 42-node Harmonic Space. Click a chord to audition it and add it to the history.',
   modelRun: 'Training run',
+  modelPublicCorpus: 'Public corpus',
+  modelPopJazzCorpus: 'Public corpus · pop/jazz only',
+  modelLegacyCorpus: 'Previous corpus',
   modelTopSix: 'Model top six harmonies',
   modelRank: 'Rank',
   modelProbabilityHint:

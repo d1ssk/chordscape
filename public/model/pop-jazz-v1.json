@@ -1,0 +1,475 @@
+{
+  "schema_version": 1,
+  "model_version": "transformer-v1",
+  "run_id": "20260920T093553350268Z-045b33e287",
+  "dataset_version": "public-pop-jazz-v1",
+  "checkpoint_sha256": "73b5991e7878c2af5a8d832d1d730e670df4550a144834b3e9d0457f3300e05c",
+  "corpus_manifest_sha256": "b2cc0361fd59f3ec7418fb30597f348361d42b89a900d056fe14ed2db035f00f",
+  "candidate_manifest_sha256": "c7b5c3f2cec38693f5193070d949554b8707e092a27426cf76804fdfe7adb8d5",
+  "candidate_version": "chordscape-space-v1",
+  "config": {
+    "context": 48,
+    "d_model": 128,
+    "layers": 4,
+    "heads": 4
+  },
+  "vocabulary": {
+    "accidental": ["-2", "-1", "0", "1", "2", "__UNK__"],
+    "alterations": ["b5", "#5", "b9", "#9", "#11", "b13"],
+    "degree": ["1", "2", "3", "4", "5", "6", "7", "__UNK__"],
+    "extensions": ["6", "9", "11", "13"],
+    "quality": [
+      "augmented",
+      "diminished",
+      "major",
+      "minor",
+      "no3",
+      "other",
+      "power",
+      "sus2",
+      "sus4",
+      "__UNK__"
+    ],
+    "seventh": ["diminished7", "major7", "minor7", "none", "__UNK__"],
+    "styles": ["jazz", "pop"]
+  },
+  "candidates": [
+    {
+      "ids": ["a7"],
+      "state": [6, 0, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["ab"],
+      "state": [6, -1, "major", "none", [], []]
+    },
+    {
+      "ids": ["ab7"],
+      "state": [6, -1, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["abmaj7"],
+      "state": [6, -1, "major", "major7", [], []]
+    },
+    {
+      "ids": ["am"],
+      "state": [6, 0, "minor", "none", [], []]
+    },
+    {
+      "ids": ["am-maj7"],
+      "state": [6, 0, "minor", "major7", [], []]
+    },
+    {
+      "ids": ["am-seventh"],
+      "state": [6, 0, "minor", "minor7", [], []]
+    },
+    {
+      "ids": ["b7"],
+      "state": [7, 0, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["bb"],
+      "state": [7, -1, "major", "none", [], []]
+    },
+    {
+      "ids": ["bb7"],
+      "state": [7, -1, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["bdim"],
+      "state": [7, 0, "diminished", "none", [], []]
+    },
+    {
+      "ids": ["bdim-seventh"],
+      "state": [7, 0, "diminished", "minor7", [], []]
+    },
+    {
+      "ids": ["c"],
+      "state": [1, 0, "major", "none", [], []]
+    },
+    {
+      "ids": ["c-seventh"],
+      "state": [1, 0, "major", "major7", [], []]
+    },
+    {
+      "ids": ["c7"],
+      "state": [1, 0, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["caug"],
+      "state": [1, 0, "augmented", "none", [], []]
+    },
+    {
+      "ids": ["cm"],
+      "state": [1, 0, "minor", "none", [], []]
+    },
+    {
+      "ids": ["csdim7"],
+      "state": [1, 1, "diminished", "diminished7", [], []]
+    },
+    {
+      "ids": ["d7"],
+      "state": [2, 0, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["db", "db-f"],
+      "state": [2, -1, "major", "none", [], []]
+    },
+    {
+      "ids": ["db7"],
+      "state": [2, -1, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["dm"],
+      "state": [2, 0, "minor", "none", [], []]
+    },
+    {
+      "ids": ["dm-seventh"],
+      "state": [2, 0, "minor", "minor7", [], []]
+    },
+    {
+      "ids": ["dsdim7"],
+      "state": [2, 1, "diminished", "diminished7", [], []]
+    },
+    {
+      "ids": ["e7"],
+      "state": [3, 0, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["eb"],
+      "state": [3, -1, "major", "none", [], []]
+    },
+    {
+      "ids": ["eb7"],
+      "state": [3, -1, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["em"],
+      "state": [3, 0, "minor", "none", [], []]
+    },
+    {
+      "ids": ["em-seventh"],
+      "state": [3, 0, "minor", "minor7", [], []]
+    },
+    {
+      "ids": ["f"],
+      "state": [4, 0, "major", "none", [], []]
+    },
+    {
+      "ids": ["f-seventh"],
+      "state": [4, 0, "major", "major7", [], []]
+    },
+    {
+      "ids": ["f7"],
+      "state": [4, 0, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["fm"],
+      "state": [4, 0, "minor", "none", [], []]
+    },
+    {
+      "ids": ["fm7"],
+      "state": [4, 0, "minor", "minor7", [], []]
+    },
+    {
+      "ids": ["fs7"],
+      "state": [4, 1, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["fsdim7"],
+      "state": [4, 1, "diminished", "diminished7", [], []]
+    },
+    {
+      "ids": ["g"],
+      "state": [5, 0, "major", "none", [], []]
+    },
+    {
+      "ids": ["g-seventh"],
+      "state": [5, 0, "major", "minor7", [], []]
+    },
+    {
+      "ids": ["gaug"],
+      "state": [5, 0, "augmented", "none", [], []]
+    },
+    {
+      "ids": ["gm"],
+      "state": [5, 0, "minor", "none", [], []]
+    },
+    {
+      "ids": ["gsdim7"],
+      "state": [5, 1, "diminished", "diminished7", [], []]
+    }
+  ],
+  "weights_file": "pop-jazz-v1.bin",
+  "weights_sha256": "6f528af775c7be60da368e8e0fb1f79bfc93bd78fd0f5bccd5a56cf3c5ab68be",
+  "tensors": {
+    "embeddings.degree.weight": {
+      "offset": 0,
+      "shape": [10, 128]
+    },
+    "embeddings.accidental.weight": {
+      "offset": 5120,
+      "shape": [8, 128]
+    },
+    "embeddings.quality.weight": {
+      "offset": 9216,
+      "shape": [12, 128]
+    },
+    "embeddings.seventh.weight": {
+      "offset": 15360,
+      "shape": [7, 128]
+    },
+    "bit_embedding.weight": {
+      "offset": 18944,
+      "shape": [128, 10]
+    },
+    "style_embedding.weight": {
+      "offset": 24064,
+      "shape": [2, 128]
+    },
+    "position_embedding.weight": {
+      "offset": 25088,
+      "shape": [48, 128]
+    },
+    "encoder.layers.0.self_attn.in_proj_weight": {
+      "offset": 49664,
+      "shape": [384, 128]
+    },
+    "encoder.layers.0.self_attn.in_proj_bias": {
+      "offset": 246272,
+      "shape": [384]
+    },
+    "encoder.layers.0.self_attn.out_proj.weight": {
+      "offset": 247808,
+      "shape": [128, 128]
+    },
+    "encoder.layers.0.self_attn.out_proj.bias": {
+      "offset": 313344,
+      "shape": [128]
+    },
+    "encoder.layers.0.linear1.weight": {
+      "offset": 313856,
+      "shape": [512, 128]
+    },
+    "encoder.layers.0.linear1.bias": {
+      "offset": 576000,
+      "shape": [512]
+    },
+    "encoder.layers.0.linear2.weight": {
+      "offset": 578048,
+      "shape": [128, 512]
+    },
+    "encoder.layers.0.linear2.bias": {
+      "offset": 840192,
+      "shape": [128]
+    },
+    "encoder.layers.0.norm1.weight": {
+      "offset": 840704,
+      "shape": [128]
+    },
+    "encoder.layers.0.norm1.bias": {
+      "offset": 841216,
+      "shape": [128]
+    },
+    "encoder.layers.0.norm2.weight": {
+      "offset": 841728,
+      "shape": [128]
+    },
+    "encoder.layers.0.norm2.bias": {
+      "offset": 842240,
+      "shape": [128]
+    },
+    "encoder.layers.1.self_attn.in_proj_weight": {
+      "offset": 842752,
+      "shape": [384, 128]
+    },
+    "encoder.layers.1.self_attn.in_proj_bias": {
+      "offset": 1039360,
+      "shape": [384]
+    },
+    "encoder.layers.1.self_attn.out_proj.weight": {
+      "offset": 1040896,
+      "shape": [128, 128]
+    },
+    "encoder.layers.1.self_attn.out_proj.bias": {
+      "offset": 1106432,
+      "shape": [128]
+    },
+    "encoder.layers.1.linear1.weight": {
+      "offset": 1106944,
+      "shape": [512, 128]
+    },
+    "encoder.layers.1.linear1.bias": {
+      "offset": 1369088,
+      "shape": [512]
+    },
+    "encoder.layers.1.linear2.weight": {
+      "offset": 1371136,
+      "shape": [128, 512]
+    },
+    "encoder.layers.1.linear2.bias": {
+      "offset": 1633280,
+      "shape": [128]
+    },
+    "encoder.layers.1.norm1.weight": {
+      "offset": 1633792,
+      "shape": [128]
+    },
+    "encoder.layers.1.norm1.bias": {
+      "offset": 1634304,
+      "shape": [128]
+    },
+    "encoder.layers.1.norm2.weight": {
+      "offset": 1634816,
+      "shape": [128]
+    },
+    "encoder.layers.1.norm2.bias": {
+      "offset": 1635328,
+      "shape": [128]
+    },
+    "encoder.layers.2.self_attn.in_proj_weight": {
+      "offset": 1635840,
+      "shape": [384, 128]
+    },
+    "encoder.layers.2.self_attn.in_proj_bias": {
+      "offset": 1832448,
+      "shape": [384]
+    },
+    "encoder.layers.2.self_attn.out_proj.weight": {
+      "offset": 1833984,
+      "shape": [128, 128]
+    },
+    "encoder.layers.2.self_attn.out_proj.bias": {
+      "offset": 1899520,
+      "shape": [128]
+    },
+    "encoder.layers.2.linear1.weight": {
+      "offset": 1900032,
+      "shape": [512, 128]
+    },
+    "encoder.layers.2.linear1.bias": {
+      "offset": 2162176,
+      "shape": [512]
+    },
+    "encoder.layers.2.linear2.weight": {
+      "offset": 2164224,
+      "shape": [128, 512]
+    },
+    "encoder.layers.2.linear2.bias": {
+      "offset": 2426368,
+      "shape": [128]
+    },
+    "encoder.layers.2.norm1.weight": {
+      "offset": 2426880,
+      "shape": [128]
+    },
+    "encoder.layers.2.norm1.bias": {
+      "offset": 2427392,
+      "shape": [128]
+    },
+    "encoder.layers.2.norm2.weight": {
+      "offset": 2427904,
+      "shape": [128]
+    },
+    "encoder.layers.2.norm2.bias": {
+      "offset": 2428416,
+      "shape": [128]
+    },
+    "encoder.layers.3.self_attn.in_proj_weight": {
+      "offset": 2428928,
+      "shape": [384, 128]
+    },
+    "encoder.layers.3.self_attn.in_proj_bias": {
+      "offset": 2625536,
+      "shape": [384]
+    },
+    "encoder.layers.3.self_attn.out_proj.weight": {
+      "offset": 2627072,
+      "shape": [128, 128]
+    },
+    "encoder.layers.3.self_attn.out_proj.bias": {
+      "offset": 2692608,
+      "shape": [128]
+    },
+    "encoder.layers.3.linear1.weight": {
+      "offset": 2693120,
+      "shape": [512, 128]
+    },
+    "encoder.layers.3.linear1.bias": {
+      "offset": 2955264,
+      "shape": [512]
+    },
+    "encoder.layers.3.linear2.weight": {
+      "offset": 2957312,
+      "shape": [128, 512]
+    },
+    "encoder.layers.3.linear2.bias": {
+      "offset": 3219456,
+      "shape": [128]
+    },
+    "encoder.layers.3.norm1.weight": {
+      "offset": 3219968,
+      "shape": [128]
+    },
+    "encoder.layers.3.norm1.bias": {
+      "offset": 3220480,
+      "shape": [128]
+    },
+    "encoder.layers.3.norm2.weight": {
+      "offset": 3220992,
+      "shape": [128]
+    },
+    "encoder.layers.3.norm2.bias": {
+      "offset": 3221504,
+      "shape": [128]
+    },
+    "normalizer.weight": {
+      "offset": 3222016,
+      "shape": [128]
+    },
+    "normalizer.bias": {
+      "offset": 3222528,
+      "shape": [128]
+    },
+    "outputs.degree.weight": {
+      "offset": 3223040,
+      "shape": [8, 128]
+    },
+    "outputs.degree.bias": {
+      "offset": 3227136,
+      "shape": [8]
+    },
+    "outputs.accidental.weight": {
+      "offset": 3227168,
+      "shape": [6, 128]
+    },
+    "outputs.accidental.bias": {
+      "offset": 3230240,
+      "shape": [6]
+    },
+    "outputs.quality.weight": {
+      "offset": 3230264,
+      "shape": [10, 128]
+    },
+    "outputs.quality.bias": {
+      "offset": 3235384,
+      "shape": [10]
+    },
+    "outputs.seventh.weight": {
+      "offset": 3235424,
+      "shape": [5, 128]
+    },
+    "outputs.seventh.bias": {
+      "offset": 3237984,
+      "shape": [5]
+    },
+    "bits_output.weight": {
+      "offset": 3238004,
+      "shape": [10, 128]
+    },
+    "bits_output.bias": {
+      "offset": 3243124,
+      "shape": [10]
+    }
+  },
+  "notice": "TRAINING_DATA.md"
+}

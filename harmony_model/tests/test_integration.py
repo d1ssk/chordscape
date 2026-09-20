@@ -4,7 +4,7 @@ import tempfile
 import unittest
 
 from harmony_model.baseline import FactorState, load_integrated_sequences
-from harmony_model.integration import build_integrated_manifest
+from harmony_model.integration import _sha256, build_integrated_manifest
 
 
 A = FactorState(1, 0, "major", "none")
@@ -126,6 +126,111 @@ class CorpusIntegrationTests(unittest.TestCase):
                 manifest["songs"]["pop909_cl:cl-001"]["canonical_work_id"]
             })
             self.assertEqual(sum(len(sequence.states) for sequence in sequences), 6)
+
+    def test_publication_review_links_duplicates_and_excludes_unreviewed_data(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "processed"
+            root.mkdir()
+            direct = row("direct", "one", [A, B], title="Song No. 1", creator="Writer")
+            direct["source_partition"] = "OpenScore-LiederCorpus"
+            direct["metadata"]["path"] = "Writer/_/Song_No_1/analysis.txt"
+            write_source(root, "when_in_rome-v1", "when_in_rome", [direct])
+            duplicate = row("choco", "mirror", [A, B], title="Song", creator="Writer")
+            duplicate["source_partition"] = "when-in-rome"
+            approved = row("choco", "tavern", [B, C], title="Variation", creator="Composer")
+            approved["source_partition"] = "when-in-rome"
+            approved["song"]["events"] = [event(B, "jazz"), event(C, "jazz")]
+            unknown = row("choco", "unknown", [A, C], title="Unknown", creator="Composer")
+            unknown["source_partition"] = "when-in-rome"
+            nc = row("choco", "nc", [A, B], title="NC", creator="Composer")
+            nc["source_partition"] = "jaah"
+            write_source(root, "choco-v1", "choco", [duplicate, approved, unknown, nc])
+            write_source(root, "pop909-v1", "pop909", [
+                row("pop", "one", [A, B], title="Pop", creator="Writer", pop_id="001")
+            ])
+            path = root / "publication.json"
+            path.write_text(json.dumps({
+                "schema_version": 1,
+                "profile": "chordscape-public-training-v1",
+                "expected_songs_sha256": {
+                    name: _sha256(root / f"{name}-v1" / "songs.jsonl")
+                    for name in ("choco", "when_in_rome")
+                },
+                "excluded_sources": ["pop909", "pop909_cl"],
+                "excluded_choco_partitions": ["jaah", "mozart-piano-sonatas"],
+                "licenses": {"by_sa": {"name": "CC BY-SA 4.0"}},
+                "reviewed_choco_when_in_rome": {
+                    "choco:choco-mirror": {
+                        "decision": "duplicate", "license_id": "by_sa",
+                        "analysis_path": "Corpus/OpenScore-LiederCorpus/Writer/_/Song_No_1/analysis.txt",
+                        "analysis_sha256": "a" * 64,
+                        "reviewed_title": "Song", "reviewed_creator": "Writer",
+                        "duplicate_of": "when_in_rome:direct-one",
+                    },
+                    "choco:choco-tavern": {
+                        "decision": "include", "license_id": "by_sa",
+                        "analysis_path": "Corpus/Variations_and_Grounds/Composer/_/Variation/analysis.txt",
+                        "analysis_sha256": "b" * 64,
+                        "reviewed_title": "Variation", "reviewed_creator": "Composer",
+                    },
+                    "choco:choco-unknown": {
+                        "decision": "exclude", "reason": "source_license_unresolved",
+                        "reviewed_title": "Unknown", "reviewed_creator": "Composer",
+                    },
+                },
+            }), encoding="utf-8")
+            output = root / "integrated-public-v1"
+            manifest = build_integrated_manifest(root, output, publication_policy=path)
+            songs = manifest["songs"]
+            self.assertEqual(
+                songs["choco:choco-mirror"]["canonical_work_id"],
+                songs["when_in_rome:direct-one"]["canonical_work_id"],
+            )
+            self.assertEqual(songs["choco:choco-mirror"]["exclusion_reason"], "publication_upstream_duplicate")
+            self.assertEqual(songs["choco:choco-unknown"]["exclusion_reason"], "publication_review_excluded")
+            self.assertEqual(songs["choco:choco-nc"]["exclusion_reason"], "publication_nc_partition")
+            self.assertEqual(songs["pop909:pop-one"]["exclusion_reason"], "publication_excluded_source")
+            self.assertTrue(songs["choco:choco-tavern"]["selected"])
+            self.assertEqual(manifest["dataset_version"], "public-v1")
+            sequences = load_integrated_sequences(output / "corpus_manifest.json")
+            self.assertEqual(len(sequences), 2)
+
+            changed = json.loads(path.read_text(encoding="utf-8"))
+            changed["expected_songs_sha256"]["choco"] = "0" * 64
+            path.write_text(json.dumps(changed), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "source changed: choco"):
+                build_integrated_manifest(root, output, publication_policy=path)
+
+            changed["expected_songs_sha256"]["choco"] = _sha256(root / "choco-v1" / "songs.jsonl")
+            del changed["reviewed_choco_when_in_rome"]["choco:choco-unknown"]
+            path.write_text(json.dumps(changed), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "must cover every"):
+                build_integrated_manifest(root, output, publication_policy=path)
+
+            changed["reviewed_choco_when_in_rome"]["choco:choco-unknown"] = {
+                "decision": "exclude", "reason": "source_license_unresolved",
+                "reviewed_title": "Unknown", "reviewed_creator": "Composer",
+            }
+            path.write_text(json.dumps(changed), encoding="utf-8")
+            classical = row("classic", "one", [A, B], title="Classical", creator="Composer")
+            classical["song"]["events"] = [event(A, "classical"), event(B, "classical")]
+            write_source(root, "classic-v1", "classic", [classical])
+            pop_jazz = root / "integrated-public-pop-jazz-v1"
+            subset = build_integrated_manifest(
+                root, pop_jazz, publication_policy=path, pop_jazz_only=True
+            )
+            self.assertEqual(subset["dataset_version"], "public-pop-jazz-v1")
+            self.assertEqual(subset["policy"]["allowed_styles"], ["jazz", "pop"])
+            self.assertEqual(
+                subset["songs"]["classic:classic-one"]["exclusion_reason"],
+                "publication_non_pop_jazz_style",
+            )
+            self.assertEqual(
+                {sequence.style for sequence in load_integrated_sequences(pop_jazz / "corpus_manifest.json")},
+                {"pop", "jazz"},
+            )
+            with self.assertRaisesRegex(ValueError, "requires a publication corpus policy"):
+                build_integrated_manifest(root, root / "invalid", pop_jazz_only=True)
 
 
 if __name__ == "__main__":

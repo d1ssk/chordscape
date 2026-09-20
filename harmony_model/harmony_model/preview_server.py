@@ -6,6 +6,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
 from threading import Lock
+from typing import Sequence
 from urllib.parse import urlsplit
 
 from .baseline import _sha256, load_candidate_manifest
@@ -13,8 +14,11 @@ from .transformer import MODEL_VERSION, TransformerScorer
 
 
 class PreviewService:
-    def __init__(self, output_root: Path, candidate_path: Path, *, device: str = "cpu"):
-        self.output_root = output_root.resolve()
+    def __init__(
+        self, output_root: Path, candidate_path: Path, *, device: str = "cpu",
+        additional_roots: Sequence[Path] = (),
+    ):
+        self.output_roots = tuple(root.resolve() for root in (output_root, *additional_roots))
         self.candidate_path = candidate_path.resolve()
         candidate_manifest = json.loads(candidate_path.read_text(encoding="utf-8"))
         self.candidate_version = candidate_manifest["version"]
@@ -33,30 +37,43 @@ class PreviewService:
             raise ValueError("no completed indexed Transformer runs match the candidate manifest")
 
     def _refresh_runs(self) -> None:
-        index = json.loads((self.output_root / "index.json").read_text(encoding="utf-8"))
         runs = {}
-        for entry in index["models"].get(MODEL_VERSION, []):
-            run_dir = (self.output_root / entry["path"]).resolve()
-            if not run_dir.is_relative_to(self.output_root / MODEL_VERSION):
+        for output_root in self.output_roots:
+            index_path = output_root / "index.json"
+            if not index_path.is_file():
                 continue
-            manifest_path = run_dir / "run_manifest.json"
-            checkpoint_path = run_dir / "best.pt"
-            if not manifest_path.is_file() or not checkpoint_path.is_file():
-                continue
-            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-            if (manifest.get("status") != "complete"
-                    or manifest.get("run_id") != entry["run_id"]
-                    or manifest.get("model_version") != MODEL_VERSION
-                    or manifest.get("input_sha256", {}).get("candidate_manifest") != self.candidate_sha256):
-                continue
-            runs[entry["run_id"]] = {
-                "checkpoint": checkpoint_path,
-                "checkpoint_sha256": manifest["checkpoint_sha256"],
-                "config": manifest["config"],
-                "validation_nll": manifest["best_validation_nll"],
-                "best_epoch": manifest["best_epoch"],
-                "created_utc": manifest["created_utc"],
-            }
+            index = json.loads(index_path.read_text(encoding="utf-8"))
+            for entry in index["models"].get(MODEL_VERSION, []):
+                run_dir = (output_root / entry["path"]).resolve()
+                if not run_dir.is_relative_to(output_root / MODEL_VERSION):
+                    continue
+                manifest_path = run_dir / "run_manifest.json"
+                checkpoint_path = run_dir / "best.pt"
+                if not manifest_path.is_file() or not checkpoint_path.is_file():
+                    continue
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                if (manifest.get("status") != "complete"
+                        or manifest.get("run_id") != entry["run_id"]
+                        or manifest.get("model_version") != MODEL_VERSION
+                        or manifest.get("input_sha256", {}).get("candidate_manifest") != self.candidate_sha256):
+                    continue
+                styles = manifest.get("vocabulary", {}).get("styles")
+                if not isinstance(styles, list) or not styles or any(
+                    style not in {"pop", "jazz", "classical"} for style in styles
+                ):
+                    continue
+                if entry["run_id"] in runs:
+                    raise ValueError(f"duplicate indexed run ID: {entry['run_id']}")
+                runs[entry["run_id"]] = {
+                    "checkpoint": checkpoint_path,
+                    "checkpoint_sha256": manifest["checkpoint_sha256"],
+                    "dataset_version": manifest["dataset_version"],
+                    "trained_styles": styles,
+                    "config": manifest["config"],
+                    "validation_nll": manifest["best_validation_nll"],
+                    "best_epoch": manifest["best_epoch"],
+                    "created_utc": manifest["created_utc"],
+                }
         with self._lock:
             previous = self.runs
             self._scorers = {
@@ -70,6 +87,8 @@ class PreviewService:
         runs = [
             {
                 "run_id": run_id,
+                "dataset_version": value["dataset_version"],
+                "trained_styles": value["trained_styles"],
                 "validation_nll": value["validation_nll"],
                 "best_epoch": value["best_epoch"],
                 "created_utc": value["created_utc"],
@@ -93,6 +112,8 @@ class PreviewService:
             raise ValueError("unknown indexed run ID")
         if style not in ("free", "pop", "jazz", "classical"):
             raise ValueError("unknown style")
+        if style != "free" and style not in self.runs[run_id]["trained_styles"]:
+            raise ValueError(f"untrained style: {style}")
         max_history = max(256, int(self.runs[run_id]["config"]["context"]))
         if not isinstance(history, list) or len(history) > max_history or any(
             not isinstance(identifier, str) or identifier not in self.by_id
@@ -172,11 +193,18 @@ def make_handler(service: PreviewService):
 def main() -> None:
     parser = argparse.ArgumentParser(description="Local Transformer preview API for model-test.html")
     parser.add_argument("--output-root", type=Path, default=Path("runs/transformer"))
+    parser.add_argument(
+        "--additional-output-root", type=Path, action="append",
+        default=[Path("runs/transformer-pop-jazz")],
+    )
     parser.add_argument("--candidate-manifest", type=Path, default=Path("datasets/chordscape_candidates.v1.json"))
     parser.add_argument("--device", choices=("cpu", "mps", "cuda", "auto"), default="cpu")
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
-    service = PreviewService(args.output_root, args.candidate_manifest, device=args.device)
+    service = PreviewService(
+        args.output_root, args.candidate_manifest,
+        device=args.device, additional_roots=args.additional_output_root,
+    )
     server = ThreadingHTTPServer(("127.0.0.1", args.port), make_handler(service))
     print(f"Model preview API: http://127.0.0.1:{args.port}/model-api/models", flush=True)
     try:

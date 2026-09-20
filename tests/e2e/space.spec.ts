@@ -1,5 +1,4 @@
 import { test, expect, type Page } from '@playwright/test';
-import { chordscapeCandidateManifest } from '../../src/space/candidateManifest';
 const level = (page: Page) =>
   page.getByTestId('audio-level').getAttribute('value').then(Number);
 const stored = (page: Page) =>
@@ -11,67 +10,47 @@ const stop = (page: Page) =>
 test('48-context Transformer is the default and proposal sources switch without showing scores', async ({
   page,
 }) => {
-  const manifest = chordscapeCandidateManifest();
-  const histories: string[][] = [];
-  await page.route('**/model-api/models', (route) =>
-    route.fulfill({
-      json: {
-        candidate_version: manifest.version,
-        candidate_ids: manifest.nodes.map((entry) => entry[0]).sort(),
-        runs: [
-          {
-            run_id: 'short',
-            validation_nll: 1,
-            best_epoch: 1,
-            config: { context: 32 },
-          },
-          {
-            run_id: 'chosen-48',
-            validation_nll: 2.9,
-            best_epoch: 23,
-            config: { context: 48 },
-          },
-        ],
-      },
-    }),
-  );
-  await page.route('**/model-api/predict', async (route) => {
-    const body = JSON.parse(route.request().postData() ?? '{}');
-    histories.push(body.history);
-    await route.fulfill({
-      json: {
-        run_id: body.run_id,
-        candidate_version: manifest.version,
-        context: 48,
-        history_used: body.history.length,
-        candidates: [
-          { ids: ['c'], rank: 1, probability: 0.4 },
-          { ids: ['g'], rank: 2, probability: 0.2 },
-        ],
-      },
-    });
-  });
+  const requests: string[] = [];
+  page.on('request', (request) => requests.push(request.url()));
   await page.goto('./#space');
   const source = page.getByRole('combobox', { name: '提案モデル' });
   await expect(source).toHaveValue('transformer');
-  await expect(node(page, 'c')).toHaveAttribute('data-model-type', /.+/);
+  await expect(
+    page.locator('.space-node[data-model-type]').first(),
+  ).toBeVisible();
   await expect(node(page, 'c')).not.toHaveAttribute('data-model-rank');
   await expect(node(page, 'c')).not.toHaveAttribute('title', /%|順位/);
+  const classical = page.getByRole('button', {
+    name: 'Classical',
+    exact: true,
+  });
+  await expect(classical).toBeDisabled();
   await node(page, 'c').click();
-  await expect
-    .poll(() => histories.some((history) => history.join() === 'c'))
-    .toBe(true);
+  await expect(
+    page.locator('.space-node[data-model-type]').first(),
+  ).toBeVisible();
+  expect(requests.some((url) => url.includes('/model/pop-jazz-v1.json'))).toBe(
+    true,
+  );
+  expect(requests.some((url) => url.includes('/model/pop-jazz-v1.bin'))).toBe(
+    true,
+  );
+  expect(requests.some((url) => url.includes('/model-api/'))).toBe(false);
   await source.selectOption('none');
   await expect(
     page.locator('.space-node[data-model-type], .space-node[data-suggestion]'),
   ).toHaveCount(0);
   await source.selectOption('rules');
   await expect(node(page, 'g')).toHaveAttribute('data-suggestion', /.+/);
+  await expect(classical).toBeEnabled();
   await source.selectOption('transformer');
-  await expect(node(page, 'c')).toHaveAttribute('data-model-type', /.+/);
+  await expect(classical).toBeDisabled();
+  await expect(
+    page.locator('.space-node[data-model-type]').first(),
+  ).toBeVisible();
   await page.getByText('提案モデルと教師データ').click();
   await expect(page.getByText(/McGill Billboard 2.0/)).toBeVisible();
-  await expect(page.getByText(/直近48和音/)).toBeVisible();
+  await expect(page.getByText(/48文脈/)).toBeVisible();
 });
 
 test('independent exploration keeps the saved progression, key and settings; supports keyboard and slash bass', async ({

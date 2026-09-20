@@ -2,6 +2,8 @@ import { chordscapeCandidateManifest } from './candidateManifest';
 
 export interface PreviewRun {
   run_id: string;
+  dataset_version: string;
+  trained_styles: string[];
   validation_nll: number;
   best_epoch: number;
   config: {
@@ -14,7 +16,11 @@ export interface PreviewRun {
 
 export const SPACE_MODEL_CONTEXT = 48;
 
-/** Choose the best completed run with the requested context length. */
+export function runSupportsStyle(run: PreviewRun, style: string): boolean {
+  return style === 'free' || run.trained_styles.includes(style);
+}
+
+/** Prefer the reviewed public corpus, comparing validation loss within a corpus. */
 export function selectSpaceModelRun(
   runs: readonly PreviewRun[],
 ): PreviewRun | null {
@@ -23,6 +29,8 @@ export function selectSpaceModelRun(
       .filter((run) => run.config.context === SPACE_MODEL_CONTEXT)
       .sort(
         (a, b) =>
+          Number(b.dataset_version === 'public-v1') -
+            Number(a.dataset_version === 'public-v1') ||
           a.validation_nll - b.validation_nll ||
           a.run_id.localeCompare(b.run_id),
       )[0] ?? null

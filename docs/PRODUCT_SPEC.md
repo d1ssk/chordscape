@@ -47,7 +47,7 @@ Theory、Playground、Earを別アプリにしない。同じ和音・進行・�
 
 発音は直前の配置と上位の次候補を考慮するautomatic voice leadingを使う。調変更では発音・待機を止め、探索文脈を消し、styleのみ保持。探索履歴は保存せず、演奏画面のsessionは変更しない。edge・trail・minor key・tritone substitution専用UI等は対象外。構造・推薦規則・検証範囲は [HARMONIC_SPACE.md](HARMONIC_SPACE.md) を参照。
 
-提案元は「提案なし」「ルールベース」「Transformer」を選択でき、初期値はTransformer。TransformerはローカルAPIで48和音の文脈を使う。通常画面には確率・順位を表示せず、開閉できる説明にモデル構成と教師データの出自を示す。現行checkpointは公開条件の確認が済むまでGitHub Pagesに同梱しない。
+提案元は「提案なし」「ルールベース」「Transformer」を選択でき、初期値はTransformer。公開版Transformerはpop・jazz専用の48文脈モデルをWeb Workerでブラウザ内推論する。Transformer選択中はClassicalを無効にする。通常画面には確率・順位を表示せず、開閉できる説明にモデル構成と教師データの出自を示す。ローカル試験ページは複数run比較にPython APIを使う。
 
 ### 生成ページ
 

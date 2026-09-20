@@ -408,6 +408,12 @@ def train(manifest_path: Path, candidate_path: Path, output_root: Path, config: 
     hashes["candidate_manifest"] = _sha256(candidate_path)
     sequences = load_integrated_sequences(manifest_path)
     vocabulary = make_vocabulary(sequences)
+    allowed_styles = manifest.get("policy", {}).get("allowed_styles")
+    if allowed_styles is not None:
+        if set(vocabulary["styles"]) != set(allowed_styles) or any(
+            sequence.style not in allowed_styles for sequence in sequences
+        ):
+            raise ValueError("corpus styles do not match the manifest allowlist")
     codec = Codec(vocabulary)
     candidates = load_candidate_manifest(candidate_path)
     by_split = {split: make_windows([s for s in sequences if s.split == split], codec, config.context) for split in ("train", "validation", "test")}

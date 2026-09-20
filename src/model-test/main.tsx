@@ -15,6 +15,7 @@ import {
   fetchPreviewPrediction,
   fetchPreviewRuns,
   modelInputHistory,
+  runSupportsStyle,
   selectSpaceModelRun,
   type PreviewPrediction,
   type PreviewRun,
@@ -22,6 +23,8 @@ import {
 import type { ChordEvent } from '../state/session';
 import '../styles/main.css';
 import './model-test.css';
+
+const ALL_TRAINED_STYLES = ['pop', 'jazz', 'classical'];
 
 function ModelTest() {
   const [locale, setLocale] = useState<Locale>('ja');
@@ -76,7 +79,7 @@ function ModelTest() {
     predictionNonce,
   ]);
   useEffect(() => {
-    if (!selectedRun) return;
+    if (!selectedRun || !runSupportsStyle(selectedRun, context.style)) return;
     const controller = new AbortController();
     void fetchPreviewPrediction(
       selectedRun,
@@ -184,7 +187,14 @@ function ModelTest() {
             >
               {runs.map((run) => (
                 <option key={run.run_id} value={run.run_id}>
-                  ctx {run.config.context} · dropout {run.config.dropout} · lr{' '}
+                  {run.dataset_version === 'public-v1'
+                    ? t.modelPublicCorpus
+                    : run.dataset_version === 'public-pop-jazz-v1'
+                      ? t.modelPopJazzCorpus
+                      : run.dataset_version === 'v1'
+                        ? t.modelLegacyCorpus
+                        : run.dataset_version}{' '}
+                  · ctx {run.config.context} · dropout {run.config.dropout} · lr{' '}
                   {run.config.learning_rate} · {run.config.epochs} ep · val NLL{' '}
                   {run.validation_nll.toFixed(4)} · {run.run_id.slice(0, 15)}
                 </option>
@@ -238,6 +248,7 @@ function ModelTest() {
           candidates: current?.candidates ?? [],
           candidateTypes,
           historyLimit: Math.max(12, ...runs.map((run) => run.config.context)),
+          trainedStyles: selectedRun?.trained_styles ?? ALL_TRAINED_STYLES,
           onContextChange: setContext,
         }}
       />

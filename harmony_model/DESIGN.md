@@ -148,6 +148,31 @@ POP909-CLをweak POP909より優先し、ChoCoの完全upstream mirror、同一J
 相対root欠損等でcomplete sequenceが0のrecordは「重複」ではなくno-trainable-eventsとして別理由で除外する。
 splitはallowlist適用前のcanonical workへ割り当て、同じ作品の全source recordを必ず同じsplitに置く。
 
+### 公開学習用の統合profile v1
+
+`datasets/publication_corpus_v1.json` はChoCo v1.0.0のWhen in Rome partition全449件を曲単位で審査した固定表である。
+元の変換済みJSONLのSHA-256と、対応するWhen in Rome分析ファイルのpath・SHA-256を記録する。
+165件のOpenScore Lieder mirrorは直接変換済みの179件の該当作品と結合し、mirrorを学習から除く。
+これにより旧統合manifestで49件生じていた元分析とのsplit不一致も解消する。
+54件のTAVERN由来分析と、When in Romeが新規分析と明記する27件を採用する。
+残り203件は出典照合が曖昧、元ライセンスが不明、または今回の公開条件に含めないため除外する。
+POP909/POP909-CLとChoCoのJAAH/Mozart Piano Sonatasも除外する。CC BY-SAとODbLの採用は
+それぞれの表示・継承条件を満たす公開物の準備を前提とする。
+
+統合器はこのprofileを指定した場合だけ`public-v1`を出力する。レビュー表がpartitionの全件を覆い、
+固定した入力SHA-256と曲名・作曲者が一致することを要求する。採用・重複判定だけが分析pathによる
+作品結合に参加し、除外行は採用しない。全行の採否・除外理由・許諾根拠をmanifestに保持する。
+splitはこの作品結合後に割り当てるため、別sourceの同一分析が評価側へ漏れない。
+今回の変更は教師集合とsplitに限り、因子表現・モデル構造・本体UIの契約を変えない。
+
+`--pop-jazz-only`を指定した別profileは、公開用審査表を必須とし、採用レコードのstyleが
+`pop`または`jazz`だけの場合に限って残す。複数styleが混在するレコードは全体を除外し、
+将来のadapter変更で`classical`イベントが混入しても学習へ進めない。manifestの
+`allowed_styles`をTransformer学習時に全系列と学習語彙へ照合する。出力データ版は
+`public-pop-jazz-v1`、run保存先は`runs/transformer-pop-jazz/`とし、既存公開用runと分ける。
+このモデルのstyle embeddingはpop・jazzの2件のみとなり、`classical`推論は受け付けない。
+`free`は学習済みの2styleから計算する混合であり、独立した学習styleではない。
+
 ## Exportと拡張
 
 ### Transformer v1の実装判断
@@ -171,16 +196,22 @@ lossをmaskし、後半の各targetを一度だけ学習する。先頭はBOS、
 未知accidentalは入力時UNKにし、そのheadの教師lossをmaskする。degree/quality/seventhは
 schema語彙、extensions/alterationsは全ビットの有無をBernoulliで学習し、scoreにも陰性項を含める。
 lossとscoreの各head係数は1。bassは予測せず、UI候補は和声を集約してからrankingする。
-アプリへの影響はまだなく、PythonのcheckpointをそのままPagesへ配布しない。
+PythonのcheckpointをそのままPagesへ配布しない。
 
 ### ローカル確認画面
 
 学習結果を人間が確認するため、Vite開発サーバーだけで開ける`model-test.html`を設ける。
 本体のHarmonicSpace componentと42ノードのlayoutを再利用し、ローカルloopbackのPython APIが
 version indexの完了checkpointを読み込んで41 unique harmonyの確率を返す。
+APIは従来モデルとpop・jazz専用モデルの2つのrun indexを読み、run manifestのstyle語彙を
+一覧へ返す。試験画面は選択runにないstyleのボタンを無効にする。classical選択中に
+pop・jazz専用runへ切り替えた場合はfreeへ戻し、APIも未学習styleの予測要求を拒否する。
 本体の履歴上限12は保持し、試験画面だけ最大runのcontext件まで履歴を保持して長文脈を試せるようにする。
 学習と推論は入力を1時点ずらしており、モデルの最大入力長contextには直前context和音が入る。
 画面に表示しAPIへ送る履歴は選択runのcontext件に切り詰め、runを切り替えても比較用の長い履歴を保持する。
+run一覧には学習に使用した`dataset_version`を表示する。公開用と従来用では教師集合が異なり
+validation NLLを直接比較できないため、初期選択は48文脈の公開用runを優先し、同一データ版内だけ
+validation NLLで選ぶ。従来runも試験ページから手動で選べる。
 UIは上位6和声の順位を枠と数字で示し、bass違いの複数ノードへ同じ順位を付ける。
 上位6件の色はルール側の解決・継続・色彩・探索判定を全候補へ適用して求め、属七・減和音等の
 緊張を別色にする。ルールにない候補も調内・借用の分析で分類する。分類は表示専用で、モデルの
@@ -188,9 +219,14 @@ UIは上位6和声の順位を枠と数字で示し、bass違いの複数ノー�
 確率はUI候補集合で条件付けたもので、全和音への確率とは表示しない。候補manifestのchecksumと
 version/IDを照合し、異なるUI候補定義とcheckpointを組み合わせない。
 本体の規則推薦は変更しない。Python APIは127.0.0.1だけで待ち受け、Pages buildに含まれない。
-これはモデルの対話試験であり、Phase 7のブラウザ単体推論・配布artifactの選定とは別に扱う。
+これはモデルの複数run比較用の対話試験であり、本体の公開モデルとは別に扱う。
 
 training → checkpoint → export → version付きruntime artifact → Chordscapeの順に切る。
+公開pop・jazzモデルでは、入力manifestとcheckpointのSHA-256を照合してfloat32の重み配列と
+候補manifestを静的artifactへ変換する。ブラウザのWeb Workerが重みのSHA-256と候補IDを検証し、
+PyTorchのpre-norm causal attention、GELU、因子別headと候補集合内の正規化を再現する。
+通常画面はPython APIを呼ばず、Classicalを受け付けない。出典と件数は
+`public/model/TRAINING_DATA.md`に公開する。変更理由は、Pagesでbackendなしに同じ候補順位を出すため。
 rulesによるresolve/continue/color/explore説明とvoice-leadingは独立のまま維持する。
 専用backendを前提にしない。tablesは長い履歴を失う可能性、ONNX/TF.jsはruntime込み容量、custom inferenceは保守費用を比較する。
 品質・download size・メモリ・推論時間を測るまで採用方式を固定しない。
