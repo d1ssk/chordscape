@@ -69,6 +69,16 @@ cross-corpus family確定後の統合splitでstyle別baselineを再生成した�
 推定keyと注釈keyを分けて評価。長い履歴の効果が示せない限り複雑化を正当化しない。
 依存versionと実験環境を固定し、train/evaluate/export commandと実験manifestを保存する。
 
+`transformer-v1` の学習・評価CLI、version index、checkpoint、入力checksum・環境・設定のrun manifestを実装。
+全統合corpusの採用系列を学習できる。causal/padding、実データbatch、人工データのcheckpoint再評価を確認済み。
+評価時はMPS/CUDA上のeventごとのscalar同期を避け、batch単位でCPUへ転送して診断する。
+中断後の最良checkpointから評価・index登録だけを行うfinalize commandも追加。
+validation NLLで学習率を下げる任意のplateau schedulerと、標準出力を保存する順次実験scriptを追加。
+5条件と24 epochの3条件の比較実験は実走行済み。複数seed確認は未実施。
+学習済みcheckpointを選び、本体と同じHarmonic Space上で41和声の順位・候補内確率を見られる
+ローカル確認画面とloopback推論APIを追加。静的配布用exportは引き続き未実装。
+全件の品質評価、history ablation、key出典別評価、静的アプリ用exportは次の検証・実装対象。
+
 ## Phase 7：静的アプリへのexport
 
 本体のquality ID→factor、key、履歴ID→実コード、bassのadapterを作る。

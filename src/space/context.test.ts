@@ -3,6 +3,7 @@ import { parsePitch } from '../music/harmony';
 import {
   newSpaceContext,
   chooseSpaceChord,
+  chooseSpaceChordWithLimit,
   changeSpaceKey,
   changeSpaceStyle,
   historyAge,
@@ -38,6 +39,10 @@ it('uses the newest visit for grayscale history and drops old visual history', (
   for (let i = 0; i < 16; i++)
     state = chooseSpaceChord(state, i % 2 ? 'g' : 'c');
   expect(state.history).toHaveLength(12);
+  let preview = newSpaceContext();
+  for (let i = 0; i < 40; i++)
+    preview = chooseSpaceChordWithLimit(preview, i % 2 ? 'g' : 'c', 31);
+  expect(preview.history).toHaveLength(31);
 });
 it('history and recommendation coexist on the tonic after I-IV-iv', () => {
   const state = ['c', 'f', 'fm'].reduce(chooseSpaceChord, newSpaceContext());

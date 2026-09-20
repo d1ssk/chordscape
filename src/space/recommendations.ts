@@ -153,17 +153,20 @@ function contextBonus(
 
 // Rules use key-relative degrees, spelled analysis and interval relations.
 // Layout IDs and absolute chord-name strings never determine harmony here.
-export function getRecommendations({
-  key,
-  style,
-  history,
-  availableChords,
-}: {
-  key: Key;
-  style: SpaceStyle;
-  history: readonly string[];
-  availableChords: readonly SpaceNode[];
-}): Recommendation[] {
+export function getRecommendations(
+  {
+    key,
+    style,
+    history,
+    availableChords,
+  }: {
+    key: Key;
+    style: SpaceStyle;
+    history: readonly string[];
+    availableChords: readonly SpaceNode[];
+  },
+  maxResults = 6,
+): Recommendation[] {
   const roles = availableChords.map((n) => role(n, key));
   const byId = new Map(roles.map((r) => [r.node.id, r]));
   const recent = history
@@ -324,7 +327,7 @@ export function getRecommendations({
     const r = byId.get(item.chordId)!;
     return `${r.offset}:${r.analysis.kind}`;
   };
-  while (remaining.length && selected.length < 6) {
+  while (remaining.length && selected.length < maxResults) {
     const effective = (item: Recommendation) =>
       item.score -
       (selected.some((s) => family(s) === family(item)) ? 0.16 : 0);

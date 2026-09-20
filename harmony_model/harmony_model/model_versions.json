@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "models": {
+    "transformer-v1": {
+      "checkpoint_schema": 1,
+      "data_schema": 1,
+      "architecture": "style-conditioned causal Transformer encoder; one chord per timestep; factor embeddings; six independent output heads",
+      "inputs": [
+        "degree",
+        "accidental",
+        "quality",
+        "seventh",
+        "extensions",
+        "alterations",
+        "style"
+      ],
+      "outputs": [
+        "degree",
+        "accidental",
+        "quality",
+        "seventh",
+        "extensions",
+        "alterations"
+      ],
+      "bass_scored": false,
+      "training_split": "integrated_corpora v1 / canonical work split",
+      "score": "categorical log-softmax plus positive and negative Bernoulli log probabilities"
+    }
+  }
+}

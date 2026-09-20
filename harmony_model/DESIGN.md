@@ -150,6 +150,46 @@ splitはallowlist適用前のcanonical workへ割り当て、同じ作品の全s
 
 ## Exportと拡張
 
+### Transformer v1の実装判断
+
+`model_versions.json`をsource管理のmodel定義indexとし、実行ごとの`runs/transformer/index.json`を
+ignored artifactのrun indexとする。checkpointはmodel version・schema・語彙・重み・設定を保持し、
+run manifestは入力とcheckpointのSHA-256、split seed、環境を記録する。再評価時にhashを照合する。
+統合train 566,561 eventsのうち、同一sequence内に直前32和音を持つのは56.2%、直前8和音を
+持つのは85.9%。短い履歴を優先して一度8へ変更したが、同条件の実験でcontext 32の
+validation/test NLL 3.0024/2.9845、test UI MRR 0.6390が、8の3.2864/3.2902、0.5955より良かった。
+この実測を受けて既定contextを32へ戻した。中間長や複数seedでの再現性は未確認。
+学習率は固定を既定として残し、任意の`ReduceLROnPlateau`はvalidation NLLだけを監視する。
+factor loss・checkpointのmodel schemaは変えない。schedulerの種類・係数・patience・改善閾値・
+下限をrun configへ、各epochの使用学習率と次epochの学習率を履歴へ記録する。
+早期終了patienceをschedulerより長く設定し、低下後の学習機会を確保する。
+どちらのcontextでも全complete eventを一度ずつtargetにし、先頭の短い履歴も学習する。
+短いcontextではwindow件数が増えるため、epoch時間が必ず短縮するとは限らない。
+統合manifestに採用されたcomplete sequenceをそのまま使い、作品splitと境界を変えない。
+styleはembeddingで条件付けし、学習windowはstyle間で均等サンプリングする。各windowの前半は履歴として
+lossをmaskし、後半の各targetを一度だけ学習する。先頭はBOS、paddingはattentionとlossから除く。
+未知accidentalは入力時UNKにし、そのheadの教師lossをmaskする。degree/quality/seventhは
+schema語彙、extensions/alterationsは全ビットの有無をBernoulliで学習し、scoreにも陰性項を含める。
+lossとscoreの各head係数は1。bassは予測せず、UI候補は和声を集約してからrankingする。
+アプリへの影響はまだなく、PythonのcheckpointをそのままPagesへ配布しない。
+
+### ローカル確認画面
+
+学習結果を人間が確認するため、Vite開発サーバーだけで開ける`model-test.html`を設ける。
+本体のHarmonicSpace componentと42ノードのlayoutを再利用し、ローカルloopbackのPython APIが
+version indexの完了checkpointを読み込んで41 unique harmonyの確率を返す。
+本体の履歴上限12は保持し、試験画面だけ最大runのcontext件まで履歴を保持して長文脈を試せるようにする。
+学習と推論は入力を1時点ずらしており、モデルの最大入力長contextには直前context和音が入る。
+画面に表示しAPIへ送る履歴は選択runのcontext件に切り詰め、runを切り替えても比較用の長い履歴を保持する。
+UIは上位6和声の順位を枠と数字で示し、bass違いの複数ノードへ同じ順位を付ける。
+上位6件の色はルール側の解決・継続・色彩・探索判定を全候補へ適用して求め、属七・減和音等の
+緊張を別色にする。ルールにない候補も調内・借用の分析で分類する。分類は表示専用で、モデルの
+候補数・順位・確率を変更しない。同じ候補に属するbass違いは一つの分類を共有する。
+確率はUI候補集合で条件付けたもので、全和音への確率とは表示しない。候補manifestのchecksumと
+version/IDを照合し、異なるUI候補定義とcheckpointを組み合わせない。
+本体の規則推薦は変更しない。Python APIは127.0.0.1だけで待ち受け、Pages buildに含まれない。
+これはモデルの対話試験であり、Phase 7のブラウザ単体推論・配布artifactの選定とは別に扱う。
+
 training → checkpoint → export → version付きruntime artifact → Chordscapeの順に切る。
 rulesによるresolve/continue/color/explore説明とvoice-leadingは独立のまま維持する。
 専用backendを前提にしない。tablesは長い履歴を失う可能性、ONNX/TF.jsはruntime込み容量、custom inferenceは保守費用を比較する。

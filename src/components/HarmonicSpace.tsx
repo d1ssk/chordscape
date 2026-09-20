@@ -14,6 +14,12 @@ import {
   voicedSymbol,
 } from '../music/harmony';
 import type { ChordEvent } from '../state/session';
+import type { PreviewCandidate } from '../space/modelPreview';
+import {
+  MODEL_CANDIDATE_LABELS,
+  MODEL_CANDIDATE_TYPES,
+  type ModelCandidateType,
+} from '../space/modelCandidateTypes';
 import {
   spaceNodes,
   SPACE_TONICS,
@@ -29,6 +35,7 @@ import {
   changeSpaceKey,
   changeSpaceStyle,
   chooseSpaceChord,
+  chooseSpaceChordWithLimit,
   historyAge,
   type SpaceContext,
 } from '../space/context';
@@ -51,16 +58,25 @@ const styleLabels = {
 } as const;
 const symbol = (event: ChordEvent) => voicedSymbol(event.chord, event.notes);
 
+export interface ModelSpaceOverlay {
+  candidates: PreviewCandidate[];
+  candidateTypes: ReadonlyMap<string, ModelCandidateType>;
+  historyLimit: number;
+  onContextChange: (context: SpaceContext) => void;
+}
+
 export function HarmonicSpace({
   t,
   onChoose,
   onResetAudio,
   sounding,
+  modelOverlay,
 }: {
   t: Messages;
   onChoose: (prepare: () => ChordEvent) => void;
   onResetAudio: () => void;
   sounding: ChordEvent | null;
+  modelOverlay?: ModelSpaceOverlay;
 }) {
   const [context, setContext] = useState(newSpaceContext);
   const [showSuggestions, setShowSuggestions] = useState(true);
@@ -75,9 +91,17 @@ export function HarmonicSpace({
   const recommendations = new Map(
     context.recommendations.map((r) => [r.chordId, r]),
   );
+  const modelCandidates = new Map(
+    modelOverlay?.candidates
+      .filter((candidate) => candidate.rank <= 6)
+      .flatMap((candidate) =>
+        candidate.ids.map((id) => [id, candidate] as const),
+      ) ?? [],
+  );
   function update(next: SpaceContext) {
     contextRef.current = next;
     setContext(next);
+    modelOverlay?.onContextChange(next);
     if (import.meta.env.DEV)
       console.debug('[Harmonic Space recommendations]', {
         key: next.key,
@@ -87,9 +111,15 @@ export function HarmonicSpace({
       });
   }
   function choose(id: string) {
-    // Commit only the click accepted by the shared audio-start/cancellation path.
+    // The host page decides when to commit the selection and start audio.
     onChoose(() => {
-      const next = chooseSpaceChord(contextRef.current, id);
+      const next = modelOverlay
+        ? chooseSpaceChordWithLimit(
+            contextRef.current,
+            id,
+            modelOverlay.historyLimit,
+          )
+        : chooseSpaceChord(contextRef.current, id);
       update(next);
       return next.current!;
     });
@@ -204,17 +234,32 @@ export function HarmonicSpace({
               {t.spaceAutomaticVoicing}
             </label>
           </div>
-          <div
-            className="space-suggestion-legend"
-            aria-label={t.spaceSuggestions}
-          >
-            {RECOMMENDATION_TYPES.map((type) => (
-              <span key={type} data-suggestion={type}>
-                <i aria-hidden="true" />
-                {t[typeLabels[type]]}
-              </span>
-            ))}
-          </div>
+          {modelOverlay ? (
+            <div
+              className="space-suggestion-legend"
+              aria-label={t.spaceSuggestions}
+            >
+              <span className="model-suggestion-legend">{t.modelTopSix}</span>
+              {MODEL_CANDIDATE_TYPES.map((type) => (
+                <span key={type} data-model-type={type}>
+                  <i aria-hidden="true" />
+                  {t[MODEL_CANDIDATE_LABELS[type]]}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <div
+              className="space-suggestion-legend"
+              aria-label={t.spaceSuggestions}
+            >
+              {RECOMMENDATION_TYPES.map((type) => (
+                <span key={type} data-suggestion={type}>
+                  <i aria-hidden="true" />
+                  {t[typeLabels[type]]}
+                </span>
+              ))}
+            </div>
+          )}
           <button
             className="space-reset"
             onClick={() => {
@@ -249,8 +294,15 @@ export function HarmonicSpace({
             const event = events.get(node.id)!;
             const name = symbol(event);
             const age = historyAge(context.history, node.id);
-            const recommendation = showSuggestions
-              ? recommendations.get(node.id)
+            const recommendation =
+              showSuggestions && !modelOverlay
+                ? recommendations.get(node.id)
+                : undefined;
+            const modelCandidate = showSuggestions
+              ? modelCandidates.get(node.id)
+              : undefined;
+            const modelType = modelCandidate
+              ? (modelOverlay?.candidateTypes.get(node.id) ?? 'explore')
               : undefined;
             const description = [
               age === 0
@@ -260,6 +312,9 @@ export function HarmonicSpace({
                   : '',
               recommendation
                 ? `${t.spaceSuggestions}: ${t[typeLabels[recommendation.type]]}`
+                : '',
+              modelCandidate && modelType
+                ? `${t.modelRank} ${modelCandidate.rank} · ${t[MODEL_CANDIDATE_LABELS[modelType]]} · ${(modelCandidate.probability * 100).toFixed(1)}%`
                 : '',
             ]
               .filter(Boolean)
@@ -278,6 +333,8 @@ export function HarmonicSpace({
                 data-history={showHistory ? age : undefined}
                 data-suggestion={recommendation?.type}
                 data-score={recommendation?.score}
+                data-model-rank={modelCandidate?.rank}
+                data-model-type={modelType}
                 data-sounding={sounding?.id === event.id || undefined}
                 aria-current={age === 0 ? 'true' : undefined}
                 aria-description={description || undefined}

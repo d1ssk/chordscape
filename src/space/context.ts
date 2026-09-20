@@ -53,10 +53,18 @@ export function chooseSpaceChord(
   context: SpaceContext,
   id: string,
 ): SpaceContext {
+  return chooseSpaceChordWithLimit(context, id, 12);
+}
+
+export function chooseSpaceChordWithLimit(
+  context: SpaceContext,
+  id: string,
+  historyLimit: number,
+): SpaceContext {
   const availableChords = spaceNodes(context.key);
   const node = availableChords.find((n) => n.id === id);
   if (!node) return context;
-  const history = [...context.history, id].slice(-12);
+  const history = [...context.history, id].slice(-historyLimit);
   const recommendations = getRecommendations({
     ...context,
     history,

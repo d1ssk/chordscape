@@ -11,3 +11,4 @@ public/samples/salamander/LICENSE.txt
 harmony_model/data/raw/
 harmony_model/data/processed/
 harmony_model/runs/
+harmony_model/.venv/

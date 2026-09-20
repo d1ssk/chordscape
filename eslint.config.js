@@ -9,6 +9,7 @@ export default tseslint.config(
       'node_modules/**',
       'playwright-report/**',
       'test-results/**',
+      '**/.venv/**',
     ],
   },
   js.configs.recommended,

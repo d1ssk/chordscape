@@ -105,6 +105,43 @@ def main() -> int:
     integrated_baseline.add_argument("--output-dir", type=Path, required=True)
     integrated_baseline.add_argument("--alpha", type=float, default=0.5)
     integrated_baseline.add_argument("--min-context-count", type=int, default=1)
+    transformer = commands.add_parser(
+        "train-transformer", help="統合corpusでversion付きcausal Transformerを学習・評価"
+    )
+    transformer.add_argument("--corpus-manifest", type=Path, required=True)
+    transformer.add_argument("--candidate-manifest", type=Path, default=DEFAULT_CANDIDATE_MANIFEST)
+    transformer.add_argument("--output-root", type=Path, default=Path("runs/transformer"))
+    transformer.add_argument("--context", type=int, default=32)
+    transformer.add_argument("--d-model", type=int, default=128)
+    transformer.add_argument("--layers", type=int, default=4)
+    transformer.add_argument("--heads", type=int, default=4)
+    transformer.add_argument("--dropout", type=float, default=0.1)
+    transformer.add_argument("--batch-size", type=int, default=64)
+    transformer.add_argument("--epochs", type=int, default=8)
+    transformer.add_argument("--learning-rate", type=float, default=0.0003)
+    transformer.add_argument("--lr-schedule", choices=("constant", "plateau"), default="constant")
+    transformer.add_argument("--lr-factor", type=float, default=0.5)
+    transformer.add_argument("--lr-patience", type=int, default=1)
+    transformer.add_argument("--lr-threshold", type=float, default=0.0001)
+    transformer.add_argument("--min-learning-rate", type=float, default=0.00001)
+    transformer.add_argument("--weight-decay", type=float, default=0.01)
+    transformer.add_argument("--seed", type=int, default=42)
+    transformer.add_argument("--patience", type=int, default=3)
+    transformer.add_argument("--device", choices=("auto", "cpu", "mps", "cuda"), default="auto")
+    transformer_eval = commands.add_parser(
+        "evaluate-transformer", help="checkpointを読み込み固定splitを再評価"
+    )
+    transformer_eval.add_argument("--run-dir", type=Path, required=True)
+    transformer_eval.add_argument("--corpus-manifest", type=Path, required=True)
+    transformer_eval.add_argument("--candidate-manifest", type=Path, default=DEFAULT_CANDIDATE_MANIFEST)
+    transformer_eval.add_argument("--device", choices=("auto", "cpu", "mps", "cuda"), default="auto")
+    transformer_finalize = commands.add_parser(
+        "finalize-transformer", help="中断runの最良checkpointを評価しindexへ登録"
+    )
+    transformer_finalize.add_argument("--run-dir", type=Path, required=True)
+    transformer_finalize.add_argument("--corpus-manifest", type=Path, required=True)
+    transformer_finalize.add_argument("--candidate-manifest", type=Path, default=DEFAULT_CANDIDATE_MANIFEST)
+    transformer_finalize.add_argument("--device", choices=("auto", "cpu", "mps", "cuda"), default="cpu")
     args = parser.parse_args()
     if args.command == "convert-mcgill":
         try:
@@ -206,6 +243,48 @@ def main() -> int:
         except (OSError, ValueError, KeyError, json.JSONDecodeError) as error:
             parser.error(str(error))
         print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command in {"train-transformer", "evaluate-transformer", "finalize-transformer"}:
+        try:
+            from . import transformer as module
+            if args.command == "train-transformer":
+                config = module.Config(
+                    context=args.context, d_model=args.d_model, layers=args.layers,
+                    heads=args.heads, dropout=args.dropout, batch_size=args.batch_size,
+                    epochs=args.epochs, learning_rate=args.learning_rate,
+                    lr_schedule=args.lr_schedule, lr_factor=args.lr_factor,
+                    lr_patience=args.lr_patience,
+                    lr_threshold=args.lr_threshold,
+                    min_learning_rate=args.min_learning_rate,
+                    weight_decay=args.weight_decay, seed=args.seed,
+                    patience=args.patience, device=args.device,
+                )
+                result = module.train(
+                    args.corpus_manifest, args.candidate_manifest, args.output_root,
+                    config, command=[sys.executable, "-m", "harmony_model", *sys.argv[1:]],
+                )
+                print(json.dumps({"run_dir": result["run_dir"], "best_validation_nll": result["run"]["best_validation_nll"]}, ensure_ascii=False))
+            elif args.command == "evaluate-transformer":
+                result = module.evaluate_run(
+                    args.run_dir, args.corpus_manifest, args.candidate_manifest,
+                    device_name=args.device,
+                )
+                print(json.dumps(result, ensure_ascii=False, indent=2))
+            else:
+                result = module.finalize_run(
+                    args.run_dir, args.corpus_manifest, args.candidate_manifest,
+                    device_name=args.device,
+                )
+                print(json.dumps({
+                    "run_dir": str(args.run_dir),
+                    "validation_nll": result["results"]["validation"]["overall"]["nll"],
+                    "test_nll": result["results"]["test"]["overall"]["nll"],
+                }, ensure_ascii=False))
+        except KeyboardInterrupt:
+            print("中断しました。設定を変えて再実行すると新しいrunが作成されます。", file=sys.stderr)
+            return 130
+        except (OSError, ValueError, KeyError, json.JSONDecodeError, ImportError) as error:
+            parser.error(str(error))
         return 0
     parsed = PlainChordParser().parse(args.chord)
     event = normalize(

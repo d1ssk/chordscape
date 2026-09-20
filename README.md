@@ -20,6 +20,7 @@ npm run dev
 | ----------------------------------------- | --------------------------------------- |
 | `npm ci`                                  | lockfileから導入                        |
 | `npm run dev`                             | 開発サーバー                            |
+| `npm run model:test`                      | 学習済みTransformerのローカル確認画面   |
 | `npm run typecheck`                       | strict型検査                            |
 | `npm run lint` / `npm run lint:fix`       | ESLint検査 / 修正                       |
 | `npm run format:check` / `npm run format` | Prettier検査 / 修正                     |
@@ -30,6 +31,11 @@ npm run dev
 | `npm run check`                           | 型・lint・format・unit・buildを順次検証 |
 
 E2Eの前に `npm run build` が必要。Linux CIでは `npx playwright install --with-deps chromium` を使用します。
+
+学習済みモデルの対話確認には `harmony_model/.venv` と完了runが必要です。
+`npm run model:test` の起動後、`http://127.0.0.1:5173/model-test.html` を開きます。
+この画面は開発時専用で、GitHub Pagesには含まれません。詳細は
+[Harmony Model](harmony_model/README.md#学習済みモデルのローカル確認画面) を参照してください。
 
 ```sh
 VITE_BASE_PATH=/chordscape-smoke/ npm run build
