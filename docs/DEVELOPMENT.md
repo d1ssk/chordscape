@@ -58,3 +58,16 @@ baseは `GITHUB_REPOSITORY` から導出します。`<owner>/<owner>.github.io` 
 - [初回構築](FIRST_COMMIT.md)
 
 互換性・API確認元: [Vite](https://vite.dev/guide/)、[Tone.js 15.1.22](https://tonejs.github.io/docs/15.1.22/classes/PolySynth.html)、[Playwright](https://playwright.dev/docs/intro)、[configure-pages](https://github.com/actions/configure-pages)、[upload-pages-artifact](https://github.com/actions/upload-pages-artifact)、[deploy-pages](https://github.com/actions/deploy-pages)。パッケージはnpm公式registry、Pages Actionsは公式release tagのcommit SHAを照合しています（2026-09-16）。
+
+## サイトマップ
+
+`public/sitemap.xml` はビルド時に `dist/sitemap.xml` へコピーされ、
+`https://d1ssk.github.io/chordscape/sitemap.xml` で公開します。
+単一ページアプリの入口 `https://d1ssk.github.io/chordscape/` のみを掲載します。
+タブ・演奏状態・開発用ページ・音声確認ツールは掲載しません。
+独立した公開ページを追加したときは、このファイルも更新してください。
+内容の更新日としてビルド日時を付けないため、`lastmod` は省略しています。
+
+Search Console はホスト全体の `https://d1ssk.github.io/` プロパティを使い、
+ホスト側の `sitemap-index.xml` からこのサイトマップを参照します。
+個別の所有権確認やサイトマップ送信は不要です。
