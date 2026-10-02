@@ -12,3 +12,12 @@
 - 日本語を初期表示。UI文字列は翻訳辞書へ集約。鍵盤操作、フォーカス、色以外の識別も実装する。
 - 変更に必要な検証を実施。commit前に `npm run check`。楽理・時刻制御の重要な境界と主要操作をテストする。
 - 実装済み範囲と未実装を明記し、未実装ボタンで完成を装わない。既存変更は保持。実施した検証と制約を報告する。
+
+
+## Documentation audience
+
+Keep public-facing READMEs focused on the project, published URL, user instructions, limitations, and licensing. Put maintainer-only setup, deployment, analytics administration, implementation details, and validation procedures in the dedicated documents below. Keep personal machine paths and temporary work notes out of committed documentation. READMEs inside developer-only directories may serve as technical indexes.
+
+- [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)
+- [docs/PRODUCT_SPEC.md](docs/PRODUCT_SPEC.md)
+- [docs/VALIDATION.md](docs/VALIDATION.md)
