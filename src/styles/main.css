@@ -1404,6 +1404,10 @@ details > summary:focus-visible {
   padding: 0;
   overflow: hidden;
 }
+.scene-space .transport {
+  padding: 4px;
+  margin-bottom: 6px;
+}
 .space-viewport {
   overflow: visible;
   border-block: 1px solid var(--border);
@@ -1512,7 +1516,7 @@ details > summary:focus-visible {
   .scene-space .transport {
     display: flex;
     min-height: 34px;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
   }
   .scene-space .transport > span {
     margin-left: auto;
@@ -1713,7 +1717,7 @@ details > summary:focus-visible {
 }
 @media (max-width: 700px) {
   .space-intro {
-    padding: 6px 8px 4px;
+    padding: 2px 8px 0;
     gap: 2px;
   }
   .space-intro p {
@@ -1773,7 +1777,8 @@ details > summary:focus-visible {
 }
 .inversion-line {
   flex-wrap: wrap;
-  gap: 10px;
+  column-gap: 10px;
+  row-gap: 4px;
 }
 .event-editor {
   margin-top: 12px;
