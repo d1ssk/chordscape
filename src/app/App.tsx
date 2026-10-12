@@ -632,20 +632,45 @@ export function App() {
             {sceneTitle}
           </h1>
         </div>
-        <div className="header-actions">
-          <button
-            className="sound-shortcut"
-            aria-label={`${t.currentTone}: ${t[sound.instrument]}`}
-            onClick={() => navigate('settings')}
+        <div className="header-tools">
+          <a
+            className="author-credit"
+            href="https://d1ssk.github.io/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            {t[sound.instrument]}
-          </button>
-          <button
-            aria-current={scene === 'settings' ? 'page' : undefined}
-            onClick={() => navigate('settings')}
-          >
-            {t.settings}
-          </button>
+            {t.authorCredit}
+          </a>
+          <div className="header-actions">
+            <label className="header-language">
+              <span className="sr-only">{t.language}</span>
+              <select
+                value={s.locale}
+                onChange={(e) =>
+                  edit({
+                    type: 'settings',
+                    patch: { locale: e.target.value as Locale },
+                  })
+                }
+              >
+                <option value="ja">{t.japanese}</option>
+                <option value="en">{t.english}</option>
+              </select>
+            </label>
+            <button
+              className="sound-shortcut"
+              aria-label={`${t.currentTone}: ${t[sound.instrument]}`}
+              onClick={() => navigate('settings')}
+            >
+              {t[sound.instrument]}
+            </button>
+            <button
+              aria-current={scene === 'settings' ? 'page' : undefined}
+              onClick={() => navigate('settings')}
+            >
+              {t.settings}
+            </button>
+          </div>
         </div>
       </header>
       {scene !== 'listen' && scene !== 'space' && (
@@ -1301,21 +1326,6 @@ export function App() {
                     })
                   }
                 />
-              </label>
-              <label>
-                {t.language}
-                <select
-                  value={s.locale}
-                  onChange={(e) =>
-                    edit({
-                      type: 'settings',
-                      patch: { locale: e.target.value as Locale },
-                    })
-                  }
-                >
-                  <option value="ja">日本語</option>
-                  <option value="en">English</option>
-                </select>
               </label>
             </div>
           </section>

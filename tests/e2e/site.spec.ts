@@ -21,6 +21,7 @@ test('every page shares its brand, logo and width, with a separate page title', 
       : { width: 1280, height: 800 },
   );
   let width = 0;
+  let brandPosition: { x: number; y: number } | undefined;
   for (const [hash, title] of [
     ['play', 'ホーム'],
     ['generate', '生成'],
@@ -33,12 +34,36 @@ test('every page shares its brand, logo and width, with a separate page title', 
     await page.goto(`./#${hash}`);
     await expect(page.locator('.brand')).toHaveText('Chordscape◌');
     await expect(page.locator('.brand-mark')).toBeVisible();
+    const brand = (await page.locator('.brand').boundingBox())!;
+    brandPosition ??= { x: brand.x, y: brand.y };
+    expect({ x: brand.x, y: brand.y }).toEqual(brandPosition);
+    if (info.project.name === 'mobile') {
+      const actions = (await page.locator('.header-actions').boundingBox())!;
+      const identity = (await page.locator('.header-identity').boundingBox())!;
+      const tools = (await page.locator('.header-tools').boundingBox())!;
+      expect(
+        Math.abs(identity.y + identity.height / 2 - tools.y - tools.height / 2),
+      ).toBeLessThanOrEqual(1);
+      expect(actions.x).toBeGreaterThanOrEqual(brand.x + brand.width);
+      expect(
+        (await page.locator('.app-header').boundingBox())!.height,
+      ).toBeLessThanOrEqual(60);
+    }
     await expect(page.locator('.app-header h1')).toHaveText(title);
     if (hash === 'play') {
       await expect(page.locator('.app-header h1')).toHaveClass('sr-only');
       await expect(page.locator('.app-header h1:not(.sr-only)')).toHaveCount(0);
     } else {
       await expect(page.locator('.app-header h1')).not.toHaveClass('sr-only');
+      const titleBox = (await page.locator('.app-header h1').boundingBox())!;
+      if (info.project.name === 'mobile') {
+        expect(titleBox.x).toBe(brand.x);
+        expect(titleBox.y).toBeGreaterThanOrEqual(brand.y + brand.height);
+      } else {
+        expect(titleBox.x).toBeGreaterThanOrEqual(brand.x + brand.width);
+        expect(titleBox.y).toBeLessThan(brand.y + brand.height);
+        expect(titleBox.y + titleBox.height).toBeGreaterThan(brand.y);
+      }
     }
     const current = (await page.locator('main.app').boundingBox())!.width;
     if (!width) width = current;
